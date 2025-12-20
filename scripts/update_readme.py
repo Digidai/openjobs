@@ -154,37 +154,30 @@ def generate_readme(jobs, source_url):
         idx = (offset + i) % total_jobs
         selected_jobs.append(jobs[idx])
 
-    now = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
+    now = datetime.now(timezone.utc)
+    date_str = now.strftime("%B %d, %Y")
 
-    # 从 URL 提取数据源信息
-    source_match = re.search(r'jobs-detail-(\d{4}-\d{2}-part\d+)', source_url)
-    source_info = source_match.group(1) if source_match else "latest"
+    readme = f"""# Latest Job Openings
 
-    readme = f"""# Latest Job Postings
+Discover {total_jobs:,}+ career opportunities from top companies. Whether you're looking for remote work, tech roles, healthcare positions, or entry-level jobs — find your next opportunity here.
 
-> Auto-updated from [OpenJobs AI](https://www.openjobs-ai.com)
-
-**Last Updated:** {now}
-**Data Source:** {source_info}
-**Showing:** {len(selected_jobs)} of {total_jobs} jobs (rotates every 6 hours)
+**{date_str}** · Featuring jobs in Engineering, Healthcare, Sales, Finance, and more.
 
 ---
 
-## Latest Jobs
-
-| # | Job Title | Company | Link |
-|---|-----------|---------|------|
+| Job Title | Company | Apply |
+|-----------|---------|:-----:|
 """
 
-    for i, job in enumerate(selected_jobs, 1):
+    for job in selected_jobs:
         title = job['title'].replace('|', '\\|')
         company = job['company'].replace('|', '\\|')
-        readme += f"| {i} | {title} | {company} | [链接]({job['url']}) |\n"
+        readme += f"| {title} | {company} | [View]({job['url']}) |\n"
 
-    readme += """
+    readme += f"""
 ---
 
-Data from: [OpenJobs AI](https://www.openjobs-ai.com)
+Browse all jobs at [OpenJobs AI](https://www.openjobs-ai.com) · Updated daily
 """
 
     return readme
