@@ -162,7 +162,7 @@ def generate_readme(jobs, source_url):
 
     readme = f"""# OpenJobs - Latest Job Postings
 
-> Auto-updated job listings from [OpenJobs-AI](https://www.openjobs-ai.com)
+> Auto-updated job listings from [OpenJobs AI](https://www.openjobs-ai.com)
 
 **Last Updated:** {now}
 **Data Source:** {source_info}
@@ -184,23 +184,7 @@ def generate_readme(jobs, source_url):
     readme += """
 ---
 
-## About
-
-This repository automatically fetches and displays the latest job postings from OpenJobs-AI.
-
-- **Auto-discovery**: Automatically finds the latest data source
-- **Updates**: Every 6 hours via GitHub Actions
-- **Rotation**: Shows 100 jobs per cycle, rotating through all available positions
-
-## How It Works
-
-1. Fetches sitemap.xml to find the latest month index
-2. Finds the latest part file from the month index
-3. Extracts job listings and displays them in a rotating table
-
-## Source
-
-Data from: [OpenJobs-AI](https://www.openjobs-ai.com)
+Data from: [OpenJobs AI](https://www.openjobs-ai.com)
 """
 
     return readme
