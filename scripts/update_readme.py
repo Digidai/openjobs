@@ -13,7 +13,7 @@ import os
 SITEMAP_URL = "https://www.openjobs-ai.com/xml/sitemap.xml"
 README_PATH = "README.md"
 HTML_PATH = "public/index.html"
-JOBS_PER_PAGE = 100
+JOBS_PER_PAGE = 200
 ROTATION_HOURS = 6
 DEFAULT_LOGO = "https://www.openjobs-ai.com/logo.png"
 
