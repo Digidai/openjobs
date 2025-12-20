@@ -13,9 +13,11 @@ import os
 SITEMAP_URL = "https://www.openjobs-ai.com/xml/sitemap.xml"
 README_PATH = "README.md"
 HTML_PATH = "public/index.html"
+SITEMAP_PATH = "public/sitemap.xml"
 JOBS_PER_PAGE = 200
 ROTATION_HOURS = 6
 DEFAULT_LOGO = "https://www.openjobs-ai.com/logo.png"
+SITE_URL = "https://openjobs.pages.dev"
 
 def fetch_xml(url):
     """获取 XML 内容"""
@@ -261,6 +263,22 @@ def generate_html(jobs, source_url):
 """
     return html
 
+def generate_sitemap():
+    """生成 sitemap.xml"""
+    now = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+
+    sitemap = f"""<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>{SITE_URL}/</loc>
+    <lastmod>{now}</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>
+"""
+    return sitemap
+
 def main():
     print("=" * 50)
     print("OpenJobs Updater")
@@ -287,8 +305,13 @@ def main():
     with open(HTML_PATH, 'w', encoding='utf-8') as f:
         f.write(html_content)
 
+    print("Step 7: Generating sitemap.xml...")
+    sitemap_content = generate_sitemap()
+    with open(SITEMAP_PATH, 'w', encoding='utf-8') as f:
+        f.write(sitemap_content)
+
     print("=" * 50)
-    print("Done! Generated README.md and public/index.html")
+    print("Done! Generated README.md, public/index.html, public/sitemap.xml")
 
 if __name__ == "__main__":
     main()
