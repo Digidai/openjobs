@@ -111,4 +111,4 @@ Discover 988+ career opportunities from top companies. Whether you're looking fo
 
 ---
 
-Browse all jobs at [OpenJobs AI](https://www.openjobs-ai.com) · Updated daily
+Browse all jobs at [OpenJobs AI](https://www.openjobs-ai.com/deepsearch) · Updated daily

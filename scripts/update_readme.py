@@ -177,7 +177,7 @@ Discover {total_jobs:,}+ career opportunities from top companies. Whether you're
     readme += f"""
 ---
 
-Browse all jobs at [OpenJobs AI](https://www.openjobs-ai.com) · Updated daily
+Browse all jobs at [OpenJobs AI](https://www.openjobs-ai.com/deepsearch) · Updated daily
 """
 
     return readme
