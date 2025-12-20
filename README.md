@@ -2,7 +2,7 @@
 
 > Auto-updated job listings from [OpenJobs-AI](https://www.openjobs-ai.com)
 
-**Last Updated:** 2025-12-20 03:41 UTC
+**Last Updated:** 2025-12-20 03:42 UTC
 **Showing:** 100 of 988 jobs (rotates every 6 hours)
 
 ---
