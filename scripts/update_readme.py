@@ -15,6 +15,7 @@ README_PATH = "README.md"
 HTML_PATH = "public/index.html"
 JOBS_PER_PAGE = 100
 ROTATION_HOURS = 6
+DEFAULT_LOGO = "https://www.openjobs-ai.com/logo.png"
 
 def fetch_xml(url):
     """获取 XML 内容"""
@@ -104,10 +105,12 @@ def parse_jobs(xml_content):
         loc = url_elem.find('loc')
         image = url_elem.find('.//image_image')
         caption = image.find('image_caption') if image is not None else None
+        image_loc = image.find('image_loc') if image is not None else None
 
         if loc is not None and caption is not None:
             job_url = loc.text.strip()
             caption_text = caption.text.strip() if caption.text else ""
+            logo_url = image_loc.text.strip() if image_loc is not None and image_loc.text else DEFAULT_LOGO
 
             # 解析 caption: "Job Title at Company in Location"
             parts = caption_text.split(' at ')
@@ -132,7 +135,8 @@ def parse_jobs(xml_content):
                 'title': title,
                 'company': company,
                 'location': location,
-                'url': job_url
+                'url': job_url,
+                'logo': logo_url
             })
 
     return jobs
@@ -174,7 +178,8 @@ Discover {total_jobs:,}+ career opportunities from top companies. Whether you're
     for job in selected_jobs:
         title = job['title'].replace('|', '\\|')
         company = job['company'].replace('|', '\\|')
-        readme += f"| {title} | {company} | [View]({job['url']}) |\n"
+        logo = job.get('logo', DEFAULT_LOGO)
+        readme += f"| {title} | <img src=\"{logo}\" width=\"20\" height=\"20\" alt=\"\"> {company} | [View]({job['url']}) |\n"
 
     readme += f"""
 ---
@@ -204,9 +209,10 @@ def generate_html(jobs, source_url):
     for job in selected_jobs:
         title = job['title'].replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
         company = job['company'].replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
+        logo = job.get('logo', DEFAULT_LOGO)
         jobs_cards += f"""    <a href="{job['url']}" class="card" target="_blank" rel="noopener">
       <div class="card-title">{title}</div>
-      <div class="card-company">{company}</div>
+      <div class="card-company"><img src="{logo}" alt="" class="logo">{company}</div>
     </a>
 """
 
@@ -231,7 +237,8 @@ def generate_html(jobs, source_url):
     .card {{ display: block; background: var(--card-bg); border-radius: 12px; padding: 1.25rem; text-decoration: none; color: inherit; border: 1px solid #e2e8f0; transition: all 0.2s; }}
     .card:hover {{ border-color: var(--primary); box-shadow: 0 4px 12px rgba(37,99,235,0.1); transform: translateY(-2px); }}
     .card-title {{ font-weight: 600; font-size: 0.95rem; margin-bottom: 0.5rem; color: var(--text); line-height: 1.4; }}
-    .card-company {{ font-size: 0.85rem; color: var(--muted); }}
+    .card-company {{ font-size: 0.85rem; color: var(--muted); display: flex; align-items: center; gap: 0.5rem; }}
+    .logo {{ width: 20px; height: 20px; border-radius: 4px; object-fit: contain; flex-shrink: 0; }}
     footer {{ text-align: center; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid #e2e8f0; color: var(--muted); font-size: 0.875rem; }}
     footer a {{ color: var(--primary); text-decoration: none; }}
     @media (max-width: 640px) {{ .stats {{ flex-direction: column; gap: 0.5rem; }} .grid {{ grid-template-columns: 1fr; }} }}
