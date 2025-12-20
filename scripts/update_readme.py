@@ -185,27 +185,29 @@ Browse all jobs at [OpenJobs AI](https://www.openjobs-ai.com/deepsearch) · Upda
     return readme
 
 def generate_html(jobs, source_url):
-    """生成 HTML 页面"""
+    """生成 HTML 页面 - 卡片布局，与 README 表格布局差异化"""
     total_jobs = len(jobs)
-    offset = get_rotation_offset(total_jobs)
+    # 使用不同的偏移量，展示不同的职位
+    offset = get_rotation_offset(total_jobs) + 50
 
+    # 展示 50 个职位（与 README 的 100 个不同）
+    html_jobs_count = 50
     selected_jobs = []
-    for i in range(min(JOBS_PER_PAGE, total_jobs)):
+    for i in range(min(html_jobs_count, total_jobs)):
         idx = (offset + i) % total_jobs
         selected_jobs.append(jobs[idx])
 
     now = datetime.now(timezone.utc)
-    date_str = now.strftime("%B %d, %Y")
+    date_str = now.strftime("%b %d, %Y")
 
-    jobs_rows = ""
+    jobs_cards = ""
     for job in selected_jobs:
         title = job['title'].replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
         company = job['company'].replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
-        jobs_rows += f"""      <tr>
-        <td>{title}</td>
-        <td>{company}</td>
-        <td><a href="{job['url']}" target="_blank" rel="noopener">View</a></td>
-      </tr>
+        jobs_cards += f"""    <a href="{job['url']}" class="card" target="_blank" rel="noopener">
+      <div class="card-title">{title}</div>
+      <div class="card-company">{company}</div>
+    </a>
 """
 
     html = f"""<!DOCTYPE html>
@@ -213,44 +215,47 @@ def generate_html(jobs, source_url):
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>OpenJobs - Latest Job Openings</title>
-  <meta name="description" content="Discover {total_jobs:,}+ career opportunities from top companies. Find remote work, tech roles, healthcare positions, and entry-level jobs.">
-  <meta name="keywords" content="jobs, careers, job openings, remote jobs, tech jobs, healthcare jobs, hiring, employment">
-  <link rel="canonical" href="https://openjobs.pages.dev/">
+  <title>OpenJobs · Find Your Next Career</title>
+  <meta name="description" content="Browse {total_jobs:,}+ open positions. New jobs added daily from leading employers across tech, healthcare, finance, and more.">
+  <link rel="canonical" href="https://www.openjobs-ai.com/">
   <style>
+    :root {{ --primary: #2563eb; --bg: #f8fafc; --card-bg: #fff; --text: #1e293b; --muted: #64748b; }}
     * {{ margin: 0; padding: 0; box-sizing: border-box; }}
-    body {{ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; max-width: 1200px; margin: 0 auto; padding: 20px; }}
-    h1 {{ font-size: 2rem; margin-bottom: 1rem; color: #1a1a1a; }}
-    .intro {{ font-size: 1.1rem; color: #555; margin-bottom: 0.5rem; }}
-    .date {{ color: #666; margin-bottom: 1.5rem; }}
-    table {{ width: 100%; border-collapse: collapse; margin: 1.5rem 0; }}
-    th, td {{ padding: 12px; text-align: left; border-bottom: 1px solid #e0e0e0; }}
-    th {{ background: #f8f9fa; font-weight: 600; }}
-    td:last-child {{ text-align: center; }}
-    a {{ color: #0066cc; text-decoration: none; }}
-    a:hover {{ text-decoration: underline; }}
-    .footer {{ margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #e0e0e0; color: #666; }}
-    @media (max-width: 600px) {{ th, td {{ padding: 8px; font-size: 0.9rem; }} }}
+    body {{ font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }}
+    .container {{ max-width: 1100px; margin: 0 auto; padding: 2rem 1rem; }}
+    header {{ text-align: center; margin-bottom: 2rem; }}
+    h1 {{ font-size: 1.75rem; font-weight: 700; margin-bottom: 0.5rem; }}
+    .subtitle {{ color: var(--muted); font-size: 1rem; }}
+    .stats {{ display: flex; justify-content: center; gap: 2rem; margin: 1.5rem 0; font-size: 0.875rem; color: var(--muted); }}
+    .grid {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1rem; }}
+    .card {{ display: block; background: var(--card-bg); border-radius: 12px; padding: 1.25rem; text-decoration: none; color: inherit; border: 1px solid #e2e8f0; transition: all 0.2s; }}
+    .card:hover {{ border-color: var(--primary); box-shadow: 0 4px 12px rgba(37,99,235,0.1); transform: translateY(-2px); }}
+    .card-title {{ font-weight: 600; font-size: 0.95rem; margin-bottom: 0.5rem; color: var(--text); line-height: 1.4; }}
+    .card-company {{ font-size: 0.85rem; color: var(--muted); }}
+    footer {{ text-align: center; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid #e2e8f0; color: var(--muted); font-size: 0.875rem; }}
+    footer a {{ color: var(--primary); text-decoration: none; }}
+    @media (max-width: 640px) {{ .stats {{ flex-direction: column; gap: 0.5rem; }} .grid {{ grid-template-columns: 1fr; }} }}
   </style>
 </head>
 <body>
-  <h1>Latest Job Openings</h1>
-  <p class="intro">Discover {total_jobs:,}+ career opportunities from top companies. Whether you're looking for remote work, tech roles, healthcare positions, or entry-level jobs — find your next opportunity here.</p>
-  <p class="date"><strong>{date_str}</strong> · Featuring jobs in Engineering, Healthcare, Sales, Finance, and more.</p>
+  <div class="container">
+    <header>
+      <h1>Find Your Next Career</h1>
+      <p class="subtitle">Curated job openings from top employers</p>
+      <div class="stats">
+        <span>{total_jobs:,}+ positions</span>
+        <span>Updated {date_str}</span>
+        <span>{html_jobs_count} featured below</span>
+      </div>
+    </header>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Job Title</th>
-        <th>Company</th>
-        <th>Apply</th>
-      </tr>
-    </thead>
-    <tbody>
-{jobs_rows}    </tbody>
-  </table>
+    <div class="grid">
+{jobs_cards}    </div>
 
-  <p class="footer">Browse all jobs at <a href="https://www.openjobs-ai.com/deepsearch">OpenJobs AI</a> · Updated daily</p>
+    <footer>
+      <p>Explore more opportunities at <a href="https://www.openjobs-ai.com/deepsearch">OpenJobs AI</a></p>
+    </footer>
+  </div>
 </body>
 </html>
 """
