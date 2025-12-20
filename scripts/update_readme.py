@@ -172,15 +172,14 @@ def generate_readme(jobs, source_url):
 
 ## Latest Jobs
 
-| # | Job Title | Company | Location | Link |
-|---|-----------|---------|----------|------|
+| # | Job Title | Company | Link |
+|---|-----------|---------|------|
 """
 
     for i, job in enumerate(selected_jobs, 1):
         title = job['title'].replace('|', '\\|')
         company = job['company'].replace('|', '\\|')
-        location = job['location'].replace('|', '\\|')
-        readme += f"| {i} | {title} | {company} | {location} | [链接]({job['url']}) |\n"
+        readme += f"| {i} | {title} | {company} | [链接]({job['url']}) |\n"
 
     readme += """
 ---
