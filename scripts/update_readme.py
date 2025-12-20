@@ -225,42 +225,35 @@ def generate_html(jobs, source_url):
   <meta name="description" content="Browse {total_jobs:,}+ open positions. New jobs added daily from leading employers across tech, healthcare, finance, and more.">
   <link rel="canonical" href="https://www.openjobs-ai.com/">
   <style>
-    :root {{ --primary: #2563eb; --bg: #f8fafc; --card-bg: #fff; --text: #1e293b; --muted: #64748b; }}
+    :root {{ --primary: #0f172a; --accent: #3b82f6; --bg: #ffffff; --card-bg: #fafafa; --text: #0f172a; --muted: #6b7280; --border: #e5e7eb; }}
     * {{ margin: 0; padding: 0; box-sizing: border-box; }}
-    body {{ font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }}
-    .container {{ max-width: 1100px; margin: 0 auto; padding: 2rem 1rem; }}
-    header {{ text-align: center; margin-bottom: 2rem; }}
-    h1 {{ font-size: 1.75rem; font-weight: 700; margin-bottom: 0.5rem; }}
-    .subtitle {{ color: var(--muted); font-size: 1rem; }}
-    .stats {{ display: flex; justify-content: center; gap: 2rem; margin: 1.5rem 0; font-size: 0.875rem; color: var(--muted); }}
-    .grid {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1rem; }}
-    .card {{ display: block; background: var(--card-bg); border-radius: 12px; padding: 1.25rem; text-decoration: none; color: inherit; border: 1px solid #e2e8f0; transition: all 0.2s; }}
-    .card:hover {{ border-color: var(--primary); box-shadow: 0 4px 12px rgba(37,99,235,0.1); transform: translateY(-2px); }}
-    .card-title {{ font-weight: 600; font-size: 0.95rem; margin-bottom: 0.5rem; color: var(--text); line-height: 1.4; }}
-    .card-company {{ font-size: 0.85rem; color: var(--muted); display: flex; align-items: center; gap: 0.5rem; }}
-    .logo {{ width: 20px; height: 20px; border-radius: 4px; object-fit: contain; flex-shrink: 0; }}
-    footer {{ text-align: center; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid #e2e8f0; color: var(--muted); font-size: 0.875rem; }}
-    footer a {{ color: var(--primary); text-decoration: none; }}
-    @media (max-width: 640px) {{ .stats {{ flex-direction: column; gap: 0.5rem; }} .grid {{ grid-template-columns: 1fr; }} }}
+    body {{ font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif; background: var(--bg); color: var(--text); }}
+    .container {{ max-width: 960px; margin: 0 auto; padding: 3rem 1.5rem; }}
+    header {{ margin-bottom: 2.5rem; }}
+    h1 {{ font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; }}
+    .meta {{ color: var(--muted); font-size: 0.875rem; margin-top: 0.5rem; }}
+    .grid {{ display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }}
+    .card {{ display: flex; flex-direction: column; gap: 0.375rem; background: var(--bg); padding: 1rem 1.25rem; text-decoration: none; color: inherit; transition: background 0.15s; }}
+    .card:hover {{ background: var(--card-bg); }}
+    .card-title {{ font-weight: 500; font-size: 0.9rem; color: var(--text); line-height: 1.35; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }}
+    .card-company {{ font-size: 0.8rem; color: var(--muted); display: flex; align-items: center; gap: 0.4rem; }}
+    .logo {{ width: 16px; height: 16px; border-radius: 3px; object-fit: contain; }}
+    footer {{ margin-top: 2.5rem; text-align: center; }}
+    footer a {{ color: var(--accent); text-decoration: none; font-size: 0.875rem; }}
+    footer a:hover {{ text-decoration: underline; }}
+    @media (max-width: 600px) {{ .grid {{ grid-template-columns: 1fr; }} .container {{ padding: 2rem 1rem; }} }}
   </style>
 </head>
 <body>
   <div class="container">
     <header>
       <h1>Find Your Next Career</h1>
-      <p class="subtitle">Curated job openings from top employers</p>
-      <div class="stats">
-        <span>{total_jobs:,}+ positions</span>
-        <span>Updated {date_str}</span>
-        <span>{html_jobs_count} featured below</span>
-      </div>
+      <p class="meta">{total_jobs:,}+ positions · Updated {date_str}</p>
     </header>
-
     <div class="grid">
 {jobs_cards}    </div>
-
     <footer>
-      <p>Explore more opportunities at <a href="https://www.openjobs-ai.com/deepsearch">OpenJobs AI</a></p>
+      <a href="https://www.openjobs-ai.com/deepsearch">View all jobs →</a>
     </footer>
   </div>
 </body>
