@@ -160,9 +160,9 @@ def generate_readme(jobs, source_url):
     source_match = re.search(r'jobs-detail-(\d{4}-\d{2}-part\d+)', source_url)
     source_info = source_match.group(1) if source_match else "latest"
 
-    readme = f"""# OpenJobs - Latest Job Postings
+    readme = f"""# Latest Job Postings
 
-> Auto-updated job listings from [OpenJobs AI](https://www.openjobs-ai.com)
+> Auto-updated from [OpenJobs AI](https://www.openjobs-ai.com)
 
 **Last Updated:** {now}
 **Data Source:** {source_info}
