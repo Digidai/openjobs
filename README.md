@@ -1,9 +1,24 @@
+<!-- Dynamic Badges -->
 <p align="center">
-  <img src="https://img.shields.io/badge/jobs-988+-blue?style=for-the-badge" alt="Jobs Count">
-  <img src="https://img.shields.io/badge/companies-774+-purple?style=for-the-badge" alt="Companies">
-  <img src="https://img.shields.io/badge/updated-every%206h-green?style=for-the-badge" alt="Update Frequency">
-  <img src="https://img.shields.io/github/license/digidai/openjobs?style=for-the-badge" alt="License">
-  <img src="https://img.shields.io/github/stars/digidai/openjobs?style=for-the-badge" alt="Stars">
+  <a href="https://github.com/Digidai/openjobs/stargazers"><img src="https://img.shields.io/github/stars/Digidai/openjobs?style=for-the-badge&logo=github&color=yellow" alt="Stars"></a>
+  <a href="https://github.com/Digidai/openjobs/network/members"><img src="https://img.shields.io/github/forks/Digidai/openjobs?style=for-the-badge&logo=github&color=blue" alt="Forks"></a>
+  <a href="https://github.com/Digidai/openjobs/commits/main"><img src="https://img.shields.io/github/last-commit/Digidai/openjobs?style=for-the-badge&logo=github&color=green" alt="Last Commit"></a>
+  <a href="https://github.com/Digidai/openjobs/blob/main/LICENSE"><img src="https://img.shields.io/github/license/Digidai/openjobs?style=for-the-badge" alt="License"></a>
+</p>
+
+<!-- Stats Badges -->
+<p align="center">
+  <img src="https://img.shields.io/badge/🏢_Companies-774+-purple?style=for-the-badge" alt="Companies">
+  <img src="https://img.shields.io/badge/💼_Jobs-988+-blue?style=for-the-badge" alt="Jobs">
+  <img src="https://img.shields.io/badge/⏰_Updates-Every_6h-green?style=for-the-badge" alt="Update Frequency">
+  <img src="https://img.shields.io/badge/💰_Cost-$0-orange?style=for-the-badge" alt="Zero Cost">
+</p>
+
+<!-- Build Status -->
+<p align="center">
+  <a href="https://github.com/Digidai/openjobs/actions"><img src="https://img.shields.io/github/actions/workflow/status/Digidai/openjobs/update-jobs.yml?style=flat-square&label=Job%20Update&logo=githubactions" alt="Workflow Status"></a>
+  <img src="https://img.shields.io/badge/Python-3.11+-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python">
+  <img src="https://img.shields.io/badge/No_Dependencies-✓-success?style=flat-square" alt="No Dependencies">
 </p>
 
 <h1 align="center">OpenJobs</h1>
@@ -194,6 +209,16 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - Job data provided by [OpenJobs AI](https://www.openjobs-ai.com)
 - Hosted on [GitHub Pages](https://pages.github.com) and [Cloudflare Pages](https://pages.cloudflare.com)
+
+## Star History
+
+<a href="https://star-history.com/#Digidai/openjobs&Date">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=Digidai/openjobs&type=Date&theme=dark" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=Digidai/openjobs&type=Date" />
+   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=Digidai/openjobs&type=Date" />
+ </picture>
+</a>
 
 ---
 
