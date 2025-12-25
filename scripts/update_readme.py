@@ -69,9 +69,19 @@ logger = setup_logging()
 # UTILITY FUNCTIONS
 # =============================================================================
 
+class FetchError(Exception):
+    """Custom exception for fetch failures."""
+    pass
+
+
+class ParseError(Exception):
+    """Custom exception for parsing failures."""
+    pass
+
+
 def fetch_xml(url, retries=Config.MAX_RETRIES):
     """
-    Fetch XML content from URL with retry logic.
+    Fetch XML content from URL with comprehensive retry logic.
 
     Args:
         url: The URL to fetch
@@ -81,25 +91,59 @@ def fetch_xml(url, retries=Config.MAX_RETRIES):
         XML content as string
 
     Raises:
-        Exception: If all retries fail
+        FetchError: If all retries fail
     """
+    import socket
+    import time
+
     last_error = None
+    delay = 1  # Initial delay in seconds
 
     for attempt in range(retries):
         try:
-            logger.info(f"Fetching: {url}")
+            logger.info(f"Fetching: {url} (attempt {attempt + 1}/{retries})")
             headers = {"User-Agent": Config.USER_AGENT}
             req = urllib.request.Request(url, headers=headers)
-            with urllib.request.urlopen(req, timeout=Config.REQUEST_TIMEOUT) as response:
-                return response.read().decode("utf-8")
-        except urllib.error.URLError as e:
-            last_error = e
-            logger.warning(f"Attempt {attempt + 1}/{retries} failed: {e}")
-            if attempt < retries - 1:
-                import time
-                time.sleep(2 ** attempt)  # Exponential backoff
 
-    raise Exception(f"Failed to fetch {url} after {retries} attempts: {last_error}")
+            with urllib.request.urlopen(req, timeout=Config.REQUEST_TIMEOUT) as response:
+                content = response.read()
+
+                if not content:
+                    raise ValueError("Empty response body")
+
+                # Try to decode
+                try:
+                    decoded = content.decode("utf-8")
+                except UnicodeDecodeError:
+                    # Try alternative encodings
+                    for encoding in ['latin-1', 'iso-8859-1']:
+                        try:
+                            decoded = content.decode(encoding)
+                            logger.warning(f"Used fallback encoding: {encoding}")
+                            break
+                        except UnicodeDecodeError:
+                            continue
+                    else:
+                        raise
+
+                return decoded
+
+        except (urllib.error.URLError, socket.timeout, socket.gaierror) as e:
+            last_error = e
+            logger.warning(f"Network error on attempt {attempt + 1}/{retries}: {type(e).__name__}: {e}")
+        except (ValueError, UnicodeDecodeError) as e:
+            last_error = e
+            logger.warning(f"Content error on attempt {attempt + 1}/{retries}: {type(e).__name__}: {e}")
+        except Exception as e:
+            last_error = e
+            logger.error(f"Unexpected error: {type(e).__name__}: {e}")
+
+        if attempt < retries - 1:
+            wait_time = min(delay * (2 ** attempt), 30)  # Cap at 30 seconds
+            logger.info(f"Waiting {wait_time}s before retry...")
+            time.sleep(wait_time)
+
+    raise FetchError(f"Failed to fetch {url} after {retries} attempts: {last_error}")
 
 
 def clean_xml_namespaces(xml_content):
@@ -191,55 +235,101 @@ def get_latest_jobs_url():
 # JOB PARSING
 # =============================================================================
 
+def parse_job_caption(caption_text):
+    """
+    Parse job caption with multiple fallback strategies.
+
+    Expected format: "Job Title at Company in Location"
+    """
+    if not caption_text:
+        return None
+
+    # Strategy 1: Use regex for more precise matching
+    # Pattern: Title at Company in Location
+    match = re.match(r'^(.+?)\s+at\s+(.+?)\s+in\s+(.+)$', caption_text, re.IGNORECASE)
+    if match:
+        return {
+            'title': match.group(1).strip(),
+            'company': match.group(2).strip(),
+            'location': match.group(3).strip()
+        }
+
+    # Strategy 2: Title at Company (no location)
+    match = re.match(r'^(.+?)\s+at\s+(.+)$', caption_text, re.IGNORECASE)
+    if match:
+        return {
+            'title': match.group(1).strip(),
+            'company': match.group(2).strip(),
+            'location': '-'
+        }
+
+    # Strategy 3: Just use the whole caption as title
+    return {
+        'title': caption_text.strip(),
+        'company': '-',
+        'location': '-'
+    }
+
+
 def parse_jobs(xml_content):
     """
-    Parse XML content and extract job information.
+    Parse XML content and extract job information with robust error handling.
 
     Returns:
-        List of job dictionaries with title, company, location, url, logo
+        Tuple of (jobs list, parse_stats dict)
     """
-    xml_content = clean_xml_namespaces(xml_content)
-    root = ET.fromstring(xml_content)
+    try:
+        xml_content = clean_xml_namespaces(xml_content)
+        root = ET.fromstring(xml_content)
+    except ET.ParseError as e:
+        logger.error(f"XML parsing failed: {e}")
+        raise ParseError(f"Invalid XML content: {e}")
+
     jobs = []
+    parse_stats = {
+        'total_elements': 0,
+        'successful': 0,
+        'skipped_no_caption': 0,
+        'skipped_no_url': 0,
+        'parse_failures': 0
+    }
 
-    for url_elem in root.findall('.//url'):
-        loc = url_elem.find('loc')
-        image = url_elem.find('.//image_image')
-        caption = image.find('image_caption') if image is not None else None
-        image_loc = image.find('image_loc') if image is not None else None
+    for idx, url_elem in enumerate(root.findall('.//url')):
+        parse_stats['total_elements'] += 1
 
-        if loc is not None and caption is not None:
+        try:
+            loc = url_elem.find('loc')
+            if loc is None or not loc.text:
+                parse_stats['skipped_no_url'] += 1
+                continue
+
+            image = url_elem.find('.//image_image')
+            caption = image.find('image_caption') if image is not None else None
+
+            if caption is None or not caption.text:
+                parse_stats['skipped_no_caption'] += 1
+                continue
+
             job_url = loc.text.strip()
-            caption_text = caption.text.strip() if caption.text else ""
+            caption_text = caption.text.strip()
+            image_loc = image.find('image_loc') if image is not None else None
             logo_url = image_loc.text.strip() if image_loc is not None and image_loc.text else Config.DEFAULT_LOGO
 
-            # Parse caption: "Job Title at Company in Location"
-            parts = caption_text.split(' at ')
-            if len(parts) >= 2:
-                title = parts[0].strip()
-                rest = ' at '.join(parts[1:])
-
-                location_parts = rest.split(' in ')
-                if len(location_parts) >= 2:
-                    company = location_parts[0].strip()
-                    location = ' in '.join(location_parts[1:]).strip()
-                else:
-                    company = rest.strip()
-                    location = "-"
+            job_data = parse_job_caption(caption_text)
+            if job_data:
+                job_data['url'] = job_url
+                job_data['logo'] = logo_url
+                jobs.append(job_data)
+                parse_stats['successful'] += 1
             else:
-                title = caption_text
-                company = "-"
-                location = "-"
+                parse_stats['parse_failures'] += 1
 
-            jobs.append({
-                'title': title,
-                'company': company,
-                'location': location,
-                'url': job_url,
-                'logo': logo_url
-            })
+        except Exception as e:
+            logger.warning(f"Error parsing job at index {idx}: {e}")
+            parse_stats['parse_failures'] += 1
 
-    return jobs
+    logger.info(f"Parse stats: {parse_stats}")
+    return jobs, parse_stats
 
 
 def get_rotation_offset(total_jobs):
@@ -255,26 +345,31 @@ def get_rotation_offset(total_jobs):
 # STATISTICS
 # =============================================================================
 
-def calculate_stats(jobs):
+def calculate_stats(jobs, parse_stats=None):
     """
-    Calculate job statistics for dashboard.
+    Calculate comprehensive job statistics for dashboard.
 
     Returns:
-        Dictionary with various statistics
+        Dictionary with statistics and data quality metrics
     """
     company_counts = Counter(job['company'] for job in jobs)
+    location_counts = Counter(job['location'] for job in jobs if job['location'] != '-')
 
-    # Categorize jobs by keywords
+    # Enhanced categorization with more categories
     categories = {
-        'Engineering': ['engineer', 'developer', 'software', 'architect', 'devops'],
-        'Healthcare': ['nurse', 'rn', 'medical', 'health', 'therapist', 'physician', 'clinical'],
-        'Sales': ['sales', 'account', 'business development'],
-        'Finance': ['finance', 'financial', 'accounting', 'banker', 'analyst'],
-        'Management': ['manager', 'director', 'supervisor', 'coordinator'],
+        'Engineering': ['engineer', 'developer', 'software', 'architect', 'devops', 'sre', 'programmer'],
+        'Healthcare': ['nurse', 'rn', 'medical', 'health', 'therapist', 'physician', 'clinical', 'dental', 'pharmacy'],
+        'Sales': ['sales', 'account executive', 'business development', 'bdr', 'sdr'],
+        'Finance': ['finance', 'financial', 'accounting', 'banker', 'cfo', 'controller'],
+        'Management': ['manager', 'director', 'supervisor', 'coordinator', 'lead'],
+        'Marketing': ['marketing', 'content', 'brand', 'seo', 'growth'],
+        'HR': ['hr', 'recruiter', 'talent', 'human resource', 'people operations'],
+        'Operations': ['operations', 'logistics', 'supply chain', 'warehouse'],
         'Other': []
     }
 
     category_counts = {cat: 0 for cat in categories}
+    job_categories = []  # Track category for each job
 
     for job in jobs:
         title_lower = job['title'].lower()
@@ -285,19 +380,43 @@ def calculate_stats(jobs):
                 continue
             if any(kw in title_lower for kw in keywords):
                 category_counts[category] += 1
+                job_categories.append(category)
                 categorized = True
                 break
 
         if not categorized:
             category_counts['Other'] += 1
+            job_categories.append('Other')
 
-    return {
+    # Data quality metrics
+    jobs_with_location = sum(1 for j in jobs if j.get('location', '-') != '-')
+    jobs_with_logo = sum(1 for j in jobs if j.get('logo', '').startswith('http'))
+
+    stats = {
         'total_jobs': len(jobs),
         'total_companies': len(company_counts),
         'top_companies': dict(company_counts.most_common(10)),
         'categories': category_counts,
-        'updated_at': datetime.now(timezone.utc).isoformat()
+        'top_locations': dict(location_counts.most_common(10)),
+        'updated_at': datetime.now(timezone.utc).isoformat(),
+
+        # Data quality metrics
+        'data_quality': {
+            'jobs_with_location': jobs_with_location,
+            'jobs_with_logo': jobs_with_logo,
+            'location_coverage': round(jobs_with_location / max(len(jobs), 1), 4),
+            'logo_coverage': round(jobs_with_logo / max(len(jobs), 1), 4),
+        }
     }
+
+    # Add parse stats if available
+    if parse_stats:
+        stats['data_quality']['parse_stats'] = parse_stats
+        stats['data_quality']['parse_success_rate'] = round(
+            parse_stats['successful'] / max(parse_stats['total_elements'], 1), 4
+        )
+
+    return stats
 
 
 # =============================================================================
@@ -551,122 +670,313 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
     return readme
 
 
+def categorize_job(title):
+    """Categorize a job by its title."""
+    title_lower = title.lower()
+    categories = {
+        'Engineering': ['engineer', 'developer', 'software', 'architect', 'devops', 'sre'],
+        'Healthcare': ['nurse', 'rn', 'medical', 'health', 'therapist', 'physician', 'clinical'],
+        'Sales': ['sales', 'account executive', 'business development'],
+        'Finance': ['finance', 'financial', 'accounting', 'banker', 'cfo'],
+        'Management': ['manager', 'director', 'supervisor', 'coordinator'],
+    }
+    for category, keywords in categories.items():
+        if any(kw in title_lower for kw in keywords):
+            return category
+    return 'Other'
+
+
 def generate_html(jobs, stats):
-    """Generate HTML page with card layout and search functionality."""
+    """Generate HTML page with pagination, filtering, search, a11y, and lazy loading."""
     total_jobs = len(jobs)
-    offset = get_rotation_offset(total_jobs) + Config.JOBS_PER_PAGE
-
-    selected_jobs = []
-    for i in range(min(Config.HTML_JOBS_COUNT, total_jobs)):
-        idx = (offset + i) % total_jobs
-        selected_jobs.append(jobs[idx])
-
     now = datetime.now(timezone.utc)
     date_str = now.strftime("%b %d, %Y")
 
-    jobs_json = json.dumps([{
-        'title': job['title'],
-        'company': job['company'],
-        'url': job['url'],
-        'logo': job.get('logo', Config.DEFAULT_LOGO)
-    } for job in selected_jobs])
+    # Prepare all jobs data with categories for JSON
+    all_jobs_data = []
+    for job in jobs:
+        category = categorize_job(job['title'])
+        all_jobs_data.append({
+            'title': job['title'],
+            'company': job['company'],
+            'url': job['url'],
+            'logo': job.get('logo', Config.DEFAULT_LOGO),
+            'category': category
+        })
 
-    jobs_cards = ""
-    for job in selected_jobs:
-        title = escape_html(job['title'])
-        company = escape_html(job['company'])
-        logo = job.get('logo', Config.DEFAULT_LOGO)
-        jobs_cards += f'''    <a href="{job['url']}" class="card" target="_blank" rel="noopener" data-title="{title.lower()}" data-company="{company.lower()}">
-      <div class="card-title">{title}</div>
-      <div class="card-company"><img src="{logo}" alt="" class="logo">{company}</div>
-    </a>
-'''
+    jobs_json = json.dumps(all_jobs_data)
+
+    # Generate filter buttons from categories
+    filter_categories = ['All', 'Engineering', 'Healthcare', 'Sales', 'Finance', 'Management']
 
     html = f'''<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   <title>OpenJobs - Find Your Next Career</title>
   <meta name="description" content="Browse {total_jobs:,}+ open positions from {stats['total_companies']}+ companies. New jobs added daily from leading employers across tech, healthcare, finance, and more.">
   <link rel="canonical" href="{Config.CF_SITE_URL}/">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💼</text></svg>">
   <meta property="og:title" content="OpenJobs - Find Your Next Career">
   <meta property="og:description" content="Browse {total_jobs:,}+ job openings from top companies. Updated every 6 hours.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="{Config.CF_SITE_URL}/">
+  <meta name="twitter:card" content="summary">
   <style>
-    :root {{ --primary: #0f172a; --accent: #3b82f6; --bg: #ffffff; --card-bg: #fafafa; --text: #0f172a; --muted: #6b7280; --border: #e5e7eb; }}
+    :root {{ --primary: #0f172a; --accent: #3b82f6; --accent-hover: #2563eb; --bg: #ffffff; --card-bg: #f8fafc; --text: #0f172a; --muted: #64748b; --border: #e2e8f0; }}
     * {{ margin: 0; padding: 0; box-sizing: border-box; }}
-    body {{ font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif; background: var(--bg); color: var(--text); }}
-    .container {{ max-width: 960px; margin: 0 auto; padding: 3rem 1.5rem; }}
-    header {{ margin-bottom: 2rem; }}
-    h1 {{ font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; }}
+    body {{ font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; }}
+    .container {{ max-width: 1024px; margin: 0 auto; padding: 2rem 1.5rem; }}
+    .sr-only {{ position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }}
+
+    /* Header */
+    header {{ margin-bottom: 1.5rem; }}
+    h1 {{ font-size: 1.75rem; font-weight: 700; letter-spacing: -0.02em; }}
     .meta {{ color: var(--muted); font-size: 0.875rem; margin-top: 0.5rem; }}
-    .stats {{ display: flex; gap: 1.5rem; margin-top: 1rem; flex-wrap: wrap; }}
-    .stat {{ background: var(--card-bg); padding: 0.5rem 1rem; border-radius: 6px; font-size: 0.8rem; }}
+    .stats {{ display: flex; gap: 0.75rem; margin-top: 1rem; flex-wrap: wrap; }}
+    .stat {{ background: var(--card-bg); padding: 0.5rem 0.875rem; border-radius: 6px; font-size: 0.8rem; border: 1px solid var(--border); }}
     .stat-value {{ font-weight: 600; color: var(--accent); }}
-    .search-box {{ margin-bottom: 1.5rem; }}
-    .search-input {{ width: 100%; padding: 0.75rem 1rem; font-size: 0.9rem; border: 1px solid var(--border); border-radius: 8px; outline: none; transition: border-color 0.15s; }}
-    .search-input:focus {{ border-color: var(--accent); }}
-    .grid {{ display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }}
-    .card {{ display: flex; flex-direction: column; gap: 0.375rem; background: var(--bg); padding: 1rem 1.25rem; text-decoration: none; color: inherit; transition: background 0.15s; }}
+
+    /* Search & Filters */
+    .controls {{ margin-bottom: 1.5rem; }}
+    .search-box {{ margin-bottom: 1rem; }}
+    .search-input {{ width: 100%; padding: 0.875rem 1rem; font-size: 1rem; border: 1px solid var(--border); border-radius: 8px; outline: none; transition: border-color 0.15s, box-shadow 0.15s; }}
+    .search-input:focus {{ border-color: var(--accent); box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1); }}
+    .filters {{ display: flex; gap: 0.5rem; flex-wrap: wrap; }}
+    .filter-btn {{ padding: 0.5rem 1rem; font-size: 0.8rem; border: 1px solid var(--border); border-radius: 20px; background: var(--bg); color: var(--muted); cursor: pointer; transition: all 0.15s; }}
+    .filter-btn:hover {{ border-color: var(--accent); color: var(--accent); }}
+    .filter-btn:focus {{ outline: 2px solid var(--accent); outline-offset: 2px; }}
+    .filter-btn.active {{ background: var(--accent); color: white; border-color: var(--accent); }}
+
+    /* Results info */
+    .results-info {{ display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; font-size: 0.875rem; color: var(--muted); }}
+
+    /* Grid */
+    .grid {{ display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }}
+    .card {{ display: flex; flex-direction: column; gap: 0.375rem; background: var(--bg); padding: 1rem 1.25rem; text-decoration: none; color: inherit; transition: background 0.15s; min-height: 80px; }}
     .card:hover {{ background: var(--card-bg); }}
+    .card:focus {{ outline: none; background: var(--card-bg); box-shadow: inset 0 0 0 2px var(--accent); }}
     .card.hidden {{ display: none; }}
-    .card-title {{ font-weight: 500; font-size: 0.9rem; color: var(--text); line-height: 1.35; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }}
-    .card-company {{ font-size: 0.8rem; color: var(--muted); display: flex; align-items: center; gap: 0.4rem; }}
-    .logo {{ width: 16px; height: 16px; border-radius: 3px; object-fit: contain; }}
-    .no-results {{ grid-column: 1 / -1; padding: 2rem; text-align: center; color: var(--muted); background: var(--bg); }}
-    footer {{ margin-top: 2.5rem; text-align: center; }}
+    .card-title {{ font-weight: 500; font-size: 0.9rem; color: var(--text); line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }}
+    .card-company {{ font-size: 0.8rem; color: var(--muted); display: flex; align-items: center; gap: 0.5rem; }}
+    .logo {{ width: 18px; height: 18px; border-radius: 4px; object-fit: contain; background: var(--card-bg); }}
+    .no-results {{ grid-column: 1 / -1; padding: 3rem; text-align: center; color: var(--muted); background: var(--bg); }}
+
+    /* Pagination */
+    .pagination {{ display: flex; justify-content: center; align-items: center; gap: 0.5rem; margin-top: 2rem; }}
+    .page-btn {{ padding: 0.5rem 1rem; font-size: 0.875rem; border: 1px solid var(--border); border-radius: 6px; background: var(--bg); color: var(--text); cursor: pointer; transition: all 0.15s; }}
+    .page-btn:hover:not(:disabled) {{ border-color: var(--accent); color: var(--accent); }}
+    .page-btn:focus {{ outline: 2px solid var(--accent); outline-offset: 2px; }}
+    .page-btn:disabled {{ opacity: 0.5; cursor: not-allowed; }}
+    .page-btn.active {{ background: var(--accent); color: white; border-color: var(--accent); }}
+    .page-info {{ font-size: 0.875rem; color: var(--muted); margin: 0 0.5rem; }}
+
+    /* Footer */
+    footer {{ margin-top: 2.5rem; text-align: center; padding-top: 1.5rem; border-top: 1px solid var(--border); }}
     footer a {{ color: var(--accent); text-decoration: none; font-size: 0.875rem; }}
     footer a:hover {{ text-decoration: underline; }}
-    .github-link {{ margin-top: 1rem; font-size: 0.8rem; color: var(--muted); }}
+    footer a:focus {{ outline: 2px solid var(--accent); outline-offset: 2px; }}
+    .github-link {{ margin-top: 0.75rem; font-size: 0.8rem; color: var(--muted); }}
     .github-link a {{ color: var(--muted); }}
-    @media (max-width: 600px) {{ .grid {{ grid-template-columns: 1fr; }} .container {{ padding: 2rem 1rem; }} .stats {{ gap: 0.75rem; }} }}
+
+    /* Responsive */
+    @media (max-width: 768px) {{
+      .grid {{ grid-template-columns: 1fr; }}
+      .container {{ padding: 1.5rem 1rem; }}
+      h1 {{ font-size: 1.5rem; }}
+      .stats {{ gap: 0.5rem; }}
+      .stat {{ padding: 0.375rem 0.625rem; font-size: 0.75rem; }}
+      .search-input {{ padding: 0.75rem; }}
+    }}
+    @media (min-width: 1024px) {{
+      .grid {{ grid-template-columns: repeat(3, 1fr); }}
+    }}
   </style>
 </head>
 <body>
   <div class="container">
     <header>
       <h1>Find Your Next Career</h1>
-      <p class="meta">{total_jobs:,}+ positions from {stats['total_companies']}+ companies · Updated {date_str}</p>
-      <div class="stats">
-        <div class="stat"><span class="stat-value">{stats['categories'].get('Engineering', 0):,}</span> Engineering</div>
-        <div class="stat"><span class="stat-value">{stats['categories'].get('Healthcare', 0):,}</span> Healthcare</div>
-        <div class="stat"><span class="stat-value">{stats['categories'].get('Sales', 0):,}</span> Sales</div>
-        <div class="stat"><span class="stat-value">{stats['categories'].get('Finance', 0):,}</span> Finance</div>
+      <p class="meta" aria-live="polite">{total_jobs:,}+ positions from {stats['total_companies']}+ companies · Updated {date_str}</p>
+      <div class="stats" role="list" aria-label="Job statistics">
+        <div class="stat" role="listitem"><span class="stat-value">{stats['categories'].get('Engineering', 0):,}</span> Engineering</div>
+        <div class="stat" role="listitem"><span class="stat-value">{stats['categories'].get('Healthcare', 0):,}</span> Healthcare</div>
+        <div class="stat" role="listitem"><span class="stat-value">{stats['categories'].get('Sales', 0):,}</span> Sales</div>
+        <div class="stat" role="listitem"><span class="stat-value">{stats['categories'].get('Finance', 0):,}</span> Finance</div>
       </div>
     </header>
-    <div class="search-box">
-      <input type="text" class="search-input" placeholder="Search jobs or companies..." id="searchInput">
-    </div>
-    <div class="grid" id="jobsGrid">
-{jobs_cards}      <div class="no-results" id="noResults" style="display: none;">No jobs found matching your search.</div>
-    </div>
+
+    <main>
+      <div class="controls">
+        <div class="search-box">
+          <label for="searchInput" class="sr-only">Search jobs or companies</label>
+          <input type="search" class="search-input" placeholder="Search jobs or companies..." id="searchInput" aria-describedby="resultsCount">
+        </div>
+        <div class="filters" role="group" aria-label="Filter by category">
+          <button class="filter-btn active" data-category="All">All</button>
+          <button class="filter-btn" data-category="Engineering">Engineering</button>
+          <button class="filter-btn" data-category="Healthcare">Healthcare</button>
+          <button class="filter-btn" data-category="Sales">Sales</button>
+          <button class="filter-btn" data-category="Finance">Finance</button>
+          <button class="filter-btn" data-category="Management">Management</button>
+        </div>
+      </div>
+
+      <div class="results-info">
+        <span id="resultsCount" aria-live="polite">Showing <span id="showingCount">0</span> of {total_jobs:,} jobs</span>
+      </div>
+
+      <div class="grid" id="jobsGrid" role="list" aria-label="Job listings">
+        <div class="no-results" id="noResults" style="display: none;" role="status">No jobs found matching your search.</div>
+      </div>
+
+      <nav class="pagination" aria-label="Pagination">
+        <button class="page-btn" id="prevBtn" aria-label="Previous page">&larr; Prev</button>
+        <span class="page-info" id="pageInfo" aria-live="polite">Page 1</span>
+        <button class="page-btn" id="nextBtn" aria-label="Next page">Next &rarr;</button>
+      </nav>
+    </main>
+
     <footer>
-      <a href="https://www.openjobs-ai.com/deepsearch">View all {total_jobs:,}+ jobs →</a>
-      <p class="github-link">Open source on <a href="https://github.com/digidai/openjobs">GitHub</a></p>
+      <a href="https://www.openjobs-ai.com/deepsearch">View all {total_jobs:,}+ jobs on OpenJobs AI →</a>
+      <p class="github-link">Open source on <a href="https://github.com/Digidai/openjobs">GitHub</a></p>
     </footer>
   </div>
+
   <script>
+    // All jobs data
+    const allJobs = {jobs_json};
+    const JOBS_PER_PAGE = 30;
+
+    // State
+    let currentPage = 1;
+    let currentCategory = 'All';
+    let searchQuery = '';
+    let filteredJobs = [...allJobs];
+
+    // DOM elements
     const searchInput = document.getElementById('searchInput');
     const jobsGrid = document.getElementById('jobsGrid');
-    const cards = jobsGrid.querySelectorAll('.card:not(.no-results)');
     const noResults = document.getElementById('noResults');
+    const showingCount = document.getElementById('showingCount');
+    const pageInfo = document.getElementById('pageInfo');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const filterBtns = document.querySelectorAll('.filter-btn');
 
-    searchInput.addEventListener('input', function() {{
-      const query = this.value.toLowerCase().trim();
-      let visibleCount = 0;
+    // Debounce function
+    function debounce(fn, delay) {{
+      let timer;
+      return function(...args) {{
+        clearTimeout(timer);
+        timer = setTimeout(() => fn.apply(this, args), delay);
+      }};
+    }}
 
-      cards.forEach(card => {{
-        const title = card.dataset.title || '';
-        const company = card.dataset.company || '';
-        const matches = !query || title.includes(query) || company.includes(query);
-        card.classList.toggle('hidden', !matches);
-        if (matches) visibleCount++;
+    // Filter jobs
+    function filterJobs() {{
+      filteredJobs = allJobs.filter(job => {{
+        const matchesCategory = currentCategory === 'All' || job.category === currentCategory;
+        const matchesSearch = !searchQuery ||
+          job.title.toLowerCase().includes(searchQuery) ||
+          job.company.toLowerCase().includes(searchQuery);
+        return matchesCategory && matchesSearch;
       }});
+      currentPage = 1;
+      renderJobs();
+    }}
 
-      noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+    // Render jobs
+    function renderJobs() {{
+      const totalPages = Math.ceil(filteredJobs.length / JOBS_PER_PAGE);
+      const start = (currentPage - 1) * JOBS_PER_PAGE;
+      const end = start + JOBS_PER_PAGE;
+      const pageJobs = filteredJobs.slice(start, end);
+
+      // Clear grid (keep noResults)
+      const cards = jobsGrid.querySelectorAll('.card');
+      cards.forEach(card => card.remove());
+
+      if (pageJobs.length === 0) {{
+        noResults.style.display = 'block';
+        showingCount.textContent = '0';
+      }} else {{
+        noResults.style.display = 'none';
+        showingCount.textContent = filteredJobs.length.toLocaleString();
+
+        pageJobs.forEach((job, idx) => {{
+          const card = document.createElement('a');
+          card.href = job.url;
+          card.className = 'card';
+          card.target = '_blank';
+          card.rel = 'noopener';
+          card.setAttribute('role', 'listitem');
+          card.setAttribute('aria-label', `${{job.title}} at ${{job.company}}`);
+
+          const title = document.createElement('div');
+          title.className = 'card-title';
+          title.textContent = job.title;
+
+          const company = document.createElement('div');
+          company.className = 'card-company';
+
+          const logo = document.createElement('img');
+          logo.src = job.logo;
+          logo.alt = job.company + ' logo';
+          logo.className = 'logo';
+          logo.loading = 'lazy';
+          logo.onerror = function() {{ this.style.display = 'none'; }};
+
+          company.appendChild(logo);
+          company.appendChild(document.createTextNode(job.company));
+
+          card.appendChild(title);
+          card.appendChild(company);
+          jobsGrid.insertBefore(card, noResults);
+        }});
+      }}
+
+      // Update pagination
+      pageInfo.textContent = `Page ${{currentPage}} of ${{Math.max(totalPages, 1)}}`;
+      prevBtn.disabled = currentPage <= 1;
+      nextBtn.disabled = currentPage >= totalPages;
+    }}
+
+    // Event listeners
+    searchInput.addEventListener('input', debounce(function() {{
+      searchQuery = this.value.toLowerCase().trim();
+      filterJobs();
+    }}, 200));
+
+    filterBtns.forEach(btn => {{
+      btn.addEventListener('click', function() {{
+        filterBtns.forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        currentCategory = this.dataset.category;
+        filterJobs();
+      }});
     }});
+
+    prevBtn.addEventListener('click', () => {{
+      if (currentPage > 1) {{
+        currentPage--;
+        renderJobs();
+        window.scrollTo({{ top: 0, behavior: 'smooth' }});
+      }}
+    }});
+
+    nextBtn.addEventListener('click', () => {{
+      const totalPages = Math.ceil(filteredJobs.length / JOBS_PER_PAGE);
+      if (currentPage < totalPages) {{
+        currentPage++;
+        renderJobs();
+        window.scrollTo({{ top: 0, behavior: 'smooth' }});
+      }}
+    }});
+
+    // Initial render
+    renderJobs();
   </script>
 </body>
 </html>
@@ -693,64 +1003,121 @@ def generate_sitemap(site_url):
 # MAIN EXECUTION
 # =============================================================================
 
+def validate_output(jobs, stats):
+    """Validate generated output meets quality thresholds."""
+    issues = []
+
+    # Check minimum job count
+    if len(jobs) < 100:
+        issues.append(f"Job count too low: {len(jobs)} (expected >= 100)")
+
+    # Check company diversity
+    if stats['total_companies'] < 50:
+        issues.append(f"Company count too low: {stats['total_companies']} (expected >= 50)")
+
+    # Check data quality
+    if 'data_quality' in stats:
+        dq = stats['data_quality']
+        if dq.get('parse_success_rate', 1) < 0.8:
+            issues.append(f"Parse success rate too low: {dq['parse_success_rate']:.2%}")
+
+    return issues
+
+
 def main():
-    """Main execution function."""
+    """Main execution function with comprehensive error handling."""
+    import time
+    start_time = time.time()
+
     logger.info("=" * 60)
-    logger.info("OpenJobs Updater")
+    logger.info("OpenJobs Updater v2.0")
     logger.info("=" * 60)
+
+    exit_code = 0
 
     try:
-        # Fetch data
+        # Step 1-2: Fetch data source URL
+        logger.info("Step 1-2: Discovering latest data source...")
         jobs_url = get_latest_jobs_url()
 
+        # Step 3: Fetch job listings
         logger.info("Step 3: Fetching job listings...")
         xml_content = fetch_xml(jobs_url)
 
+        # Step 4: Parse jobs
         logger.info("Step 4: Parsing jobs...")
-        jobs = parse_jobs(xml_content)
-        logger.info(f"Found {len(jobs)} jobs")
+        jobs, parse_stats = parse_jobs(xml_content)
+        logger.info(f"Found {len(jobs)} jobs (parse stats: {parse_stats})")
 
         if not jobs:
             logger.error("No jobs found! Aborting.")
             sys.exit(1)
 
+        # Step 5: Calculate statistics
         logger.info("Step 5: Calculating statistics...")
-        stats = calculate_stats(jobs)
+        stats = calculate_stats(jobs, parse_stats)
         logger.info(f"Stats: {stats['total_jobs']} jobs from {stats['total_companies']} companies")
 
+        # Step 5.5: Validate output
+        logger.info("Step 5.5: Validating output...")
+        issues = validate_output(jobs, stats)
+        if issues:
+            for issue in issues:
+                logger.warning(f"Validation warning: {issue}")
+            # Don't fail, just warn
+
+        # Step 6: Generate README.md
         logger.info("Step 6: Generating README.md...")
         readme_content = generate_readme(jobs, stats)
         with open(Config.README_PATH, 'w', encoding='utf-8') as f:
             f.write(readme_content)
 
+        # Step 7: Generate HTML
         logger.info("Step 7: Generating HTML for Cloudflare Pages...")
         os.makedirs(os.path.dirname(Config.HTML_PATH), exist_ok=True)
         html_content = generate_html(jobs, stats)
         with open(Config.HTML_PATH, 'w', encoding='utf-8') as f:
             f.write(html_content)
 
+        # Step 8: Generate stats.json
         logger.info("Step 8: Generating stats.json...")
         with open(Config.STATS_PATH, 'w', encoding='utf-8') as f:
             json.dump(stats, f, indent=2)
 
+        # Step 9: Generate sitemaps
         logger.info("Step 9: Generating sitemaps...")
         with open(Config.CF_SITEMAP_PATH, 'w', encoding='utf-8') as f:
             f.write(generate_sitemap(Config.CF_SITE_URL))
         with open(Config.GH_SITEMAP_PATH, 'w', encoding='utf-8') as f:
             f.write(generate_sitemap(Config.GH_SITE_URL))
 
+        elapsed = time.time() - start_time
         logger.info("=" * 60)
-        logger.info("Done! Generated files:")
+        logger.info(f"SUCCESS! Completed in {elapsed:.2f}s")
+        logger.info("Generated files:")
         logger.info(f"  - {Config.README_PATH}")
         logger.info(f"  - {Config.HTML_PATH}")
         logger.info(f"  - {Config.STATS_PATH}")
         logger.info(f"  - {Config.CF_SITEMAP_PATH}")
         logger.info(f"  - {Config.GH_SITEMAP_PATH}")
+        logger.info(f"Summary: {stats['total_jobs']} jobs, {stats['total_companies']} companies")
         logger.info("=" * 60)
 
+    except FetchError as e:
+        logger.error(f"Data fetch failed: {e}")
+        exit_code = 2
+    except ParseError as e:
+        logger.error(f"Data parsing failed: {e}")
+        exit_code = 3
     except Exception as e:
-        logger.error(f"Fatal error: {e}")
-        sys.exit(1)
+        logger.error(f"Unexpected error: {type(e).__name__}: {e}")
+        exit_code = 1
+
+    if exit_code != 0:
+        elapsed = time.time() - start_time
+        logger.error(f"FAILED after {elapsed:.2f}s with exit code {exit_code}")
+
+    sys.exit(exit_code)
 
 
 if __name__ == "__main__":

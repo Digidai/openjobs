@@ -1,0 +1,22 @@
+# OpenJobs - robots.txt
+# https://openjobs.genedai.me
+
+User-agent: *
+Allow: /
+Disallow: /.git/
+Disallow: /.github/
+Disallow: /scripts/
+Disallow: /*.py$
+Disallow: /*test*
+Disallow: /*backup*
+
+# Crawl delay for politeness
+User-agent: Googlebot
+Crawl-delay: 1
+
+User-agent: Bingbot
+Crawl-delay: 1
+
+# Sitemaps
+Sitemap: https://openjobs.genedai.me/sitemap.xml
+Sitemap: https://digidai.github.io/openjobs/sitemap.xml

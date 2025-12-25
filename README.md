@@ -36,12 +36,15 @@ Most job boards are cluttered with ads, require sign-ups, or hide the best listi
 
 | Category | Count |
 |----------|------:|
-| Other | 458 |
-| Healthcare | 195 |
-| Management | 137 |
+| Other | 419 |
+| Healthcare | 212 |
+| Management | 161 |
 | Engineering | 97 |
-| Sales | 66 |
-| Finance | 35 |
+| Sales | 54 |
+| Finance | 24 |
+| Operations | 12 |
+| HR | 7 |
+| Marketing | 2 |
 
 **Top Hiring Companies:** Domino's, Jobot, Virtua Health, CVS Health, Sevita
 
