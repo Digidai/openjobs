@@ -3,240 +3,286 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>OpenJobs · Find Your Next Career</title>
-  <meta name="description" content="Browse 988+ open positions. New jobs added daily from leading employers across tech, healthcare, finance, and more.">
+  <title>OpenJobs - Find Your Next Career</title>
+  <meta name="description" content="Browse 988+ open positions from 774+ companies. New jobs added daily from leading employers across tech, healthcare, finance, and more.">
   <link rel="canonical" href="https://openjobs.genedai.me/">
+  <meta property="og:title" content="OpenJobs - Find Your Next Career">
+  <meta property="og:description" content="Browse 988+ job openings from top companies. Updated every 6 hours.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://openjobs.genedai.me/">
   <style>
     :root { --primary: #0f172a; --accent: #3b82f6; --bg: #ffffff; --card-bg: #fafafa; --text: #0f172a; --muted: #6b7280; --border: #e5e7eb; }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif; background: var(--bg); color: var(--text); }
     .container { max-width: 960px; margin: 0 auto; padding: 3rem 1.5rem; }
-    header { margin-bottom: 2.5rem; }
+    header { margin-bottom: 2rem; }
     h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; }
     .meta { color: var(--muted); font-size: 0.875rem; margin-top: 0.5rem; }
+    .stats { display: flex; gap: 1.5rem; margin-top: 1rem; flex-wrap: wrap; }
+    .stat { background: var(--card-bg); padding: 0.5rem 1rem; border-radius: 6px; font-size: 0.8rem; }
+    .stat-value { font-weight: 600; color: var(--accent); }
+    .search-box { margin-bottom: 1.5rem; }
+    .search-input { width: 100%; padding: 0.75rem 1rem; font-size: 0.9rem; border: 1px solid var(--border); border-radius: 8px; outline: none; transition: border-color 0.15s; }
+    .search-input:focus { border-color: var(--accent); }
     .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
     .card { display: flex; flex-direction: column; gap: 0.375rem; background: var(--bg); padding: 1rem 1.25rem; text-decoration: none; color: inherit; transition: background 0.15s; }
     .card:hover { background: var(--card-bg); }
+    .card.hidden { display: none; }
     .card-title { font-weight: 500; font-size: 0.9rem; color: var(--text); line-height: 1.35; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
     .card-company { font-size: 0.8rem; color: var(--muted); display: flex; align-items: center; gap: 0.4rem; }
     .logo { width: 16px; height: 16px; border-radius: 3px; object-fit: contain; }
+    .no-results { grid-column: 1 / -1; padding: 2rem; text-align: center; color: var(--muted); background: var(--bg); }
     footer { margin-top: 2.5rem; text-align: center; }
     footer a { color: var(--accent); text-decoration: none; font-size: 0.875rem; }
     footer a:hover { text-decoration: underline; }
-    @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } .container { padding: 2rem 1rem; } }
+    .github-link { margin-top: 1rem; font-size: 0.8rem; color: var(--muted); }
+    .github-link a { color: var(--muted); }
+    @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } .container { padding: 2rem 1rem; } .stats { gap: 0.75rem; } }
   </style>
 </head>
 <body>
   <div class="container">
     <header>
       <h1>Find Your Next Career</h1>
-      <p class="meta">988+ positions · Updated Dec 25, 2025</p>
+      <p class="meta">988+ positions from 774+ companies · Updated Dec 25, 2025</p>
+      <div class="stats">
+        <div class="stat"><span class="stat-value">97</span> Engineering</div>
+        <div class="stat"><span class="stat-value">195</span> Healthcare</div>
+        <div class="stat"><span class="stat-value">66</span> Sales</div>
+        <div class="stat"><span class="stat-value">35</span> Finance</div>
+      </div>
     </header>
-    <div class="grid">
-    <a href="https://www.openjobs-ai.com/jobs/device-lifecycle-service-architect-device-as-a-service-united-states-110642904170496000" class="card" target="_blank" rel="noopener">
-      <div class="card-title">Device Lifecycle Service Architect (Device as a Service)</div>
-      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/a/74/8a01e8194585f3f731611e676166c.png" alt="" class="logo">Computacenter</div>
+    <div class="search-box">
+      <input type="text" class="search-input" placeholder="Search jobs or companies..." id="searchInput">
+    </div>
+    <div class="grid" id="jobsGrid">
+    <a href="https://www.openjobs-ai.com/jobs/emergency-services-assistant-nursing-assistant-falmouth-ma-110642904170496157" class="card" target="_blank" rel="noopener" data-title="emergency services assistant (nursing assistant)" data-company="cape cod healthcare">
+      <div class="card-title">Emergency Services Assistant (Nursing Assistant)</div>
+      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/0/b8/2b0e751d446f607ea3b73e75ad32b.png" alt="" class="logo">Cape Cod Healthcare</div>
     </a>
-    <a href="https://www.openjobs-ai.com/jobs/peer-advocate-brooklyn-ny-110642904170496001" class="card" target="_blank" rel="noopener">
-      <div class="card-title">Peer Advocate</div>
-      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/4/ea/360931dda6076eafd788b719e7143.png" alt="" class="logo">Housing Works</div>
+    <a href="https://www.openjobs-ai.com/jobs/implementation-consultant-phoenix-az-110642904170496158" class="card" target="_blank" rel="noopener" data-title="implementation consultant" data-company="rockwell automation">
+      <div class="card-title">Implementation Consultant</div>
+      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/0/57/9ae1d2b662b089b0ed74f813c796f.png" alt="" class="logo">Rockwell Automation</div>
     </a>
-    <a href="https://www.openjobs-ai.com/jobs/cna-castle-rock-co-110642904170496002" class="card" target="_blank" rel="noopener">
-      <div class="card-title">CNA</div>
-      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/e/08/9a72c48bbf0ef2890317158be3530.png" alt="" class="logo">AdventHealth</div>
+    <a href="https://www.openjobs-ai.com/jobs/controller-monterey-park-ca-full-time-monterey-park-ca-110642904170496159" class="card" target="_blank" rel="noopener" data-title="controller - monterey park, ca - full-time" data-company="your part-time controller, llc">
+      <div class="card-title">Controller - Monterey Park, CA - Full-Time</div>
+      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/2/83/6ab2aac834f31b2826da9c08ad9db.png" alt="" class="logo">Your Part-Time Controller, LLC</div>
     </a>
-    <a href="https://www.openjobs-ai.com/jobs/assistant-teacher-grand-prairie-tx-110642904170496003" class="card" target="_blank" rel="noopener">
-      <div class="card-title">Assistant Teacher</div>
-      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/5/d0/b7646e0a1ca60f51cf8c436283acc.png" alt="" class="logo">Child Development Schools</div>
+    <a href="https://www.openjobs-ai.com/jobs/truck-body-welderfabricator-pottstown-pa-110642904170496161" class="card" target="_blank" rel="noopener" data-title="truck body welder/fabricator" data-company="bergey's">
+      <div class="card-title">Truck Body Welder/Fabricator</div>
+      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/b/10/b7c148efbc23562798a6aedb52c1d.png" alt="" class="logo">Bergey's</div>
     </a>
-    <a href="https://www.openjobs-ai.com/jobs/advertising-account-executive-market-retail-oak-brook-il-110642904170496004" class="card" target="_blank" rel="noopener">
-      <div class="card-title">Advertising Account Executive, Market Retail</div>
-      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/d/8b/58f7bfce28eefcc1cdd5b95c3b663.png" alt="" class="logo">Comcast</div>
+    <a href="https://www.openjobs-ai.com/jobs/retail-customer-service-associate-mountain-view-ca-110642904170496162" class="card" target="_blank" rel="noopener" data-title="retail customer service associate" data-company="fedex office">
+      <div class="card-title">Retail Customer Service Associate</div>
+      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/3/2f/237e6e5ed051f91c684ba360281a7.png" alt="" class="logo">FedEx Office</div>
     </a>
-    <a href="https://www.openjobs-ai.com/jobs/sales-account-representative-arcadia-fl-110642904170496005" class="card" target="_blank" rel="noopener">
-      <div class="card-title">Sales Account Representative</div>
-      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/1/10/4a8fa0061718c3fa57a8593d50b90.png" alt="" class="logo">Alleviation Enterprise LLC</div>
+    <a href="https://www.openjobs-ai.com/jobs/psychiatrist-hickory-nc-110642904170496163" class="card" target="_blank" rel="noopener" data-title="psychiatrist" data-company="lifepoint health®">
+      <div class="card-title">Psychiatrist</div>
+      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/2/06/0f89326449b64fedf1d825cd3db8f.png" alt="" class="logo">Lifepoint Health®</div>
     </a>
-    <a href="https://www.openjobs-ai.com/jobs/demand-planning-analyst-le-mars-ia-110642904170496006" class="card" target="_blank" rel="noopener">
-      <div class="card-title">Demand Planning Analyst</div>
-      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/b/d2/b568dd59edb3c7ea1cdbb2584ab16.png" alt="" class="logo">Wells Enterprises</div>
+    <a href="https://www.openjobs-ai.com/jobs/manager-ai-tinkery-stanford-ca-110642904170496164" class="card" target="_blank" rel="noopener" data-title="manager, ai tinkery" data-company="inside higher ed">
+      <div class="card-title">Manager, AI Tinkery</div>
+      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/8/a0/b7b8294e678b7a6abe1f8dc30f73e.png" alt="" class="logo">Inside Higher Ed</div>
     </a>
-    <a href="https://www.openjobs-ai.com/jobs/generalist-human-resources-saint-louis-mo-st-louis-mo-110642904170496007" class="card" target="_blank" rel="noopener">
-      <div class="card-title">Generalist, Human Resources - Saint Louis, MO</div>
-      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/b/a5/96fcd7b0a047a960f685075910a6b.png" alt="" class="logo">VetJobs</div>
+    <a href="https://www.openjobs-ai.com/jobs/patient-care-tech-hiring-event-1216-elizabeth-city-nc-110642904170496165" class="card" target="_blank" rel="noopener" data-title="patient care tech- hiring event 12/16!" data-company="davita kidney care">
+      <div class="card-title">Patient Care Tech- Hiring Event 12/16!</div>
+      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/9/c1/5a549533838975f075ba0f0dec1b3.png" alt="" class="logo">DaVita Kidney Care</div>
     </a>
-    <a href="https://www.openjobs-ai.com/jobs/associate-scientist-tarrytown-ny-110642904170496008" class="card" target="_blank" rel="noopener">
-      <div class="card-title">Associate Scientist</div>
-      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/f/21/0e54c9013c61f65f914cfc7271c4f.png" alt="" class="logo">Regeneron</div>
+    <a href="https://www.openjobs-ai.com/jobs/sue-field-technician-ii-bedford-nh-110642904170496166" class="card" target="_blank" rel="noopener" data-title="sue field technician ii" data-company="sam">
+      <div class="card-title">SUE Field Technician II</div>
+      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/f/d4/82ed3a2a62fe180489fd242312025.png" alt="" class="logo">SAM</div>
     </a>
-    <a href="https://www.openjobs-ai.com/jobs/245d-assistant-program-manager-bloomington-mn-110642904170496009" class="card" target="_blank" rel="noopener">
-      <div class="card-title">245d Assistant Program Manager</div>
-      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/f/a2/9f2e3b1d8296152fe89f53fabde88.png" alt="" class="logo">Fraser</div>
+    <a href="https://www.openjobs-ai.com/jobs/technician-maintenance-nashville-il-110642904170496167" class="card" target="_blank" rel="noopener" data-title="technician, maintenance" data-company="magna international">
+      <div class="card-title">Technician, Maintenance</div>
+      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/e/10/9cc146f06f1f67585d82d93878b3e.png" alt="" class="logo">Magna International</div>
     </a>
-    <a href="https://www.openjobs-ai.com/jobs/surgical-icu-registered-nurse-flower-mound-tx-110642904170496010" class="card" target="_blank" rel="noopener">
-      <div class="card-title">Surgical ICU Registered Nurse</div>
-      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/0/b1/8c7ab68ebea9164191ec1bf5ce446.png" alt="" class="logo">MEDICAL CITY DALLAS</div>
+    <a href="https://www.openjobs-ai.com/jobs/risk-management-risk-oversight-lead-for-international-payments-vice-president-columbus-oh-110642904170496169" class="card" target="_blank" rel="noopener" data-title="risk management - risk oversight lead for international payments - vice president" data-company="jpmorganchase">
+      <div class="card-title">Risk Management - Risk Oversight Lead for International Payments - Vice President</div>
+      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/e/80/20f3cd27af58eca9c48426bfb1c4f.png" alt="" class="logo">JPMorganChase</div>
     </a>
-    <a href="https://www.openjobs-ai.com/jobs/rn-registered-nurse-hendersonville-nc-110642904170496011" class="card" target="_blank" rel="noopener">
-      <div class="card-title">RN Registered Nurse</div>
-      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/e/45/1491e269725bf0dc12f0cb15c5d94.png" alt="" class="logo">Life Care Centers of America</div>
-    </a>
-    <a href="https://www.openjobs-ai.com/jobs/solutions-architect-application-development-ux-la-vergne-tn-110642904170496012" class="card" target="_blank" rel="noopener">
-      <div class="card-title">Solutions Architect Application Development (UX)</div>
-      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/b/fb/d8f1cfb126fe03aa3791ac7482e59.png" alt="" class="logo">Ingram Content Group</div>
-    </a>
-    <a href="https://www.openjobs-ai.com/jobs/rn-cmh-surgery-peoria-il-110642904170496013" class="card" target="_blank" rel="noopener">
-      <div class="card-title">RN- CMH Surgery</div>
-      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/f/75/befb398c3b3a6a700e35b99499498.png" alt="" class="logo">Carle Health</div>
-    </a>
-    <a href="https://www.openjobs-ai.com/jobs/senior-consultant-supplemental-health-milwaukee-wi-110642904170496015" class="card" target="_blank" rel="noopener">
-      <div class="card-title">Senior Consultant, Supplemental Health</div>
-      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/e/98/f0b324bae1b9789bf536e5c2d189e.png" alt="" class="logo">Sun Life</div>
-    </a>
-    <a href="https://www.openjobs-ai.com/jobs/forklift-operator-material-handler-tobyhanna-pa-tobyhanna-pa-110642904170496016" class="card" target="_blank" rel="noopener">
-      <div class="card-title">Forklift Operator / Material Handler - Tobyhanna, PA</div>
-      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/b/a5/96fcd7b0a047a960f685075910a6b.png" alt="" class="logo">VetJobs</div>
-    </a>
-    <a href="https://www.openjobs-ai.com/jobs/inside-sales-representative-market-analyst-memphis-tn-110642904170496017" class="card" target="_blank" rel="noopener">
-      <div class="card-title">Inside Sales Representative- Market Analyst</div>
-      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/8/b1/a669ce27fc5789b799b31a945de23.png" alt="" class="logo">Nucor Corporation</div>
-    </a>
-    <a href="https://www.openjobs-ai.com/jobs/rn-registered-nurse-sign-on-bonus-available-cape-girardeau-mo-110642904170496018" class="card" target="_blank" rel="noopener">
-      <div class="card-title">RN Registered Nurse *Sign on Bonus Available</div>
-      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/e/45/1491e269725bf0dc12f0cb15c5d94.png" alt="" class="logo">Life Care Centers of America</div>
-    </a>
-    <a href="https://www.openjobs-ai.com/jobs/sr-consulting-sales-engineering-e5g-pensacola-fl-110642904170496019" class="card" target="_blank" rel="noopener">
-      <div class="card-title">Sr Consulting Sales Engineering E5G</div>
-      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/4/30/a4200e0c68f338eeceb4cfb1fcd90.png" alt="" class="logo">Ericsson</div>
-    </a>
-    <a href="https://www.openjobs-ai.com/jobs/skin-care-associate-account-manager-rapid-resource-rep-west-las-vegas-nv-110642904170496020" class="card" target="_blank" rel="noopener">
-      <div class="card-title">Skin Care-Associate Account Manager Rapid Resource Rep - WEST</div>
-      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/4/a0/326ed548d30d2f025328e5a13f1a7.png" alt="" class="logo">Amplity</div>
-    </a>
-    <a href="https://www.openjobs-ai.com/jobs/sr-sales-manager-remote-greater-los-angeles-boca-raton-fl-110642904170496021" class="card" target="_blank" rel="noopener">
-      <div class="card-title">Sr. Sales Manager - Remote (Greater Los Angeles)</div>
-      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/e/61/376a669c5fc98cdd1cc87bc6a15b9.png" alt="" class="logo">Florida Peninsula Insurance Company</div>
-    </a>
-    <a href="https://www.openjobs-ai.com/jobs/caregiver-glen-ellyn-il-110642904170496022" class="card" target="_blank" rel="noopener">
+    <a href="https://www.openjobs-ai.com/jobs/caregiver-burbank-ca-110642904170496170" class="card" target="_blank" rel="noopener" data-title="caregiver" data-company="accentcare">
       <div class="card-title">Caregiver</div>
-      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/4/68/e0e4f3dd3a1dfe8d0287ec5c711d3.png" alt="" class="logo">Anthem Memory Care</div>
+      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/f/92/354cb07c894ea2a179f880724f250.png" alt="" class="logo">AccentCare</div>
     </a>
-    <a href="https://www.openjobs-ai.com/jobs/construction-project-manager-el-segundo-ca-110642904170496023" class="card" target="_blank" rel="noopener">
-      <div class="card-title">Construction Project Manager</div>
-      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/2/e5/0f0e628153f2b175adebf1487f270.png" alt="" class="logo">Behavior Frontiers</div>
+    <a href="https://www.openjobs-ai.com/jobs/locum-physician-gastroenterology-new-york-ny-110642904170496171" class="card" target="_blank" rel="noopener" data-title="locum | physician gastroenterology" data-company="weatherby healthcare">
+      <div class="card-title">Locum | Physician Gastroenterology</div>
+      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/8/f2/3541cf50c3345e602b75b78cd7e81.png" alt="" class="logo">Weatherby Healthcare</div>
     </a>
-    <a href="https://www.openjobs-ai.com/jobs/senior-document-specialist-greater-phoenix-area-110642904170496024" class="card" target="_blank" rel="noopener">
-      <div class="card-title">Senior Document Specialist</div>
-      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/3/6a/a05106b255bfee8ef447ad851d73b.png" alt="" class="logo">Epiq</div>
+    <a href="https://www.openjobs-ai.com/jobs/express-service-technician-experienced-newport-news-va-110642904170496172" class="card" target="_blank" rel="noopener" data-title="express service technician (experienced)" data-company="casey kia">
+      <div class="card-title">Express Service Technician (Experienced)</div>
+      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/6/10/fc5ee34fd3b0a29a03e783d6e3512.png" alt="" class="logo">Casey Kia</div>
     </a>
-    <a href="https://www.openjobs-ai.com/jobs/ex-ed-educational-assistant-ids-middle-valley-estates-tn-110642904170496025" class="card" target="_blank" rel="noopener">
-      <div class="card-title">Ex Ed Educational Assistant - IDS</div>
-      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/d/39/f75aa871521f274786600431fa060.png" alt="" class="logo">Hamilton County Department of Education</div>
+    <a href="https://www.openjobs-ai.com/jobs/associate-director-business-development-miami-fl-110642904170496173" class="card" target="_blank" rel="noopener" data-title="associate director, business development" data-company="life space digital">
+      <div class="card-title">Associate Director, Business Development</div>
+      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/9/59/cd93312bd304636150b7968b9ea00.png" alt="" class="logo">Life Space Digital</div>
     </a>
-    <a href="https://www.openjobs-ai.com/jobs/business-process-design-engineering-rotational-development-program-warren-nj-110642904170496026" class="card" target="_blank" rel="noopener">
-      <div class="card-title">Business Process Design Engineering Rotational Development Program</div>
-      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/a/86/18465c16a92dcf675b23b2b4cbc04.png" alt="" class="logo">Everest</div>
+    <a href="https://www.openjobs-ai.com/jobs/dietary-aide-part-time-days-detroit-mi-110642904170496174" class="card" target="_blank" rel="noopener" data-title="dietary aide part time days" data-company="detroit medical center">
+      <div class="card-title">Dietary Aide Part Time Days</div>
+      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/6/e6/07594344824d27edbe3bf9589d22f.png" alt="" class="logo">Detroit Medical Center</div>
     </a>
-    <a href="https://www.openjobs-ai.com/jobs/commercial-print-sales-representative-hayward-ca-110642904170496027" class="card" target="_blank" rel="noopener">
-      <div class="card-title">Commercial Print Sales Representative</div>
-      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/b/a2/a72a2d844a09ca63778c3d0a25ba4.png" alt="" class="logo">Printing Industries Association, Inc.</div>
+    <a href="https://www.openjobs-ai.com/jobs/private-duty-hhacna-for-home-care-oneida-tn-110642904170496175" class="card" target="_blank" rel="noopener" data-title="private duty hha/cna for home care" data-company="elk valley health services">
+      <div class="card-title">Private Duty HHA/CNA for Home Care</div>
+      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/6/ac/1d82ae88a37d0f58136fa19b75cec.png" alt="" class="logo">Elk Valley Health Services</div>
     </a>
-    <a href="https://www.openjobs-ai.com/jobs/loral-luxe-counter-manager-united-states-110642904170496028" class="card" target="_blank" rel="noopener">
-      <div class="card-title">L'Oréal Luxe Counter Manager</div>
-      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/c/16/56f88ee56f342a03855a9ddf9f02e.png" alt="" class="logo">L'Oréal</div>
+    <a href="https://www.openjobs-ai.com/jobs/paid-media-manager-google-pittsburgh-pa-110642904170496176" class="card" target="_blank" rel="noopener" data-title="paid media manager, google" data-company="launch potato">
+      <div class="card-title">Paid Media Manager, Google</div>
+      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/1/3d/2ce3a019884ebb11447b3a623f9a6.png" alt="" class="logo">Launch Potato</div>
     </a>
-    <a href="https://www.openjobs-ai.com/jobs/care-manager-rn-3-years-of-clinical-acute-care-experience-required-hospital-care-management-experience-preferred-mineola-ny-110642904170496029" class="card" target="_blank" rel="noopener">
-      <div class="card-title">Care Manager (RN) **3 years of clinical acute care experience required. Hospital Care Management Experience Preferred**</div>
-      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/7/2d/c1a8741deb09777a443c66cc763f5.png" alt="" class="logo">NYU Langone Health</div>
+    <a href="https://www.openjobs-ai.com/jobs/hair-stylist-san-antonio-tx-110642904170496177" class="card" target="_blank" rel="noopener" data-title="hair stylist" data-company="sportclips">
+      <div class="card-title">Hair Stylist</div>
+      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/6/67/f3749aff68ff9ae25ec7c1a97734a.png" alt="" class="logo">SPORTCLIPS</div>
     </a>
-    <a href="https://www.openjobs-ai.com/jobs/business-development-representative-omaha-ne-110642904170496030" class="card" target="_blank" rel="noopener">
-      <div class="card-title">Business Development Representative</div>
-      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/8/90/0775ad1b5b8867cee4bdfe015b97a.png" alt="" class="logo">Workshop</div>
+    <a href="https://www.openjobs-ai.com/jobs/tcm-care-manager-vaya-catchment-area-asheville-nc-110642904170496178" class="card" target="_blank" rel="noopener" data-title="tcm care manager - vaya catchment area" data-company="healthkeeperz">
+      <div class="card-title">TCM Care Manager - Vaya Catchment Area</div>
+      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/0/1b/cd3ecc0ab4577d27184d469f97016.png" alt="" class="logo">HealthKeeperz</div>
     </a>
-    <a href="https://www.openjobs-ai.com/jobs/finance-analyst-intern-boston-ma-110642904170496031" class="card" target="_blank" rel="noopener">
-      <div class="card-title">Finance Analyst Intern</div>
-      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/e/7f/c850c9ead5f05259cc5e1613e0ad1.png" alt="" class="logo">Sonos, Inc.</div>
+    <a href="https://www.openjobs-ai.com/jobs/electronics-assembler-irvine-ca-110642904170496179" class="card" target="_blank" rel="noopener" data-title="electronics assembler" data-company="ipcmobile (founded as infinite peripherals)">
+      <div class="card-title">Electronics Assembler</div>
+      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/5/ad/8b6fe603ff262a61e76fe1bc886c9.png" alt="" class="logo">IPCMobile (founded as Infinite Peripherals)</div>
     </a>
-    <a href="https://www.openjobs-ai.com/jobs/das-director-strategy-offering-operations-kansas-city-mo-110642904170496032" class="card" target="_blank" rel="noopener">
-      <div class="card-title">DAS Director, Strategy Offering Operations</div>
-      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/4/aa/5fcf5b530b08bd251ba830e8e0892.png" alt="" class="logo">KPMG US</div>
+    <a href="https://www.openjobs-ai.com/jobs/charge-nurse-lpn-cedar-rapids-ia-110642904170496180" class="card" target="_blank" rel="noopener" data-title="charge nurse - lpn" data-company="care initiatives">
+      <div class="card-title">Charge Nurse - LPN</div>
+      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/1/b2/90c7b9abb45087ef1e9292d7b8241.png" alt="" class="logo">Care Initiatives</div>
     </a>
-    <a href="https://www.openjobs-ai.com/jobs/community-health-nurse-hyattsville-md-110642904170496033" class="card" target="_blank" rel="noopener">
-      <div class="card-title">Community Health Nurse</div>
-      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/1/e9/4aed19ef1aa9c9ab72be480a307a7.png" alt="" class="logo">Prince George's County, Maryland</div>
+    <a href="https://www.openjobs-ai.com/jobs/rn-clinical-manager-home-health-greensboro-nc-110642904170496181" class="card" target="_blank" rel="noopener" data-title="rn - clinical manager - home health," data-company="enhabit home health &amp; hospice">
+      <div class="card-title">RN - Clinical Manager - Home Health,</div>
+      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/4/08/347ea6047c0fca25d4f3a32beb4d1.png" alt="" class="logo">Enhabit Home Health &amp; Hospice</div>
     </a>
-    <a href="https://www.openjobs-ai.com/jobs/assistant-relationship-manager-insurance-public-pension-funds-new-york-united-states-110642904170496034" class="card" target="_blank" rel="noopener">
-      <div class="card-title">Assistant Relationship Manager, Insurance &amp; Public Pension Funds</div>
-      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/1/62/dbfcbfa4282bc329888524601a285.png" alt="" class="logo">Standard Chartered</div>
+    <a href="https://www.openjobs-ai.com/jobs/physical-therapist-assistant-chicago-il-110642904170496182" class="card" target="_blank" rel="noopener" data-title="physical therapist assistant" data-company="bria health services">
+      <div class="card-title">Physical Therapist Assistant</div>
+      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/d/14/39ec25f9ba3cf3fb79306e7166efd.png" alt="" class="logo">BRIA Health Services</div>
     </a>
-    <a href="https://www.openjobs-ai.com/jobs/patient-care-coordinator-jurupa-valley-ca-110642904170496035" class="card" target="_blank" rel="noopener">
-      <div class="card-title">Patient Care Coordinator</div>
-      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/d/4c/7c197395da06d04b4335f72205b38.png" alt="" class="logo">Sonrava Health</div>
+    <a href="https://www.openjobs-ai.com/jobs/sales-agent-houston-tx-110642904170496183" class="card" target="_blank" rel="noopener" data-title="sales agent" data-company="pronto insurance">
+      <div class="card-title">Sales Agent</div>
+      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/5/9c/b2aa088866cecf859fb51b982db5e.png" alt="" class="logo">Pronto Insurance</div>
     </a>
-    <a href="https://www.openjobs-ai.com/jobs/enterprise-account-executive-new-logo-acquisition-fresno-ca-110642904170496036" class="card" target="_blank" rel="noopener">
-      <div class="card-title">Enterprise Account Executive - New Logo Acquisition</div>
-      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/d/8b/58f7bfce28eefcc1cdd5b95c3b663.png" alt="" class="logo">Comcast</div>
+    <a href="https://www.openjobs-ai.com/jobs/transportation-manager-madison-wi-110642904170496184" class="card" target="_blank" rel="noopener" data-title="transportation manager" data-company="second harvest foodbank of southern wisconsin">
+      <div class="card-title">Transportation Manager</div>
+      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/a/c5/a3f46afcfc3b4393ce21d06ea2d64.png" alt="" class="logo">Second Harvest Foodbank of Southern Wisconsin</div>
     </a>
-    <a href="https://www.openjobs-ai.com/jobs/rn-ii-little-rock-ar-110642904170496037" class="card" target="_blank" rel="noopener">
-      <div class="card-title">RN II</div>
-      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/8/f3/24aa9e1be32683e7ad5d2d7221b52.png" alt="" class="logo">Arkansas Children's</div>
+    <a href="https://www.openjobs-ai.com/jobs/tax-associate-cleveland-oh-110642904170496185" class="card" target="_blank" rel="noopener" data-title="tax associate" data-company="distinct | north america">
+      <div class="card-title">Tax Associate</div>
+      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/b/bc/efb6ab53cefd67df1df6c7ce0a918.png" alt="" class="logo">Distinct | North America</div>
     </a>
-    <a href="https://www.openjobs-ai.com/jobs/project-controller-concord-nh-110642904170496038" class="card" target="_blank" rel="noopener">
-      <div class="card-title">Project Controller</div>
-      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/d/f0/f925f87e68bd885a0c81229cc7d6a.png" alt="" class="logo">BW Design Group</div>
+    <a href="https://www.openjobs-ai.com/jobs/pharmacy-technician-boynton-beach-fl-110642904170496186" class="card" target="_blank" rel="noopener" data-title="pharmacy technician" data-company="cvs health">
+      <div class="card-title">Pharmacy Technician</div>
+      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/7/e1/f4357a9bf0f3643b7bb5652854889.png" alt="" class="logo">CVS Health</div>
     </a>
-    <a href="https://www.openjobs-ai.com/jobs/power-technician-1-odessa-tx-odessa-tx-110642904170496039" class="card" target="_blank" rel="noopener">
-      <div class="card-title">Power Technician 1 - Odessa, TX</div>
-      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/b/a5/96fcd7b0a047a960f685075910a6b.png" alt="" class="logo">VetJobs</div>
+    <a href="https://www.openjobs-ai.com/jobs/full-stack-net-developer-new-york-ny-110642904170496187" class="card" target="_blank" rel="noopener" data-title="full stack .net developer" data-company="upclear">
+      <div class="card-title">Full Stack .Net Developer</div>
+      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/f/7c/7497ceb0c6b048a55b75616738f07.png" alt="" class="logo">UpClear</div>
     </a>
-    <a href="https://www.openjobs-ai.com/jobs/warehouse-scheduler-sparta-il-110642904170496040" class="card" target="_blank" rel="noopener">
-      <div class="card-title">Warehouse Scheduler</div>
-      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/0/c2/9388db5a917be20ea8ef3c38dfb7d.png" alt="" class="logo">Basor Electric</div>
+    <a href="https://www.openjobs-ai.com/jobs/senior-manager-compensation-benefits-payroll-tax-advisory-foster-city-ca-110642904170496188" class="card" target="_blank" rel="noopener" data-title="senior manager – compensation &amp; benefits / payroll tax advisory" data-company="andersen">
+      <div class="card-title">Senior Manager – Compensation &amp; Benefits / Payroll Tax Advisory</div>
+      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/8/d5/c40fb8e1de9f81a4e84f115cfbe9d.png" alt="" class="logo">Andersen</div>
     </a>
-    <a href="https://www.openjobs-ai.com/jobs/employment-consultant-seattle-wa-110642904170496041" class="card" target="_blank" rel="noopener">
-      <div class="card-title">Employment Consultant</div>
-      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/e/ac/95dff09c2a500641daa1b8e4a7998.png" alt="" class="logo">PROVAIL</div>
+    <a href="https://www.openjobs-ai.com/jobs/chief-financial-officer-minnesota-united-states-110642904170496189" class="card" target="_blank" rel="noopener" data-title="chief financial officer" data-company="falcon">
+      <div class="card-title">Chief Financial Officer</div>
+      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/c/9c/be34b9021ce47b39d650eb4331fb2.png" alt="" class="logo">FALCON</div>
     </a>
-    <a href="https://www.openjobs-ai.com/jobs/casecare-management-fulton-ny-110642904170496042" class="card" target="_blank" rel="noopener">
-      <div class="card-title">Case/Care Management</div>
-      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/9/95/1e4b73edc694d3a6283eff9ed2807.png" alt="" class="logo">CIRCARE</div>
+    <a href="https://www.openjobs-ai.com/jobs/structured-finance-transportation-group-associate-new-york-united-states-110642904170496190" class="card" target="_blank" rel="noopener" data-title="structured finance, transportation group - associate" data-company="crédit agricole cib">
+      <div class="card-title">Structured Finance, Transportation Group - Associate</div>
+      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/e/a8/2aceb4d78ff7860286c3e4ee85908.png" alt="" class="logo">Crédit Agricole CIB</div>
     </a>
-    <a href="https://www.openjobs-ai.com/jobs/rn-icu-spokane-wa-110642904170496043" class="card" target="_blank" rel="noopener">
-      <div class="card-title">RN - ICU</div>
-      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/1/0b/0c421428f30f54b4bfb873f9a65ad.png" alt="" class="logo">Providence</div>
+    <a href="https://www.openjobs-ai.com/jobs/tamiami-physical-therapist-assistant-pta-tamiami-fl-110642904170496191" class="card" target="_blank" rel="noopener" data-title="tamiami - physical therapist assistant pta" data-company="cora physical therapy">
+      <div class="card-title">Tamiami - Physical Therapist Assistant PTA</div>
+      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/f/95/ae294e3dc219b95b943e8068f1f02.png" alt="" class="logo">CORA Physical Therapy</div>
     </a>
-    <a href="https://www.openjobs-ai.com/jobs/general-dentist-gardendale-al-110642904170496044" class="card" target="_blank" rel="noopener">
-      <div class="card-title">General Dentist</div>
-      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/1/40/dd837545d49133791105d13797fd3.png" alt="" class="logo">iHire</div>
+    <a href="https://www.openjobs-ai.com/jobs/general-manager-automotive-experience-required-watkinsville-ga-110642904170496192" class="card" target="_blank" rel="noopener" data-title="general manager - automotive experience required" data-company="tire discounters, inc.">
+      <div class="card-title">General Manager - Automotive Experience Required</div>
+      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/7/23/ea9e2ea76fcec127fc3051570d7d8.png" alt="" class="logo">Tire Discounters, Inc.</div>
     </a>
-    <a href="https://www.openjobs-ai.com/jobs/nurse-practitioner-washington-dc-110642904170496045" class="card" target="_blank" rel="noopener">
-      <div class="card-title">Nurse Practitioner</div>
-      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/1/40/dd837545d49133791105d13797fd3.png" alt="" class="logo">iHire</div>
+    <a href="https://www.openjobs-ai.com/jobs/school-based-primary-therapist-rochester-ny-110642904170496193" class="card" target="_blank" rel="noopener" data-title="school based primary therapist" data-company="rochester regional health">
+      <div class="card-title">School Based Primary Therapist</div>
+      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/5/37/754c7c7eaad3014a20f5c05bf6afd.png" alt="" class="logo">Rochester Regional Health</div>
     </a>
-    <a href="https://www.openjobs-ai.com/jobs/critical-facilities-engineer-rochelle-il-2nd-shift-rochelle-il-110642904170496046" class="card" target="_blank" rel="noopener">
-      <div class="card-title">Critical Facilities Engineer - Rochelle, IL - 2nd Shift</div>
-      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/5/a9/e6695c8055aeb6c210e6bfb45d6b5.png" alt="" class="logo">Allstate</div>
+    <a href="https://www.openjobs-ai.com/jobs/branch-teller-tahlequah-ok-110642904170496194" class="card" target="_blank" rel="noopener" data-title="branch teller" data-company="ttcu federal credit union">
+      <div class="card-title">Branch Teller</div>
+      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/1/68/d3bf85683bf81ded6e1b7648435c2.png" alt="" class="logo">TTCU Federal Credit Union</div>
     </a>
-    <a href="https://www.openjobs-ai.com/jobs/business-office-manager-marysville-wa-110642904170496047" class="card" target="_blank" rel="noopener">
-      <div class="card-title">Business Office Manager</div>
-      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/e/45/1491e269725bf0dc12f0cb15c5d94.png" alt="" class="logo">Life Care Centers of America</div>
+    <a href="https://www.openjobs-ai.com/jobs/fixed-income-product-controller-new-york-ny-110642904170496195" class="card" target="_blank" rel="noopener" data-title="fixed income product controller" data-company="mizuho">
+      <div class="card-title">Fixed Income Product Controller</div>
+      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/9/18/f750f0d73afa8f08fbb8dd3a8582a.png" alt="" class="logo">Mizuho</div>
     </a>
-    <a href="https://www.openjobs-ai.com/jobs/heavy-equipment-pm-tech-laredo-tx-110642904170496048" class="card" target="_blank" rel="noopener">
-      <div class="card-title">Heavy Equipment PM Tech</div>
-      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/4/97/9e408e85a36377a9f1a17c6ab44fa.png" alt="" class="logo">Republic Services</div>
+    <a href="https://www.openjobs-ai.com/jobs/retail-sales-associate-mesquite-tx-110642904170496196" class="card" target="_blank" rel="noopener" data-title="retail sales associate" data-company="verizon">
+      <div class="card-title">Retail Sales Associate</div>
+      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/5/52/5ff59adcaac313923ab89d0a618c5.png" alt="" class="logo">Verizon</div>
     </a>
-    <a href="https://www.openjobs-ai.com/jobs/health-unit-coordinator-main-renal-part-time-rotating-cincinnati-oh-110642904170496049" class="card" target="_blank" rel="noopener">
-      <div class="card-title">Health Unit Coordinator- Main Renal - Part Time - Rotating</div>
-      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/6/26/5744c14dd947fe54ea9ce56ca3195.png" alt="" class="logo">The Christ Hospital Health Network</div>
+    <a href="https://www.openjobs-ai.com/jobs/physical-therapist-pt-part-time-weston-ma-110642904170496197" class="card" target="_blank" rel="noopener" data-title="physical therapist - pt - part time" data-company="visiting rehab and nursing services">
+      <div class="card-title">Physical Therapist - PT - Part Time</div>
+      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/f/e2/4f8a1e02fd5330e3655a6ed674933.png" alt="" class="logo">Visiting Rehab and Nursing Services</div>
     </a>
-    <a href="https://www.openjobs-ai.com/jobs/senior-specialist-federal-data-architect-st-louis-mo-110642904170496050" class="card" target="_blank" rel="noopener">
-      <div class="card-title">Senior Specialist, Federal Data Architect</div>
-      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/4/aa/5fcf5b530b08bd251ba830e8e0892.png" alt="" class="logo">KPMG US</div>
+    <a href="https://www.openjobs-ai.com/jobs/account-executive-commercial-lines-middleton-wi-110642904170496198" class="card" target="_blank" rel="noopener" data-title="account executive, commercial lines" data-company="gallagher">
+      <div class="card-title">Account Executive, Commercial Lines</div>
+      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/3/5d/65e2ab5581dbb79bd7b703740e45c.png" alt="" class="logo">Gallagher</div>
     </a>
+    <a href="https://www.openjobs-ai.com/jobs/access-control-quantico-va-110642904170496199" class="card" target="_blank" rel="noopener" data-title="access control" data-company="grs, inc.">
+      <div class="card-title">Access Control</div>
+      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/b/6a/17e19fdfb37067d64f74420906721.png" alt="" class="logo">GRS, Inc.</div>
+    </a>
+    <a href="https://www.openjobs-ai.com/jobs/caregiver-cna-hha-beverly-hills-fl-110642904170496200" class="card" target="_blank" rel="noopener" data-title="caregiver cna hha" data-company="comforcare">
+      <div class="card-title">Caregiver CNA HHA</div>
+      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/7/9c/ba45efcb3f8099fd1d5ffefa0b8e3.png" alt="" class="logo">ComForCare</div>
+    </a>
+    <a href="https://www.openjobs-ai.com/jobs/registered-behavior-technician-san-diego-ca-110642904170496201" class="card" target="_blank" rel="noopener" data-title="registered behavior technician" data-company="mebe">
+      <div class="card-title">Registered Behavior Technician</div>
+      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/5/95/e7a75c16b67ea2dcd75b77235248a.png" alt="" class="logo">MeBe</div>
+    </a>
+    <a href="https://www.openjobs-ai.com/jobs/insurance-defense-attorney-bodily-injury-texas-united-states-110642904170496202" class="card" target="_blank" rel="noopener" data-title="insurance defense attorney -- bodily injury" data-company="progressive insurance">
+      <div class="card-title">Insurance Defense Attorney -- Bodily Injury</div>
+      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/a/d0/89ac5c97b5ea7f6627a86d17ba209.png" alt="" class="logo">Progressive Insurance</div>
+    </a>
+    <a href="https://www.openjobs-ai.com/jobs/registered-nurse-albany-ny-110642904170496203" class="card" target="_blank" rel="noopener" data-title="registered nurse" data-company="community care physicians">
+      <div class="card-title">Registered Nurse</div>
+      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/1/b9/52c63fae55fa55f8f6b7bbc51985a.png" alt="" class="logo">Community Care Physicians</div>
+    </a>
+    <a href="https://www.openjobs-ai.com/jobs/nurse-extern-prn-ed-dickson-tn-110642904170496204" class="card" target="_blank" rel="noopener" data-title="nurse extern prn ed" data-company="tristar horizon medical center">
+      <div class="card-title">Nurse Extern PRN ED</div>
+      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/6/1c/725b4eb127d471b3656648bf2ce74.png" alt="" class="logo">TriStar Horizon Medical Center</div>
+    </a>
+    <a href="https://www.openjobs-ai.com/jobs/physical-therapist-shippensburg-pa-110642904170496205" class="card" target="_blank" rel="noopener" data-title="physical therapist" data-company="drayer physical therapy institute">
+      <div class="card-title">Physical Therapist</div>
+      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/3/fe/06314629daaa13327f5003ac3664b.png" alt="" class="logo">Drayer Physical Therapy Institute</div>
+    </a>
+    <a href="https://www.openjobs-ai.com/jobs/senior-design-manager-nashville-tn-110642904170496206" class="card" target="_blank" rel="noopener" data-title="senior design manager" data-company="stantec">
+      <div class="card-title">Senior Design Manager</div>
+      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/c/d9/5ed8c1e93b47def4e766bdb9cb4ab.png" alt="" class="logo">Stantec</div>
+    </a>
+    <a href="https://www.openjobs-ai.com/jobs/journeyman-plumber-mount-vernon-wa-110642904170496207" class="card" target="_blank" rel="noopener" data-title="journeyman plumber" data-company="eco electric, plumbing, heating &amp; air">
+      <div class="card-title">Journeyman Plumber</div>
+      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/5/03/6de568d52a62943889526e3dd506f.png" alt="" class="logo">Eco Electric, Plumbing, Heating &amp; Air</div>
+    </a>
+    <a href="https://www.openjobs-ai.com/jobs/battery-technician-pittsburgh-pa-110642904170496208" class="card" target="_blank" rel="noopener" data-title="battery technician" data-company="teksystems">
+      <div class="card-title">Battery Technician</div>
+      <div class="card-company"><img src="https://front.openjobs-ai.com/data/company-logo/v3/3/30/b3e4070fe1c578187ad4643035517.png" alt="" class="logo">TEKsystems</div>
+    </a>
+      <div class="no-results" id="noResults" style="display: none;">No jobs found matching your search.</div>
     </div>
     <footer>
-      <a href="https://www.openjobs-ai.com/deepsearch">View all jobs →</a>
+      <a href="https://www.openjobs-ai.com/deepsearch">View all 988+ jobs →</a>
+      <p class="github-link">Open source on <a href="https://github.com/digidai/openjobs">GitHub</a></p>
     </footer>
   </div>
+  <script>
+    const searchInput = document.getElementById('searchInput');
+    const jobsGrid = document.getElementById('jobsGrid');
+    const cards = jobsGrid.querySelectorAll('.card:not(.no-results)');
+    const noResults = document.getElementById('noResults');
+
+    searchInput.addEventListener('input', function() {
+      const query = this.value.toLowerCase().trim();
+      let visibleCount = 0;
+
+      cards.forEach(card => {
+        const title = card.dataset.title || '';
+        const company = card.dataset.company || '';
+        const matches = !query || title.includes(query) || company.includes(query);
+        card.classList.toggle('hidden', !matches);
+        if (matches) visibleCount++;
+      });
+
+      noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+    });
+  </script>
 </body>
 </html>

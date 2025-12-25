@@ -1,10 +1,207 @@
-# Latest Job Openings
+<p align="center">
+  <img src="https://img.shields.io/badge/jobs-988+-blue?style=for-the-badge" alt="Jobs Count">
+  <img src="https://img.shields.io/badge/companies-774+-purple?style=for-the-badge" alt="Companies">
+  <img src="https://img.shields.io/badge/updated-every%206h-green?style=for-the-badge" alt="Update Frequency">
+  <img src="https://img.shields.io/github/license/digidai/openjobs?style=for-the-badge" alt="License">
+  <img src="https://img.shields.io/github/stars/digidai/openjobs?style=for-the-badge" alt="Stars">
+</p>
 
-Discover 988+ career opportunities from top companies. Whether you're looking for remote work, tech roles, healthcare positions, or entry-level jobs — find your next opportunity here.
+<h1 align="center">OpenJobs</h1>
 
-**December 25, 2025** · Featuring jobs in Engineering, Healthcare, Sales, Finance, and more.
+<p align="center">
+  <strong>A free, open-source job aggregator that automatically collects and displays job listings from top companies.</strong>
+</p>
+
+<p align="center">
+  <a href="https://digidai.github.io/openjobs">GitHub Pages</a> ·
+  <a href="https://openjobs.genedai.me">Cloudflare Mirror</a> ·
+  <a href="#features">Features</a> ·
+  <a href="#quick-start">Quick Start</a> ·
+  <a href="#contributing">Contributing</a>
+</p>
 
 ---
+
+## Why OpenJobs?
+
+Most job boards are cluttered with ads, require sign-ups, or hide the best listings behind paywalls. **OpenJobs** is different:
+
+- **100% Free & Open Source** - No ads, no paywalls, no sign-ups
+- **Auto-Updated Every 6 Hours** - Fresh jobs from 774+ companies via GitHub Actions
+- **Zero Infrastructure** - Runs entirely on GitHub Pages + Cloudflare (free tier)
+- **Lightweight** - Pure Python, no external dependencies, <1MB total size
+- **SEO Optimized** - Proper sitemaps, meta tags, and structured content
+
+## Job Statistics
+
+| Category | Count |
+|----------|------:|
+| Other | 458 |
+| Healthcare | 195 |
+| Management | 137 |
+| Engineering | 97 |
+| Sales | 66 |
+| Finance | 35 |
+
+**Top Hiring Companies:** Domino's, Jobot, Virtua Health, CVS Health, Sevita
+
+## Features
+
+| Feature | Description |
+|---------|-------------|
+| **Auto Discovery** | Automatically finds and fetches the latest job data sources |
+| **Smart Rotation** | Jobs rotate every 6 hours to show fresh content |
+| **Dual Deployment** | GitHub Pages (table view) + Cloudflare Pages (card view) |
+| **Company Logos** | Visual company branding for easy recognition |
+| **Mobile Responsive** | Works perfectly on all device sizes |
+| **Daily Sitemaps** | SEO-friendly XML sitemaps updated automatically |
+
+## Architecture
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                        GitHub Actions                           │
+│                    (Scheduled every 6h)                         │
+└─────────────────────────┬───────────────────────────────────────┘
+                          │
+                          ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                    update_readme.py                             │
+│  ┌─────────────┐   ┌─────────────┐   ┌─────────────────────┐   │
+│  │ Fetch XML   │ → │ Parse Jobs  │ → │ Generate Output     │   │
+│  │ Sitemap     │   │ (988+ jobs) │   │ (README + HTML)     │   │
+│  └─────────────┘   └─────────────┘   └─────────────────────┘   │
+└─────────────────────────┬───────────────────────────────────────┘
+                          │
+          ┌───────────────┴───────────────┐
+          ▼                               ▼
+┌─────────────────────┐       ┌─────────────────────┐
+│   GitHub Pages      │       │  Cloudflare Pages   │
+│   (README.md)       │       │  (public/index.html)│
+│   Table Layout      │       │   Card Grid Layout  │
+│   200 jobs/page     │       │   50 jobs/page      │
+└─────────────────────┘       └─────────────────────┘
+```
+
+## Quick Start
+
+### Prerequisites
+
+- Python 3.11+
+- Git
+
+### Local Development
+
+```bash
+# Clone the repository
+git clone https://github.com/digidai/openjobs.git
+cd openjobs
+
+# Run the update script
+python scripts/update_readme.py
+
+# View the generated files
+open README.md           # GitHub Pages content
+open public/index.html   # Cloudflare Pages content
+```
+
+### Deploy Your Own
+
+1. **Fork this repository**
+
+2. **Enable GitHub Pages**
+   - Go to Settings → Pages
+   - Source: Deploy from a branch
+   - Branch: `main` / `root`
+
+3. **Enable GitHub Actions**
+   - Go to Actions tab
+   - Enable workflows
+   - Jobs will auto-update every 6 hours
+
+4. **(Optional) Deploy to Cloudflare Pages**
+   - Connect your forked repo
+   - Build command: (none)
+   - Output directory: `public`
+
+## Configuration
+
+Edit `scripts/update_readme.py` to customize:
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `JOBS_PER_PAGE` | 200 | Number of jobs shown on README |
+| `ROTATION_HOURS` | 6 | Hours between job rotation |
+| `CF_SITE_URL` | `https://openjobs.genedai.me` | Cloudflare Pages URL |
+| `GH_SITE_URL` | `https://digidai.github.io/openjobs` | GitHub Pages URL |
+
+## Data Source
+
+Jobs are aggregated from [OpenJobs AI](https://www.openjobs-ai.com), which collects listings from:
+
+- **Tech**: Google, Amazon, Microsoft, Salesforce, SpaceX, and more
+- **Healthcare**: Mayo Clinic, CVS Health, Northwell Health, and more
+- **Finance**: CME Group, Fidelity, First Citizens Bank, and more
+- **Retail**: Macy's, CVS, and more
+- **And 774+ other companies**
+
+## Project Structure
+
+```
+openjobs/
+├── .github/
+│   ├── workflows/          # GitHub Actions automation
+│   └── ISSUE_TEMPLATE/     # Issue templates
+├── scripts/
+│   └── update_readme.py    # Main Python script
+├── public/
+│   ├── index.html          # Cloudflare Pages site
+│   ├── stats.json          # Job statistics API
+│   └── sitemap.xml         # Cloudflare sitemap
+├── README.md               # This file (also GitHub Pages)
+├── sitemap.xml             # GitHub Pages sitemap
+├── _config.yml             # Jekyll configuration
+├── LICENSE                 # MIT License
+└── CONTRIBUTING.md         # Contribution guidelines
+```
+
+## Roadmap
+
+- [ ] Job search/filter functionality
+- [ ] Job category tags
+- [ ] Salary information (when available)
+- [ ] Remote job filtering
+- [ ] Email notifications for new jobs
+- [ ] RSS feed support
+- [x] Job statistics dashboard
+
+## Contributing
+
+Contributions are welcome! Please read our [Contributing Guidelines](CONTRIBUTING.md) before submitting a PR.
+
+### Ways to Contribute
+
+- Report bugs or suggest features via [Issues](https://github.com/digidai/openjobs/issues)
+- Improve documentation
+- Add new features
+- Optimize performance
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Acknowledgments
+
+- Job data provided by [OpenJobs AI](https://www.openjobs-ai.com)
+- Hosted on [GitHub Pages](https://pages.github.com) and [Cloudflare Pages](https://pages.cloudflare.com)
+
+---
+
+<h2 align="center">Latest Job Openings</h2>
+
+<p align="center">
+  <em>Updated December 25, 2025 · Showing 200 of 988+ jobs</em>
+</p>
 
 | Job Title | Company | Apply |
 |-----------|---------|:-----:|
@@ -209,6 +406,16 @@ Discover 988+ career opportunities from top companies. Whether you're looking fo
 | Investment Assistant | <img src="https://front.openjobs-ai.com/data/company-logo/v3/9/d6/3201197ff412abd6c5c726cb4a729.png" width="20" height="20" alt=""> Members 1st Federal Credit Union | [View](https://www.openjobs-ai.com/jobs/investment-assistant-enola-pa-110642904170496155) |
 | RN Case Manager | <img src="https://front.openjobs-ai.com/data/company-logo/v3/3/82/b249d925da32db22235973aa278ff.png" width="20" height="20" alt=""> Amedisys | [View](https://www.openjobs-ai.com/jobs/rn-case-manager-west-bridgewater-ma-110642904170496156) |
 
+<p align="center">
+  <em>...and 788 more jobs</em>
+</p>
+
+<p align="center">
+  <a href="https://www.openjobs-ai.com/deepsearch"><strong>Browse All Jobs →</strong></a>
+</p>
+
 ---
 
-Browse all jobs at [OpenJobs AI](https://www.openjobs-ai.com/deepsearch) · Updated daily
+<p align="center">
+  Made with Python + GitHub Actions · Updated December 25, 2025
+</p>

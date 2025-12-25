@@ -1,0 +1,8 @@
+# OpenJobs Dependencies
+# Note: This project uses only Python standard library
+# No external dependencies required
+
+# For development/testing (optional):
+# pytest>=7.0.0
+# black>=23.0.0
+# flake8>=6.0.0

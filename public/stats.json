@@ -1,0 +1,25 @@
+{
+  "total_jobs": 988,
+  "total_companies": 774,
+  "top_companies": {
+    "Domino's": 35,
+    "Jobot": 10,
+    "Virtua Health": 9,
+    "CVS Health": 6,
+    "Sevita": 6,
+    "Reliant Rehabilitation": 4,
+    "Comcast": 4,
+    "VetJobs": 4,
+    "Life Care Centers of America": 4,
+    "Ericsson": 4
+  },
+  "categories": {
+    "Engineering": 97,
+    "Healthcare": 195,
+    "Sales": 66,
+    "Finance": 35,
+    "Management": 137,
+    "Other": 458
+  },
+  "updated_at": "2025-12-25T11:08:15.219302+00:00"
+}
