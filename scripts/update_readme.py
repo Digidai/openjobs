@@ -687,10 +687,11 @@ def categorize_job(title):
 
 
 def generate_html(jobs, stats):
-    """Generate HTML page with pagination, filtering, search, a11y, and lazy loading."""
+    """Generate HTML page with pagination, filtering, search, a11y, lazy loading, and enhanced SEO."""
     total_jobs = len(jobs)
     now = datetime.now(timezone.utc)
     date_str = now.strftime("%b %d, %Y")
+    iso_date = now.strftime("%Y-%m-%dT%H:%M:%SZ")
 
     # Prepare all jobs data with categories for JSON
     all_jobs_data = []
@@ -706,6 +707,59 @@ def generate_html(jobs, stats):
 
     jobs_json = json.dumps(all_jobs_data)
 
+    # Generate Schema.org JSON-LD structured data
+    schema_website = {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "OpenJobs",
+        "url": Config.CF_SITE_URL,
+        "description": f"Free open-source job aggregator with {total_jobs:,}+ positions from {stats['total_companies']}+ companies",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": f"{Config.CF_SITE_URL}/?q={{search_term_string}}",
+            "query-input": "required name=search_term_string"
+        }
+    }
+
+    schema_org = {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "OpenJobs",
+        "url": Config.CF_SITE_URL,
+        "logo": f"{Config.CF_SITE_URL}/og-image.svg",
+        "sameAs": [
+            "https://github.com/Digidai/openjobs"
+        ]
+    }
+
+    # ItemList for job listings (first 10 for structured data)
+    job_items = []
+    for idx, job in enumerate(jobs[:10]):
+        job_items.append({
+            "@type": "ListItem",
+            "position": idx + 1,
+            "item": {
+                "@type": "JobPosting",
+                "title": job['title'],
+                "hiringOrganization": {
+                    "@type": "Organization",
+                    "name": job['company']
+                },
+                "url": job['url'],
+                "datePosted": iso_date[:10]
+            }
+        })
+
+    schema_itemlist = {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "name": "Latest Job Openings",
+        "numberOfItems": total_jobs,
+        "itemListElement": job_items
+    }
+
+    schema_json = json.dumps([schema_website, schema_org, schema_itemlist])
+
     # Generate filter buttons from categories
     filter_categories = ['All', 'Engineering', 'Healthcare', 'Sales', 'Finance', 'Management']
 
@@ -714,15 +768,43 @@ def generate_html(jobs, stats):
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>OpenJobs - Find Your Next Career</title>
-  <meta name="description" content="Browse {total_jobs:,}+ open positions from {stats['total_companies']}+ companies. New jobs added daily from leading employers across tech, healthcare, finance, and more.">
+  <title>OpenJobs - Find Your Next Career | {total_jobs:,}+ Jobs</title>
+  <meta name="description" content="Browse {total_jobs:,}+ open positions from {stats['total_companies']}+ companies. Free, open-source job aggregator updated every 6 hours. Find jobs in tech, healthcare, finance, and more.">
+  <meta name="keywords" content="jobs, careers, job search, employment, hiring, tech jobs, healthcare jobs, remote jobs, open source">
+  <meta name="author" content="OpenJobs">
+  <meta name="robots" content="index, follow">
   <link rel="canonical" href="{Config.CF_SITE_URL}/">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💼</text></svg>">
-  <meta property="og:title" content="OpenJobs - Find Your Next Career">
-  <meta property="og:description" content="Browse {total_jobs:,}+ job openings from top companies. Updated every 6 hours.">
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon.svg">
+
+  <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="{Config.CF_SITE_URL}/">
-  <meta name="twitter:card" content="summary">
+  <meta property="og:title" content="OpenJobs - Find Your Next Career">
+  <meta property="og:description" content="Browse {total_jobs:,}+ job openings from {stats['total_companies']}+ top companies. Free & open-source job aggregator.">
+  <meta property="og:image" content="{Config.CF_SITE_URL}/og-image.svg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:site_name" content="OpenJobs">
+  <meta property="og:locale" content="en_US">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="{Config.CF_SITE_URL}/">
+  <meta name="twitter:title" content="OpenJobs - Find Your Next Career">
+  <meta name="twitter:description" content="Browse {total_jobs:,}+ job openings from {stats['total_companies']}+ companies. Updated every 6 hours.">
+  <meta name="twitter:image" content="{Config.CF_SITE_URL}/og-image.svg">
+
+  <!-- Additional SEO -->
+  <meta name="theme-color" content="#3b82f6">
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml">
+
+  <!-- Schema.org JSON-LD Structured Data -->
+  <script type="application/ld+json">{schema_json}</script>
+
   <style>
     :root {{ --primary: #0f172a; --accent: #3b82f6; --accent-hover: #2563eb; --bg: #ffffff; --card-bg: #f8fafc; --text: #0f172a; --muted: #64748b; --border: #e2e8f0; }}
     * {{ margin: 0; padding: 0; box-sizing: border-box; }}
