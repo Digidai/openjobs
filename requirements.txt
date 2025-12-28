@@ -1,6 +1,5 @@
 # OpenJobs Dependencies
-# Note: This project uses only Python standard library
-# No external dependencies required
+Pillow>=10.0.0  # For generating og-image.png
 
 # For development/testing (optional):
 # pytest>=7.0.0

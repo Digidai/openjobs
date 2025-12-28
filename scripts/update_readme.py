@@ -924,36 +924,92 @@ def generate_html(jobs, stats):
         }
     }
 
-    # ItemList for job listings (first 15 for better structured data coverage)
+    # ItemList for job listings (first 50 for better structured data coverage)
     job_items = []
-    for idx, job in enumerate(jobs[:15]):
+    valid_through = (now + __import__('datetime').timedelta(days=30)).strftime("%Y-%m-%d")
+
+    # Infer employment type from title
+    def infer_employment_type(title):
+        title_lower = title.lower()
+        if 'part-time' in title_lower or 'part time' in title_lower:
+            return 'PART_TIME'
+        elif 'contract' in title_lower or 'contractor' in title_lower:
+            return 'CONTRACTOR'
+        elif 'intern' in title_lower or 'internship' in title_lower:
+            return 'INTERN'
+        elif 'temporary' in title_lower or 'temp ' in title_lower:
+            return 'TEMPORARY'
+        elif 'volunteer' in title_lower:
+            return 'VOLUNTEER'
+        return 'FULL_TIME'
+
+    # Parse location into structured address
+    def parse_location(location_str):
+        if not location_str or location_str == '-':
+            return {"@type": "PostalAddress", "addressCountry": "US"}
+
+        address = {"@type": "PostalAddress"}
+        parts = [p.strip() for p in location_str.replace(',', ' ').split()]
+
+        # Common US state abbreviations
+        us_states = {'AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY','DC'}
+
+        for part in parts:
+            if part.upper() in us_states:
+                address['addressRegion'] = part.upper()
+                address['addressCountry'] = 'US'
+            elif len(part) == 2 and part.upper() == part:
+                address['addressRegion'] = part
+                address['addressCountry'] = 'US'
+
+        if 'addressCountry' not in address:
+            address['addressCountry'] = 'US'
+
+        address['addressLocality'] = location_str
+        return address
+
+    for idx, job in enumerate(jobs[:50]):
         category = categorize_job(job['title'])
+        employment_type = infer_employment_type(job['title'])
+        location_address = parse_location(job.get('location'))
+
         job_posting = {
             "@type": "JobPosting",
             "title": job['title'],
+            "description": f"Apply for {job['title']} position at {job['company']}. Join a leading company and advance your career.",
+            "identifier": {
+                "@type": "PropertyValue",
+                "name": job['company'],
+                "value": job['url'].split('/')[-1] if '/' in job['url'] else job['url']
+            },
             "hiringOrganization": {
                 "@type": "Organization",
                 "name": job['company'],
-                "logo": job.get('logo', Config.DEFAULT_LOGO)
+                "logo": job.get('logo', Config.DEFAULT_LOGO),
+                "sameAs": f"https://www.openjobs-ai.com/companies/{job['company'].lower().replace(' ', '-')}"
             },
             "url": job['url'],
             "datePosted": iso_date[:10],
-            "description": f"Apply for {job['title']} position at {job['company']}",
-            "employmentType": "FULL_TIME",
+            "employmentType": employment_type,
+            "occupationalCategory": category,
             "industry": category,
             "jobLocation": {
                 "@type": "Place",
-                "address": {
-                    "@type": "PostalAddress",
-                    "addressCountry": job.get('location') if job.get('location') and job['location'] != '-' else "US"
-                }
+                "address": location_address
             },
-            "validThrough": (now + __import__('datetime').timedelta(days=30)).strftime("%Y-%m-%d")
+            "validThrough": valid_through,
+            "directApply": True
         }
 
-        # Add location if available
-        if job.get('location') and job['location'] != '-':
-            job_posting['jobLocation']['address']['addressLocality'] = job['location']
+        # Add remote work indicator if detected
+        title_lower = job['title'].lower()
+        location_lower = job.get('location', '').lower()
+        if 'remote' in title_lower or 'remote' in location_lower or 'work from home' in title_lower:
+            job_posting['jobLocationType'] = 'TELECOMMUTE'
+            job_posting['applicantLocationRequirements'] = {
+                "@type": "Country",
+                "name": "United States"
+            }
 
         job_items.append({
             "@type": "ListItem",
@@ -1077,10 +1133,12 @@ def generate_html(jobs, stats):
   <meta property="og:url" content="{Config.CF_SITE_URL}/">
   <meta property="og:title" content="OpenJobs - {total_jobs:,}+ Jobs from Top Companies | Updated Hourly">
   <meta property="og:description" content="Browse {total_jobs:,}+ job openings at {stats['total_companies']}+ world-class companies. No ads, no sign-up, 100% free. Find your next career move today!">
-  <meta property="og:image" content="{Config.CF_SITE_URL}/og-image.svg">
+  <meta property="og:image" content="{Config.CF_SITE_URL}/og-image.png">
+  <meta property="og:image:type" content="image/png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="OpenJobs Logo">
+  <meta property="og:image:alt" content="OpenJobs - Find Your Next Career - {total_jobs:,}+ Jobs from {stats['total_companies']}+ Companies">
+  <meta property="og:image:secure_url" content="{Config.CF_SITE_URL}/og-image.png">
   <meta property="og:site_name" content="OpenJobs">
   <meta property="og:locale" content="en_US">
 
@@ -1091,8 +1149,8 @@ def generate_html(jobs, stats):
   <meta name="twitter:url" content="{Config.CF_SITE_URL}/">
   <meta name="twitter:title" content="OpenJobs - {total_jobs:,}+ Jobs from {stats['total_companies']}+ Companies">
   <meta name="twitter:description" content="Free job aggregator with {total_jobs:,}+ openings. Updated every 6 hours. No sign-up needed.">
-  <meta name="twitter:image" content="{Config.CF_SITE_URL}/og-image.svg">
-  <meta name="twitter:image:alt" content="OpenJobs - Find Your Next Career">
+  <meta name="twitter:image" content="{Config.CF_SITE_URL}/og-image.png">
+  <meta name="twitter:image:alt" content="OpenJobs - Find Your Next Career - {total_jobs:,}+ Jobs from {stats['total_companies']}+ Companies">
 
   <!-- Additional SEO -->
   <meta name="theme-color" content="#3b82f6">
@@ -1144,6 +1202,7 @@ def generate_html(jobs, stats):
     header {{ margin-bottom: 1.5rem; }}
     h1 {{ font-size: 1.75rem; font-weight: 700; letter-spacing: -0.02em; }}
     .meta {{ color: var(--muted); font-size: 0.875rem; margin-top: 0.5rem; }}
+    .intro {{ color: var(--text); font-size: 0.95rem; margin-top: 1rem; line-height: 1.6; max-width: 680px; }}
     .stats {{ display: flex; gap: 0.75rem; margin-top: 1rem; flex-wrap: wrap; }}
     .stat {{ background: var(--card-bg); padding: 0.5rem 0.875rem; border-radius: 6px; font-size: 0.8rem; border: 1px solid var(--border); }}
     .stat-value {{ font-weight: 600; color: var(--accent); }}
@@ -1210,6 +1269,7 @@ def generate_html(jobs, stats):
     <header>
       <h1>Find Your Next Career</h1>
       <p class="meta" aria-live="polite">{total_jobs:,}+ positions from {stats['total_companies']}+ companies · Updated {date_str}</p>
+      <p class="intro">Discover your dream job from top companies like Google, Amazon, Microsoft, Mayo Clinic, and more. Our free, open-source job aggregator automatically collects and updates listings every 6 hours - no sign-up required, no ads, just opportunities.</p>
       <div class="stats" role="list" aria-label="Job statistics">
         <div class="stat" role="listitem"><span class="stat-value">{stats['categories'].get('Engineering', 0):,}</span> Engineering</div>
         <div class="stat" role="listitem"><span class="stat-value">{stats['categories'].get('Healthcare', 0):,}</span> Healthcare</div>
@@ -1395,17 +1455,70 @@ def generate_html(jobs, stats):
     return html
 
 
-def generate_sitemap(site_url):
-    """Generate XML sitemap."""
+def generate_sitemap(site_url, jobs=None, stats=None):
+    """Generate enhanced XML sitemap with multiple URLs."""
     now = datetime.now(timezone.utc).strftime("%Y-%m-%d")
-    return f'''<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
+
+    urls = []
+
+    # Homepage - highest priority
+    urls.append(f'''  <url>
     <loc>{site_url}/</loc>
     <lastmod>{now}</lastmod>
-    <changefreq>daily</changefreq>
+    <changefreq>hourly</changefreq>
     <priority>1.0</priority>
-  </url>
+  </url>''')
+
+    # Category filter pages (virtual URLs for SEO)
+    categories = ['Engineering', 'Healthcare', 'Sales', 'Finance', 'Management', 'Marketing', 'HR', 'Operations']
+    for cat in categories:
+        urls.append(f'''  <url>
+    <loc>{site_url}/?category={cat}</loc>
+    <lastmod>{now}</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>''')
+
+    # RSS feed
+    urls.append(f'''  <url>
+    <loc>{site_url}/rss.xml</loc>
+    <lastmod>{now}</lastmod>
+    <changefreq>hourly</changefreq>
+    <priority>0.6</priority>
+  </url>''')
+
+    # Top company pages (virtual URLs)
+    if stats and 'top_companies' in stats:
+        for company in list(stats['top_companies'].keys())[:20]:
+            from urllib.parse import quote
+            company_slug = quote(company.replace(' ', '-').lower())
+            urls.append(f'''  <url>
+    <loc>{site_url}/?company={company_slug}</loc>
+    <lastmod>{now}</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>''')
+
+    # Top location pages (virtual URLs)
+    if stats and 'top_locations' in stats:
+        for location in list(stats['top_locations'].keys())[:15]:
+            from urllib.parse import quote
+            location_slug = quote(location.replace(' ', '-').lower())
+            urls.append(f'''  <url>
+    <loc>{site_url}/?location={location_slug}</loc>
+    <lastmod>{now}</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>''')
+
+    urls_str = '\n'.join(urls)
+
+    return f'''<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+{urls_str}
 </urlset>
 '''
 
@@ -1531,6 +1644,79 @@ def generate_rss_feed(jobs, stats):
 '''
 
 
+def generate_og_image_png(stats):
+    """Generate og-image.png using Pillow for better social media compatibility."""
+    from PIL import Image, ImageDraw, ImageFont
+
+    # Create image with gradient-like background
+    width, height = 1200, 630
+    img = Image.new('RGB', (width, height), color='#0f172a')
+    draw = ImageDraw.Draw(img)
+
+    # Create a subtle gradient effect by drawing rectangles
+    for i in range(height):
+        r = int(15 + (30 - 15) * i / height)
+        g = int(23 + (41 - 23) * i / height)
+        b = int(42 + (59 - 42) * i / height)
+        draw.line([(0, i), (width, i)], fill=(r, g, b))
+
+    # Try to use a system font, fallback to default
+    # Font paths for different OS: macOS, Ubuntu/Linux, Windows
+    font_paths = [
+        "/System/Library/Fonts/Helvetica.ttc",  # macOS
+        "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",  # Ubuntu/Debian
+        "/usr/share/fonts/TTF/DejaVuSans.ttf",  # Arch Linux
+        "/usr/share/fonts/dejavu-sans-fonts/DejaVuSans.ttf",  # Fedora
+        "arial.ttf",  # Windows
+        "Arial.ttf",
+    ]
+
+    def load_font(size):
+        for path in font_paths:
+            try:
+                return ImageFont.truetype(path, size)
+            except (IOError, OSError):
+                continue
+        return ImageFont.load_default()
+
+    title_font = load_font(64)
+    subtitle_font = load_font(36)
+    stats_font = load_font(28)
+    small_font = load_font(24)
+    logo_font = load_font(40)
+
+    # Draw logo box
+    logo_x, logo_y = 80, 80
+    logo_size = 80
+    draw.rounded_rectangle(
+        [logo_x, logo_y, logo_x + logo_size, logo_y + logo_size],
+        radius=16,
+        fill='#3b82f6'
+    )
+    draw.text((logo_x + 20, logo_y + 18), "OJ", fill='white', font=logo_font)
+
+    # Draw title
+    draw.text((80, 200), "OpenJobs", fill='white', font=title_font)
+
+    # Draw subtitle
+    draw.text((80, 280), "Find Your Next Career", fill='#94a3b8', font=subtitle_font)
+
+    # Draw stats
+    total_jobs = stats.get('total_jobs', 0)
+    total_companies = stats.get('total_companies', 0)
+    draw.text((80, 380), f"{total_jobs:,}+ Jobs", fill='#3b82f6', font=stats_font)
+    draw.text((280, 380), "from", fill='#64748b', font=stats_font)
+    draw.text((370, 380), f"{total_companies:,}+ Companies", fill='#3b82f6', font=stats_font)
+
+    # Draw footer
+    draw.text((80, 500), "Free & Open Source Job Aggregator", fill='#64748b', font=small_font)
+    draw.text((80, 540), "Updated every 6 hours", fill='#475569', font=small_font)
+    draw.text((920, 540), "openjobs.genedai.me", fill='#475569', font=small_font)
+
+    # Save as PNG
+    img.save('public/og-image.png', 'PNG', optimize=True)
+
+
 # =============================================================================
 # MAIN EXECUTION
 # =============================================================================
@@ -1619,9 +1805,9 @@ def main():
         # Step 9: Generate SEO assets
         logger.info("Step 9: Generating SEO assets (sitemaps, robots.txt, manifest, RSS)...")
         with open(Config.CF_SITEMAP_PATH, 'w', encoding='utf-8') as f:
-            f.write(generate_sitemap(Config.CF_SITE_URL))
+            f.write(generate_sitemap(Config.CF_SITE_URL, jobs, stats))
         with open(Config.GH_SITEMAP_PATH, 'w', encoding='utf-8') as f:
-            f.write(generate_sitemap(Config.GH_SITE_URL))
+            f.write(generate_sitemap(Config.GH_SITE_URL, jobs, stats))
 
         # Generate robots.txt
         with open('public/robots.txt', 'w', encoding='utf-8') as f:
@@ -1634,6 +1820,14 @@ def main():
         # Generate RSS feed
         with open('public/rss.xml', 'w', encoding='utf-8') as f:
             f.write(generate_rss_feed(jobs, stats))
+
+        # Generate og-image.png (if Pillow available)
+        try:
+            from PIL import Image, ImageDraw, ImageFont
+            generate_og_image_png(stats)
+            logger.info("  - public/og-image.png (Open Graph image)")
+        except ImportError:
+            logger.warning("Pillow not installed, skipping og-image.png generation. Install with: pip install Pillow")
 
         elapsed = time.time() - start_time
         logger.info("=" * 60)
