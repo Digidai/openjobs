@@ -879,42 +879,86 @@ def generate_html(jobs, stats):
         "@context": "https://schema.org",
         "@type": "WebSite",
         "name": "OpenJobs",
+        "alternateName": "OpenJobs AI",
         "url": Config.CF_SITE_URL,
-        "description": f"Free open-source job aggregator with {total_jobs:,}+ positions from {stats['total_companies']}+ companies",
+        "description": f"Free open-source job aggregator with {total_jobs:,}+ positions from {stats['total_companies']}+ companies. Updated every 6 hours.",
+        "inLanguage": "en-US",
         "potentialAction": {
             "@type": "SearchAction",
             "target": f"{Config.CF_SITE_URL}/?q={{search_term_string}}",
-            "query-input": "required name=search_term_string"
+            "query-input": "required name=search_term_string",
+            "target": {
+                "@type": "EntryPoint",
+                "urlTemplate": f"{Config.CF_SITE_URL}/?q={{search_term_string}}"
+            }
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "OpenJobs",
+            "url": Config.CF_SITE_URL
         }
     }
 
+    # Enhanced Organization schema with more details
     schema_org = {
         "@context": "https://schema.org",
         "@type": "Organization",
         "name": "OpenJobs",
         "url": Config.CF_SITE_URL,
         "logo": f"{Config.CF_SITE_URL}/og-image.svg",
+        "description": "Free, open-source job aggregator aggregating positions from top companies worldwide",
         "sameAs": [
-            "https://github.com/Digidai/openjobs"
-        ]
+            "https://github.com/Digidai/openjobs",
+            "https://www.openjobs-ai.com"
+        ],
+        "founder": {
+            "@type": "Person",
+            "name": "OpenJobs Team"
+        },
+        "foundingDate": "2024",
+        "areaServed": "Worldwide",
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "contactType": "customer service",
+            "url": "https://github.com/Digidai/openjobs/issues"
+        }
     }
 
-    # ItemList for job listings (first 10 for structured data)
+    # ItemList for job listings (first 15 for better structured data coverage)
     job_items = []
-    for idx, job in enumerate(jobs[:10]):
+    for idx, job in enumerate(jobs[:15]):
+        category = categorize_job(job['title'])
+        job_posting = {
+            "@type": "JobPosting",
+            "title": job['title'],
+            "hiringOrganization": {
+                "@type": "Organization",
+                "name": job['company'],
+                "logo": job.get('logo', Config.DEFAULT_LOGO)
+            },
+            "url": job['url'],
+            "datePosted": iso_date[:10],
+            "description": f"Apply for {job['title']} position at {job['company']}",
+            "employmentType": "FULL_TIME",
+            "industry": category,
+            "jobLocation": {
+                "@type": "Place",
+                "address": {
+                    "@type": "PostalAddress",
+                    "addressCountry": job.get('location') if job.get('location') and job['location'] != '-' else "US"
+                }
+            },
+            "validThrough": (now + __import__('datetime').timedelta(days=30)).strftime("%Y-%m-%d")
+        }
+
+        # Add location if available
+        if job.get('location') and job['location'] != '-':
+            job_posting['jobLocation']['address']['addressLocality'] = job['location']
+
         job_items.append({
             "@type": "ListItem",
             "position": idx + 1,
-            "item": {
-                "@type": "JobPosting",
-                "title": job['title'],
-                "hiringOrganization": {
-                    "@type": "Organization",
-                    "name": job['company']
-                },
-                "url": job['url'],
-                "datePosted": iso_date[:10]
-            }
+            "item": job_posting
         })
 
     schema_itemlist = {
@@ -977,50 +1021,102 @@ def generate_html(jobs, stats):
         ]
     }
 
-    schema_json = json.dumps([schema_website, schema_org, schema_breadcrumb, schema_itemlist, schema_faq])
+    # CollectionPage for the job listings page
+    schema_collection = {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": "OpenJobs - Job Listings",
+        "description": f"Browse {total_jobs:,}+ job openings from {stats['total_companies']}+ top companies. Free job aggregator updated every 6 hours.",
+        "url": Config.CF_SITE_URL,
+        "about": {
+            "@type": "Thing",
+            "name": "Job Search",
+            "description": "Employment opportunities and career positions"
+        },
+        "numberOfItems": total_jobs,
+        "keywords": "jobs, careers, employment, hiring, job search",
+        "audience": {
+            "@type": "Audience",
+            "audienceType": "Job Seekers"
+        },
+        "specialty": {
+            "@type": "Specialty",
+            "name": "Technology, Healthcare, Finance, Sales, Engineering",
+            "description": f"Top categories: {', '.join(list(stats['categories'].keys())[:5])}"
+        }
+    }
+
+    schema_json = json.dumps([schema_website, schema_org, schema_breadcrumb, schema_collection, schema_itemlist, schema_faq])
 
     html = f'''<!DOCTYPE html>
-<html lang="en">
+<html lang="en" prefix="og: https://ogp.me/ns#">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>OpenJobs - Find Your Next Career | {total_jobs:,}+ Jobs</title>
-  <meta name="description" content="Browse {total_jobs:,}+ open positions from {stats['total_companies']}+ companies. Free, open-source job aggregator updated every 6 hours. Find jobs in tech, healthcare, finance, and more.">
-  <meta name="keywords" content="jobs, careers, job search, employment, hiring, tech jobs, healthcare jobs, remote jobs, open source">
+  <title>OpenJobs - {total_jobs:,}+ Job Openings from Top Companies | Updated Every 6 Hours</title>
+  <meta name="description" content="Discover {total_jobs:,}+ job opportunities at {stats['total_companies']}+ leading companies including Google, Amazon, Microsoft, Mayo Clinic, and more. 100% free, no sign-up required. Updated every 6 hours. Find your dream job in tech, healthcare, finance, sales, and engineering today!">
+  <meta name="keywords" content="jobs, careers, job search, job board, employment, hiring, tech jobs, software engineer, remote jobs, work from home, healthcare jobs, nursing jobs, sales jobs, finance jobs, engineering jobs, open source jobs, free job aggregator, job listings, job openings, career opportunities, {', '.join([cat.lower() + ' jobs' for cat in list(stats['categories'].keys())[:5]])}">
   <meta name="author" content="OpenJobs">
-  <meta name="robots" content="index, follow">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <meta name="googlebot" content="index, follow">
+  <meta name="bingbot" content="index, follow">
   <link rel="canonical" href="{Config.CF_SITE_URL}/">
+
+  <!-- Alternate language and regional links -->
+  <link rel="alternate" hreflang="en" href="{Config.CF_SITE_URL}/">
+  <link rel="alternate" hreflang="x-default" href="{Config.CF_SITE_URL}/">
 
   <!-- Favicons -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <link rel="apple-touch-icon" sizes="180x180" href="/favicon.svg">
+  <link rel="icon" sizes="192x192" href="/favicon.svg">
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="{Config.CF_SITE_URL}/">
-  <meta property="og:title" content="OpenJobs - Find Your Next Career">
-  <meta property="og:description" content="Browse {total_jobs:,}+ job openings from {stats['total_companies']}+ top companies. Free & open-source job aggregator.">
+  <meta property="og:title" content="OpenJobs - {total_jobs:,}+ Jobs from Top Companies | Updated Hourly">
+  <meta property="og:description" content="Browse {total_jobs:,}+ job openings at {stats['total_companies']}+ world-class companies. No ads, no sign-up, 100% free. Find your next career move today!">
   <meta property="og:image" content="{Config.CF_SITE_URL}/og-image.svg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="OpenJobs Logo">
   <meta property="og:site_name" content="OpenJobs">
   <meta property="og:locale" content="en_US">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@OpenJobsAI">
+  <meta name="twitter:creator" content="@OpenJobsAI">
   <meta name="twitter:url" content="{Config.CF_SITE_URL}/">
-  <meta name="twitter:title" content="OpenJobs - Find Your Next Career">
-  <meta name="twitter:description" content="Browse {total_jobs:,}+ job openings from {stats['total_companies']}+ companies. Updated every 6 hours.">
+  <meta name="twitter:title" content="OpenJobs - {total_jobs:,}+ Jobs from {stats['total_companies']}+ Companies">
+  <meta name="twitter:description" content="Free job aggregator with {total_jobs:,}+ openings. Updated every 6 hours. No sign-up needed.">
   <meta name="twitter:image" content="{Config.CF_SITE_URL}/og-image.svg">
+  <meta name="twitter:image:alt" content="OpenJobs - Find Your Next Career">
 
   <!-- Additional SEO -->
   <meta name="theme-color" content="#3b82f6">
+  <meta name="msapplication-TileColor" content="#3b82f6">
   <meta name="application-name" content="OpenJobs">
   <meta name="apple-mobile-web-app-title" content="OpenJobs">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="manifest" href="/manifest.json">
+
+  <!-- Geolocation and regional targeting -->
+  <meta name="geo.region" content="US">
+  <meta name="geo.placename" content="United States">
+  <meta name="ICBM" content="37.0902,-95.7129">
+
+  <!-- Content classification -->
+  <meta name="rating" content="General">
+  <meta name="distribution" content="Global">
+  <meta name="language" content="en">
+  <meta name="coverage" content="Worldwide">
+
   <link rel="sitemap" type="application/xml" href="/sitemap.xml">
+  <link rel="alternate" type="application/rss+xml" title="OpenJobs RSS Feed" href="/rss.xml">
 
   <!-- Preconnect to external domains -->
   <link rel="preconnect" href="https://www.openjobs-ai.com">
@@ -1314,6 +1410,127 @@ def generate_sitemap(site_url):
 '''
 
 
+def generate_robots_txt():
+    """Generate robots.txt for SEO."""
+    return '''# Robots.txt for OpenJobs
+# Allow all crawlers
+
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /private/
+
+Crawl-delay: 1
+
+# Sitemap location
+Sitemap: https://openjobs.genedai.me/sitemap.xml
+
+# Specific bots
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Disallow archive bots
+User-agent: archive.org_bot
+Disallow: /
+'''
+
+
+def generate_manifest(stats):
+    """Generate PWA manifest.json for installable web app."""
+    return json.dumps({
+        "name": "OpenJobs - Job Search",
+        "short_name": "OpenJobs",
+        "description": f"Browse {stats['total_jobs']}+ job openings from {stats['total_companies']}+ companies. Free job aggregator updated every 6 hours.",
+        "start_url": "/",
+        "display": "standalone",
+        "background_color": "#ffffff",
+        "theme_color": "#3b82f6",
+        "orientation": "portrait-primary",
+        "icons": [
+            {
+                "src": "/favicon.svg",
+                "sizes": "192x192",
+                "type": "image/svg+xml",
+                "purpose": "any maskable"
+            },
+            {
+                "src": "/og-image.svg",
+                "sizes": "512x512",
+                "type": "image/svg+xml",
+                "purpose": "any maskable"
+            }
+        ],
+        "categories": ["jobs", "careers", "employment", "business"],
+        "shortcuts": [
+            {
+                "name": "Search Jobs",
+                "short_name": "Search",
+                "description": "Search for jobs",
+                "url": "/#search",
+                "icons": [{ "src": "/favicon.svg", "sizes": "96x96" }]
+            },
+            {
+                "name": "Browse Categories",
+                "short_name": "Categories",
+                "description": "Browse by category",
+                "url": "/#categories",
+                "icons": [{ "src": "/favicon.svg", "sizes": "96x96" }]
+            }
+        ]
+    }, indent=2)
+
+
+def generate_rss_feed(jobs, stats):
+    """Generate RSS 2.0 feed for job updates."""
+    now = datetime.now(timezone.utc)
+    rss_date = now.strftime("%a, %d %b %Y %H:%M:%S %z")
+
+    # Get first 20 jobs for RSS
+    rss_jobs = jobs[:20]
+
+    items = []
+    for job in rss_jobs:
+        item_date = now.strftime("%a, %d %b %Y %H:%M:%S %z")
+        items.append(f'''
+    <item>
+      <title>{escape_html(job['title'])} at {escape_html(job['company'])}</title>
+      <link>{job['url']}</link>
+      <description>Apply for {escape_html(job['title'])} position at {escape_html(job['company'])}. Find more jobs at OpenJobs.</description>
+      <category>{escape_html(job.get('location', 'Various'))}</category>
+      <pubDate>{item_date}</pubDate>
+      <guid isPermaLink="true">{job['url']}</guid>
+    </item>''')
+
+    items_str = ''.join(items)
+
+    return f'''<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>OpenJobs - {stats['total_jobs']}+ Job Openings</title>
+    <link>{Config.CF_SITE_URL}/</link>
+    <description>Latest job openings from {stats['total_companies']}+ top companies. Updated every 6 hours.</description>
+    <language>en-us</language>
+    <copyright>Copyright {now.year} OpenJobs</copyright>
+    <managingEditor>team@openjobs.ai (OpenJobs Team)</managingEditor>
+    <webMaster>team@openjobs.ai (OpenJobs Team)</webMaster>
+    <lastBuildDate>{rss_date}</lastBuildDate>
+    <atom:link href="{Config.CF_SITE_URL}/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>{Config.CF_SITE_URL}/og-image.svg</url>
+      <title>OpenJobs</title>
+      <link>{Config.CF_SITE_URL}/</link>
+      <width>144</width>
+      <height>144</height>
+    </image>
+{items_str}
+  </channel>
+</rss>
+'''
+
+
 # =============================================================================
 # MAIN EXECUTION
 # =============================================================================
@@ -1399,12 +1616,24 @@ def main():
         with open(Config.STATS_PATH, 'w', encoding='utf-8') as f:
             json.dump(stats, f, indent=2)
 
-        # Step 9: Generate sitemaps
-        logger.info("Step 9: Generating sitemaps...")
+        # Step 9: Generate SEO assets
+        logger.info("Step 9: Generating SEO assets (sitemaps, robots.txt, manifest, RSS)...")
         with open(Config.CF_SITEMAP_PATH, 'w', encoding='utf-8') as f:
             f.write(generate_sitemap(Config.CF_SITE_URL))
         with open(Config.GH_SITEMAP_PATH, 'w', encoding='utf-8') as f:
             f.write(generate_sitemap(Config.GH_SITE_URL))
+
+        # Generate robots.txt
+        with open('public/robots.txt', 'w', encoding='utf-8') as f:
+            f.write(generate_robots_txt())
+
+        # Generate PWA manifest
+        with open('public/manifest.json', 'w', encoding='utf-8') as f:
+            f.write(generate_manifest(stats))
+
+        # Generate RSS feed
+        with open('public/rss.xml', 'w', encoding='utf-8') as f:
+            f.write(generate_rss_feed(jobs, stats))
 
         elapsed = time.time() - start_time
         logger.info("=" * 60)
@@ -1415,6 +1644,9 @@ def main():
         logger.info(f"  - {Config.STATS_PATH}")
         logger.info(f"  - {Config.CF_SITEMAP_PATH}")
         logger.info(f"  - {Config.GH_SITEMAP_PATH}")
+        logger.info(f"  - public/robots.txt (SEO)")
+        logger.info(f"  - public/manifest.json (PWA)")
+        logger.info(f"  - public/rss.xml (RSS Feed)")
         logger.info(f"Summary: {stats['total_jobs']} jobs, {stats['total_companies']} companies")
         logger.info("=" * 60)
 

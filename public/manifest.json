@@ -1,0 +1,56 @@
+{
+  "name": "OpenJobs - Job Search",
+  "short_name": "OpenJobs",
+  "description": "Browse 988+ job openings from 792+ companies. Free job aggregator updated every 6 hours.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#3b82f6",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/og-image.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": [
+    "jobs",
+    "careers",
+    "employment",
+    "business"
+  ],
+  "shortcuts": [
+    {
+      "name": "Search Jobs",
+      "short_name": "Search",
+      "description": "Search for jobs",
+      "url": "/#search",
+      "icons": [
+        {
+          "src": "/favicon.svg",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Browse Categories",
+      "short_name": "Categories",
+      "description": "Browse by category",
+      "url": "/#categories",
+      "icons": [
+        {
+          "src": "/favicon.svg",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ]
+}
