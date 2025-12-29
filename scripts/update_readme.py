@@ -364,6 +364,7 @@ def parse_job_caption(caption_text):
         }
 
     # Strategy 9: Just use the whole caption as title (fallback)
+    logger.warning(f"Using fallback parser for caption: {caption_text[:50]}...")
     return {
         'title': caption_text,
         'company': '-',
@@ -438,7 +439,7 @@ def parse_jobs(xml_content):
 
     # Calculate location coverage
     if parse_stats['successful'] > 0:
-        parse_stats['location_coverage'] = round(parse_stats['with_location'] / parse_stats['successful'], 4)
+        parse_stats['location_coverage'] = round(parse_stats['with_location'] / max(parse_stats['successful'], 1), 4)
     else:
         parse_stats['location_coverage'] = 0.0
 
@@ -1336,6 +1337,16 @@ def generate_html(jobs, stats):
     const nextBtn = document.getElementById('nextBtn');
     const filterBtns = document.querySelectorAll('.filter-btn');
 
+    // Validate required DOM elements
+    if (!searchInput || !jobsGrid || !noResults || !showingCount || !pageInfo || !prevBtn || !nextBtn) {{
+      console.error('Required DOM elements not found. Cannot initialize application.');
+      return;
+    }}
+
+    if (filterBtns.length === 0) {{
+      console.warn('No filter buttons found. Category filtering will not work.');
+    }}
+
     // Debounce function
     function debounce(fn, delay) {{
       let timer;
@@ -1393,11 +1404,11 @@ def generate_html(jobs, stats):
           company.className = 'card-company';
 
           const logo = document.createElement('img');
-          logo.src = job.logo;
           logo.alt = job.company + ' logo';
           logo.className = 'logo';
           logo.loading = 'lazy';
           logo.onerror = function() {{ this.style.display = 'none'; }};
+          logo.src = job.logo;  // Set src last to prevent race condition
 
           company.appendChild(logo);
           company.appendChild(document.createTextNode(job.company));
@@ -1787,39 +1798,82 @@ def main():
         # Step 6: Generate README.md
         logger.info("Step 6: Generating README.md...")
         readme_content = generate_readme(jobs, stats)
-        with open(Config.README_PATH, 'w', encoding='utf-8') as f:
-            f.write(readme_content)
+        try:
+            with open(Config.README_PATH, 'w', encoding='utf-8') as f:
+                f.write(readme_content)
+            logger.info(f"  ✓ Successfully wrote {Config.README_PATH}")
+        except IOError as e:
+            logger.error(f"  ✗ Failed to write {Config.README_PATH}: {e}")
+            raise
 
         # Step 7: Generate HTML
         logger.info("Step 7: Generating HTML for Cloudflare Pages...")
-        os.makedirs(os.path.dirname(Config.HTML_PATH), exist_ok=True)
+        html_dir = os.path.dirname(Config.HTML_PATH)
+        if html_dir:
+            os.makedirs(html_dir, exist_ok=True)
         html_content = generate_html(jobs, stats)
-        with open(Config.HTML_PATH, 'w', encoding='utf-8') as f:
-            f.write(html_content)
+        try:
+            with open(Config.HTML_PATH, 'w', encoding='utf-8') as f:
+                f.write(html_content)
+            logger.info(f"  ✓ Successfully wrote {Config.HTML_PATH}")
+        except IOError as e:
+            logger.error(f"  ✗ Failed to write {Config.HTML_PATH}: {e}")
+            raise
 
         # Step 8: Generate stats.json
         logger.info("Step 8: Generating stats.json...")
-        with open(Config.STATS_PATH, 'w', encoding='utf-8') as f:
-            json.dump(stats, f, indent=2)
+        try:
+            with open(Config.STATS_PATH, 'w', encoding='utf-8') as f:
+                json.dump(stats, f, indent=2)
+            logger.info(f"  ✓ Successfully wrote {Config.STATS_PATH}")
+        except IOError as e:
+            logger.error(f"  ✗ Failed to write {Config.STATS_PATH}: {e}")
+            raise
 
         # Step 9: Generate SEO assets
         logger.info("Step 9: Generating SEO assets (sitemaps, robots.txt, manifest, RSS)...")
-        with open(Config.CF_SITEMAP_PATH, 'w', encoding='utf-8') as f:
-            f.write(generate_sitemap(Config.CF_SITE_URL, jobs, stats))
-        with open(Config.GH_SITEMAP_PATH, 'w', encoding='utf-8') as f:
-            f.write(generate_sitemap(Config.GH_SITE_URL, jobs, stats))
+        try:
+            with open(Config.CF_SITEMAP_PATH, 'w', encoding='utf-8') as f:
+                f.write(generate_sitemap(Config.CF_SITE_URL, jobs, stats))
+            logger.info(f"  ✓ Successfully wrote {Config.CF_SITEMAP_PATH}")
+        except IOError as e:
+            logger.error(f"  ✗ Failed to write {Config.CF_SITEMAP_PATH}: {e}")
+            raise
+
+        try:
+            with open(Config.GH_SITEMAP_PATH, 'w', encoding='utf-8') as f:
+                f.write(generate_sitemap(Config.GH_SITE_URL, jobs, stats))
+            logger.info(f"  ✓ Successfully wrote {Config.GH_SITEMAP_PATH}")
+        except IOError as e:
+            logger.error(f"  ✗ Failed to write {Config.GH_SITEMAP_PATH}: {e}")
+            raise
 
         # Generate robots.txt
-        with open('public/robots.txt', 'w', encoding='utf-8') as f:
-            f.write(generate_robots_txt())
+        try:
+            with open('public/robots.txt', 'w', encoding='utf-8') as f:
+                f.write(generate_robots_txt())
+            logger.info(f"  ✓ Successfully wrote public/robots.txt")
+        except IOError as e:
+            logger.error(f"  ✗ Failed to write public/robots.txt: {e}")
+            raise
 
         # Generate PWA manifest
-        with open('public/manifest.json', 'w', encoding='utf-8') as f:
-            f.write(generate_manifest(stats))
+        try:
+            with open('public/manifest.json', 'w', encoding='utf-8') as f:
+                f.write(generate_manifest(stats))
+            logger.info(f"  ✓ Successfully wrote public/manifest.json")
+        except IOError as e:
+            logger.error(f"  ✗ Failed to write public/manifest.json: {e}")
+            raise
 
         # Generate RSS feed
-        with open('public/rss.xml', 'w', encoding='utf-8') as f:
-            f.write(generate_rss_feed(jobs, stats))
+        try:
+            with open('public/rss.xml', 'w', encoding='utf-8') as f:
+                f.write(generate_rss_feed(jobs, stats))
+            logger.info(f"  ✓ Successfully wrote public/rss.xml")
+        except IOError as e:
+            logger.error(f"  ✗ Failed to write public/rss.xml: {e}")
+            raise
 
         # Generate og-image.png (if Pillow available)
         try:
