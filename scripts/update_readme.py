@@ -1502,8 +1502,8 @@ def generate_html(jobs, stats):
 
   <script>
     // Enhanced error handling and initialization
-    (function() {
-      'use strict';
+    (function() {{
+      "use strict";
 
       // All jobs data
       const allJobs = {jobs_json};
@@ -1533,6 +1533,7 @@ def generate_html(jobs, stats):
           '<h2>Application Error</h2>' +
           '<p>Unable to initialize the job board. Please refresh the page or try again later.</p>' +
           '</div>';
+        // Exit early by not initializing the rest
         return;
       }}
 
