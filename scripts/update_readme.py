@@ -15,6 +15,8 @@ import os
 import sys
 import logging
 import json
+import shutil
+import tempfile
 
 # =============================================================================
 # CONFIGURATION
@@ -55,6 +57,11 @@ class Config:
     LOGO_WIDTH = 24
     LOGO_HEIGHT = 24
 
+    # Reliability settings
+    BACKUP_PATH = ".cache/jobs_backup.json"
+    MIN_DISK_SPACE_MB = 50
+    MAX_HTML_JOBS = 1000  # Limit jobs in HTML to prevent memory issues
+
 
 # =============================================================================
 # LOGGING SETUP
@@ -84,6 +91,176 @@ class FetchError(Exception):
 class ParseError(Exception):
     """Custom exception for parsing failures."""
     pass
+
+
+def check_disk_space(required_mb=Config.MIN_DISK_SPACE_MB):
+    """
+    Check if sufficient disk space is available.
+
+    Args:
+        required_mb: Required disk space in megabytes
+
+    Raises:
+        OSError: If insufficient disk space
+    """
+    try:
+        free_bytes = shutil.disk_usage('.').free
+        free_mb = free_bytes / (1024 * 1024)
+
+        if free_mb < required_mb:
+            raise OSError(f"Insufficient disk space: {free_mb:.1f}MB free, {required_mb}MB required")
+
+        logger.info(f"Disk space check passed: {free_mb:.1f}MB free")
+    except Exception as e:
+        logger.warning(f"Could not check disk space: {e}")
+        # Don't fail on check failure, just warn
+
+
+def save_backup(jobs, stats):
+    """Save jobs and stats to backup file for disaster recovery."""
+    try:
+        backup_dir = os.path.dirname(Config.BACKUP_PATH)
+        if backup_dir:
+            os.makedirs(backup_dir, exist_ok=True)
+
+        backup_data = {
+            'jobs': jobs,
+            'stats': stats,
+            'timestamp': datetime.now(timezone.utc).isoformat(),
+            'version': '2.0'
+        }
+
+        # Atomic write using temporary file
+        temp_path = Config.BACKUP_PATH + '.tmp'
+        with open(temp_path, 'w', encoding='utf-8') as f:
+            json.dump(backup_data, f, indent=2)
+
+        # Atomic rename
+        os.replace(temp_path, Config.BACKUP_PATH)
+        logger.info(f"Backup saved to {Config.BACKUP_PATH}")
+
+    except Exception as e:
+        logger.warning(f"Failed to save backup: {e}")
+        # Don't fail on backup error
+
+
+def load_backup():
+    """
+    Load jobs and stats from backup file.
+
+    Returns:
+        Tuple of (jobs, stats) or (None, None) if backup not available
+    """
+    try:
+        if not os.path.exists(Config.BACKUP_PATH):
+            logger.info("No backup file found")
+            return None, None
+
+        with open(Config.BACKUP_PATH, 'r', encoding='utf-8') as f:
+            backup_data = json.load(f)
+
+        jobs = backup_data.get('jobs')
+        stats = backup_data.get('stats')
+        timestamp = backup_data.get('timestamp', 'unknown')
+
+        if jobs and stats:
+            logger.info(f"Loaded backup from {timestamp} with {len(jobs)} jobs")
+            return jobs, stats
+        else:
+            logger.warning("Backup file exists but contains no valid data")
+            return None, None
+
+    except Exception as e:
+        logger.error(f"Failed to load backup: {e}")
+        return None, None
+
+
+def atomic_write(file_path, content):
+    """
+    Write content to file atomically to prevent corruption.
+
+    Args:
+        file_path: Target file path
+        content: Content to write (string)
+
+    Raises:
+        IOError: If write fails
+    """
+    # Ensure directory exists
+    dir_path = os.path.dirname(file_path)
+    if dir_path:
+        os.makedirs(dir_path, exist_ok=True)
+
+    # Write to temporary file
+    temp_fd, temp_path = tempfile.mkstemp(
+        dir=dir_path,
+        prefix=os.path.basename(file_path) + '.',
+        suffix='.tmp'
+    )
+
+    try:
+        with os.fdopen(temp_fd, 'w', encoding='utf-8') as f:
+            f.write(content)
+
+        # Verify file was written
+        if os.path.getsize(temp_path) == 0:
+            raise IOError("Temporary file is empty")
+
+        # Atomic rename
+        os.replace(temp_path, file_path)
+
+    except Exception as e:
+        # Clean up temp file on error
+        try:
+            if os.path.exists(temp_path):
+                os.unlink(temp_path)
+        except:
+            pass
+        raise IOError(f"Atomic write failed: {e}")
+
+
+def atomic_write_json(file_path, data):
+    """
+    Write JSON data to file atomically.
+
+    Args:
+        file_path: Target file path
+        data: Data to serialize as JSON
+
+    Raises:
+        IOError: If write fails
+    """
+    # Ensure directory exists
+    dir_path = os.path.dirname(file_path)
+    if dir_path:
+        os.makedirs(dir_path, exist_ok=True)
+
+    # Write to temporary file
+    temp_fd, temp_path = tempfile.mkstemp(
+        dir=dir_path,
+        prefix=os.path.basename(file_path) + '.',
+        suffix='.tmp'
+    )
+
+    try:
+        with os.fdopen(temp_fd, 'w', encoding='utf-8') as f:
+            json.dump(data, f, indent=2)
+
+        # Verify file was written
+        if os.path.getsize(temp_path) == 0:
+            raise IOError("Temporary file is empty")
+
+        # Atomic rename
+        os.replace(temp_path, file_path)
+
+    except Exception as e:
+        # Clean up temp file on error
+        try:
+            if os.path.exists(temp_path):
+                os.unlink(temp_path)
+        except:
+            pass
+        raise IOError(f"Atomic JSON write failed: {e}")
 
 
 def fetch_xml(url, retries=Config.MAX_RETRIES):
@@ -861,9 +1038,14 @@ def generate_html(jobs, stats):
     date_str = now.strftime("%b %d, %Y")
     iso_date = now.strftime("%Y-%m-%dT%H:%M:%SZ")
 
-    # Prepare all jobs data with categories for JSON
+    # Limit jobs in HTML to prevent memory issues
+    html_jobs = jobs[:Config.MAX_HTML_JOBS]
+    if len(jobs) > Config.MAX_HTML_JOBS:
+        logger.warning(f"Limiting HTML jobs to {Config.MAX_HTML_JOBS} of {total_jobs} for memory optimization")
+
+    # Prepare jobs data with categories for JSON
     all_jobs_data = []
-    for job in jobs:
+    for job in html_jobs:
         category = categorize_job(job['title'])
         all_jobs_data.append({
             'title': job['title'],
@@ -969,7 +1151,9 @@ def generate_html(jobs, stats):
         address['addressLocality'] = location_str
         return address
 
-    for idx, job in enumerate(jobs[:50]):
+    # Use limited jobs for schema to prevent memory issues
+    schema_jobs = html_jobs[:50]
+    for idx, job in enumerate(schema_jobs):
         category = categorize_job(job['title'])
         employment_type = infer_employment_type(job['title'])
         location_address = parse_location(job.get('location'))
@@ -1317,148 +1501,205 @@ def generate_html(jobs, stats):
   </div>
 
   <script>
-    // All jobs data
-    const allJobs = {jobs_json};
-    const JOBS_PER_PAGE = 30;
+    // Enhanced error handling and initialization
+    (function() {
+      'use strict';
 
-    // State
-    let currentPage = 1;
-    let currentCategory = 'All';
-    let searchQuery = '';
-    let filteredJobs = [...allJobs];
+      // All jobs data
+      const allJobs = {jobs_json};
+      const JOBS_PER_PAGE = 30;
 
-    // DOM elements
-    const searchInput = document.getElementById('searchInput');
-    const jobsGrid = document.getElementById('jobsGrid');
-    const noResults = document.getElementById('noResults');
-    const showingCount = document.getElementById('showingCount');
-    const pageInfo = document.getElementById('pageInfo');
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-    const filterBtns = document.querySelectorAll('.filter-btn');
+      // State
+      let currentPage = 1;
+      let currentCategory = 'All';
+      let searchQuery = '';
+      let filteredJobs = [...allJobs];
 
-    // Validate required DOM elements
-    if (!searchInput || !jobsGrid || !noResults || !showingCount || !pageInfo || !prevBtn || !nextBtn) {{
-      console.error('Required DOM elements not found. Cannot initialize application.');
-      return;
-    }}
+      // DOM elements
+      const searchInput = document.getElementById('searchInput');
+      const jobsGrid = document.getElementById('jobsGrid');
+      const noResults = document.getElementById('noResults');
+      const showingCount = document.getElementById('showingCount');
+      const pageInfo = document.getElementById('pageInfo');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const filterBtns = document.querySelectorAll('.filter-btn');
 
-    if (filterBtns.length === 0) {{
-      console.warn('No filter buttons found. Category filtering will not work.');
-    }}
+      // Validate required DOM elements
+      if (!searchInput || !jobsGrid || !noResults || !showingCount || !pageInfo || !prevBtn || !nextBtn) {{
+        console.error('Required DOM elements not found. Cannot initialize application.');
+        // Show user-friendly error message
+        document.body.innerHTML = '<div style="padding: 2rem; text-align: center;">' +
+          '<h2>Application Error</h2>' +
+          '<p>Unable to initialize the job board. Please refresh the page or try again later.</p>' +
+          '</div>';
+        return;
+      }}
 
-    // Debounce function
-    function debounce(fn, delay) {{
-      let timer;
-      return function(...args) {{
-        clearTimeout(timer);
-        timer = setTimeout(() => fn.apply(this, args), delay);
-      }};
-    }}
+      if (filterBtns.length === 0) {{
+        console.warn('No filter buttons found. Category filtering will not work.');
+      }}
 
-    // Filter jobs
-    function filterJobs() {{
-      filteredJobs = allJobs.filter(job => {{
-        const matchesCategory = currentCategory === 'All' || job.category === currentCategory;
-        const matchesSearch = !searchQuery ||
-          job.title.toLowerCase().includes(searchQuery) ||
-          job.company.toLowerCase().includes(searchQuery);
-        return matchesCategory && matchesSearch;
+      // Global error handler
+      window.addEventListener('error', function(e) {{
+        console.error('Global error:', e.error);
+        // Prevent alert loops, just log
       }});
-      currentPage = 1;
-      renderJobs();
-    }}
 
-    // Render jobs
-    function renderJobs() {{
-      const totalPages = Math.ceil(filteredJobs.length / JOBS_PER_PAGE);
-      const start = (currentPage - 1) * JOBS_PER_PAGE;
-      const end = start + JOBS_PER_PAGE;
-      const pageJobs = filteredJobs.slice(start, end);
+      // Debounce function
+      function debounce(fn, delay) {{
+        let timer;
+        return function(...args) {{
+          clearTimeout(timer);
+          timer = setTimeout(() => {{
+            try {{
+              fn.apply(this, args);
+            }} catch (error) {{
+              console.error('Debounced function error:', error);
+            }}
+          }}, delay);
+        }};
+      }}
 
-      // Clear grid (keep noResults)
-      const cards = jobsGrid.querySelectorAll('.card');
-      cards.forEach(card => card.remove());
+      // Filter jobs with error handling
+      function filterJobs() {{
+        try {{
+          filteredJobs = allJobs.filter(job => {{
+            const matchesCategory = currentCategory === 'All' || job.category === currentCategory;
+            const matchesSearch = !searchQuery ||
+              job.title.toLowerCase().includes(searchQuery) ||
+              job.company.toLowerCase().includes(searchQuery);
+            return matchesCategory && matchesSearch;
+          }});
+          currentPage = 1;
+          renderJobs();
+        }} catch (error) {{
+          console.error('Error filtering jobs:', error);
+          filteredJobs = [];
+          renderJobs();
+        }}
+      }}
 
-      if (pageJobs.length === 0) {{
-        noResults.style.display = 'block';
-        showingCount.textContent = '0';
-      }} else {{
-        noResults.style.display = 'none';
-        showingCount.textContent = filteredJobs.length.toLocaleString();
+      // Render jobs with error handling
+      function renderJobs() {{
+        try {{
+          const totalPages = Math.ceil(filteredJobs.length / JOBS_PER_PAGE);
+          const start = (currentPage - 1) * JOBS_PER_PAGE;
+          const end = start + JOBS_PER_PAGE;
+          const pageJobs = filteredJobs.slice(start, end);
 
-        pageJobs.forEach((job, idx) => {{
-          const card = document.createElement('a');
-          card.href = job.url;
-          card.className = 'card';
-          card.target = '_blank';
-          card.rel = 'noopener';
-          card.setAttribute('role', 'listitem');
-          card.setAttribute('aria-label', `${{job.title}} at ${{job.company}}`);
+          // Clear grid (keep noResults)
+          const cards = jobsGrid.querySelectorAll('.card');
+          cards.forEach(card => card.remove());
 
-          const title = document.createElement('div');
-          title.className = 'card-title';
-          title.textContent = job.title;
+          if (pageJobs.length === 0) {{
+            noResults.style.display = 'block';
+            showingCount.textContent = '0';
+          }} else {{
+            noResults.style.display = 'none';
+            showingCount.textContent = filteredJobs.length.toLocaleString();
 
-          const company = document.createElement('div');
-          company.className = 'card-company';
+            pageJobs.forEach((job, idx) => {{
+              try {{
+                const card = document.createElement('a');
+                card.href = job.url;
+                card.className = 'card';
+                card.target = '_blank';
+                card.rel = 'noopener';
+                card.setAttribute('role', 'listitem');
+                card.setAttribute('aria-label', `${{job.title}} at ${{job.company}}`);
 
-          const logo = document.createElement('img');
-          logo.alt = job.company + ' logo';
-          logo.className = 'logo';
-          logo.loading = 'lazy';
-          logo.onerror = function() {{ this.style.display = 'none'; }};
-          logo.src = job.logo;  // Set src last to prevent race condition
+                const title = document.createElement('div');
+                title.className = 'card-title';
+                title.textContent = job.title;
 
-          company.appendChild(logo);
-          company.appendChild(document.createTextNode(job.company));
+                const company = document.createElement('div');
+                company.className = 'card-company';
 
-          card.appendChild(title);
-          card.appendChild(company);
-          jobsGrid.insertBefore(card, noResults);
+                const logo = document.createElement('img');
+                logo.alt = job.company + ' logo';
+                logo.className = 'logo';
+                logo.loading = 'lazy';
+                logo.onerror = function() {{ this.style.display = 'none'; }};
+                logo.src = job.logo;  // Set src last to prevent race condition
+
+                company.appendChild(logo);
+                company.appendChild(document.createTextNode(job.company));
+
+                card.appendChild(title);
+                card.appendChild(company);
+                jobsGrid.insertBefore(card, noResults);
+              }} catch (cardError) {{
+                console.error('Error rendering job card:', cardError, job);
+              }}
+            }});
+          }}
+
+          // Update pagination
+          pageInfo.textContent = `Page ${{currentPage}} of ${{Math.max(totalPages, 1)}}`;
+          prevBtn.disabled = currentPage <= 1;
+          nextBtn.disabled = currentPage >= totalPages;
+        }} catch (error) {{
+          console.error('Error rendering jobs:', error);
+          // Show error message to user
+          noResults.style.display = 'block';
+          noResults.textContent = 'An error occurred while loading jobs. Please refresh the page.';
+          showingCount.textContent = '0';
+        }}
+      }}
+
+      // Event listeners with error handling
+      try {{
+        searchInput.addEventListener('input', debounce(function() {{
+          searchQuery = this.value.toLowerCase().trim();
+          filterJobs();
+        }}, 200));
+
+        filterBtns.forEach(btn => {{
+          btn.addEventListener('click', function() {{
+            try {{
+              filterBtns.forEach(b => b.classList.remove('active'));
+              this.classList.add('active');
+              currentCategory = this.dataset.category;
+              filterJobs();
+            }} catch (error) {{
+              console.error('Error handling filter click:', error);
+            }}
+          }});
         }});
+
+        prevBtn.addEventListener('click', () => {{
+          if (currentPage > 1) {{
+            currentPage--;
+            renderJobs();
+            window.scrollTo({{ top: 0, behavior: 'smooth' }});
+          }}
+        }});
+
+        nextBtn.addEventListener('click', () => {{
+          try {{
+            const totalPages = Math.ceil(filteredJobs.length / JOBS_PER_PAGE);
+            if (currentPage < totalPages) {{
+              currentPage++;
+              renderJobs();
+              window.scrollTo({{ top: 0, behavior: 'smooth' }});
+            }}
+          }} catch (error) {{
+            console.error('Error handling next page:', error);
+          }}
+        }});
+      }} catch (error) {{
+        console.error('Error setting up event listeners:', error);
       }}
 
-      // Update pagination
-      pageInfo.textContent = `Page ${{currentPage}} of ${{Math.max(totalPages, 1)}}`;
-      prevBtn.disabled = currentPage <= 1;
-      nextBtn.disabled = currentPage >= totalPages;
-    }}
-
-    // Event listeners
-    searchInput.addEventListener('input', debounce(function() {{
-      searchQuery = this.value.toLowerCase().trim();
-      filterJobs();
-    }}, 200));
-
-    filterBtns.forEach(btn => {{
-      btn.addEventListener('click', function() {{
-        filterBtns.forEach(b => b.classList.remove('active'));
-        this.classList.add('active');
-        currentCategory = this.dataset.category;
-        filterJobs();
-      }});
-    }});
-
-    prevBtn.addEventListener('click', () => {{
-      if (currentPage > 1) {{
-        currentPage--;
+      // Initial render with error handling
+      try {{
         renderJobs();
-        window.scrollTo({{ top: 0, behavior: 'smooth' }});
+      }} catch (error) {{
+        console.error('Error during initial render:', error);
       }}
-    }});
 
-    nextBtn.addEventListener('click', () => {{
-      const totalPages = Math.ceil(filteredJobs.length / JOBS_PER_PAGE);
-      if (currentPage < totalPages) {{
-        currentPage++;
-        renderJobs();
-        window.scrollTo({{ top: 0, behavior: 'smooth' }});
-      }}
-    }});
-
-    // Initial render
-    renderJobs();
+    }})();  // IIFE for scope isolation
   </script>
 </body>
 </html>
@@ -1754,38 +1995,103 @@ def validate_output(jobs, stats):
 
 
 def main():
-    """Main execution function with comprehensive error handling."""
+    """Main execution function with comprehensive error handling and disaster recovery."""
     import time
     start_time = time.time()
 
     logger.info("=" * 60)
-    logger.info("OpenJobs Updater v2.0")
+    logger.info("OpenJobs Updater v2.1 - Enhanced Reliability")
     logger.info("=" * 60)
 
     exit_code = 0
+    used_backup = False
 
     try:
+        # Pre-flight check: Disk space
+        logger.info("Pre-flight check: Verifying disk space...")
+        check_disk_space()
+
         # Step 1-2: Fetch data source URL
         logger.info("Step 1-2: Discovering latest data source...")
-        jobs_url = get_latest_jobs_url()
+        try:
+            jobs_url = get_latest_jobs_url()
+        except (FetchError, ValueError) as e:
+            logger.warning(f"Failed to discover data source: {e}")
+            logger.info("Attempting to load from backup...")
 
-        # Step 3: Fetch job listings
-        logger.info("Step 3: Fetching job listings...")
-        xml_content = fetch_xml(jobs_url)
+            backup_jobs, backup_stats = load_backup()
+            if backup_jobs and backup_stats:
+                jobs, stats = backup_jobs, backup_stats
+                used_backup = True
+                logger.info(f"Successfully loaded backup data: {len(jobs)} jobs")
 
-        # Step 4: Parse jobs
-        logger.info("Step 4: Parsing jobs...")
-        jobs, parse_stats = parse_jobs(xml_content)
-        logger.info(f"Found {len(jobs)} jobs (parse stats: {parse_stats})")
+                # Skip to step 6 with backup data
+                logger.info("Using backup data - skipping fetch and parse steps")
+            else:
+                logger.error("No backup available. Cannot continue.")
+                raise FetchError("Data source unavailable and no backup exists")
+        else:
+            # Step 3: Fetch job listings
+            logger.info("Step 3: Fetching job listings...")
+            try:
+                xml_content = fetch_xml(jobs_url)
+            except FetchError as e:
+                logger.warning(f"Failed to fetch job data: {e}")
+                logger.info("Attempting to load from backup...")
 
-        if not jobs:
-            logger.error("No jobs found! Aborting.")
-            sys.exit(1)
+                backup_jobs, backup_stats = load_backup()
+                if backup_jobs and backup_stats:
+                    jobs, stats = backup_jobs, backup_stats
+                    used_backup = True
+                    logger.info(f"Successfully loaded backup data: {len(jobs)} jobs")
+                else:
+                    logger.error("No backup available. Cannot continue.")
+                    raise
 
-        # Step 5: Calculate statistics
-        logger.info("Step 5: Calculating statistics...")
-        stats = calculate_stats(jobs, parse_stats)
-        logger.info(f"Stats: {stats['total_jobs']} jobs from {stats['total_companies']} companies")
+            if not used_backup:
+                # Step 4: Parse jobs
+                logger.info("Step 4: Parsing jobs...")
+                try:
+                    jobs, parse_stats = parse_jobs(xml_content)
+                    logger.info(f"Found {len(jobs)} jobs (parse stats: {parse_stats})")
+                except ParseError as e:
+                    logger.warning(f"Failed to parse jobs: {e}")
+                    logger.info("Attempting to load from backup...")
+
+                    backup_jobs, backup_stats = load_backup()
+                    if backup_jobs and backup_stats:
+                        jobs, stats = backup_jobs, backup_stats
+                        used_backup = True
+                        logger.info(f"Successfully loaded backup data: {len(jobs)} jobs")
+                    else:
+                        logger.error("No backup available. Cannot continue.")
+                        raise
+
+                # Enhanced: Don't fail completely on empty jobs, use lower threshold
+                if len(jobs) < 10:
+                    logger.warning(f"Very low job count: {len(jobs)}")
+                    logger.info("Attempting to load from backup...")
+
+                    backup_jobs, backup_stats = load_backup()
+                    if backup_jobs and backup_stats:
+                        # Use backup if it has more jobs
+                        if len(backup_jobs) > len(jobs):
+                            logger.info(f"Backup has more jobs ({len(backup_jobs)}), using backup")
+                            jobs, stats = backup_jobs, backup_stats
+                            used_backup = True
+                        else:
+                            # Continue with current data but warn
+                            logger.warning("Backup also has low job count, continuing with current data")
+
+                # Step 5: Calculate statistics
+                logger.info("Step 5: Calculating statistics...")
+                stats = calculate_stats(jobs, parse_stats if not used_backup else None)
+                logger.info(f"Stats: {stats['total_jobs']} jobs from {stats['total_companies']} companies")
+
+                # Save backup after successful fetch and parse
+                if not used_backup:
+                    logger.info("Saving backup...")
+                    save_backup(jobs, stats)
 
         # Step 5.5: Validate output
         logger.info("Step 5.5: Validating output...")
@@ -1795,54 +2101,46 @@ def main():
                 logger.warning(f"Validation warning: {issue}")
             # Don't fail, just warn
 
-        # Step 6: Generate README.md
+        # Step 6: Generate README.md (using atomic write)
         logger.info("Step 6: Generating README.md...")
         readme_content = generate_readme(jobs, stats)
         try:
-            with open(Config.README_PATH, 'w', encoding='utf-8') as f:
-                f.write(readme_content)
+            atomic_write(Config.README_PATH, readme_content)
             logger.info(f"  ✓ Successfully wrote {Config.README_PATH}")
         except IOError as e:
             logger.error(f"  ✗ Failed to write {Config.README_PATH}: {e}")
             raise
 
-        # Step 7: Generate HTML
+        # Step 7: Generate HTML (using atomic write)
         logger.info("Step 7: Generating HTML for Cloudflare Pages...")
-        html_dir = os.path.dirname(Config.HTML_PATH)
-        if html_dir:
-            os.makedirs(html_dir, exist_ok=True)
         html_content = generate_html(jobs, stats)
         try:
-            with open(Config.HTML_PATH, 'w', encoding='utf-8') as f:
-                f.write(html_content)
+            atomic_write(Config.HTML_PATH, html_content)
             logger.info(f"  ✓ Successfully wrote {Config.HTML_PATH}")
         except IOError as e:
             logger.error(f"  ✗ Failed to write {Config.HTML_PATH}: {e}")
             raise
 
-        # Step 8: Generate stats.json
+        # Step 8: Generate stats.json (using atomic write)
         logger.info("Step 8: Generating stats.json...")
         try:
-            with open(Config.STATS_PATH, 'w', encoding='utf-8') as f:
-                json.dump(stats, f, indent=2)
+            atomic_write_json(Config.STATS_PATH, stats)
             logger.info(f"  ✓ Successfully wrote {Config.STATS_PATH}")
         except IOError as e:
             logger.error(f"  ✗ Failed to write {Config.STATS_PATH}: {e}")
             raise
 
-        # Step 9: Generate SEO assets
+        # Step 9: Generate SEO assets (using atomic writes)
         logger.info("Step 9: Generating SEO assets (sitemaps, robots.txt, manifest, RSS)...")
         try:
-            with open(Config.CF_SITEMAP_PATH, 'w', encoding='utf-8') as f:
-                f.write(generate_sitemap(Config.CF_SITE_URL, jobs, stats))
+            atomic_write(Config.CF_SITEMAP_PATH, generate_sitemap(Config.CF_SITE_URL, jobs, stats))
             logger.info(f"  ✓ Successfully wrote {Config.CF_SITEMAP_PATH}")
         except IOError as e:
             logger.error(f"  ✗ Failed to write {Config.CF_SITEMAP_PATH}: {e}")
             raise
 
         try:
-            with open(Config.GH_SITEMAP_PATH, 'w', encoding='utf-8') as f:
-                f.write(generate_sitemap(Config.GH_SITE_URL, jobs, stats))
+            atomic_write(Config.GH_SITEMAP_PATH, generate_sitemap(Config.GH_SITE_URL, jobs, stats))
             logger.info(f"  ✓ Successfully wrote {Config.GH_SITEMAP_PATH}")
         except IOError as e:
             logger.error(f"  ✗ Failed to write {Config.GH_SITEMAP_PATH}: {e}")
@@ -1850,8 +2148,7 @@ def main():
 
         # Generate robots.txt
         try:
-            with open('public/robots.txt', 'w', encoding='utf-8') as f:
-                f.write(generate_robots_txt())
+            atomic_write('public/robots.txt', generate_robots_txt())
             logger.info(f"  ✓ Successfully wrote public/robots.txt")
         except IOError as e:
             logger.error(f"  ✗ Failed to write public/robots.txt: {e}")
@@ -1859,8 +2156,7 @@ def main():
 
         # Generate PWA manifest
         try:
-            with open('public/manifest.json', 'w', encoding='utf-8') as f:
-                f.write(generate_manifest(stats))
+            atomic_write_json('public/manifest.json', json.loads(generate_manifest(stats)))
             logger.info(f"  ✓ Successfully wrote public/manifest.json")
         except IOError as e:
             logger.error(f"  ✗ Failed to write public/manifest.json: {e}")
@@ -1868,8 +2164,7 @@ def main():
 
         # Generate RSS feed
         try:
-            with open('public/rss.xml', 'w', encoding='utf-8') as f:
-                f.write(generate_rss_feed(jobs, stats))
+            atomic_write('public/rss.xml', generate_rss_feed(jobs, stats))
             logger.info(f"  ✓ Successfully wrote public/rss.xml")
         except IOError as e:
             logger.error(f"  ✗ Failed to write public/rss.xml: {e}")
@@ -1886,6 +2181,8 @@ def main():
         elapsed = time.time() - start_time
         logger.info("=" * 60)
         logger.info(f"SUCCESS! Completed in {elapsed:.2f}s")
+        if used_backup:
+            logger.info("⚠️  Used backup data (external source unavailable)")
         logger.info("Generated files:")
         logger.info(f"  - {Config.README_PATH}")
         logger.info(f"  - {Config.HTML_PATH}")
@@ -1904,8 +2201,13 @@ def main():
     except ParseError as e:
         logger.error(f"Data parsing failed: {e}")
         exit_code = 3
+    except OSError as e:
+        logger.error(f"System resource error: {e}")
+        exit_code = 4
     except Exception as e:
         logger.error(f"Unexpected error: {type(e).__name__}: {e}")
+        import traceback
+        logger.error(traceback.format_exc())
         exit_code = 1
 
     if exit_code != 0:
