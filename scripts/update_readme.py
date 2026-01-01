@@ -388,30 +388,38 @@ def optimize_image_url(url, use_cdn=None):
 # =============================================================================
 
 def get_latest_month_index():
-    """Find the latest month index URL from sitemap."""
+    """Find the latest month index URL by trying recent months directly."""
     logger.info("Step 1: Finding latest month index...")
-    xml_content = fetch_xml(Config.SITEMAP_URL)
-    xml_content = clean_xml_namespaces(xml_content)
 
-    root = ET.fromstring(xml_content)
-    month_indexes = []
+    # Try current month and previous months directly
+    # (sitemap.xml structure changed, no longer lists monthly indexes)
+    now = datetime.now(timezone.utc)
+    base_url = "https://www.openjobs-ai.com/xml/sitemap-index-{year}-{month:02d}.xml"
 
-    for sitemap in root.findall('.//sitemap'):
-        loc = sitemap.find('loc')
-        if loc is not None and loc.text:
-            url = loc.text.strip()
-            match = re.search(r'sitemap-index-(\d{4})-(\d{2})\.xml$', url)
-            if match:
-                year, month = int(match.group(1)), int(match.group(2))
-                month_indexes.append((year, month, url))
+    # Try current month and previous 3 months
+    months_to_try = []
+    for i in range(4):
+        year = now.year
+        month = now.month - i
+        if month <= 0:
+            month += 12
+            year -= 1
+        months_to_try.append((year, month))
 
-    if not month_indexes:
-        raise ValueError("No month index files found in sitemap.xml")
+    for year, month in months_to_try:
+        url = base_url.format(year=year, month=month)
+        logger.info(f"Trying: {url}")
+        try:
+            # Quick check if URL exists
+            xml_content = fetch_xml(url, retries=1)
+            if xml_content and 'sitemap' in xml_content.lower():
+                logger.info(f"Found latest month: {year}-{month:02d}")
+                return url
+        except FetchError:
+            logger.debug(f"Month index not found: {year}-{month:02d}")
+            continue
 
-    month_indexes.sort(key=lambda x: (x[0], x[1]), reverse=True)
-    latest = month_indexes[0]
-    logger.info(f"Found latest month: {latest[0]}-{latest[1]:02d}")
-    return latest[2]
+    raise ValueError("No month index files found after trying recent months")
 
 
 def get_latest_part_url(month_index_url):
