@@ -256,15 +256,11 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 <h2 align="center">Latest Job Openings</h2>
 
 <p align="center">
-  <em>Updated January 03, 2026 · Showing 49 of 49+ jobs</em>
+  <em>Updated January 04, 2026 · Showing 49 of 49+ jobs</em>
 </p>
 
 | Job Title | Company | Apply |
 |-----------|---------|:-----:|
-| Intern APRN | <img src="https://images.weserv.nl/?url=https://front.openjobs-ai.com/data/company-logo/v3/7/48/57c57e59564f634ad9008098fc050.png&w=24&h=24&q=80&output=webp" width="20" height="20" alt=""> Lakeview Center | [View](https://www.openjobs-ai.com/jobs/intern-aprn-pensacola-fl-120059972288512030) |
-| Retail Sales Associate | <img src="https://images.weserv.nl/?url=https://front.openjobs-ai.com/data/company-logo/v3/5/52/5ff59adcaac313923ab89d0a618c5.png&w=24&h=24&q=80&output=webp" width="20" height="20" alt=""> Verizon | [View](https://www.openjobs-ai.com/jobs/retail-sales-associate-staten-island-ny-120059972288512031) |
-| Medical Specialist 2 | <img src="https://images.weserv.nl/?url=https://front.openjobs-ai.com/data/company-logo/v3/9/33/7af27fb32cbfac2a3a53fa51ef09f.png&w=24&h=24&q=80&output=webp" width="20" height="20" alt=""> NYS Office for People With Developmental Disabilities | [View](https://www.openjobs-ai.com/jobs/medical-specialist-2-wyoming-united-states-120059972288512032) |
-| Energy Sales Specialist | <img src="https://images.weserv.nl/?url=https://front.openjobs-ai.com/data/company-logo/v3/a/55/55a1f18d9e6ab6d34b65f95e05ea2.png&w=24&h=24&q=80&output=webp" width="20" height="20" alt=""> 2020 Companies | [View](https://www.openjobs-ai.com/jobs/energy-sales-specialist-waco-tx-120059972288512033) |
 | Physical Therapist   Mineola, TX | <img src="https://images.weserv.nl/?url=https://front.openjobs-ai.com/data/company-logo/v3/0/6e/6511b28e511eae9184f0c0cfe3f71.png&w=24&h=24&q=80&output=webp" width="20" height="20" alt=""> Continuum Rehab Group | [View](https://www.openjobs-ai.com/jobs/physical-therapist-mineola-tx-mineola-tx-120059972288512034) |
 | Semantic Data Engineer | <img src="https://images.weserv.nl/?url=https://front.openjobs-ai.com/data/company-logo/v3/0/26/b748e01bb402e80b11dacc7da0976.png&w=24&h=24&q=80&output=webp" width="20" height="20" alt=""> Cambia Health Solutions | [View](https://www.openjobs-ai.com/jobs/semantic-data-engineer-boise-id-120059972288512035) |
 | Social Worker Senior | <img src="https://images.weserv.nl/?url=https://front.openjobs-ai.com/data/company-logo/v3/3/f8/cac30b742d64b4ec837083f80ce7b.png&w=24&h=24&q=80&output=webp" width="20" height="20" alt=""> Center for Inclusion Health | [View](https://www.openjobs-ai.com/jobs/social-worker-senior-center-for-inclusion-health-full-time-day-shift-pittsburgh-pa-120059972288512036) |
@@ -310,6 +306,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 | Portfolio & Strategic Planning Analyst | <img src="https://images.weserv.nl/?url=https://front.openjobs-ai.com/data/company-logo/v3/1/76/618905f90a763f4604896f7ed7599.png&w=24&h=24&q=80&output=webp" width="20" height="20" alt=""> Arcfield | [View](https://www.openjobs-ai.com/jobs/portfolio-strategic-planning-analyst-chantilly-va-120059972288512027) |
 | Graduate Nurse | <img src="https://images.weserv.nl/?url=https://front.openjobs-ai.com/data/company-logo/v3/3/f8/cac30b742d64b4ec837083f80ce7b.png&w=24&h=24&q=80&output=webp" width="20" height="20" alt=""> Multiple Opportunities, Jefferson | [View](https://www.openjobs-ai.com/jobs/graduate-nurse-multiple-opportunities-jefferson-sign-on-bonus-clairton-pa-120059972288512028) |
 | Guest Services Representative (Concierge) | <img src="https://images.weserv.nl/?url=https://front.openjobs-ai.com/data/company-logo/v3/e/16/eb7f343d8c9142856d7ab257ea40a.png&w=24&h=24&q=80&output=webp" width="20" height="20" alt=""> MUSC Health | [View](https://www.openjobs-ai.com/jobs/guest-services-representative-concierge-charleston-sc-120059972288512029) |
+| Intern APRN | <img src="https://images.weserv.nl/?url=https://front.openjobs-ai.com/data/company-logo/v3/7/48/57c57e59564f634ad9008098fc050.png&w=24&h=24&q=80&output=webp" width="20" height="20" alt=""> Lakeview Center | [View](https://www.openjobs-ai.com/jobs/intern-aprn-pensacola-fl-120059972288512030) |
+| Retail Sales Associate | <img src="https://images.weserv.nl/?url=https://front.openjobs-ai.com/data/company-logo/v3/5/52/5ff59adcaac313923ab89d0a618c5.png&w=24&h=24&q=80&output=webp" width="20" height="20" alt=""> Verizon | [View](https://www.openjobs-ai.com/jobs/retail-sales-associate-staten-island-ny-120059972288512031) |
+| Medical Specialist 2 | <img src="https://images.weserv.nl/?url=https://front.openjobs-ai.com/data/company-logo/v3/9/33/7af27fb32cbfac2a3a53fa51ef09f.png&w=24&h=24&q=80&output=webp" width="20" height="20" alt=""> NYS Office for People With Developmental Disabilities | [View](https://www.openjobs-ai.com/jobs/medical-specialist-2-wyoming-united-states-120059972288512032) |
+| Energy Sales Specialist | <img src="https://images.weserv.nl/?url=https://front.openjobs-ai.com/data/company-logo/v3/a/55/55a1f18d9e6ab6d34b65f95e05ea2.png&w=24&h=24&q=80&output=webp" width="20" height="20" alt=""> 2020 Companies | [View](https://www.openjobs-ai.com/jobs/energy-sales-specialist-waco-tx-120059972288512033) |
 
 <p align="center">
   <em>...and 0 more jobs</em>
@@ -322,5 +322,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 <p align="center">
-  Made with Python + GitHub Actions · Updated January 03, 2026
+  Made with Python + GitHub Actions · Updated January 04, 2026
 </p>
