@@ -1,48 +1,56 @@
 {
-  "total_jobs": 27,
-  "total_companies": 15,
+  "total_jobs": 280,
+  "total_companies": 158,
   "top_companies": {
-    "Old Colony YMCA": 10,
-    "Deel": 2,
-    "Scale AI": 2,
-    "PandoLogic": 2,
-    "Blanche Ames Elementary-Part Time at Old Colony YMCA": 1,
-    "Prudential Financial": 1,
-    "BostonGene": 1,
-    "Tesla": 1,
-    "Greylock Partners": 1,
-    "Vital Match Talent \ud83e\ude7a": 1
+    "Katalyst CRO": 38,
+    "One Brooklyn Health": 10,
+    "PlanIT Group, LLC": 7,
+    "Baptist Memorial Health Care": 5,
+    "Talented Medical Solutions": 5,
+    "PEAK6": 5,
+    "Trinity Health": 5,
+    "Yale New Haven Health": 5,
+    "Amentum": 5,
+    "YMCA of Montclair": 5
   },
   "categories": {
-    "Engineering": 3,
-    "Healthcare": 2,
-    "Sales": 1,
-    "Finance": 1,
-    "Management": 3,
+    "Engineering": 46,
+    "Healthcare": 67,
+    "Sales": 21,
+    "Finance": 3,
+    "Management": 19,
     "Marketing": 0,
     "HR": 0,
-    "Operations": 0,
-    "Other": 17
+    "Operations": 3,
+    "Other": 121
   },
   "top_locations": {
-    "Emergency Medicine-MI at PandoLogic": 1,
-    "Worldwide) at Jobgether": 1
+    "US": 4,
+    "R10207162 at Northrop Grumman": 1,
+    "$6000 Sign-On Bonus at Carvana": 1,
+    "NIGHTS at Talented Medical Solutions": 1,
+    "Central at Rippling": 1,
+    "Days at Baptist Hospitals of Southeast Texas": 1,
+    "R10208853-2 at Northrop Grumman": 1,
+    "Critical Care - Nights at BayCare Health System": 1,
+    "Cricket Authorized Retailer": 1,
+    "Days at Lake Charles Memorial Health System": 1
   },
-  "updated_at": "2026-01-06T01:03:11.016089+00:00",
+  "updated_at": "2026-01-06T06:22:06.264714+00:00",
   "data_quality": {
-    "jobs_with_location": 2,
-    "jobs_with_logo": 27,
-    "location_coverage": 0.0741,
+    "jobs_with_location": 16,
+    "jobs_with_logo": 280,
+    "location_coverage": 0.0571,
     "logo_coverage": 1.0,
     "parse_stats": {
-      "total_elements": 27,
-      "successful": 27,
+      "total_elements": 280,
+      "successful": 280,
       "skipped_no_caption": 0,
       "skipped_no_url": 0,
       "parse_failures": 0,
-      "with_location": 2,
-      "without_location": 25,
-      "location_coverage": 0.0741
+      "with_location": 16,
+      "without_location": 264,
+      "location_coverage": 0.0571
     },
     "parse_success_rate": 1.0
   }
