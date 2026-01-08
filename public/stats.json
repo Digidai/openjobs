@@ -1,56 +1,48 @@
 {
-  "total_jobs": 149,
-  "total_companies": 136,
+  "total_jobs": 88,
+  "total_companies": 82,
   "top_companies": {
-    "Vetco": 3,
-    "Amentum": 2,
-    "LHC Group": 2,
-    "Reliant Rehabilitation": 2,
-    "Deloitte": 2,
-    "Komatsu": 2,
-    "ChemTreat": 2,
-    "CyberCoders": 2,
-    "U.S. Department of Veterans Affairs": 2,
-    "CVS Health": 2
+    "City of Sunrise": 2,
+    "UNC Health Blue Ridge": 2,
+    "Tennova Healthcare- North Knoxville Medical Center": 2,
+    "Brown University Health": 2,
+    "U.S. Bank": 2,
+    "Varsity Tutors, a Nerdy Company": 2,
+    "Erlanger KinderCare at KinderCare Learning Companies": 1,
+    "Franconia KinderCare at KinderCare Learning Companies": 1,
+    "Deer Park KinderCare at KinderCare Learning Companies": 1,
+    "Fruit Cove KinderCare at KinderCare Learning Companies": 1
   },
   "categories": {
-    "Engineering": 18,
-    "Healthcare": 31,
-    "Sales": 5,
-    "Finance": 3,
-    "Management": 29,
-    "Marketing": 2,
+    "Engineering": 4,
+    "Healthcare": 14,
+    "Sales": 3,
+    "Finance": 2,
+    "Management": 9,
+    "Marketing": 0,
     "HR": 0,
-    "Operations": 0,
-    "Other": 61
+    "Operations": 1,
+    "Other": 55
   },
   "top_locations": {
-    "PRN at Diversicare Healthcare Services, LLC": 1,
-    "1099 (RN) Contract $125 Per Assessment at The Helper Bees": 1,
-    "Executive Assistants": 1,
-    "the U.S.": 1,
-    "FT at Trinity Health": 1,
-    "797703 at Vivian Health": 1,
-    "Bismarck, ND at Essentia Health": 1,
-    "Onsite at hackajob": 1,
-    "5 West at Nebraska Medicine": 1,
-    "FFYC at Fred Finch Youth & Family Services": 1
+    "Buffalo, NY) at M&T Bank": 1,
+    "the U.S.": 1
   },
-  "updated_at": "2026-01-08T01:03:13.823599+00:00",
+  "updated_at": "2026-01-08T06:22:01.907877+00:00",
   "data_quality": {
-    "jobs_with_location": 11,
-    "jobs_with_logo": 149,
-    "location_coverage": 0.0738,
+    "jobs_with_location": 2,
+    "jobs_with_logo": 88,
+    "location_coverage": 0.0227,
     "logo_coverage": 1.0,
     "parse_stats": {
-      "total_elements": 149,
-      "successful": 149,
+      "total_elements": 88,
+      "successful": 88,
       "skipped_no_caption": 0,
       "skipped_no_url": 0,
       "parse_failures": 0,
-      "with_location": 11,
-      "without_location": 138,
-      "location_coverage": 0.0738
+      "with_location": 2,
+      "without_location": 86,
+      "location_coverage": 0.0227
     },
     "parse_success_rate": 1.0
   }
