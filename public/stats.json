@@ -1,48 +1,56 @@
 {
-  "total_jobs": 88,
-  "total_companies": 82,
+  "total_jobs": 894,
+  "total_companies": 640,
   "top_companies": {
-    "City of Sunrise": 2,
-    "UNC Health Blue Ridge": 2,
-    "Tennova Healthcare- North Knoxville Medical Center": 2,
-    "Brown University Health": 2,
-    "U.S. Bank": 2,
-    "Varsity Tutors, a Nerdy Company": 2,
-    "Erlanger KinderCare at KinderCare Learning Companies": 1,
-    "Franconia KinderCare at KinderCare Learning Companies": 1,
-    "Deer Park KinderCare at KinderCare Learning Companies": 1,
-    "Fruit Cove KinderCare at KinderCare Learning Companies": 1
+    "Domino's": 29,
+    "Optum": 9,
+    "Amazon": 7,
+    "DaVita Kidney Care": 7,
+    "LHC Group": 7,
+    "Jedson Engineering": 7,
+    "Varsity Tutors, a Nerdy Company": 6,
+    "Signify Health": 6,
+    "Inside Higher Ed": 6,
+    "Baylor Scott & White Health": 6
   },
   "categories": {
-    "Engineering": 4,
-    "Healthcare": 14,
-    "Sales": 3,
-    "Finance": 2,
-    "Management": 9,
-    "Marketing": 0,
-    "HR": 0,
-    "Operations": 1,
-    "Other": 55
+    "Engineering": 86,
+    "Healthcare": 205,
+    "Sales": 55,
+    "Finance": 25,
+    "Management": 167,
+    "Marketing": 6,
+    "HR": 5,
+    "Operations": 7,
+    "Other": 338
   },
   "top_locations": {
-    "Buffalo, NY) at M&T Bank": 1,
-    "the U.S.": 1
+    "Central Alabama": 3,
+    "ABA Therapy for Autism": 2,
+    "2340213 at Vivian Health": 1,
+    "R10217543 at Northrop Grumman": 1,
+    "$2,273/wk - $2,466/wk at Aya Healthcare": 1,
+    "Plymouth, MA at Optum": 1,
+    "Part Time at Signify Health": 1,
+    "Full Time - Overnight - 7on 7off at Signify Health": 1,
+    "All Female Youth Services Center. at State of Colorado": 1,
+    "a1fVX000002Y1i6YAC at Vivian Health": 1
   },
-  "updated_at": "2026-01-09T01:04:07.023219+00:00",
+  "updated_at": "2026-01-09T06:22:06.208730+00:00",
   "data_quality": {
-    "jobs_with_location": 2,
-    "jobs_with_logo": 88,
-    "location_coverage": 0.0227,
+    "jobs_with_location": 51,
+    "jobs_with_logo": 894,
+    "location_coverage": 0.057,
     "logo_coverage": 1.0,
     "parse_stats": {
-      "total_elements": 88,
-      "successful": 88,
+      "total_elements": 894,
+      "successful": 894,
       "skipped_no_caption": 0,
       "skipped_no_url": 0,
       "parse_failures": 0,
-      "with_location": 2,
-      "without_location": 86,
-      "location_coverage": 0.0227
+      "with_location": 51,
+      "without_location": 843,
+      "location_coverage": 0.057
     },
     "parse_success_rate": 1.0
   }
