@@ -1,56 +1,47 @@
 {
-  "total_jobs": 894,
-  "total_companies": 640,
+  "total_jobs": 18,
+  "total_companies": 18,
   "top_companies": {
-    "Domino's": 29,
-    "Optum": 9,
-    "Amazon": 7,
-    "DaVita Kidney Care": 7,
-    "LHC Group": 7,
-    "Jedson Engineering": 7,
-    "Varsity Tutors, a Nerdy Company": 6,
-    "Signify Health": 6,
-    "Inside Higher Ed": 6,
-    "Baylor Scott & White Health": 6
+    "Xylem Tree Experts": 1,
+    "Senior": 1,
+    "Bonsai Rehab": 1,
+    "Indiana University Health": 1,
+    "Tennessee Orthopaedic Alliance": 1,
+    "CHI": 1,
+    "Remote Leverage": 1,
+    "Regina Inter-Parish Catholic Education Center": 1,
+    "Heart Lab Diagnostics": 1,
+    "LumiClinics Behavioral Wellness Center": 1
   },
   "categories": {
-    "Engineering": 86,
-    "Healthcare": 205,
-    "Sales": 55,
-    "Finance": 25,
-    "Management": 167,
-    "Marketing": 6,
-    "HR": 5,
-    "Operations": 7,
-    "Other": 338
+    "Engineering": 3,
+    "Healthcare": 5,
+    "Sales": 1,
+    "Finance": 0,
+    "Management": 2,
+    "Marketing": 0,
+    "HR": 0,
+    "Operations": 0,
+    "Other": 7
   },
   "top_locations": {
-    "Central Alabama": 3,
-    "ABA Therapy for Autism": 2,
-    "2340213 at Vivian Health": 1,
-    "R10217543 at Northrop Grumman": 1,
-    "$2,273/wk - $2,466/wk at Aya Healthcare": 1,
-    "Plymouth, MA at Optum": 1,
-    "Part Time at Signify Health": 1,
-    "Full Time - Overnight - 7on 7off at Signify Health": 1,
-    "All Female Youth Services Center. at State of Colorado": 1,
-    "a1fVX000002Y1i6YAC at Vivian Health": 1
+    "Consulting - Location Open 1 at EY": 1
   },
-  "updated_at": "2026-01-10T01:01:47.947067+00:00",
+  "updated_at": "2026-01-10T06:19:13.172608+00:00",
   "data_quality": {
-    "jobs_with_location": 51,
-    "jobs_with_logo": 894,
-    "location_coverage": 0.057,
+    "jobs_with_location": 1,
+    "jobs_with_logo": 18,
+    "location_coverage": 0.0556,
     "logo_coverage": 1.0,
     "parse_stats": {
-      "total_elements": 894,
-      "successful": 894,
+      "total_elements": 18,
+      "successful": 18,
       "skipped_no_caption": 0,
       "skipped_no_url": 0,
       "parse_failures": 0,
-      "with_location": 51,
-      "without_location": 843,
-      "location_coverage": 0.057
+      "with_location": 1,
+      "without_location": 17,
+      "location_coverage": 0.0556
     },
     "parse_success_rate": 1.0
   }
