@@ -256,13 +256,11 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 <h2 align="center">Latest Job Openings</h2>
 
 <p align="center">
-  <em>Updated January 10, 2026 · Showing 18 of 18+ jobs</em>
+  <em>Updated January 11, 2026 · Showing 18 of 18+ jobs</em>
 </p>
 
 | Job Title | Company | Apply |
 |-----------|---------|:-----:|
-| Founding Agent Infra Engineer | <img src="https://images.weserv.nl/?url=https://front.openjobs-ai.com/data/company-logo/v3/9/e2/5dc28e6e2517b74a67f46dc075ea8.png&w=24&h=24&q=80&output=webp" width="20" height="20" alt=""> Fibonacci | [View](https://www.openjobs-ai.com/jobs/founding-agentinfra-engineer-san-jose-ca-122597425545216004) |
-| Area Director | <img src="https://images.weserv.nl/?url=https://front.openjobs-ai.com/data/company-logo/v3/d/f3/b42bf001ae9feb8ce30fc2bb21f30.png&w=24&h=24&q=80&output=webp" width="20" height="20" alt=""> Fellowship of Christian Athletes | [View](https://www.openjobs-ai.com/jobs/area-director-durango-co-122597425545216005) |
 | Advanced Practice Provider (ACNP/PAC) | <img src="https://images.weserv.nl/?url=https://front.openjobs-ai.com/data/company-logo/v3/4/e1/728274e1bcdc43527b9385317bc6e.png&w=24&h=24&q=80&output=webp" width="20" height="20" alt=""> UNIVERSITY HOSPITAL CLEVELAND MEDICAL CENTER | [View](https://www.openjobs-ai.com/jobs/advanced-practice-provider-acnppac-cleveland-oh-122597605900288000) |
 | Vascular Sonographer | <img src="https://images.weserv.nl/?url=https://front.openjobs-ai.com/data/company-logo/v3/0/88/990f3f3ed832714b7c2699cfb6455.png&w=24&h=24&q=80&output=webp" width="20" height="20" alt=""> Colorado Springs Cardiology | [View](https://www.openjobs-ai.com/jobs/vascular-sonographer-colorado-springs-co-122597693980672000) |
 | Assistant Store Manager | <img src="https://images.weserv.nl/?url=https://front.openjobs-ai.com/data/company-logo/v3/1/06/4f374a8885050a201343f5fa5a04e.png&w=24&h=24&q=80&output=webp" width="20" height="20" alt=""> Save A Lot Grocery | [View](https://www.openjobs-ai.com/jobs/assistant-store-manager-warren-oh-122597693980672001) |
@@ -279,6 +277,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 | Head Boys Wrestling Coach | <img src="https://images.weserv.nl/?url=https://front.openjobs-ai.com/data/company-logo/v3/e/2a/af0492f7d287d5e6fcd5c1d5250e0.png&w=24&h=24&q=80&output=webp" width="20" height="20" alt=""> Regina Inter-Parish Catholic Education Center | [View](https://www.openjobs-ai.com/jobs/head-boys-wrestling-coach-iowa-city-ia-122597425545216001) |
 | Echocardiographic and Vascular Technicians | <img src="https://images.weserv.nl/?url=https://front.openjobs-ai.com/data/company-logo/v3/6/86/b093666f373b552ddd3caa0c8a1e5.png&w=24&h=24&q=80&output=webp" width="20" height="20" alt=""> Heart Lab Diagnostics | [View](https://www.openjobs-ai.com/jobs/echocardiographic-and-vascular-technicians-columbia-md-122597425545216002) |
 | Psychiatric Nurse Practitioner | <img src="https://images.weserv.nl/?url=https://front.openjobs-ai.com/data/company-logo/v3/d/c4/cb61179c543689a4a460f3871ac8f.png&w=24&h=24&q=80&output=webp" width="20" height="20" alt=""> LumiClinics Behavioral Wellness Center | [View](https://www.openjobs-ai.com/jobs/psychiatric-nurse-practitioner-glenview-il-122597425545216003) |
+| Founding Agent Infra Engineer | <img src="https://images.weserv.nl/?url=https://front.openjobs-ai.com/data/company-logo/v3/9/e2/5dc28e6e2517b74a67f46dc075ea8.png&w=24&h=24&q=80&output=webp" width="20" height="20" alt=""> Fibonacci | [View](https://www.openjobs-ai.com/jobs/founding-agentinfra-engineer-san-jose-ca-122597425545216004) |
+| Area Director | <img src="https://images.weserv.nl/?url=https://front.openjobs-ai.com/data/company-logo/v3/d/f3/b42bf001ae9feb8ce30fc2bb21f30.png&w=24&h=24&q=80&output=webp" width="20" height="20" alt=""> Fellowship of Christian Athletes | [View](https://www.openjobs-ai.com/jobs/area-director-durango-co-122597425545216005) |
 
 <p align="center">
   <em>...and 0 more jobs</em>
@@ -291,5 +291,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 <p align="center">
-  Made with Python + GitHub Actions · Updated January 10, 2026
+  Made with Python + GitHub Actions · Updated January 11, 2026
 </p>
