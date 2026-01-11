@@ -1,47 +1,56 @@
 {
-  "total_jobs": 18,
-  "total_companies": 18,
+  "total_jobs": 872,
+  "total_companies": 639,
   "top_companies": {
-    "Xylem Tree Experts": 1,
-    "Senior": 1,
-    "Bonsai Rehab": 1,
-    "Indiana University Health": 1,
-    "Tennessee Orthopaedic Alliance": 1,
-    "CHI": 1,
-    "Remote Leverage": 1,
-    "Regina Inter-Parish Catholic Education Center": 1,
-    "Heart Lab Diagnostics": 1,
-    "LumiClinics Behavioral Wellness Center": 1
+    "Tata Consultancy Services": 18,
+    "Domino's": 14,
+    "Inside Higher Ed": 13,
+    "Deloitte": 13,
+    "American Family Care": 12,
+    "Fox Rothschild": 11,
+    "S&P Global": 10,
+    "CVS Health": 8,
+    "Northwestern Medicine": 8,
+    "KPMG US": 6
   },
   "categories": {
-    "Engineering": 3,
-    "Healthcare": 5,
-    "Sales": 1,
-    "Finance": 0,
-    "Management": 2,
-    "Marketing": 0,
-    "HR": 0,
-    "Operations": 0,
-    "Other": 7
+    "Engineering": 93,
+    "Healthcare": 225,
+    "Sales": 49,
+    "Finance": 13,
+    "Management": 139,
+    "Marketing": 6,
+    "HR": 4,
+    "Operations": 11,
+    "Other": 332
   },
   "top_locations": {
-    "Consulting - Location Open 1 at EY": 1
+    "Huntington, WV": 2,
+    "PRN at CHRISTUS Health": 2,
+    "$20,000+ (Training Provided) at Lotus Sales": 2,
+    "10X Inc 5000 Company": 1,
+    "Fairless Hills, PA at Community Services for Children, Inc.": 1,
+    "FT Nights at Good Samaritan": 1,
+    "24/7 ED/UC Isleta at Presbyterian Healthcare Services": 1,
+    "Per Diem/Part-Time Day Shift at Mount Sinai Health System": 1,
+    "Dixit Lab at Cincinnati Children's": 1,
+    "La Jolla at Scripps Health": 1
   },
-  "updated_at": "2026-01-11T01:09:30.084247+00:00",
+  "updated_at": "2026-01-11T06:20:18.430987+00:00",
   "data_quality": {
-    "jobs_with_location": 1,
-    "jobs_with_logo": 18,
-    "location_coverage": 0.0556,
+    "jobs_with_location": 48,
+    "jobs_with_logo": 872,
+    "location_coverage": 0.055,
     "logo_coverage": 1.0,
     "parse_stats": {
-      "total_elements": 18,
-      "successful": 18,
+      "total_elements": 872,
+      "successful": 872,
       "skipped_no_caption": 0,
       "skipped_no_url": 0,
       "parse_failures": 0,
-      "with_location": 1,
-      "without_location": 17,
-      "location_coverage": 0.0556
+      "with_location": 48,
+      "without_location": 824,
+      "location_coverage": 0.055
     },
     "parse_success_rate": 1.0
   }
