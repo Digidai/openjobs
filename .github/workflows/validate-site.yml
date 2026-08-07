@@ -9,6 +9,7 @@ on:
     paths:
       - "public/**"
       - "scripts/validate_site.py"
+      - "scripts/generate_agent_context.py"
       - "README.md"
       - "EDITORIAL_POLICY.md"
       - "CONTRIBUTING.md"
@@ -32,5 +33,7 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Validate content, links, and SEO signals
-        run: python3 scripts/validate_site.py
+      - name: Validate content, links, SEO, and agent-readable artifacts
+        run: |
+          python3 scripts/generate_agent_context.py --check
+          python3 scripts/validate_site.py

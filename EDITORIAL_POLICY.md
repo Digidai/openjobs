@@ -28,3 +28,16 @@ The project does not:
 ## Corrections
 
 Open a GitHub issue with the page, statement, and preferred primary source. Material corrections should update the visible page, its `dateModified` value, the source ledger, and the validation fixtures in one change.
+
+## Machine-readable representations
+
+- Canonical HTML is the citation target and source of indexing signals.
+- Markdown files must preserve the visible page's material claims, source labels, caveats, and canonical URL.
+- `llms-full.txt` is generated from the curated Markdown files and must not be edited independently.
+- `ai-index.json` must distinguish public frameworks, government guidance, and first-party research.
+- Machine-readable copies are crawlable but marked `noindex` to avoid competing with canonical HTML.
+- The `llms.txt` format is treated as an evolving discovery proposal, not as an access-control or indexing standard.
+
+## Crawler policy
+
+The project records three independent choices in `robots.txt`: search and answer retrieval, user-directed fetching, and model development. A future change to one category must not silently change the others. `robots.txt` expresses crawler preference; it is not authentication or a content license.

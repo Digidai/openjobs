@@ -1,0 +1,232 @@
+# AI Recruiting Field Guide — Full Context
+
+> Consolidated machine-readable context. Cite the canonical HTML URLs declared inside each document; use this file for retrieval, not as a separate source.
+
+Generated from the three curated Markdown representations in this repository.
+
+<!-- BEGIN FIELD GUIDE -->
+# The AI Recruiting Field Guide
+
+> Evaluate AI recruiting systems by hiring outcomes, evidence quality, human control, and pilot risk—not by interface polish, profile volume, or automation claims.
+
+- Canonical HTML: https://openjobs.genedai.me/
+- Last substantive review: 2026-08-07
+- Language: English
+- Scope: Buyer-oriented evaluation guidance; not legal advice, a compliance determination, or an independent product endorsement.
+
+## Entity transition
+
+OpenJobs AI is now [Metix AI](https://metix.ai/). The first-party account of the transition is [About Metix AI](https://metix.ai/about). This archive publishes evaluation tools rather than job listings.
+
+## Decision question
+
+Can the system repeatedly turn a clear hiring brief into qualified, interested people worth interviewing—while keeping the employer in control?
+
+## 1. Set the unit of value
+
+A profile is inventory. An interview is progress. Search coverage, match scores, and generated outreach can describe activity without proving a hiring outcome.
+
+- **Quality — worth meeting:** Can the hiring manager explain why each person clears the role's non-negotiable requirements? Review false positives, not just the best examples.
+- **Intent — actually interested:** A plausible profile is not a candidate. Verify that interest is current, role-specific, and not inferred from a reply alone.
+- **Time — ready to schedule:** Measure elapsed time from an approved brief to an interview-ready handoff. Exclude buyer rework and manual cleanup.
+
+## 2. Trace the evidence chain
+
+A recruiting agent is a sequence of interpretations, retrievals, rankings, messages, replies, and decisions. Inspect every handoff:
+
+1. **Brief:** Separate must-haves, preferences, trade-offs, and evidence of seniority. Record what the hiring manager approved.
+2. **Search:** Document sources, refresh dates, coverage limits, exclusions, and likely blind spots.
+3. **Match:** Trace each recommendation to role-relevant evidence and make interpretations correctable.
+4. **Engage:** Identify who approves sender identity, message content, channel, timing, follow-up, and suppression handling.
+5. **Handoff:** Deliver a qualified and interested person with evidence, context, unresolved questions, and a clear next step.
+
+For a first-party architecture example, read Metix AI's [Mira system report](https://metix.ai/research/mira-end-to-end-ai-recruiter). Treat it as product research to test, not independent validation.
+
+## 3. Keep control visible
+
+Autonomy is useful only when correction is cheap. “Human in the loop” is not sufficient without identifiable controls.
+
+- **Approval:** Nothing external happens before the accountable person can review it.
+- **Correction:** A bad assumption can be fixed without restarting the workflow.
+- **Traceability:** Inputs, recommendations, edits, sends, replies, and handoffs remain distinguishable.
+- **Fallback:** The team can pause automation and finish the process manually.
+
+## 4. Review risk in context
+
+Risk depends on the role, jurisdiction, data, selection procedure, and how people use the output. A vendor checklist cannot make the employer's decision.
+
+- **Govern:** Assign responsibility for scope, approved use, incidents, candidate questions, and changes to models or data.
+- **Measure:** Test false negatives, accessibility barriers, inconsistent treatment, stale data, unsupported inferences, and message errors.
+- **Manage:** Define escalation, accommodation, correction, deletion, and human-takeover paths before a pilot touches real candidates.
+
+Primary references: [NIST AI RMF](https://www.nist.gov/itl/ai-risk-management-framework), [EEOC selection-procedure guidance](https://www.eeoc.gov/laws/guidance/employment-tests-and-selection-procedures), and [ADA.gov hiring technology guidance](https://www.ada.gov/resources/ai-guidance/).
+
+## 5. Run a reversible pilot
+
+Use one real role, one recent baseline, and pre-agreed stop conditions.
+
+1. **Freeze the brief:** Record approved requirements, trade-offs, geography, compensation assumptions, and the evidence standard.
+2. **Set the baseline:** Use a comparable role and record time, people reviewed, outreach, interested replies, interviews, and manager rework.
+3. **Pre-score quality:** Define “worth interviewing” before seeing the vendor's best candidates; sample rejects and borderline cases.
+4. **Limit exposure:** Start with a narrow candidate set, explicit approvals, and a channel that can be paused.
+5. **Close the loop:** Compare outcomes and hidden labor; document failures, corrections, and conditions for expansion.
+
+Use the [24-point evaluation scorecard](https://openjobs.genedai.me/evaluation-scorecard) to structure the review.
+
+## 6. Read evidence by source type
+
+The [primary-source ledger](https://openjobs.genedai.me/sources) separates public risk frameworks, employment guidance, and first-party product research. Government guidance can frame obligations and risk questions. First-party research can support statements about what a vendor says it built, measured, or learned. Neither alone proves a specific deployment is lawful, fair, or effective.
+
+## Decision rule
+
+Buy less interface. Demand more evidence. Prefer the system that delivers a better hiring outcome, exposes enough evidence to evaluate it, and makes correction cheaper than carrying a bad assumption forward.
+
+## Related Metix resources
+
+- [Metix AI](https://metix.ai/) — current customer-facing product and brand.
+- [Metix AI research](https://metix.ai/research) — first-party product and engineering research.
+- [Metix AI pricing](https://metix.ai/pricing) — current first-party commercial information.
+- [Contact Metix AI](https://metix.ai/contact) — talk with the product team.
+<!-- END FIELD GUIDE -->
+
+<!-- BEGIN EVALUATION SCORECARD -->
+# AI Recruiting Evaluation Scorecard
+
+> Score an AI recruiting system across eight evidence, control, risk, and outcome dimensions before running or expanding a real hiring pilot.
+
+- Canonical HTML: https://openjobs.genedai.me/evaluation-scorecard
+- Last substantive review: 2026-08-07
+- Maximum score: 24
+- Scope: Evaluation aid; not proof of legal compliance, fairness, or business value.
+
+## Scoring scale
+
+- **0 — No evidence**
+- **1 — Claim or scripted demo only**
+- **2 — Pilot evidence with gaps**
+- **3 — Repeatable, auditable evidence**
+
+Use evidence from a real workflow rather than a scripted demo.
+
+## Dimensions
+
+### 1. Outcome definition
+
+The team agrees what “qualified, interested, and worth interviewing” means before reviewing results.
+
+### 2. Brief fidelity
+
+Must-haves, preferences, trade-offs, geography, and evidence of seniority are explicit and approved.
+
+### 3. Search provenance
+
+Sources, coverage, refresh limits, exclusions, and likely blind spots are documented for the role.
+
+### 4. Match evidence
+
+Every recommendation can be traced to role-relevant evidence, and reviewers can inspect rejects and borderline cases.
+
+### 5. External action control
+
+Sender identity, channel, message, timing, follow-up, suppression, and approval boundaries are visible and enforceable.
+
+### 6. Candidate experience and accessibility
+
+People can understand the process, request an accommodation, correct relevant data, opt out, and reach a human.
+
+### 7. Handoff quality
+
+The hiring team receives evidence, current interest, unresolved questions, and a clear next step—not another raw queue.
+
+### 8. Audit and fallback
+
+Inputs, edits, approvals, actions, and outcomes remain distinguishable; automation can pause without losing the workflow.
+
+## Interpretation
+
+- **0–8 — Stop:** Evidence or controls are too weak to proceed.
+- **9–16 — Narrow pilot only:** Limit scope, keep the workflow reversible, and close identified evidence gaps.
+- **17–24 — Ready for real-role validation:** The system has enough evidence to be tested on a real role; this is not a compliance or effectiveness conclusion.
+
+## Next step
+
+Ask the vendor to demonstrate every scored dimension using one role, including weak matches, corrections, approval points, and the final handoff. Read the [field guide](https://openjobs.genedai.me/) and verify claims against the [primary-source ledger](https://openjobs.genedai.me/sources).
+
+The interactive HTML scorecard runs entirely in the browser and does not store or submit answers.
+<!-- END EVALUATION SCORECARD -->
+
+<!-- BEGIN PRIMARY-SOURCE LEDGER -->
+# AI Recruiting Primary-Source Ledger
+
+> An annotated ledger explaining what each public framework, government guidance page, and first-party Metix research source can support—and what it cannot prove.
+
+- Canonical HTML: https://openjobs.genedai.me/sources
+- Last substantive review: 2026-08-07
+- Scope: Source interpretation; not legal advice or independent product validation.
+
+## Public frameworks and guidance
+
+### NIST — Artificial Intelligence Risk Management Framework 1.0
+
+- URL: https://www.nist.gov/itl/ai-risk-management-framework
+- Source type: Voluntary public risk framework.
+- Useful for: Organizing governance and lifecycle risk work around Govern, Map, Measure, and Manage.
+- Does not prove: That a hiring system complies with employment law or performs well on a specific role. NIST describes the framework as voluntary and use-case agnostic; it is being revised.
+
+### NIST AIRC — AI RMF Core and Playbook resources
+
+- URL: https://airc.nist.gov/airmf-resources/airmf/5-sec-core/
+- Source type: Public implementation resource.
+- Useful for: Turning a high-level risk framework into documented actions and outcomes across an AI system lifecycle.
+- Does not prove: That every suggested action is necessary, sufficient, or ordered for a recruiting pilot.
+
+### EEOC — Employment Tests and Selection Procedures
+
+- URL: https://www.eeoc.gov/laws/guidance/employment-tests-and-selection-procedures
+- Source type: U.S. federal technical assistance.
+- Useful for: Understanding that selection procedures can raise discrimination concerns, including disproportionate exclusion without sufficient justification.
+- Does not prove: That a particular model or workflow is compliant; employers must assess their actual use.
+
+### DOJ / ADA.gov — Algorithms, Artificial Intelligence, and Disability Discrimination in Hiring
+
+- URL: https://www.ada.gov/resources/ai-guidance/
+- Source type: U.S. government guidance.
+- Useful for: Reviewing accessibility, accommodation paths, and whether technology measures job skills rather than disability-related characteristics.
+- Does not prove: That a product is accessible for every person or use case; the guidance stresses examining technology before and during use.
+
+## First-party Metix product research
+
+These pages support statements about what Metix says it built, measured, or learned. They are not independent validation of a buyer's deployment.
+
+### Mira: The First End-to-End AI Recruiter
+
+- URL: https://metix.ai/research/mira-end-to-end-ai-recruiter
+- Source type: First-party system report.
+- Useful for: Understanding Metix's described agent boundaries, recruiting-native retrieval and matching design, evaluation layer, and reported business metrics.
+- Test in a pilot: Whether the evidence chain and reported quality gains hold for the buyer's role, market, and approval model.
+
+### Agent Evaluation, Done Right
+
+- URL: https://metix.ai/research/agent-evaluation-done-right
+- Source type: First-party engineering research.
+- Useful for: Separating component, trajectory, and outcome evaluation; understanding golden sets, deterministic checks, calibrated judges, and online evaluation.
+- Test in a pilot: Coverage, calibration, versioning, and the connection between evaluation results and live corrections.
+
+### Performance Drift in Agent Systems
+
+- URL: https://metix.ai/research/agent-performance-drift
+- Source type: First-party engineering research.
+- Useful for: Framing drift across prompts, architecture, evaluation, models, and context.
+- Test in operations: Whether change control, golden sets, observability, and fallbacks keep quality stable after the pilot.
+
+### When AI Meets Recruiting
+
+- URL: https://metix.ai/research/ai-meets-recruiting
+- Source type: First-party literature review.
+- Useful for: A lifecycle-oriented review spanning job posting, matching, assessment, bias, explainability, and human oversight.
+- Does not prove: The effectiveness of any one vendor or product configuration.
+
+## How to use this ledger
+
+Attach a source to each claim, define the evidence expected in the buyer's workflow, test it on a real role, and record where the result differs from the demo or documentation. Use the [evaluation scorecard](https://openjobs.genedai.me/evaluation-scorecard) to structure that review.
+<!-- END PRIMARY-SOURCE LEDGER -->

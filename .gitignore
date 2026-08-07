@@ -1,2 +1,4 @@
 .wrangler/
 playwright-output/
+__pycache__/
+*.py[cod]

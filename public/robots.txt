@@ -1,4 +1,38 @@
-# OpenJobs Archive
+# AI Recruiting Field Guide
+# Access policy is intentionally explicit. Search, user-directed retrieval,
+# and model-development crawlers are separate choices even though all are allowed here.
+
+# Search and answer retrieval
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+# User-directed fetchers
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+# Model development and AI product improvement
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+# All other standards-compliant crawlers
 User-agent: *
 Allow: /
 
