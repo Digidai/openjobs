@@ -11,6 +11,7 @@ import sys
 import xml.etree.ElementTree as ET
 from urllib.parse import urlsplit
 
+from generate_evaluation_library import render_outputs as render_library_outputs
 from generate_agent_context import OUTPUT as FULL_CONTEXT, render_context
 
 
@@ -21,12 +22,24 @@ CANONICALS = {
     "index.html": "https://openjobs.genedai.me/",
     "evaluation-scorecard.html": "https://openjobs.genedai.me/evaluation-scorecard",
     "sources.html": "https://openjobs.genedai.me/sources",
+    "methodology.html": "https://openjobs.genedai.me/methodology",
+    "vendor-checklist.html": "https://openjobs.genedai.me/vendor-checklist",
+    "pilot-design.html": "https://openjobs.genedai.me/pilot-design",
+    "sourcing-evaluation.html": "https://openjobs.genedai.me/sourcing-evaluation",
+    "screening-evaluation.html": "https://openjobs.genedai.me/screening-evaluation",
+    "agent-reliability.html": "https://openjobs.genedai.me/agent-reliability",
 }
 
 MARKDOWN_REPRESENTATIONS = {
     "index.html": "https://openjobs.genedai.me/index.html.md",
     "evaluation-scorecard.html": "https://openjobs.genedai.me/evaluation-scorecard.md",
     "sources.html": "https://openjobs.genedai.me/sources.md",
+    "methodology.html": "https://openjobs.genedai.me/methodology.md",
+    "vendor-checklist.html": "https://openjobs.genedai.me/vendor-checklist.md",
+    "pilot-design.html": "https://openjobs.genedai.me/pilot-design.md",
+    "sourcing-evaluation.html": "https://openjobs.genedai.me/sourcing-evaluation.md",
+    "screening-evaluation.html": "https://openjobs.genedai.me/screening-evaluation.md",
+    "agent-reliability.html": "https://openjobs.genedai.me/agent-reliability.md",
 }
 
 MACHINE_ENDPOINTS = {
@@ -42,10 +55,18 @@ REQUIRED_FILES = {
     ROOT / "_config.yml",
     ROOT / "sitemap.xml",
     ROOT / ".github/workflows/validate-site.yml",
+    ROOT / "content/evaluation-library.json",
     ROOT / "scripts/generate_agent_context.py",
+    ROOT / "scripts/generate_evaluation_library.py",
     PUBLIC / "index.html",
     PUBLIC / "evaluation-scorecard.html",
     PUBLIC / "sources.html",
+    PUBLIC / "methodology.html",
+    PUBLIC / "vendor-checklist.html",
+    PUBLIC / "pilot-design.html",
+    PUBLIC / "sourcing-evaluation.html",
+    PUBLIC / "screening-evaluation.html",
+    PUBLIC / "agent-reliability.html",
     PUBLIC / "404.html",
     PUBLIC / "assets/site.css",
     PUBLIC / "assets/scorecard.js",
@@ -60,6 +81,17 @@ REQUIRED_FILES = {
     PUBLIC / "index.html.md",
     PUBLIC / "evaluation-scorecard.md",
     PUBLIC / "sources.md",
+    PUBLIC / "methodology.md",
+    PUBLIC / "vendor-checklist.md",
+    PUBLIC / "pilot-design.md",
+    PUBLIC / "sourcing-evaluation.md",
+    PUBLIC / "screening-evaluation.md",
+    PUBLIC / "agent-reliability.md",
+    PUBLIC / "downloads/ai-recruiting-vendor-checklist.csv",
+    PUBLIC / "downloads/ai-recruiting-pilot-template.csv",
+    PUBLIC / "downloads/ai-recruiting-evidence-register.csv",
+    PUBLIC / "data/vendor-checklist.json",
+    PUBLIC / "data/pilot-metrics.json",
     PUBLIC / "ai-index.json",
     PUBLIC / "ai-index.schema.json",
     PUBLIC / "_headers",
@@ -219,6 +251,10 @@ def main() -> int:
             print(f"ERROR: {error}")
         return 1
 
+    for path, expected in render_library_outputs().items():
+        if path.read_text(encoding="utf-8") != expected:
+            errors.append(f"{path.relative_to(ROOT)}: generated evaluation-library output is stale")
+
     all_links: list[str] = []
     runtime_files = [PUBLIC / name for name in CANONICALS]
     runtime_files.extend(
@@ -227,9 +263,7 @@ def main() -> int:
             PUBLIC / "sitemap.xml",
             PUBLIC / "llms.txt",
             PUBLIC / "llms-full.txt",
-            PUBLIC / "index.html.md",
-            PUBLIC / "evaluation-scorecard.md",
-            PUBLIC / "sources.md",
+            *(PUBLIC / urlsplit(url).path.lstrip("/") for url in MARKDOWN_REPRESENTATIONS.values()),
             PUBLIC / "ai-index.json",
         ]
     )
