@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 from html.parser import HTMLParser
+import csv
 import json
 from pathlib import Path
 import re
@@ -257,6 +258,26 @@ def main() -> int:
                 errors.append(f"{path.relative_to(ROOT)}: generated evaluation-library output is stale")
     except (json.JSONDecodeError, KeyError, TypeError, ValueError) as exc:
         errors.append(f"evaluation library content is invalid: {exc}")
+
+    try:
+        vendor_data = json.loads((PUBLIC / "data/vendor-checklist.json").read_text(encoding="utf-8"))
+        pilot_data = json.loads((PUBLIC / "data/pilot-metrics.json").read_text(encoding="utf-8"))
+        with (PUBLIC / "downloads/ai-recruiting-vendor-checklist.csv").open(encoding="utf-8", newline="") as handle:
+            vendor_rows = list(csv.DictReader(handle))
+        with (PUBLIC / "downloads/ai-recruiting-pilot-template.csv").open(encoding="utf-8", newline="") as handle:
+            pilot_rows = list(csv.DictReader(handle))
+        with (PUBLIC / "downloads/ai-recruiting-evidence-register.csv").open(encoding="utf-8", newline="") as handle:
+            evidence_rows = list(csv.DictReader(handle))
+        if len(vendor_rows) < 40 or len(vendor_rows) != len(vendor_data.get("items", [])):
+            errors.append("vendor checklist CSV and JSON need the same 40+ questions")
+        if len(pilot_rows) < 18 or len(pilot_rows) != len(pilot_data.get("items", [])):
+            errors.append("pilot template CSV and JSON need the same 18+ metrics")
+        if {row.get("family") for row in pilot_rows} != {"quality", "intent", "time", "labor", "candidate-impact", "reliability"}:
+            errors.append("pilot template does not cover every required metric family")
+        if len(evidence_rows) < 12 or any(not row.get("limitation") for row in evidence_rows):
+            errors.append("evidence register needs 12+ sources with explicit limitations")
+    except (csv.Error, json.JSONDecodeError) as exc:
+        errors.append(f"generated evaluation data is invalid: {exc}")
 
     all_links: list[str] = []
     runtime_files = [PUBLIC / name for name in CANONICALS]

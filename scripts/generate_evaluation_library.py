@@ -132,6 +132,55 @@ def validate_content(data: dict) -> list[str]:
                 errors.append(f"page {slug} has a non-canonical Metix reference")
             if not reference.get("limitation"):
                 errors.append(f"page {slug} Metix reference needs an evidence limitation")
+
+    vendor_questions = data.get("vendor_questions", [])
+    vendor_fields = {"id", "category", "question", "evidence", "red_flag", "gate", "applies_to"}
+    vendor_categories = {item.get("category") for item in vendor_questions if isinstance(item, dict)}
+    expected_vendor_categories = {
+        "purpose-and-scope",
+        "system-and-evidence",
+        "data-and-provenance",
+        "candidate-impact",
+        "controls-and-integrations",
+        "operations-and-security",
+        "commercial-and-exit",
+        "pilot-and-outcomes",
+    }
+    if len(vendor_questions) < 40:
+        errors.append("vendor question bank needs at least 40 questions")
+    if vendor_categories != expected_vendor_categories:
+        errors.append(f"vendor question categories must be {sorted(expected_vendor_categories)}")
+    if len({item.get("id") for item in vendor_questions}) != len(vendor_questions):
+        errors.append("vendor question ids must be unique")
+    for item in vendor_questions:
+        missing = vendor_fields - set(item)
+        if missing:
+            errors.append(f"vendor question {item.get('id', '<unknown>')} missing {sorted(missing)}")
+
+    pilot_metrics = data.get("pilot_metrics", [])
+    pilot_fields = {
+        "id",
+        "family",
+        "metric",
+        "definition",
+        "numerator",
+        "denominator",
+        "collection",
+        "interpretation_limit",
+        "gate",
+    }
+    expected_families = {"quality", "intent", "time", "labor", "candidate-impact", "reliability"}
+    metric_families = {item.get("family") for item in pilot_metrics if isinstance(item, dict)}
+    if len(pilot_metrics) < 18:
+        errors.append("pilot metric bank needs at least 18 metrics")
+    if metric_families != expected_families:
+        errors.append(f"pilot metric families must be {sorted(expected_families)}")
+    if len({item.get("id") for item in pilot_metrics}) != len(pilot_metrics):
+        errors.append("pilot metric ids must be unique")
+    for item in pilot_metrics:
+        missing = pilot_fields - set(item)
+        if missing:
+            errors.append(f"pilot metric {item.get('id', '<unknown>')} missing {sorted(missing)}")
     return errors
 
 
@@ -422,6 +471,26 @@ def render_page_markdown(data: dict, page: dict) -> str:
     return "\n".join(lines)
 
 
+def render_csv(rows: list[dict], fields: list[str]) -> str:
+    buffer = io.StringIO(newline="")
+    writer = csv.DictWriter(buffer, fieldnames=fields, lineterminator="\n", extrasaction="ignore")
+    writer.writeheader()
+    writer.writerows(rows)
+    return buffer.getvalue()
+
+
+def render_data_json(data: dict, kind: str, fields: list[str], items: list[dict]) -> str:
+    payload = {
+        "version": data["version"],
+        "last_substantive_review": data["last_substantive_review"],
+        "license": data["license"],
+        "kind": kind,
+        "fields": fields,
+        "items": items,
+    }
+    return json.dumps(payload, ensure_ascii=False, indent=2) + "\n"
+
+
 def render_outputs() -> dict[Path, str]:
     """Return every generated artifact without writing it."""
 
@@ -433,6 +502,35 @@ def render_outputs() -> dict[Path, str]:
     for page in data["pages"]:
         outputs[PUBLIC / f"{page['slug']}.html"] = render_page_html(data, page)
         outputs[PUBLIC / f"{page['slug']}.md"] = render_page_markdown(data, page)
+    vendor_fields = ["id", "category", "question", "evidence", "red_flag", "gate", "applies_to"]
+    pilot_fields = [
+        "id",
+        "family",
+        "metric",
+        "definition",
+        "numerator",
+        "denominator",
+        "collection",
+        "interpretation_limit",
+        "gate",
+    ]
+    pilot_csv_fields = [*pilot_fields, "baseline", "target", "pilot_result", "notes"]
+    source_fields = [
+        "id",
+        "organization",
+        "title",
+        "url",
+        "source_type",
+        "jurisdiction",
+        "last_checked",
+        "supports",
+        "limitation",
+    ]
+    outputs[PUBLIC / "downloads/ai-recruiting-vendor-checklist.csv"] = render_csv(data["vendor_questions"], vendor_fields)
+    outputs[PUBLIC / "downloads/ai-recruiting-pilot-template.csv"] = render_csv(data["pilot_metrics"], pilot_csv_fields)
+    outputs[PUBLIC / "downloads/ai-recruiting-evidence-register.csv"] = render_csv(data["sources"], source_fields)
+    outputs[PUBLIC / "data/vendor-checklist.json"] = render_data_json(data, "vendor-question-bank", vendor_fields, data["vendor_questions"])
+    outputs[PUBLIC / "data/pilot-metrics.json"] = render_data_json(data, "pilot-metric-bank", pilot_fields, data["pilot_metrics"])
     return outputs
 
 
