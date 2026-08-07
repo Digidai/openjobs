@@ -17,8 +17,8 @@ PUBLIC = ROOT / "public"
 
 CANONICALS = {
     "index.html": "https://openjobs.genedai.me/",
-    "evaluation-scorecard.html": "https://openjobs.genedai.me/evaluation-scorecard.html",
-    "sources.html": "https://openjobs.genedai.me/sources.html",
+    "evaluation-scorecard.html": "https://openjobs.genedai.me/evaluation-scorecard",
+    "sources.html": "https://openjobs.genedai.me/sources",
 }
 
 REQUIRED_FILES = {
@@ -113,6 +113,8 @@ def local_target(href: str) -> Path | None:
         candidate = PUBLIC / path
     if candidate.is_dir():
         candidate = candidate / "index.html"
+    elif not candidate.suffix and candidate.with_suffix(".html").exists():
+        candidate = candidate.with_suffix(".html")
     return candidate
 
 

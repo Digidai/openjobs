@@ -19,11 +19,11 @@
   "shortcuts": [
     {
       "name": "Evaluation scorecard",
-      "url": "/evaluation-scorecard.html"
+      "url": "/evaluation-scorecard"
     },
     {
       "name": "Primary sources",
-      "url": "/sources.html"
+      "url": "/sources"
     }
   ]
 }

@@ -9,8 +9,8 @@ The public guide asks a more useful question than “How many profiles can this 
 ## Read the guide
 
 - [AI Recruiting Field Guide](https://openjobs.genedai.me/) — the decision framework
-- [24-point evaluation scorecard](https://openjobs.genedai.me/evaluation-scorecard.html) — an interactive and printable pilot rubric
-- [Primary-source ledger](https://openjobs.genedai.me/sources.html) — annotated NIST, EEOC, ADA, and Metix research references
+- [24-point evaluation scorecard](https://openjobs.genedai.me/evaluation-scorecard) — an interactive and printable pilot rubric
+- [Primary-source ledger](https://openjobs.genedai.me/sources) — annotated NIST, EEOC, ADA, and Metix research references
 
 ## What changed
 

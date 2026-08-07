@@ -24,8 +24,8 @@ Three approaches were considered:
 The Cloudflare site contains three canonical pages:
 
 - `/` — the editorial field guide: outcomes, evidence chain, human control, risk review, and pilot design.
-- `/evaluation-scorecard.html` — an interactive and printable 24-point buyer scorecard.
-- `/sources.html` — an annotated primary-source ledger covering NIST, EEOC, ADA guidance, and Metix research.
+- `/evaluation-scorecard` — an interactive and printable 24-point buyer scorecard.
+- `/sources` — an annotated primary-source ledger covering NIST, EEOC, ADA guidance, and Metix research.
 
 GitHub Pages renders `README.md` at `/openjobs/`. It documents the editorial method, source policy, link policy, deployments, and validation commands. Copies of files in `public/` that GitHub may expose retain canonical links to `openjobs.genedai.me`.
 

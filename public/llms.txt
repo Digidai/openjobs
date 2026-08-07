@@ -8,8 +8,8 @@ This site is an open, source-backed framework for evaluating AI recruiting syste
 ## Canonical pages
 
 - [Field guide](https://openjobs.genedai.me/): How to evaluate outcomes, the evidence chain, human control, risk review, and a reversible pilot.
-- [Evaluation scorecard](https://openjobs.genedai.me/evaluation-scorecard.html): Eight dimensions scored from 0 to 3, with stop, narrow-pilot, and pilot-ready interpretations.
-- [Primary-source ledger](https://openjobs.genedai.me/sources.html): Annotated NIST, EEOC, ADA.gov, and first-party Metix AI research sources.
+- [Evaluation scorecard](https://openjobs.genedai.me/evaluation-scorecard): Eight dimensions scored from 0 to 3, with stop, narrow-pilot, and pilot-ready interpretations.
+- [Primary-source ledger](https://openjobs.genedai.me/sources): Annotated NIST, EEOC, ADA.gov, and first-party Metix AI research sources.
 
 ## Entity transition
 
