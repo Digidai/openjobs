@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>How to Evaluate AI Candidate Sourcing and Ranking | OpenJobs</title>
+  <meta name="description" content="Evaluate AI candidate sourcing with role decomposition, provenance, coverage, freshness, precision, recall proxies, ranking review, false negatives, and live outcomes.">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#f3f0e6">
+  <link rel="canonical" href="https://openjobs.genedai.me/sourcing-evaluation">
+  <link rel="alternate" type="text/markdown" href="https://openjobs.genedai.me/sourcing-evaluation.md" title="Markdown version">
+  <link rel="describedby" type="text/plain" href="https://openjobs.genedai.me/llms.txt">
+  <link rel="describedby" type="application/json" href="https://openjobs.genedai.me/ai-index.json">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/site.css">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="OpenJobs Archive">
+  <meta property="og:title" content="How to Evaluate AI Candidate Sourcing and Ranking">
+  <meta property="og:description" content="AI candidate sourcing should be evaluated as a retrieval and ranking workflow, not by database size or a handful of impressive profiles. Test how the system interprets a role, covers the relevant population, ranks evidence within a fixed review budget, and learns from misses without hiding them.">
+  <meta property="og:url" content="https://openjobs.genedai.me/sourcing-evaluation">
+  <meta property="og:image" content="https://openjobs.genedai.me/og-image.svg">
+  <meta name="twitter:card" content="summary_large_image">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "@id": "https://openjobs.genedai.me/sourcing-evaluation#article",
+      "headline": "How to Evaluate AI Candidate Sourcing and Ranking",
+      "description": "Evaluate AI candidate sourcing with role decomposition, provenance, coverage, freshness, precision, recall proxies, ranking review, false negatives, and live outcomes.",
+      "datePublished": "2026-08-07",
+      "dateModified": "2026-08-07",
+      "author": {
+        "@type": "Organization",
+        "name": "OpenJobs Archive Editors",
+        "url": "https://github.com/Digidai/openjobs"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "OpenJobs Archive",
+        "url": "https://openjobs.genedai.me/"
+      },
+      "mainEntityOfPage": "https://openjobs.genedai.me/sourcing-evaluation",
+      "encoding": {
+        "@type": "MediaObject",
+        "contentUrl": "https://openjobs.genedai.me/sourcing-evaluation.md",
+        "encodingFormat": "text/markdown"
+      },
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "evaluate AI candidate sourcing"
+        },
+        {
+          "@type": "Thing",
+          "name": "AI recruiting"
+        }
+      ],
+      "inLanguage": "en-US"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Guide",
+          "item": "https://openjobs.genedai.me/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Sourcing Evaluation",
+          "item": "https://openjobs.genedai.me/sourcing-evaluation"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is database size a useful sourcing metric?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It describes potential inventory but not role-specific coverage, freshness, provenance, deduplication, rank quality, contactability, or candidate interest."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the difference between precision and recall in candidate sourcing?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Precision asks how many reviewed results are relevant; recall asks how many relevant people in the evaluated pool were retrieved within the cutoff. Both depend on labels and pool construction."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How can a team find false negatives if the system never shows them?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Review lower-ranked samples, known qualified cases, alternate queries, source comparisons, hiring-manager nominations, and hard-filter exclusions."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can an LLM judge candidate relevance for an evaluation?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It can assist if its rubric and agreement with qualified human review are tested. Model judgments should not be treated as ground truth without validation and error analysis."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to the evaluation guide</a>
+  <header class="site-header">
+    <div class="shell">
+      <a class="wordmark" href="/" aria-label="OpenJobs Archive home"><span class="wordmark-mark" aria-hidden="true">OJ</span><span class="wordmark-text">OpenJobs Archive · Evaluation Library</span></a>
+      <nav class="site-nav" aria-label="Primary navigation"><a href="/">Guide</a><a href="/methodology">Methodology</a><a href="/evaluation-scorecard">Scorecard</a><a href="/sources">Sources</a></nav>
+    </div>
+  </header>
+  <main id="main">
+    <div class="shell"><nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Guide</a><span aria-hidden="true">/</span><span aria-current="page">Sourcing Evaluation</span></nav></div>
+    <section class="page-hero library-hero"><div class="shell"><p class="eyebrow">Retrieval quality under a review budget</p><h1>A large candidate pool matters only if the right evidence reaches the reviewer.</h1><p class="page-deck">AI candidate sourcing should be evaluated as a retrieval and ranking workflow, not by database size or a handful of impressive profiles. Test how the system interprets a role, covers the relevant population, ranks evidence within a fixed review budget, and learns from misses without hiding them.</p><p class="review-note">Last substantive review: August 7, 2026 · General evaluation guidance, not legal advice.</p></div></section>
+    <section class="section toc-section"><div class="shell content-shell"><p class="eyebrow">On this page</p><ol class="table-of-contents">
+            <li><a href="#retrieval-task"><span>01</span>Turn the role into a testable retrieval task.</a></li>
+            <li><a href="#provenance-coverage"><span>02</span>Evaluate source provenance, coverage, refresh, and exclusions together.</a></li>
+            <li><a href="#test-set"><span>03</span>Create a role-specific test set without treating one reviewer as ground truth.</a></li>
+            <li><a href="#retrieval-metrics"><span>04</span>Measure precision and coverage at the point a recruiter can actually review.</a></li>
+            <li><a href="#error-analysis"><span>05</span>Review false positives and false negatives as different product failures.</a></li>
+            <li><a href="#live-workflow"><span>06</span>Connect retrieval quality to review, engagement, and interview acceptance.</a></li>
+            <li><a href="#freshness-drift"><span>07</span>Re-test when the role, population, source, or model changes.</a></li>
+            <li><a href="#sourcing-decision"><span>08</span>Approve a sourcing system for a defined role family and review budget.</a></li>
+          </ol></div></section>
+
+    <section class="section content-section" id="retrieval-task">
+      <div class="shell content-shell">
+        <div class="content-section-heading">
+          <span class="kicker-number" aria-hidden="true">01</span>
+          <div><p class="eyebrow">Define relevance</p><h2>Turn the role into a testable retrieval task.</h2></div>
+        </div>
+        <p>Candidate relevance is conditional on a role brief and a decision. Before measuring a system, separate must-have evidence, acceptable alternatives, preferences, exclusions, seniority signals, location or work authorization constraints, compensation assumptions, and unknowns that require a conversation. Ask the hiring manager to approve this interpretation before seeing the ranked results.</p>
+        <p>Use job analysis rather than copying every sentence of a legacy description into a prompt. The OPM job-analysis material identifies tasks and competencies as foundations for assessment. In sourcing, the same discipline helps distinguish evidence that a person could perform the work from convenient proxies such as title, employer brand, school, or keyword overlap.</p>
+        <p>Define the retrieval unit. Is the system finding profiles, enriching known applicants, rediscovering people in an ATS, recommending similar candidates, or producing contactable and currently interested people? A profile can be relevant but stale, duplicate, unreachable, unavailable, or not interested. These later states should not be silently included in retrieval quality.</p>
+        <ul class="content-list">
+          <li><strong>Must-have evidence.</strong> What observable experience, work, skill, or qualification is necessary, and what alternative evidence is acceptable?</li>
+          <li><strong>Trade-offs.</strong> Which requirements can move together, and who approves that movement?</li>
+          <li><strong>Unknowns.</strong> Which questions cannot be answered reliably from available profile data?</li>
+          <li><strong>Outcome.</strong> Does success mean worth reviewing, worth contacting, interested, or accepted for interview?</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section content-section" id="provenance-coverage">
+      <div class="shell content-shell">
+        <div class="content-section-heading">
+          <span class="kicker-number" aria-hidden="true">02</span>
+          <div><p class="eyebrow">Know the pool</p><h2>Evaluate source provenance, coverage, refresh, and exclusions together.</h2></div>
+        </div>
+        <p>Ask the provider to describe source categories, licensing or access basis, geographic and occupational coverage, refresh schedules, deletion and correction flows, deduplication, enrichment, and inferred fields. A headline profile count does not show how many records are current, searchable for the relevant role, or usable in the intended communication channel.</p>
+        <p>Coverage has both visible and invisible gaps. A source may underrepresent a country, sector, early-career population, independent work, non-English profile, or nontraditional path. A ranking model cannot retrieve people who are absent or fields the index does not preserve. Document these gaps before attributing every miss to model quality.</p>
+        <p>Separate source facts from vendor or model inference. Show dates and provenance for current employer, role, location, skills, contact data, and availability where available. If the system synthesizes a profile summary or inferred seniority, a reviewer should be able to return to the underlying evidence and correct the interpretation.</p>
+        <div class="table-wrap" tabindex="0">
+          <table>
+            <caption>Coverage questions that a database-size claim cannot answer</caption>
+            <thead><tr><th scope="col">Dimension</th><th scope="col">Evidence to request</th><th scope="col">Failure to look for</th></tr></thead>
+            <tbody>
+              <tr><td>Population</td><td>Role, geography, language, career stage, and source distribution.</td><td>Strong totals masking weak coverage for the evaluated role.</td></tr>
+              <tr><td>Freshness</td><td>Field-level dates, refresh method, and stale-record handling.</td><td>Current-looking summaries built from outdated employment data.</td></tr>
+              <tr><td>Provenance</td><td>Source category and distinction between observed and inferred fields.</td><td>Generated claims presented as profile facts.</td></tr>
+              <tr><td>Control</td><td>Correction, deletion, suppression, and customer export paths.</td><td>Records persisting or reappearing after correction.</td></tr>
+              <tr><td>Duplicates</td><td>Entity resolution method and review of merged or split profiles.</td><td>One person counted repeatedly or different people merged incorrectly.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section content-section section-dark" id="test-set">
+      <div class="shell content-shell">
+        <div class="content-section-heading">
+          <span class="kicker-number" aria-hidden="true">03</span>
+          <div><p class="eyebrow">Build labels carefully</p><h2>Create a role-specific test set without treating one reviewer as ground truth.</h2></div>
+        </div>
+        <p>Build evaluation cases from the approved brief and the population the system will actually search. Include known qualified people where available, hard negatives with similar titles but wrong scope, adjacent backgrounds, unconventional evidence, missing fields, and disputed cases. Preserve why each person was labeled rather than only a binary judgment.</p>
+        <p>Have reviewers apply the same rubric independently before discussing material disagreement. The goal is not to erase human uncertainty; it is to distinguish model error from an ambiguous brief or inconsistent reviewer. Record consensus, disagreement, and insufficient-information states. Do not force every profile into qualified or unqualified when the available evidence cannot support that conclusion.</p>
+        <p>Avoid label leakage and showcase selection. If vendor staff know which people are considered qualified and tune the search to them, separate that development set from the final evaluation. A test based only on employees or previously hired candidates can reward historical patterns and omit qualified alternatives.</p>
+        <ol class="procedure-list">
+          <li><span>01</span><div><strong>Draft rubric.</strong> Translate role requirements into observable evidence and acceptable alternatives.</div></li>
+          <li><span>02</span><div><strong>Sample cases.</strong> Include positives, hard negatives, boundary cases, and insufficient-information cases.</div></li>
+          <li><span>03</span><div><strong>Label independently.</strong> Collect reasons and confidence before reviewer discussion.</div></li>
+          <li><span>04</span><div><strong>Hold out evaluation.</strong> Keep final cases separate from vendor tuning or query iteration.</div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section content-section" id="retrieval-metrics">
+      <div class="shell content-shell">
+        <div class="content-section-heading">
+          <span class="kicker-number" aria-hidden="true">04</span>
+          <div><p class="eyebrow">Use the review budget</p><h2>Measure precision and coverage at the point a recruiter can actually review.</h2></div>
+        </div>
+        <p>Ranking quality matters within a finite review budget. Precision@K asks what proportion of the top K reviewed people meets the frozen relevance standard. Recall@K asks what proportion of all labeled relevant people in the evaluated pool appears within the top K. When the full relevant population is unknowable, report a recall proxy and explain how the pool was constructed rather than calling it complete recall.</p>
+        <p>Measure more than one cutoff. A system may be precise in the first ten results but degrade quickly, or it may place qualified adjacent backgrounds just beyond the routine review limit. Rank-sensitive measures and the distribution of first relevant results can help, but plain-language case review remains necessary to understand why movement occurred.</p>
+        <p>Do not compare metrics across different pools, labels, roles, or retrieval stages as if they share a denominator. A reranker measured on candidates already returned by an upstream retriever cannot establish end-to-end coverage. A model judged by another model carries judge assumptions that should be tested against human review.</p>
+        <div class="table-wrap" tabindex="0">
+          <table>
+            <caption>Retrieval metrics and their interpretation limits</caption>
+            <thead><tr><th scope="col">Metric</th><th scope="col">Question answered</th><th scope="col">Does not answer</th></tr></thead>
+            <tbody>
+              <tr><td>Precision@K</td><td>How much of the reviewed top K meets the relevance standard?</td><td>How many relevant people were never retrieved or ranked lower.</td></tr>
+              <tr><td>Recall@K</td><td>How much of the labeled relevant pool appears in the top K?</td><td>Coverage outside the constructed and labeled pool.</td></tr>
+              <tr><td>Yield per reviewer hour</td><td>How many accepted profiles result from actual review labor?</td><td>Candidate interest, availability, or later interview quality.</td></tr>
+              <tr><td>Rank movement</td><td>Where do relevant and hard-negative cases move after reranking?</td><td>Whether the upstream pool is representative or complete.</td></tr>
+              <tr><td>Manager acceptance</td><td>Which profiles a manager advances under the current rubric?</td><td>Objective job performance or absence of manager bias.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section content-section" id="error-analysis">
+      <div class="shell content-shell">
+        <div class="content-section-heading">
+          <span class="kicker-number" aria-hidden="true">05</span>
+          <div><p class="eyebrow">Inspect misses</p><h2>Review false positives and false negatives as different product failures.</h2></div>
+        </div>
+        <p>A false positive consumes review or outreach capacity and may create poor candidate contact. A false negative removes opportunity before a conversation. Sample both. False negatives are harder to observe because the system does not present them, so use known qualified cases, lower-ranked samples, alternate queries, source comparisons, and hiring-manager nominations to search for misses.</p>
+        <p>Classify the failure location: brief parsing, title normalization, skill inference, seniority, geography, source absence, stale data, query generation, embedding, reranking, hard filter, deduplication, or human label disagreement. A single “bad match” bucket cannot guide remediation and encourages changing the entire model for a data or configuration problem.</p>
+        <p>Look for asymmetric failure patterns across role types, career paths, languages, and sources. A system can meet an average target while systematically losing nontraditional evidence or overvaluing famous employers. Do not claim demographic fairness without appropriate data and analysis, but do not ignore repeated qualitative patterns because a pilot lacks power for a formal estimate.</p>
+        <ul class="content-list">
+          <li><strong>Unsupported leap.</strong> The summary claims a requirement that the underlying profile does not evidence.</li>
+          <li><strong>Boundary confusion.</strong> Similar title or skill vocabulary hides a different function, scope, or level.</li>
+          <li><strong>Missing alternative.</strong> The system recognizes one conventional path but not another approved route to the competency.</li>
+          <li><strong>Hard-filter loss.</strong> A person never reaches semantic ranking because an upstream filter excludes them.</li>
+          <li><strong>Stale relevance.</strong> The historical match is plausible but no longer reflects current work or location.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section content-section section-dark" id="live-workflow">
+      <div class="shell content-shell">
+        <div class="content-section-heading">
+          <span class="kicker-number" aria-hidden="true">06</span>
+          <div><p class="eyebrow">Beyond offline ranking</p><h2>Connect retrieval quality to review, engagement, and interview acceptance.</h2></div>
+        </div>
+        <p>Offline metrics isolate retrieval and ranking, but the live workflow includes recruiter review, contactability, message approval, candidate reply, interest, screening, and hiring-manager acceptance. Keep those stages separate so weak engagement does not get mislabeled as poor retrieval and a broad message campaign does not inflate perceived candidate quality.</p>
+        <p>Track how explanations affect reviewers. If generated summaries make weak profiles appear persuasive, compare decisions with and without the summary or require evidence links. Measure reviewer correction and query iteration. A system that reaches quality only after extensive hidden prompt work may be useful, but its operating cost and repeatability differ from the initial claim.</p>
+        <p>Measure candidates delivered under a clear definition: relevant to the approved brief, current enough to evaluate, deduplicated, contact handled under the approved process, and at the interest state promised by the vendor. A list of profiles, a positive reply, and an accepted interview are distinct outcomes.</p>
+        <aside class="evidence-callout" aria-label="Do not call a profile a candidate outcome"><span>Outcome boundary</span><div><strong>Do not call a profile a candidate outcome</strong> <p>Report retrieval quality, review acceptance, contact, interest, and interview acceptance as separate funnel states with their own denominators.</p></div></aside>
+      </div>
+    </section>
+
+    <section class="section content-section" id="freshness-drift">
+      <div class="shell content-shell">
+        <div class="content-section-heading">
+          <span class="kicker-number" aria-hidden="true">07</span>
+          <div><p class="eyebrow">Repeat over time</p><h2>Re-test when the role, population, source, or model changes.</h2></div>
+        </div>
+        <p>Sourcing systems operate on moving populations. People change jobs and locations; new evidence appears; source access changes; queries evolve; hiring managers learn; and models or rerankers update. Preserve evaluation cases and rerun them after material changes while also adding new roles so the system cannot optimize only to a static benchmark.</p>
+        <p>Monitor leading indicators such as accepted-profile rate at fixed review depth, reviewer overrides, unsupported inference, stale-record rate, duplicate rate, source distribution, and rank movement for known cases. Investigate before automatically attributing change to model drift: the brief, labelers, market, source coverage, or downstream filters may have shifted.</p>
+        <p>Version the complete retrieval path. Record upstream retriever, filters, query interpretation, embeddings, reranker, enrichment, explanation model, and configuration. A reported improvement in one component is not an end-to-end improvement until the deployed chain and real review budget show it.</p>
+        <ol class="procedure-list">
+          <li><span>01</span><div><strong>Keep a stable regression set.</strong> Retain approved role cases and known failure modes across releases.</div></li>
+          <li><span>02</span><div><strong>Add fresh challenge cases.</strong> Introduce new roles, terminology, locations, and career paths to test transfer.</div></li>
+          <li><span>03</span><div><strong>Compare the full chain.</strong> Measure the production configuration, not an isolated replacement component.</div></li>
+          <li><span>04</span><div><strong>Investigate movement.</strong> Attribute changes across role, data, source, model, configuration, and reviewer before acting.</div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section content-section" id="sourcing-decision">
+      <div class="shell content-shell">
+        <div class="content-section-heading">
+          <span class="kicker-number" aria-hidden="true">08</span>
+          <div><p class="eyebrow">Make the call</p><h2>Approve a sourcing system for a defined role family and review budget.</h2></div>
+        </div>
+        <p>The sourcing decision should state the tested role families, geographies, languages, sources, review cutoff, required provenance, explanation behavior, acceptable stale and duplicate handling, human review, and monitoring. It should also state where the system is not approved, including screening or autonomous outreach if those functions were not tested.</p>
+        <p>Compare the system to a current workflow using accepted quality and reviewer labor, not only profile volume or search speed. A smaller, more inspectable pool may outperform a larger ranking if it reduces cleanup and unsupported inference. Conversely, high precision in the top ten may not satisfy a role that requires broader exploration or uncommon backgrounds.</p>
+        <p>Use the <a href="/vendor-checklist">vendor checklist</a> for data and commercial questions and the <a href="/pilot-design">pilot design</a> for a bounded live test. Preserve the failed cases as future regression tests rather than deleting them after a query fix.</p>
+        <aside class="evidence-callout" aria-label="Name the review budget"><span>Approval scope</span><div><strong>Name the review budget</strong> <p>A sourcing result is only meaningful at the number of profiles the team can consistently inspect with the agreed evidence standard.</p></div></aside>
+      </div>
+    </section>
+
+    <section class="section evidence-section" id="evidence"><div class="shell content-shell"><p class="eyebrow">Evidence register</p><h2>Sources used—and what they cannot prove.</h2><div class="source-citations">
+          <article class="source-citation"><span>voluntary framework</span><div><h3><a href="https://www.nist.gov/itl/ai-risk-management-framework">NIST — Artificial Intelligence Risk Management Framework 1.0</a></h3><p>A lifecycle structure for governing, mapping, measuring, and managing AI risk and trustworthiness characteristics.</p><small>Evidence limit: Use of the voluntary framework does not establish legal compliance, product quality, or fitness for a particular hiring process.</small></div></article>
+          <article class="source-citation"><span>professional practice</span><div><h3><a href="https://www.opm.gov/policy-data-oversight/assessment-and-selection/job-analysis/">U.S. Office of Personnel Management — Job Analysis</a></h3><p>A practical account of job analysis as the foundation for defining tasks, competencies, and assessment content.</p><small>Evidence limit: Federal personnel practice does not by itself validate a private-sector role brief or every automated assessment.</small></div></article>
+          <article class="source-citation"><span>government guidance</span><div><h3><a href="https://www.gov.uk/government/publications/responsible-ai-in-recruitment-guide/responsible-ai-in-recruitment">UK Department for Science, Innovation and Technology — Responsible AI in Recruitment</a></h3><p>Procurement and deployment questions covering purpose, governance, accessibility, assurance, testing, pilots, transparency, and monitoring.</p><small>Evidence limit: The guide expressly does not provide legal assurance and its examples are not universal deployment instructions.</small></div></article>
+          <article class="source-citation"><span>government guidance</span><div><h3><a href="https://ico.org.uk/action-weve-taken/audits-and-overview-reports/2024/11/ai-tools-used-in-recruitment/">UK Information Commissioner&#x27;s Office — AI Tools Used in Recruitment — Audit Outcomes</a></h3><p>Observed privacy and information-rights issues in recruitment sourcing, screening, and selection tools, plus remediation themes.</p><small>Evidence limit: Consensual audits of selected providers do not establish prevalence, legal status, or performance of another product.</small></div></article>
+          <article class="source-citation first-party"><span>first-party research</span><div><h3><a href="https://metix.ai/research/mira-embeddings-v1">Mira-Embeddings-V1: Domain-Adapted Semantic Reranking for Recruitment</a></h3><p>The Metix paper reports Recall@K and Precision@K under stated local and global protocols, offering a first-party example of why pool, cutoff, labels, and reranking stage must stay visible.</p><small>Evidence limit: The reported results are protocol-specific and do not independently establish end-to-end sourcing quality, live candidate outcomes, or fairness.</small></div></article>
+        </div><p class="relationship-note"><strong>Relationship disclosure:</strong> OpenJobs AI is now <a href="https://metix.ai/about">Metix AI</a>. Metix material is labeled first-party and is not treated as independent validation.</p></div></section>
+    <section class="section section-signal" id="faq"><div class="shell content-shell"><p class="eyebrow">Questions teams ask</p><h2>Frequently asked questions</h2><div class="faq-list">
+          <details><summary>Is database size a useful sourcing metric?</summary><p>It describes potential inventory but not role-specific coverage, freshness, provenance, deduplication, rank quality, contactability, or candidate interest.</p></details>
+          <details><summary>What is the difference between precision and recall in candidate sourcing?</summary><p>Precision asks how many reviewed results are relevant; recall asks how many relevant people in the evaluated pool were retrieved within the cutoff. Both depend on labels and pool construction.</p></details>
+          <details><summary>How can a team find false negatives if the system never shows them?</summary><p>Review lower-ranked samples, known qualified cases, alternate queries, source comparisons, hiring-manager nominations, and hard-filter exclusions.</p></details>
+          <details><summary>Can an LLM judge candidate relevance for an evaluation?</summary><p>It can assist if its rubric and agreement with qualified human review are tested. Model judgments should not be treated as ground truth without validation and error analysis.</p></details>
+        </div></div></section>
+    <section class="section"><div class="shell content-shell"><p class="eyebrow">Continue evaluating</p><h2>Use the next guide on the same real role.</h2><div class="related-grid">
+          <a class="related-card" href="/pilot-design"><span>Read next</span><strong>Pilot Design</strong></a>
+          <a class="related-card" href="/screening-evaluation"><span>Read next</span><strong>Screening Evaluation</strong></a>
+          <a class="related-card" href="/vendor-checklist"><span>Read next</span><strong>Vendor Checklist</strong></a>
+        </div></div></section>
+  </main>
+  <footer class="site-footer"><div class="shell"><p class="footer-note">OpenJobs Archive publishes source-backed evaluation tools. OpenJobs AI is now Metix AI; the archive applies the same evidence rules to first-party material.</p><nav class="footer-links" aria-label="Footer navigation"><a href="/methodology">Methodology</a><a href="/sources">Sources</a><a href="/llms.txt">Agent resources</a><a href="https://metix.ai/">Metix AI</a><a href="https://github.com/Digidai/openjobs">GitHub</a></nav></div></footer>
+</body>
+</html>

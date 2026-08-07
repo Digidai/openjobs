@@ -251,9 +251,12 @@ def main() -> int:
             print(f"ERROR: {error}")
         return 1
 
-    for path, expected in render_library_outputs().items():
-        if path.read_text(encoding="utf-8") != expected:
-            errors.append(f"{path.relative_to(ROOT)}: generated evaluation-library output is stale")
+    try:
+        for path, expected in render_library_outputs().items():
+            if path.read_text(encoding="utf-8") != expected:
+                errors.append(f"{path.relative_to(ROOT)}: generated evaluation-library output is stale")
+    except (json.JSONDecodeError, KeyError, TypeError, ValueError) as exc:
+        errors.append(f"evaluation library content is invalid: {exc}")
 
     all_links: list[str] = []
     runtime_files = [PUBLIC / name for name in CANONICALS]

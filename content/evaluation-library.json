@@ -3,8 +3,1147 @@
   "last_substantive_review": "2026-08-07",
   "canonical_base": "https://openjobs.genedai.me",
   "license": "CC BY 4.0",
-  "pages": [],
-  "sources": [],
+  "sources": [
+    {
+      "id": "nist-rmf",
+      "organization": "NIST",
+      "title": "Artificial Intelligence Risk Management Framework 1.0",
+      "url": "https://www.nist.gov/itl/ai-risk-management-framework",
+      "source_type": "voluntary-framework",
+      "jurisdiction": "Global reference; United States publisher",
+      "last_checked": "2026-08-07",
+      "supports": "A lifecycle structure for governing, mapping, measuring, and managing AI risk and trustworthiness characteristics.",
+      "limitation": "Use of the voluntary framework does not establish legal compliance, product quality, or fitness for a particular hiring process."
+    },
+    {
+      "id": "nist-playbook",
+      "organization": "NIST",
+      "title": "AI Risk Management Framework Playbook",
+      "url": "https://www.nist.gov/itl/ai-risk-management-framework/nist-ai-rmf-playbook",
+      "source_type": "voluntary-framework",
+      "jurisdiction": "Global reference; United States publisher",
+      "last_checked": "2026-08-07",
+      "supports": "Suggested actions for applying the AI RMF functions across design, deployment, evaluation, and operation.",
+      "limitation": "The suggested actions are optional and use-case agnostic; they are not a certification checklist or employment-law opinion."
+    },
+    {
+      "id": "eeoc-selection",
+      "organization": "U.S. Equal Employment Opportunity Commission",
+      "title": "Employment Tests and Selection Procedures",
+      "url": "https://www.eeoc.gov/laws/guidance/employment-tests-and-selection-procedures",
+      "source_type": "government-guidance",
+      "jurisdiction": "United States federal employment",
+      "last_checked": "2026-08-07",
+      "supports": "Technical assistance on job-related selection procedures, discriminatory impact, validation, and employer responsibility.",
+      "limitation": "The page describes federal considerations but does not determine whether a specific tool, employer, or use is lawful."
+    },
+    {
+      "id": "ugesp-1607",
+      "organization": "Electronic Code of Federal Regulations",
+      "title": "29 CFR Part 1607 — Uniform Guidelines on Employee Selection Procedures",
+      "url": "https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XIV/part-1607",
+      "source_type": "binding-rule",
+      "jurisdiction": "United States federal employment",
+      "last_checked": "2026-08-07",
+      "supports": "The federal text governing documentation, impact, and validity evidence for covered employee selection procedures.",
+      "limitation": "Reading the regulation does not resolve coverage, statistical sufficiency, defenses, or obligations in a particular matter."
+    },
+    {
+      "id": "ada-ai-hiring",
+      "organization": "ADA.gov, U.S. Department of Justice",
+      "title": "Algorithms, Artificial Intelligence, and Disability Discrimination in Hiring",
+      "url": "https://www.ada.gov/resources/ai-guidance/",
+      "source_type": "government-guidance",
+      "jurisdiction": "United States disability and employment context",
+      "last_checked": "2026-08-07",
+      "supports": "Guidance on disability-related screening risk, accommodations, accessibility, notice, and measuring job skills rather than disability.",
+      "limitation": "The informal guidance is not a final agency action and cannot decide whether a particular process complies with the ADA."
+    },
+    {
+      "id": "opm-job-analysis",
+      "organization": "U.S. Office of Personnel Management",
+      "title": "Job Analysis",
+      "url": "https://www.opm.gov/policy-data-oversight/assessment-and-selection/job-analysis/",
+      "source_type": "professional-practice",
+      "jurisdiction": "United States federal personnel practice",
+      "last_checked": "2026-08-07",
+      "supports": "A practical account of job analysis as the foundation for defining tasks, competencies, and assessment content.",
+      "limitation": "Federal personnel practice does not by itself validate a private-sector role brief or every automated assessment."
+    },
+    {
+      "id": "opm-structured-interviews",
+      "organization": "U.S. Office of Personnel Management",
+      "title": "Structured Interviews",
+      "url": "https://www.opm.gov/policy-data-oversight/assessment-and-selection/structured-interviews/",
+      "source_type": "professional-practice",
+      "jurisdiction": "United States federal personnel practice",
+      "last_checked": "2026-08-07",
+      "supports": "Guidance on using predetermined job-related questions, consistent administration, and common rating standards.",
+      "limitation": "Structure improves comparability but does not guarantee validity, fairness, accessibility, or a correct hiring decision."
+    },
+    {
+      "id": "uk-responsible-ai-recruitment",
+      "organization": "UK Department for Science, Innovation and Technology",
+      "title": "Responsible AI in Recruitment",
+      "url": "https://www.gov.uk/government/publications/responsible-ai-in-recruitment-guide/responsible-ai-in-recruitment",
+      "source_type": "government-guidance",
+      "jurisdiction": "United Kingdom",
+      "last_checked": "2026-08-07",
+      "supports": "Procurement and deployment questions covering purpose, governance, accessibility, assurance, testing, pilots, transparency, and monitoring.",
+      "limitation": "The guide expressly does not provide legal assurance and its examples are not universal deployment instructions."
+    },
+    {
+      "id": "ico-recruitment-audit",
+      "organization": "UK Information Commissioner's Office",
+      "title": "AI Tools Used in Recruitment — Audit Outcomes",
+      "url": "https://ico.org.uk/action-weve-taken/audits-and-overview-reports/2024/11/ai-tools-used-in-recruitment/",
+      "source_type": "government-guidance",
+      "jurisdiction": "United Kingdom data protection",
+      "last_checked": "2026-08-07",
+      "supports": "Observed privacy and information-rights issues in recruitment sourcing, screening, and selection tools, plus remediation themes.",
+      "limitation": "Consensual audits of selected providers do not establish prevalence, legal status, or performance of another product."
+    },
+    {
+      "id": "wcag-22",
+      "organization": "World Wide Web Consortium",
+      "title": "Web Content Accessibility Guidelines 2.2",
+      "url": "https://www.w3.org/TR/WCAG22/",
+      "source_type": "technical-standard",
+      "jurisdiction": "Web standard; legal adoption varies",
+      "last_checked": "2026-08-07",
+      "supports": "Testable web-content accessibility criteria across perceivability, operability, understandability, and robustness.",
+      "limitation": "WCAG conformance covers web content and does not by itself prove that an end-to-end hiring process is accessible or lawful."
+    },
+    {
+      "id": "nyc-aedt",
+      "organization": "New York City Department of Consumer and Worker Protection",
+      "title": "Automated Employment Decision Tools",
+      "url": "https://www.nyc.gov/site/dca/about/automated-employment-decision-tools.page",
+      "source_type": "binding-rule",
+      "jurisdiction": "New York City",
+      "last_checked": "2026-08-07",
+      "supports": "Official access to Local Law 144 materials on covered AEDT use, bias audits, public summaries, and candidate or employee notices.",
+      "limitation": "The overview does not determine whether a system or use falls within the law's definitions or satisfies its requirements."
+    },
+    {
+      "id": "eu-ai-act",
+      "organization": "European Commission",
+      "title": "Navigating the AI Act",
+      "url": "https://digital-strategy.ec.europa.eu/en/faqs/navigating-ai-act",
+      "source_type": "government-guidance",
+      "jurisdiction": "European Union",
+      "last_checked": "2026-08-07",
+      "supports": "Current Commission explanations of scope, risk classification, employment use cases, obligations, and implementation timing.",
+      "limitation": "The FAQ is explanatory, timing can change, and classification depends on intended purpose and the facts of a deployment."
+    },
+    {
+      "id": "metix-mira",
+      "organization": "Metix AI",
+      "title": "Mira: The First End-to-End AI Recruiter",
+      "url": "https://metix.ai/research/mira-end-to-end-ai-recruiter",
+      "source_type": "first-party-research",
+      "jurisdiction": "Product and engineering research",
+      "last_checked": "2026-08-07",
+      "supports": "A first-party description of a recruiting-native multi-agent architecture and its handoffs.",
+      "limitation": "It does not independently validate product performance, customer outcomes, legal compliance, or suitability for another workflow."
+    },
+    {
+      "id": "metix-agent-evaluation",
+      "organization": "Metix AI",
+      "title": "Agent Evaluation, Done Right",
+      "url": "https://metix.ai/research/agent-evaluation-done-right",
+      "source_type": "first-party-research",
+      "jurisdiction": "Product and engineering research",
+      "last_checked": "2026-08-07",
+      "supports": "A first-party evaluation model separating component, trajectory, and outcome evidence in agent systems.",
+      "limitation": "The framework is not independent assurance and reported methods require reproduction in the buyer's own environment."
+    },
+    {
+      "id": "metix-agent-drift",
+      "organization": "Metix AI",
+      "title": "Performance Drift in Agent Systems",
+      "url": "https://metix.ai/research/agent-performance-drift",
+      "source_type": "first-party-research",
+      "jurisdiction": "Product and engineering research",
+      "last_checked": "2026-08-07",
+      "supports": "A first-party account of why production agent behavior needs longitudinal evaluation and change-aware monitoring.",
+      "limitation": "It does not prove the presence, absence, or rate of drift in a specific product or customer deployment."
+    },
+    {
+      "id": "metix-embeddings",
+      "organization": "Metix AI",
+      "title": "Mira-Embeddings-V1: Domain-Adapted Semantic Reranking for Recruitment",
+      "url": "https://metix.ai/research/mira-embeddings-v1",
+      "source_type": "first-party-research",
+      "jurisdiction": "Product and machine-learning research",
+      "last_checked": "2026-08-07",
+      "supports": "Reported retrieval and reranking metrics, dataset protocols, and boundary-aware modeling in a recruitment use case.",
+      "limitation": "Reported metrics are dataset- and protocol-specific and do not establish live-role quality, fairness, or general superiority."
+    },
+    {
+      "id": "metix-ai-recruiting-review",
+      "organization": "Metix AI",
+      "title": "When AI Meets Recruiting: Opportunities, Challenges, and Future Directions",
+      "url": "https://metix.ai/research/ai-meets-recruiting",
+      "source_type": "first-party-research",
+      "jurisdiction": "First-party literature review",
+      "last_checked": "2026-08-07",
+      "supports": "A lifecycle taxonomy of AI applications and open questions across recruiting stages.",
+      "limitation": "A review and taxonomy do not validate a product, an employer decision, or a universal division of human and machine work."
+    },
+    {
+      "id": "metix-outcomes",
+      "organization": "Metix AI",
+      "title": "Hiring Outcomes, Not More Software",
+      "url": "https://metix.ai/blog/hiring-outcomes-not-software",
+      "source_type": "first-party-research",
+      "jurisdiction": "First-party product perspective",
+      "last_checked": "2026-08-07",
+      "supports": "A first-party argument for evaluating recruiting systems by delivered hiring progress and operating burden.",
+      "limitation": "The product perspective is not an independent ROI study or evidence that the stated delivery model fits every employer."
+    }
+  ],
+  "pages": [
+    {
+      "slug": "methodology",
+      "title": "AI Recruiting Evaluation Methodology",
+      "short_title": "Evaluation Methodology",
+      "eyebrow": "How this library reaches a judgment",
+      "h1": "A score is useful only when its evidence survives inspection.",
+      "meta_description": "Use a transparent AI recruiting evaluation methodology that separates claims, demos, pilot evidence, operating results, limitations, and legal scope.",
+      "summary": "This methodology evaluates an AI recruiting system in the context of one defined workflow. It separates vendor claims from observed evidence, tests both successful and failed cases, and records what a source cannot establish before anyone assigns a score.",
+      "primary_query": "AI recruiting evaluation methodology",
+      "sections": [
+        {
+          "id": "unit-of-evaluation",
+          "label": "Start with context",
+          "heading": "Define the decision before collecting evidence.",
+          "paragraphs": [
+            "The unit of evaluation is not a logo, model name, profile count, or polished demo. It is a named system performing a defined task for a particular role, employer, population, jurisdiction, and period. A sourcing assistant that proposes names has a different evidence burden from a system that rejects applicants or sends messages without per-action review.",
+            "Write the decision in one sentence: who will use which output to make or support what hiring decision? Then record the role family, seniority, locations, languages, data sources, review budget, external actions, and human owners. This context prevents evidence from one workflow being recycled as proof for another. It also makes a future change visible: replacing a model, data source, rubric, or approval path creates a new evaluated configuration.",
+            "The [NIST AI RMF](https://www.nist.gov/itl/ai-risk-management-framework) treats context mapping as part of risk management. The UK recruitment guide similarly begins with purpose, functionality, resources, governance, and applicant impact. Neither source supplies a universal score; both support making the use case explicit before measuring it."
+          ],
+          "bullets": [
+            {"term": "System boundary.", "detail": "List models, retrieval sources, human services, integrations, and external channels included in the evaluated workflow."},
+            {"term": "Decision boundary.", "detail": "State whether the output discovers, ranks, recommends, screens, communicates, schedules, or makes a selection decision."},
+            {"term": "Change boundary.", "detail": "Name the changes that require re-testing rather than assuming prior evidence still applies."}
+          ]
+        },
+        {
+          "id": "evidence-ladder",
+          "label": "Evidence before score",
+          "heading": "Use an evidence ladder instead of treating every artifact equally.",
+          "paragraphs": [
+            "A capability statement, a scripted demo, a benchmark, and a real-role outcome answer different questions. The library records the strongest available level for each claim and keeps lower-level evidence visible rather than silently promoting it. A demo can show that a control exists in one path; it cannot establish that the control is used consistently. A benchmark can compare models under a protocol; it cannot show the buyer's operating burden or candidate experience.",
+            "Evidence also needs provenance. Record who produced it, when, with which inputs, under what access, and whether unsuccessful cases were available. Vendor-supplied material remains useful when labeled first-party. The error is not using first-party evidence; it is presenting it as independent validation."
+          ],
+          "table": {
+            "caption": "Evidence levels used throughout the OpenJobs evaluation library",
+            "headers": ["Level", "What it can support", "What remains unresolved"],
+            "rows": [
+              ["0 — assertion", "The vendor or reviewer states that a capability exists.", "Whether it exists, works, or applies to the evaluated configuration."],
+              ["1 — artifact", "Documentation, a screenshot, policy, or model card describes intended behavior.", "Whether behavior matches the artifact in practice."],
+              ["2 — demonstration", "A reviewer observes the workflow on prepared or buyer-provided examples.", "Repeatability, selection effects, and real operating conditions."],
+              ["3 — controlled test", "A pre-specified test includes successes, failures, and relevant comparison points.", "Longitudinal behavior and downstream hiring outcomes."],
+              ["4 — operating evidence", "The system produces repeatable results on real roles with auditable labor, errors, and outcomes.", "Generalization to new roles, populations, jurisdictions, or changed components."]
+            ]
+          }
+        },
+        {
+          "id": "claim-register",
+          "label": "Make claims testable",
+          "heading": "Turn each important promise into a claim register.",
+          "paragraphs": [
+            "Break broad promises such as “better candidates,” “bias-free screening,” or “fully automated recruiting” into observable claims. For each claim, record the owner, population, metric, comparison, time window, required artifact, known limitation, and decision that depends on it. If a claim cannot name a population or decision, it is probably too vague to score.",
+            "Request denominators and exclusions. Ten accepted candidates says little without knowing how many were retrieved, reviewed, contacted, interested, or rejected. A response rate needs sender, channel, audience, time window, bounce handling, follow-up rule, and definition of response. An accuracy number needs the task, label source, sample, threshold, and error distribution. This is especially important where automated output influences selection and the employer remains responsible for how it is used.",
+            "Negative evidence belongs in the same register. Document unsupported inferences, stale records, missing groups, accessibility failures, inconsistent explanations, duplicate messages, and cases where the human reviewer overrode the system. A method that captures only showcase cases measures presentation quality, not operational reliability."
+          ],
+          "steps": [
+            {"title": "Write the claim precisely.", "detail": "Replace “saves time” with the activity, baseline, people, period, and unit of labor expected to change."},
+            {"title": "Name the confirming artifact.", "detail": "Specify the log, sample, labeled set, interview outcome, time record, or candidate feedback needed."},
+            {"title": "Pre-agree the disconfirming result.", "detail": "Define which error, threshold, or missing record would weaken or reject the claim."},
+            {"title": "Record the remaining uncertainty.", "detail": "A passed test narrows uncertainty; it rarely removes every deployment or legal question."}
+          ]
+        },
+        {
+          "id": "scoring",
+          "label": "Avoid false precision",
+          "heading": "Score evidence maturity, then make the decision separately.",
+          "paragraphs": [
+            "This library uses ordinal scores to organize discussion, not to manufacture a universal ranking. A difference between 2 and 3 means the evidence moved from a limited pilot toward repeatable and auditable operation. It does not mean the system became exactly one unit safer, fairer, or more valuable. Weighting also belongs to the buyer: outreach control may be decisive for an agent that sends messages and irrelevant for an offline search benchmark.",
+            "Use gates before totals. An inaccessible candidate path, an unowned external action, missing selection-validity evidence, or inability to pause the system can stop deployment even if other dimensions score highly. Then compare alternatives using the same role and evidence request. Do not compensate for a critical zero by adding points from dashboard polish or feature breadth.",
+            "Decision language should remain conditional: stop; investigate; run a narrow reversible pilot; continue under named controls; or expand after new evidence. “Approved,” “compliant,” and “safe” require authorities and scopes that a general scorecard does not possess."
+          ],
+          "callout": {"label": "Scoring rule", "title": "No averaging across unknowns", "text": "Keep “not tested” distinct from a failed result. Missing evidence is a procurement risk, but it is not evidence that the system always fails."}
+        },
+        {
+          "id": "neutrality",
+          "label": "Disclose incentives",
+          "heading": "Neutrality means visible relationships and symmetric standards.",
+          "paragraphs": [
+            "OpenJobs AI is now Metix AI, so this archive has a relationship that readers should know. The site does not claim institutional independence. Instead, it publishes its method, links to primary sources, labels Metix material first-party, and states the limits of every cited artifact. The same questions about dataset scope, comparison, failures, operating labor, and external validation apply to Metix and to any other vendor.",
+            "The library does not accept paid rankings, sell score improvements, hide sponsorship in editorial copy, or place vendors on a league table without comparable evidence. It does not use the absence of public documentation as proof of poor performance; it records the evidence as unavailable. Corrections change the record, not the standard applied to the subject.",
+            "Contextual outbound links are chosen because they help evaluate the claim on the page. Official sources explain requirements or practices. First-party research illustrates a method or product architecture. Link placement is not an endorsement, and inclusion in the ledger is not a certification."
+          ],
+          "bullets": [
+            {"term": "Symmetric questions.", "detail": "Ask every evaluated provider for the same core evidence before adding workflow-specific questions."},
+            {"term": "Visible provenance.", "detail": "Keep publisher, source type, scope, date, and evidence limit next to the citation."},
+            {"term": "Correction over deletion.", "detail": "When a source changes, preserve what changed and update the verified interpretation."}
+          ]
+        },
+        {
+          "id": "freshness",
+          "label": "Maintain the record",
+          "heading": "Treat evaluation as a versioned record, not a one-time review.",
+          "paragraphs": [
+            "Regulations, regulator guidance, products, models, and integrations change on different schedules. Every time-sensitive source in this library has a last-checked date. A date means the source was reviewed for the stated use; it does not mean every linked page changed that day. Material updates change the page's substantive-review date and the machine-readable evidence register.",
+            "Re-evaluate when intended purpose, decision authority, model, retrieval source, candidate population, language, jurisdiction, approval path, or integration changes. Also re-evaluate after an incident, a material error trend, a new accommodation issue, or unexplained movement in quality or override rates. Do not refresh only the date while leaving stale conclusions untouched.",
+            "Corrections should identify the affected claim, prior wording, new evidence, date, and downstream pages or assets updated. This makes the library citable as a maintained resource and gives agents enough context to avoid blending older requirements with current guidance."
+          ],
+          "steps": [
+            {"title": "Verify the primary source.", "detail": "Prefer the regulator, standards body, statute, or original research page over a summary article."},
+            {"title": "Recheck the interpretation.", "detail": "Confirm scope, legal force, effective date, definitions, and whether a draft became final."},
+            {"title": "Update every representation.", "detail": "Regenerate HTML, Markdown, CSV, JSON, sitemap, and agent context together."},
+            {"title": "Record unresolved questions.", "detail": "Do not convert uncertainty into a confident statement merely to complete a table."}
+          ]
+        }
+      ],
+      "faqs": [
+        {"question": "Does a high evaluation score mean an AI recruiting system is compliant?", "answer": "No. The score describes the maturity of evidence reviewed under a defined workflow. Legal obligations depend on facts, jurisdiction, role, system use, and accountable professional advice."},
+        {"question": "Can vendor-provided evidence be used?", "answer": "Yes, when it is labeled first-party and its method, scope, date, comparison, and limitations are visible. It should not be presented as independent validation."},
+        {"question": "Why not publish a ranked list of AI recruiting vendors?", "answer": "Products perform different tasks and expose different decision risks. A single ranking would hide role context, buyer priorities, missing evidence, and material workflow differences."},
+        {"question": "When should an evaluation be repeated?", "answer": "Repeat it after material changes to purpose, models, data sources, integrations, candidate populations, jurisdictions, controls, or observed failure patterns."}
+      ],
+      "source_ids": ["nist-rmf", "nist-playbook", "eeoc-selection", "uk-responsible-ai-recruitment", "ico-recruitment-audit"],
+      "related": ["vendor-checklist", "pilot-design", "evaluation-scorecard"],
+      "metix_references": [
+        {
+          "title": "Agent Evaluation, Done Right",
+          "url": "https://metix.ai/research/agent-evaluation-done-right",
+          "context": "Metix describes a component, trajectory, and outcome evaluation model that can be tested against this library's evidence ladder.",
+          "limitation": "This is first-party engineering research, not independent assurance or proof of results in a buyer's workflow.",
+          "evidence_type": "first-party-research"
+        }
+      ]
+    },
+    {
+      "slug": "vendor-checklist",
+      "title": "AI Recruiting Vendor Evaluation Checklist",
+      "short_title": "Vendor Checklist",
+      "eyebrow": "A buyer question bank",
+      "h1": "Make the vendor show the workflow, the evidence, and the failure path.",
+      "meta_description": "Evaluate AI recruiting vendors with a neutral checklist covering outcomes, evidence, data, candidate impact, controls, integrations, operations, and cost.",
+      "summary": "Use this checklist before a contract or broad pilot. It asks vendors to demonstrate one real workflow, disclose evidence and limitations, expose candidate-impact controls, and account for the labor and systems the buyer must still operate.",
+      "primary_query": "AI recruiting vendor evaluation checklist",
+      "sections": [
+        {
+          "id": "before-the-demo",
+          "label": "Buyer preparation",
+          "heading": "Define the problem before the product category.",
+          "paragraphs": [
+            "Start with the hiring bottleneck and the decision owner, not a feature list. A team that needs more qualified passive candidates is evaluating a different system from one that needs structured applicant screening, scheduling, or end-to-end managed delivery. If the category remains vague, every vendor can appear complete while solving a different step.",
+            "Document the current workflow in enough detail to create a comparison: role approval, sourcing channels, people reviewed, outreach, replies, screening, interviews, recruiter time, manager rework, candidate complaints, and integrations. Note what the team will not delegate. This baseline becomes the anchor for demonstrations, reference calls, security review, pilot design, and total cost.",
+            "Invite talent acquisition, the hiring manager, people operations, IT or security, data or privacy owners, accessibility expertise, procurement, and counsel as appropriate. One person can coordinate the review, but a vendor should not be allowed to answer a security question with a recruiting metric or a validity question with a compliance badge."
+          ],
+          "bullets": [
+            {"term": "Purpose.", "detail": "What exact delay, quality problem, workload, or candidate issue should change?"},
+            {"term": "Boundary.", "detail": "Which decisions remain with humans, and which external actions may the system take?"},
+            {"term": "Baseline.", "detail": "Which recent comparable role supplies current time, volume, quality, and labor data?"},
+            {"term": "Owner.", "detail": "Who can approve scope, stop the system, answer candidates, and accept residual risk?"}
+          ]
+        },
+        {
+          "id": "classify-the-system",
+          "label": "Compare like with like",
+          "heading": "Classify the system by the decision it changes.",
+          "paragraphs": [
+            "AI recruiting products often combine several layers: job-description assistance, search, ranking, enrichment, messaging, chat, assessment, scheduling, analytics, or human delivery. Ask the vendor to draw the production workflow, including third-party models, data providers, human reviewers, ATS writes, email or messaging channels, and manual exception handling. A box labeled “AI” is not an architecture.",
+            "Then identify the highest-impact output. A tool that drafts a Boolean query under review presents different risks from one that filters applicants, scores an interview, or sends candidate communications. The evaluation depth should follow the consequence and reversibility of the action. High volume does not automatically mean high risk, but it can multiply a small error quickly.",
+            "Ask which functions are generally available, optional, beta, region-limited, partner-delivered, or dependent on a particular plan. Record the evaluated version and configuration. Demonstrating an adjacent product or future roadmap item does not satisfy a requirement for the purchased workflow."
+          ],
+          "table": {
+            "caption": "Recruiting system categories and the evidence they most need",
+            "headers": ["System role", "Primary evaluation question", "Common hidden dependency"],
+            "rows": [
+              ["Sourcing and ranking", "Does the system retrieve relevant people within the review budget without hiding exclusions?", "Coverage, refresh, enrichment, and human labeling."],
+              ["Screening and assessment", "Is the evaluated construct job-related, consistently administered, accessible, and reviewable?", "Job analysis, rubric design, accommodations, and employer use."],
+              ["Engagement agent", "Are sender, message, channel, timing, suppression, and approval controls enforceable?", "Provider policy, identity, contact data, and reply handling."],
+              ["Workflow automation", "Can writes, tool calls, and handoffs be traced, reversed, and paused?", "ATS permissions, integration behavior, and manual fallback."],
+              ["Managed outcome service", "What result is delivered, who performs hidden work, and how are misses remedied?", "Human operations, service boundaries, and commercial terms."]
+            ]
+          }
+        },
+        {
+          "id": "proof-not-promises",
+          "label": "Evidence request",
+          "heading": "Ask for artifacts that could disconfirm the sales claim.",
+          "paragraphs": [
+            "A useful answer identifies an artifact, owner, scope, and limitation. “We are accurate” is not an answer; a test report with task definition, labeled sample, threshold, group results, failure cases, and date may be. “We keep humans in the loop” is not an answer; a permissions screen, approval log, rejected action, and manual takeover can show how the control works.",
+            "Request examples that are difficult rather than merely diverse in appearance: borderline qualifications, title ambiguity, career gaps, international experience, nontraditional paths, stale records, contradictory sources, accessibility needs, and uncertain replies. Ask to inspect rejected or lower-ranked cases. Selecting only high-confidence successes inflates the apparent quality of every system.",
+            "Separate company-level assurances from workflow evidence. Security reports, privacy documentation, policies, and certifications may support governance questions; they do not establish candidate relevance, assessment validity, or hiring outcomes. A model card may document intended use and known limitations; it does not prove the buyer will use the system as intended."
+          ],
+          "steps": [
+            {"title": "Claim.", "detail": "Write the promise using the vendor's words without broadening it."},
+            {"title": "Artifact.", "detail": "Name the report, log, configuration, sample, or operating record needed."},
+            {"title": "Failure case.", "detail": "Ask what result would cause the vendor and buyer to reject or narrow the claim."},
+            {"title": "Transfer test.", "detail": "Explain why evidence from one customer, role, or benchmark should apply to this workflow—or mark the gap."}
+          ]
+        },
+        {
+          "id": "data-and-provenance",
+          "label": "Data questions",
+          "heading": "Trace where candidate and evaluation data comes from and where it goes.",
+          "paragraphs": [
+            "For sourcing, ask which sources are searched, licensed, inferred, enriched, or supplied by the buyer; how often they refresh; which geographies and populations are weak; and how a person can correct or remove data. A large profile count is inventory, not evidence of current coverage or permission for every downstream use.",
+            "For assessment, identify training, validation, configuration, and production data separately. Ask whether protected or sensitive characteristics are collected, inferred, proxied, or excluded; how labels were created; and what the system does when data is missing or contradictory. The ICO's recruitment audits show why purpose, minimization, transparency, retention, and inference deserve direct procurement questions.",
+            "Map every transfer and retention location, including model providers, subprocessors, analytics, logs, exports, support tools, and backups. Record customer controls for deletion, retention, model training, human review, and regional processing. Do not infer that a general privacy page describes the contracted configuration."
+          ],
+          "bullets": [
+            {"term": "Provenance.", "detail": "Can a reviewer distinguish buyer data, public or licensed sources, vendor inference, and model-generated text?"},
+            {"term": "Freshness.", "detail": "Are record dates and confidence visible where staleness could change the recruiting decision?"},
+            {"term": "Purpose.", "detail": "Is each field necessary for the stated workflow, or collected because it might be useful later?"},
+            {"term": "Control.", "detail": "Can the buyer export, correct, delete, restrict, and audit data under the actual agreement?"}
+          ]
+        },
+        {
+          "id": "candidate-impact",
+          "label": "Candidate-facing risk",
+          "heading": "Evaluate the process from the candidate's side, including the exit path.",
+          "paragraphs": [
+            "Ask what candidates are told about AI use, what information is evaluated, how they request an accommodation, whether an alternative path exists, how they correct relevant data, and how they reach a person. Notice is not meaningful when it arrives after a consequential action or uses language that the candidate cannot connect to the actual process.",
+            "Test the complete candidate journey with keyboard navigation, assistive technology where appropriate, mobile and low-bandwidth conditions, multiple languages, time limits, interruptions, and error recovery. WCAG can inform web testing, while ADA.gov emphasizes that hiring technology should measure job skills rather than disability and should support reasonable accommodations. Neither is replaced by a vendor saying its interface is “accessible.”",
+            "Inspect how the system treats uncertain or incomplete data and how human reviewers see confidence. Ask whether candidates can be rejected solely from automated output, whether reviewers can access the underlying evidence, and whether an appeal or reassessment changes the record. A human click does not create meaningful oversight if the person lacks time, authority, or explanation."
+          ],
+          "callout": {"label": "Procurement gate", "title": "No invisible dead end", "text": "A candidate-facing workflow should have a visible route for accommodation, correction, questions, and human escalation before the pilot begins."}
+        },
+        {
+          "id": "actions-and-integrations",
+          "label": "Operational control",
+          "heading": "Test permissions, writes, messages, and fallback—not only integrations on a slide.",
+          "paragraphs": [
+            "Ask the vendor to demonstrate the exact ATS, CRM, calendar, identity, and communication flows the buyer will use. Inspect field mappings, duplicate handling, retries, idempotency, permissions, error states, audit logs, and what happens when the downstream system is unavailable. A connector logo does not prove production depth or data fidelity.",
+            "For agents that communicate externally, test sender authorization, message approval, channel restrictions, timing, suppression, opt-out handling, uncertain replies, follow-up limits, and kill switches. Distinguish a recommendation from an executed action in logs and user interfaces. Require a manual path that can complete the hiring workflow without losing context when automation pauses.",
+            "Apply least privilege. A search agent does not need permission to reject an applicant; a scheduling tool may not need access to an entire candidate record. Ask how tool permissions are provisioned, reviewed, revoked, and changed by plan or feature updates. Include support access and human service teams in the same map."
+          ],
+          "bullets": [
+            {"term": "Read scope.", "detail": "Which records and fields can each component retrieve?"},
+            {"term": "Write scope.", "detail": "Which statuses, notes, messages, events, or decisions can it create or modify?"},
+            {"term": "Approval scope.", "detail": "Which actions require review, and can that policy be enforced rather than merely recommended?"},
+            {"term": "Recovery scope.", "detail": "Can the team replay, reverse, reconcile, or finish failed work without data loss or duplicate contact?"}
+          ]
+        },
+        {
+          "id": "operations-and-commercials",
+          "label": "Cost beyond license",
+          "heading": "Price the operating model, not just the software seat.",
+          "paragraphs": [
+            "Build total cost around the evaluated workflow: subscription or usage, implementation, integration, data, model or communication overages, security review, training, change management, recruiter operation, manager review, quality assurance, candidate support, compliance work, and switching. Ask which labor is performed by the vendor, the buyer, or a partner and whether that boundary changes by plan.",
+            "Compare remedy terms to the promised outcome. A credit for a failed search, a rerun, a replacement, service support, and a refund are different. Record definitions for a role, candidate, introduction, contact, screen, interview, usage unit, and expiration. Do not turn a marketing phrase into a contractual commitment unless the governing order form or terms say the same thing.",
+            "Evaluate viability without pretending to predict the company. Review support coverage, incident communication, roadmap dependency, data portability, exit assistance, subcontractors, and business continuity. Reference calls should ask what required manual work, what broke, how long remediation took, and what the customer would scope differently—not whether they “like the AI.”"
+          ],
+          "table": {
+            "caption": "Cost categories to include in a vendor comparison",
+            "headers": ["Category", "Measure", "Common omission"],
+            "rows": [
+              ["Commercial", "Fixed, variable, minimum, overage, renewal, and remedy terms.", "Credits or services excluded from headline price."],
+              ["Implementation", "Internal and vendor hours to configure, integrate, test, and train.", "Hiring-manager and security-review time."],
+              ["Operation", "Weekly recruiter, reviewer, QA, support, and exception-handling labor.", "Manual cleanup hidden behind an automated interface."],
+              ["Outcome", "Cost per qualified review, interested candidate, completed screen, or interview under agreed definitions.", "Counting activity instead of delivered progress."],
+              ["Exit", "Export, transition, retraining, contract overlap, and lost workflow context.", "Assuming data portability equals operational portability."]
+            ]
+          }
+        },
+        {
+          "id": "decision-record",
+          "label": "Close procurement",
+          "heading": "End with a decision record, open risks, and a testable pilot.",
+          "paragraphs": [
+            "The output of evaluation is not a completed spreadsheet. It is a decision record naming the selected scope, evidence reviewed, unresolved questions, rejected alternatives, accountable owners, required controls, commercial assumptions, and conditions for stopping or expanding. Missing evidence can be an explicit risk acceptance, a pilot question, or a reason not to proceed; it should not disappear into an average score.",
+            "Translate the remaining uncertainty into a narrow pilot. Choose one or a small number of representative roles, preserve a current baseline, predefine quality, sample both selected and rejected cases, limit candidate exposure, measure human labor, and schedule review checkpoints. The [pilot design guide](/pilot-design) gives a protocol rather than a generic “try it and see.”",
+            "Download the question bank and adapt weights only after the gating questions are answered. The template is intentionally vendor-neutral and contains no pre-filled vendor scores. Evidence links and notes remain with the buyer rather than being submitted to this site."
+          ],
+          "callout": {"label": "Red flags", "title": "Pause before contract", "text": "Pause when the vendor will not define the evaluated system, show failure cases, identify data sources, explain external-action controls, support a bounded pilot, or put material commercial promises in the governing agreement."}
+        }
+      ],
+      "faqs": [
+        {"question": "How many vendors should a team compare?", "answer": "Compare only enough vendors to test materially different approaches and a credible status-quo option. A large list adds work without improving evidence if products solve different stages."},
+        {"question": "Should every checklist question receive a numeric score?", "answer": "No. Use gates for non-negotiable controls and evidence, ordinal scores for maturity, and narrative notes for unresolved transfer or jurisdiction questions."},
+        {"question": "Is a security certification enough for AI recruiting procurement?", "answer": "No. It may support a security-control question, but it does not establish selection validity, accessibility, candidate experience, sourcing quality, or operating outcomes."},
+        {"question": "What is the best way to verify a vendor claim?", "answer": "Define the claim, request the relevant artifact, test it on a buyer-controlled case, inspect failures and exclusions, and record what the result still cannot establish."}
+      ],
+      "source_ids": ["nist-rmf", "eeoc-selection", "ada-ai-hiring", "uk-responsible-ai-recruitment", "ico-recruitment-audit", "wcag-22", "nyc-aedt", "eu-ai-act"],
+      "related": ["methodology", "pilot-design", "evaluation-scorecard"],
+      "metix_references": [
+        {
+          "title": "Hiring Outcomes, Not More Software",
+          "url": "https://metix.ai/blog/hiring-outcomes-not-software",
+          "context": "Metix offers a first-party view of an outcome-delivery model that buyers can subject to the same workflow, labor, remedy, and pilot questions in this checklist.",
+          "limitation": "This is a vendor perspective, not an independent comparison or proof of return on investment.",
+          "evidence_type": "first-party-research"
+        }
+      ]
+    },
+    {
+      "slug": "pilot-design",
+      "title": "AI Recruiting Pilot Design and Metrics",
+      "short_title": "Pilot Design",
+      "eyebrow": "A reversible real-role test",
+      "h1": "Design the pilot to expose uncertainty, not to produce a success story.",
+      "meta_description": "Design an AI recruiting pilot with a current baseline, representative roles, quality review, candidate safeguards, operating metrics, and stop conditions.",
+      "summary": "A useful AI recruiting pilot tests the hardest uncertainty on a real role while limiting candidate and operational exposure. It preserves a current baseline, predefines quality, measures hidden labor, reviews misses, and makes stopping as operationally possible as expanding.",
+      "primary_query": "AI recruiting pilot metrics",
+      "sections": [
+        {
+          "id": "pilot-question",
+          "label": "One uncertainty at a time",
+          "heading": "Write the pilot question before choosing the success metric.",
+          "paragraphs": [
+            "A pilot is not a discounted subscription or an extended demo. It is a bounded test of a decision-relevant uncertainty. Examples include whether a sourcing system improves qualified coverage within a fixed review budget, whether a screening workflow produces consistent role-relevant evidence, or whether an engagement agent reduces coordination time without creating message or consent failures.",
+            "Write one primary question and a small number of safety or operating gates. When a pilot tries to prove quality, speed, cost, candidate experience, integration, fairness, security, and every product feature at once, teams change definitions after seeing results. Secondary observations remain useful, but they should not rescue a failed primary test.",
+            "Name the people who can interpret the result: hiring manager for role relevance, recruiting owner for workflow, technical owner for integrations, candidate-support or accessibility owner for affected people, and commercial owner for expansion. Decide who can stop external actions immediately without waiting for a steering meeting."
+          ],
+          "bullets": [
+            {"term": "Primary hypothesis.", "detail": "State the workflow change, population, comparison, metric, and decision threshold."},
+            {"term": "Guardrails.", "detail": "Define candidate, operational, data, and external-action conditions that cannot be traded for speed."},
+            {"term": "Decision owner.", "detail": "Identify who accepts the result and who may halt the test."},
+            {"term": "End date.", "detail": "A pilot ends with a decision; it does not become indefinite production by inertia."}
+          ]
+        },
+        {
+          "id": "baseline",
+          "label": "Use a fair comparison",
+          "heading": "Build the baseline from a recent comparable role.",
+          "paragraphs": [
+            "Choose a role recent enough that labor market, compensation, employer brand, team availability, and recruiting process are reasonably comparable. Record inputs and definitions rather than copying one top-line time-to-hire value. Time-to-hire includes many steps the evaluated system may not influence, while a narrow system may materially change time to qualified slate or reviewer hours.",
+            "Capture the funnel with denominators: people retrieved or applied, reviewed, advanced, contacted, delivered, replied, expressed interest, screened, scheduled, interviewed, and hired where available. Capture elapsed time and hands-on labor separately. Document hiring-manager rework, duplicate or stale records, candidate complaints, accommodation handling, and systems used.",
+            "If no trustworthy historical baseline exists, use a concurrent shadow comparison or explicitly treat baseline creation as the first pilot phase. Do not manufacture a clean number from incomplete ATS fields. Differences in role difficulty, geography, level, compensation, and employer demand should remain visible in the interpretation."
+          ],
+          "table": {
+            "caption": "Minimum baseline record for a real-role pilot",
+            "headers": ["Dimension", "Record", "Why it matters"],
+            "rows": [
+              ["Role", "Approved requirements, trade-offs, location, compensation assumptions, level, and opening date.", "Prevents the target from moving after results appear."],
+              ["Funnel", "Counts and definitions at each review, contact, interest, screen, and interview stage.", "Makes rates interpretable and exposes denominator changes."],
+              ["Time", "Elapsed time plus recruiter and hiring-manager hands-on hours.", "Separates speed from transferred labor."],
+              ["Quality", "Pre-agreed rubric and reviewed examples of advances, rejects, and borderline cases.", "Avoids judging only the best slate after the fact."],
+              ["Impact", "Candidate issues, corrections, accommodation requests, opt-outs, and external-action errors.", "Keeps harm and recovery visible alongside output." ]
+            ]
+          }
+        },
+        {
+          "id": "roles-and-samples",
+          "label": "Representative exposure",
+          "heading": "Choose roles and samples that can reveal the expected failure modes.",
+          "paragraphs": [
+            "A first pilot should be operationally meaningful but reversible. Avoid the easiest role chosen solely to create a good result and avoid a mission-critical role where a failure cannot be contained. Select a role with an engaged hiring manager, a clear brief, enough historical or concurrent comparison data, and realistic edge cases.",
+            "Sampling depends on the system. For sourcing, review high-ranked, borderline, and lower-ranked people so false negatives can surface. For screening, include responses that are strong, weak, ambiguous, incomplete, nontraditional, multilingual, or accommodation-sensitive. For engagement, use a limited approved population and inspect every message, reply classification, suppression, and follow-up before increasing volume.",
+            "Do not claim subgroup conclusions from samples too small or incomplete to support them. Record missing demographic or outcome data and involve qualified review where impact analysis is contemplated. A pilot can reveal an issue or evidence gap without estimating its population prevalence."
+          ],
+          "steps": [
+            {"title": "Freeze role version.", "detail": "Store the approved brief and rubric before the system sees candidate data."},
+            {"title": "Define sample frames.", "detail": "State which selected, rejected, borderline, stale, duplicate, and exception cases will be reviewed."},
+            {"title": "Limit external exposure.", "detail": "Begin with explicit approvals and a population small enough for full review and recovery."},
+            {"title": "Record exclusions.", "detail": "List languages, locations, data sources, candidate groups, or workflow steps the pilot does not test."}
+          ]
+        },
+        {
+          "id": "metrics",
+          "label": "Measure the chain",
+          "heading": "Pair outcome metrics with quality, labor, and control metrics.",
+          "paragraphs": [
+            "No single recruiting metric explains the workflow. A faster slate may contain weaker candidates; high precision at the top may hide qualified people beyond the review cutoff; a higher response rate may reflect broader messaging rather than better role fit; more interviews may transfer screening work to hiring managers. Use a compact metric set that follows the claim and captures the trade-off.",
+            "Define every numerator, denominator, clock, and reviewer. For qualitative review, specify the rubric and adjudication process. Where hiring outcomes are delayed, use intermediate measures only when the causal assumption is explicit. For example, hiring-manager acceptance may be useful during a short pilot, but it is not quality of hire and can reproduce inconsistent manager judgment.",
+            "Segment results where the sample supports it: role, seniority, geography, source, language, workflow version, or reviewer. Average performance can hide a systematic failure. Do not over-segment small samples into unstable percentages; retain the underlying cases and uncertainty."
+          ],
+          "table": {
+            "caption": "Balanced metric set for an AI recruiting pilot",
+            "headers": ["Metric family", "Example", "Interpret with"],
+            "rows": [
+              ["Outcome", "Qualified and interested people accepted for interview under the frozen rubric.", "Role difficulty, manager consistency, and later interview evidence."],
+              ["Retrieval quality", "Precision@review-budget, recall proxy, rank distribution of known qualified cases.", "Label source, pool construction, and review cutoff."],
+              ["Time", "Elapsed time from approved brief to accepted handoff or completed screen.", "Paused time, buyer delays, and service hours."],
+              ["Labor", "Recruiter, manager, QA, technical, and candidate-support minutes per accepted outcome.", "Work transferred between vendor and buyer."],
+              ["Candidate impact", "Corrections, accommodation handling, opt-outs, complaints, drop-off, and human escalations.", "Visibility of the reporting path and missing feedback."],
+              ["Reliability", "Retries, unsupported outputs, incorrect writes, duplicate actions, overrides, and fallback use.", "Severity, detectability, and recovery time." ]
+            ]
+          }
+        },
+        {
+          "id": "review-protocol",
+          "label": "Reduce hindsight",
+          "heading": "Predefine review and adjudication before opening the results.",
+          "paragraphs": [
+            "Give reviewers the role evidence standard and examples before they see vendor rankings or explanations. Where practical, blind the system identity or presentation layer during quality review. Ask reviewers to score evidence against the frozen rubric and to flag missing information rather than guessing. Record individual ratings before resolving meaningful disagreements.",
+            "Review selected and unselected cases. A shortlist can achieve attractive precision while missing a distinct qualified group, and an interview scorer can appear consistent because difficult responses were never sampled. Error analysis should classify the failure: brief interpretation, source coverage, stale data, parsing, ranking, unsupported inference, rubric ambiguity, reviewer inconsistency, integration, or action execution.",
+            "Keep vendor participation separate from final labeling. The vendor can explain system behavior and correct factual misunderstandings, but the buyer owns the acceptance rubric and decision record. Preserve original outputs, explanations, edits, human decisions, and final outcomes as distinct events."
+          ],
+          "bullets": [
+            {"term": "Independent first pass.", "detail": "Reviewers score before group discussion or vendor explanation."},
+            {"term": "Adjudication.", "detail": "Resolve material disagreement with evidence and record why the final label changed."},
+            {"term": "Error taxonomy.", "detail": "Classify where the chain failed so remediation targets the correct component."},
+            {"term": "Traceability.", "detail": "Keep system output, human edit, approval, action, reply, and outcome distinguishable."}
+          ]
+        },
+        {
+          "id": "stop-conditions",
+          "label": "Make reversal real",
+          "heading": "Write stop conditions and recovery actions before candidate exposure.",
+          "paragraphs": [
+            "Stop conditions should be observable and tied to an owner. Examples include an external message sent outside approval, repeated contact after suppression, an inaccessible path without timely accommodation, a consequential status write that cannot be explained or reversed, material quality below the pre-agreed threshold, unexplained subgroup performance concerns, loss of audit data, or an integration creating duplicates.",
+            "Specify what “stop” means: suspend sends, disable one tool, return to manual review, quarantine outputs, notify affected teams, preserve logs, contact candidates, correct records, or end the pilot. A kill switch that only the vendor can operate during limited support hours is not equivalent to buyer-controlled pause and fallback.",
+            "Recovery evidence is part of the pilot. Trigger a safe test failure where possible: unavailable ATS, rejected calendar write, duplicate record, model timeout, ambiguous reply, revoked permission, or reviewer correction. Observe whether the system contains the issue, communicates status, retries safely, and preserves enough context for a person to finish."
+          ],
+          "callout": {"label": "Stop rule", "title": "Guardrails are not weighted metrics", "text": "Do not trade a serious candidate, data, or external-action control failure for faster delivery elsewhere in the scorecard."}
+        },
+        {
+          "id": "pilot-operation",
+          "label": "Run visibly",
+          "heading": "Operate the pilot with checkpoints, version control, and an evidence log.",
+          "paragraphs": [
+            "Create a pilot register containing the frozen brief, evaluated system version, configuration, owners, source list, permissions, sample frames, metric definitions, decisions, incidents, and changes. Schedule checkpoints early enough to alter exposure, not only a retrospective after the pilot has become production.",
+            "Freeze material changes or record them as a new phase. A model update, new retrieval source, rewritten rubric, changed message policy, additional geography, or relaxed approval changes the evidence. If a fix is necessary, preserve pre-change and post-change results rather than blending them into one average.",
+            "Collect candidate and user feedback through routes people can actually find. Absence of complaints is weak evidence when candidates do not know AI is involved or cannot reach a person. Record recruiter and manager work as it occurs rather than estimating at the end. The UK responsible recruitment guide recommends inclusive pilots and live monitoring because production context can differ from pre-procurement tests."
+          ],
+          "steps": [
+            {"title": "Kickoff.", "detail": "Confirm scope, owners, permissions, notices, accommodation path, metrics, and stop conditions."},
+            {"title": "Early checkpoint.", "detail": "Review a small sample and every external action before increasing volume."},
+            {"title": "Midpoint review.", "detail": "Inspect errors, overrides, labor, missing data, candidate signals, and configuration changes."},
+            {"title": "Closeout.", "detail": "Freeze results, adjudicate claims, record unresolved risks, and make an explicit stop, continue, or expand decision."}
+          ]
+        },
+        {
+          "id": "scale-decision",
+          "label": "Close the loop",
+          "heading": "Expand only the evidence-backed scope, not the entire product promise.",
+          "paragraphs": [
+            "At closeout, compare the primary metric, guardrails, labor, incidents, and cost against the frozen baseline and decision rule. Explain uncertainty and exclusions. A successful sourcing test for one role does not automatically approve screening, autonomous outreach, another country, or every role family. Expansion should name the next population, volume, permissions, and monitoring plan.",
+            "Classify the result as stop, redesign, repeat, continue under current controls, or expand one boundary. Record what the vendor must remediate, what the buyer must change, and which evidence expires after a component update. Include commercial consequences: service credits, revised scope, support requirements, data export, or exit.",
+            "Do not use a short pilot to claim long-term quality of hire without the necessary time and outcome design. When later outcomes arrive, append them to the same role record and compare them with intermediate judgments. This turns a procurement event into a learning system without pretending every later result was caused by the tool."
+          ],
+          "callout": {"label": "Expansion rule", "title": "Scale the boundary that passed", "text": "Increase volume, role diversity, autonomy, or jurisdiction one boundary at a time, with explicit evidence and monitoring for the newly exposed risk."}
+        }
+      ],
+      "faqs": [
+        {"question": "How long should an AI recruiting pilot run?", "answer": "Long enough to observe the defined workflow and representative cases, not an arbitrary number of weeks. Set an end date, minimum evidence, and maximum candidate exposure before launch."},
+        {"question": "Can a pilot use synthetic candidates?", "answer": "Synthetic cases are useful for controlled failure and privacy-safe tests, but they do not replace real-role evidence, live integrations, user behavior, or candidate impact."},
+        {"question": "What if the company has no reliable baseline?", "answer": "Create one through a short observation phase or concurrent shadow workflow. Mark missing historical data rather than inventing a comparison."},
+        {"question": "Does a successful pilot justify full automation?", "answer": "No. It supports only the tested scope, volume, population, permissions, and controls. Additional autonomy or jurisdictions require a new risk and evidence review."}
+      ],
+      "source_ids": ["nist-rmf", "nist-playbook", "opm-job-analysis", "uk-responsible-ai-recruitment", "ico-recruitment-audit"],
+      "related": ["vendor-checklist", "sourcing-evaluation", "agent-reliability"],
+      "metix_references": [
+        {
+          "title": "Agent Evaluation, Done Right",
+          "url": "https://metix.ai/research/agent-evaluation-done-right",
+          "context": "Metix's first-party paper separates component, trajectory, and outcome evaluation; a buyer can use that separation to preserve evidence across a real-role pilot.",
+          "limitation": "The paper does not supply an independent pilot result or determine appropriate thresholds for another employer.",
+          "evidence_type": "first-party-research"
+        }
+      ]
+    },
+    {
+      "slug": "sourcing-evaluation",
+      "title": "How to Evaluate AI Candidate Sourcing and Ranking",
+      "short_title": "Sourcing Evaluation",
+      "eyebrow": "Retrieval quality under a review budget",
+      "h1": "A large candidate pool matters only if the right evidence reaches the reviewer.",
+      "meta_description": "Evaluate AI candidate sourcing with role decomposition, provenance, coverage, freshness, precision, recall proxies, ranking review, false negatives, and live outcomes.",
+      "summary": "AI candidate sourcing should be evaluated as a retrieval and ranking workflow, not by database size or a handful of impressive profiles. Test how the system interprets a role, covers the relevant population, ranks evidence within a fixed review budget, and learns from misses without hiding them.",
+      "primary_query": "evaluate AI candidate sourcing",
+      "sections": [
+        {
+          "id": "retrieval-task",
+          "label": "Define relevance",
+          "heading": "Turn the role into a testable retrieval task.",
+          "paragraphs": [
+            "Candidate relevance is conditional on a role brief and a decision. Before measuring a system, separate must-have evidence, acceptable alternatives, preferences, exclusions, seniority signals, location or work authorization constraints, compensation assumptions, and unknowns that require a conversation. Ask the hiring manager to approve this interpretation before seeing the ranked results.",
+            "Use job analysis rather than copying every sentence of a legacy description into a prompt. The OPM job-analysis material identifies tasks and competencies as foundations for assessment. In sourcing, the same discipline helps distinguish evidence that a person could perform the work from convenient proxies such as title, employer brand, school, or keyword overlap.",
+            "Define the retrieval unit. Is the system finding profiles, enriching known applicants, rediscovering people in an ATS, recommending similar candidates, or producing contactable and currently interested people? A profile can be relevant but stale, duplicate, unreachable, unavailable, or not interested. These later states should not be silently included in retrieval quality."
+          ],
+          "bullets": [
+            {"term": "Must-have evidence.", "detail": "What observable experience, work, skill, or qualification is necessary, and what alternative evidence is acceptable?"},
+            {"term": "Trade-offs.", "detail": "Which requirements can move together, and who approves that movement?"},
+            {"term": "Unknowns.", "detail": "Which questions cannot be answered reliably from available profile data?"},
+            {"term": "Outcome.", "detail": "Does success mean worth reviewing, worth contacting, interested, or accepted for interview?"}
+          ]
+        },
+        {
+          "id": "provenance-coverage",
+          "label": "Know the pool",
+          "heading": "Evaluate source provenance, coverage, refresh, and exclusions together.",
+          "paragraphs": [
+            "Ask the provider to describe source categories, licensing or access basis, geographic and occupational coverage, refresh schedules, deletion and correction flows, deduplication, enrichment, and inferred fields. A headline profile count does not show how many records are current, searchable for the relevant role, or usable in the intended communication channel.",
+            "Coverage has both visible and invisible gaps. A source may underrepresent a country, sector, early-career population, independent work, non-English profile, or nontraditional path. A ranking model cannot retrieve people who are absent or fields the index does not preserve. Document these gaps before attributing every miss to model quality.",
+            "Separate source facts from vendor or model inference. Show dates and provenance for current employer, role, location, skills, contact data, and availability where available. If the system synthesizes a profile summary or inferred seniority, a reviewer should be able to return to the underlying evidence and correct the interpretation."
+          ],
+          "table": {
+            "caption": "Coverage questions that a database-size claim cannot answer",
+            "headers": ["Dimension", "Evidence to request", "Failure to look for"],
+            "rows": [
+              ["Population", "Role, geography, language, career stage, and source distribution.", "Strong totals masking weak coverage for the evaluated role."],
+              ["Freshness", "Field-level dates, refresh method, and stale-record handling.", "Current-looking summaries built from outdated employment data."],
+              ["Provenance", "Source category and distinction between observed and inferred fields.", "Generated claims presented as profile facts."],
+              ["Control", "Correction, deletion, suppression, and customer export paths.", "Records persisting or reappearing after correction."],
+              ["Duplicates", "Entity resolution method and review of merged or split profiles.", "One person counted repeatedly or different people merged incorrectly."]
+            ]
+          }
+        },
+        {
+          "id": "test-set",
+          "label": "Build labels carefully",
+          "heading": "Create a role-specific test set without treating one reviewer as ground truth.",
+          "paragraphs": [
+            "Build evaluation cases from the approved brief and the population the system will actually search. Include known qualified people where available, hard negatives with similar titles but wrong scope, adjacent backgrounds, unconventional evidence, missing fields, and disputed cases. Preserve why each person was labeled rather than only a binary judgment.",
+            "Have reviewers apply the same rubric independently before discussing material disagreement. The goal is not to erase human uncertainty; it is to distinguish model error from an ambiguous brief or inconsistent reviewer. Record consensus, disagreement, and insufficient-information states. Do not force every profile into qualified or unqualified when the available evidence cannot support that conclusion.",
+            "Avoid label leakage and showcase selection. If vendor staff know which people are considered qualified and tune the search to them, separate that development set from the final evaluation. A test based only on employees or previously hired candidates can reward historical patterns and omit qualified alternatives."
+          ],
+          "steps": [
+            {"title": "Draft rubric.", "detail": "Translate role requirements into observable evidence and acceptable alternatives."},
+            {"title": "Sample cases.", "detail": "Include positives, hard negatives, boundary cases, and insufficient-information cases."},
+            {"title": "Label independently.", "detail": "Collect reasons and confidence before reviewer discussion."},
+            {"title": "Hold out evaluation.", "detail": "Keep final cases separate from vendor tuning or query iteration."}
+          ]
+        },
+        {
+          "id": "retrieval-metrics",
+          "label": "Use the review budget",
+          "heading": "Measure precision and coverage at the point a recruiter can actually review.",
+          "paragraphs": [
+            "Ranking quality matters within a finite review budget. Precision@K asks what proportion of the top K reviewed people meets the frozen relevance standard. Recall@K asks what proportion of all labeled relevant people in the evaluated pool appears within the top K. When the full relevant population is unknowable, report a recall proxy and explain how the pool was constructed rather than calling it complete recall.",
+            "Measure more than one cutoff. A system may be precise in the first ten results but degrade quickly, or it may place qualified adjacent backgrounds just beyond the routine review limit. Rank-sensitive measures and the distribution of first relevant results can help, but plain-language case review remains necessary to understand why movement occurred.",
+            "Do not compare metrics across different pools, labels, roles, or retrieval stages as if they share a denominator. A reranker measured on candidates already returned by an upstream retriever cannot establish end-to-end coverage. A model judged by another model carries judge assumptions that should be tested against human review."
+          ],
+          "table": {
+            "caption": "Retrieval metrics and their interpretation limits",
+            "headers": ["Metric", "Question answered", "Does not answer"],
+            "rows": [
+              ["Precision@K", "How much of the reviewed top K meets the relevance standard?", "How many relevant people were never retrieved or ranked lower."],
+              ["Recall@K", "How much of the labeled relevant pool appears in the top K?", "Coverage outside the constructed and labeled pool."],
+              ["Yield per reviewer hour", "How many accepted profiles result from actual review labor?", "Candidate interest, availability, or later interview quality."],
+              ["Rank movement", "Where do relevant and hard-negative cases move after reranking?", "Whether the upstream pool is representative or complete."],
+              ["Manager acceptance", "Which profiles a manager advances under the current rubric?", "Objective job performance or absence of manager bias."]
+            ]
+          }
+        },
+        {
+          "id": "error-analysis",
+          "label": "Inspect misses",
+          "heading": "Review false positives and false negatives as different product failures.",
+          "paragraphs": [
+            "A false positive consumes review or outreach capacity and may create poor candidate contact. A false negative removes opportunity before a conversation. Sample both. False negatives are harder to observe because the system does not present them, so use known qualified cases, lower-ranked samples, alternate queries, source comparisons, and hiring-manager nominations to search for misses.",
+            "Classify the failure location: brief parsing, title normalization, skill inference, seniority, geography, source absence, stale data, query generation, embedding, reranking, hard filter, deduplication, or human label disagreement. A single “bad match” bucket cannot guide remediation and encourages changing the entire model for a data or configuration problem.",
+            "Look for asymmetric failure patterns across role types, career paths, languages, and sources. A system can meet an average target while systematically losing nontraditional evidence or overvaluing famous employers. Do not claim demographic fairness without appropriate data and analysis, but do not ignore repeated qualitative patterns because a pilot lacks power for a formal estimate."
+          ],
+          "bullets": [
+            {"term": "Unsupported leap.", "detail": "The summary claims a requirement that the underlying profile does not evidence."},
+            {"term": "Boundary confusion.", "detail": "Similar title or skill vocabulary hides a different function, scope, or level."},
+            {"term": "Missing alternative.", "detail": "The system recognizes one conventional path but not another approved route to the competency."},
+            {"term": "Hard-filter loss.", "detail": "A person never reaches semantic ranking because an upstream filter excludes them."},
+            {"term": "Stale relevance.", "detail": "The historical match is plausible but no longer reflects current work or location."}
+          ]
+        },
+        {
+          "id": "live-workflow",
+          "label": "Beyond offline ranking",
+          "heading": "Connect retrieval quality to review, engagement, and interview acceptance.",
+          "paragraphs": [
+            "Offline metrics isolate retrieval and ranking, but the live workflow includes recruiter review, contactability, message approval, candidate reply, interest, screening, and hiring-manager acceptance. Keep those stages separate so weak engagement does not get mislabeled as poor retrieval and a broad message campaign does not inflate perceived candidate quality.",
+            "Track how explanations affect reviewers. If generated summaries make weak profiles appear persuasive, compare decisions with and without the summary or require evidence links. Measure reviewer correction and query iteration. A system that reaches quality only after extensive hidden prompt work may be useful, but its operating cost and repeatability differ from the initial claim.",
+            "Measure candidates delivered under a clear definition: relevant to the approved brief, current enough to evaluate, deduplicated, contact handled under the approved process, and at the interest state promised by the vendor. A list of profiles, a positive reply, and an accepted interview are distinct outcomes."
+          ],
+          "callout": {"label": "Outcome boundary", "title": "Do not call a profile a candidate outcome", "text": "Report retrieval quality, review acceptance, contact, interest, and interview acceptance as separate funnel states with their own denominators."}
+        },
+        {
+          "id": "freshness-drift",
+          "label": "Repeat over time",
+          "heading": "Re-test when the role, population, source, or model changes.",
+          "paragraphs": [
+            "Sourcing systems operate on moving populations. People change jobs and locations; new evidence appears; source access changes; queries evolve; hiring managers learn; and models or rerankers update. Preserve evaluation cases and rerun them after material changes while also adding new roles so the system cannot optimize only to a static benchmark.",
+            "Monitor leading indicators such as accepted-profile rate at fixed review depth, reviewer overrides, unsupported inference, stale-record rate, duplicate rate, source distribution, and rank movement for known cases. Investigate before automatically attributing change to model drift: the brief, labelers, market, source coverage, or downstream filters may have shifted.",
+            "Version the complete retrieval path. Record upstream retriever, filters, query interpretation, embeddings, reranker, enrichment, explanation model, and configuration. A reported improvement in one component is not an end-to-end improvement until the deployed chain and real review budget show it."
+          ],
+          "steps": [
+            {"title": "Keep a stable regression set.", "detail": "Retain approved role cases and known failure modes across releases."},
+            {"title": "Add fresh challenge cases.", "detail": "Introduce new roles, terminology, locations, and career paths to test transfer."},
+            {"title": "Compare the full chain.", "detail": "Measure the production configuration, not an isolated replacement component."},
+            {"title": "Investigate movement.", "detail": "Attribute changes across role, data, source, model, configuration, and reviewer before acting."}
+          ]
+        },
+        {
+          "id": "sourcing-decision",
+          "label": "Make the call",
+          "heading": "Approve a sourcing system for a defined role family and review budget.",
+          "paragraphs": [
+            "The sourcing decision should state the tested role families, geographies, languages, sources, review cutoff, required provenance, explanation behavior, acceptable stale and duplicate handling, human review, and monitoring. It should also state where the system is not approved, including screening or autonomous outreach if those functions were not tested.",
+            "Compare the system to a current workflow using accepted quality and reviewer labor, not only profile volume or search speed. A smaller, more inspectable pool may outperform a larger ranking if it reduces cleanup and unsupported inference. Conversely, high precision in the top ten may not satisfy a role that requires broader exploration or uncommon backgrounds.",
+            "Use the [vendor checklist](/vendor-checklist) for data and commercial questions and the [pilot design](/pilot-design) for a bounded live test. Preserve the failed cases as future regression tests rather than deleting them after a query fix."
+          ],
+          "callout": {"label": "Approval scope", "title": "Name the review budget", "text": "A sourcing result is only meaningful at the number of profiles the team can consistently inspect with the agreed evidence standard."}
+        }
+      ],
+      "faqs": [
+        {"question": "Is database size a useful sourcing metric?", "answer": "It describes potential inventory but not role-specific coverage, freshness, provenance, deduplication, rank quality, contactability, or candidate interest."},
+        {"question": "What is the difference between precision and recall in candidate sourcing?", "answer": "Precision asks how many reviewed results are relevant; recall asks how many relevant people in the evaluated pool were retrieved within the cutoff. Both depend on labels and pool construction."},
+        {"question": "How can a team find false negatives if the system never shows them?", "answer": "Review lower-ranked samples, known qualified cases, alternate queries, source comparisons, hiring-manager nominations, and hard-filter exclusions."},
+        {"question": "Can an LLM judge candidate relevance for an evaluation?", "answer": "It can assist if its rubric and agreement with qualified human review are tested. Model judgments should not be treated as ground truth without validation and error analysis."}
+      ],
+      "source_ids": ["nist-rmf", "opm-job-analysis", "uk-responsible-ai-recruitment", "ico-recruitment-audit"],
+      "related": ["pilot-design", "screening-evaluation", "vendor-checklist"],
+      "metix_references": [
+        {
+          "title": "Mira-Embeddings-V1: Domain-Adapted Semantic Reranking for Recruitment",
+          "url": "https://metix.ai/research/mira-embeddings-v1",
+          "context": "The Metix paper reports Recall@K and Precision@K under stated local and global protocols, offering a first-party example of why pool, cutoff, labels, and reranking stage must stay visible.",
+          "limitation": "The reported results are protocol-specific and do not independently establish end-to-end sourcing quality, live candidate outcomes, or fairness.",
+          "evidence_type": "first-party-research"
+        }
+      ]
+    },
+    {
+      "slug": "screening-evaluation",
+      "title": "How to Evaluate AI Candidate Screening",
+      "short_title": "Screening Evaluation",
+      "eyebrow": "Job-related evidence with a human path",
+      "h1": "Test what the screen measures, who it excludes, and how a person can challenge it.",
+      "meta_description": "Evaluate AI candidate screening through job analysis, structured administration, validity evidence, consistency, accessibility, accommodations, review, and monitoring.",
+      "summary": "AI screening evaluation starts with the job, not the model. Define the construct and decision, use structured and inspectable administration, examine validity and error evidence, test accessibility and accommodations, and preserve meaningful human review and contestability.",
+      "primary_query": "evaluate AI candidate screening",
+      "sections": [
+        {
+          "id": "decision-role",
+          "label": "Locate consequence",
+          "heading": "Identify what the screening output changes in the hiring process.",
+          "paragraphs": [
+            "Screening can mean eligibility questions, resume ranking, work samples, structured interviews, conversational assessment, transcription, summarization, or a recommendation. Write whether the output informs review, orders a queue, advances a person, rejects them, or triggers another assessment. The same model output creates different consequences under different employer use.",
+            "Map inputs, generated or inferred features, score or narrative output, thresholds, human reviewers, and downstream status changes. Ask whether a person can be rejected solely from the system, whether a reviewer sees underlying evidence, and whether the candidate can request another path. A human who only confirms a score under time pressure may not provide meaningful oversight.",
+            "Determine which jurisdictions, roles, and candidate populations are in scope before applying a legal or professional framework. The NYC AEDT materials and EU AI Act explanations illustrate how definitions and intended purpose matter; this guide does not determine coverage. Record the verified source date and seek qualified advice for the actual deployment."
+          ],
+          "bullets": [
+            {"term": "Input.", "detail": "Resume, application answer, assessment response, audio, video, behavioral data, or inferred feature."},
+            {"term": "Construct.", "detail": "The job-related knowledge, skill, ability, competency, or eligibility condition intended to be measured."},
+            {"term": "Output.", "detail": "Score, label, rank, summary, recommendation, explanation, or automatic status change."},
+            {"term": "Consequence.", "detail": "Review priority, additional test, advance, rejection, communication, or final selection support."}
+          ]
+        },
+        {
+          "id": "job-analysis",
+          "label": "Start from work",
+          "heading": "Connect every scored dimension to current job evidence.",
+          "paragraphs": [
+            "Use a current job analysis to identify important tasks, competencies, context, and minimum qualifications. The OPM job-analysis guidance describes this foundation, while EEOC materials address job-related selection procedures. A generic model score such as “leadership,” “culture fit,” or “communication” is not self-validating; define the behavior, why it matters for this role, and what evidence can support it.",
+            "Distinguish minimum eligibility, trainable skill, preference, and speculative predictor. Avoid treating education, employer prestige, career continuity, accent, facial behavior, typing style, or vocabulary as a competency without a defensible link to the work. Proxy variables can appear objective while measuring access or background rather than ability to perform the job.",
+            "Freeze the role version and rubric before evaluating candidates. Record who approved each dimension, how it is weighted or gated, acceptable alternative evidence, and how missing information is handled. Revalidate when duties, level, location, technology, or decision use changes."
+          ],
+          "steps": [
+            {"title": "Analyze the job.", "detail": "Identify important tasks, competencies, context, and consequences using current role information."},
+            {"title": "Define the construct.", "detail": "Describe the capability in observable terms and separate it from convenient proxies."},
+            {"title": "Choose evidence.", "detail": "Specify which answers, work samples, or experiences can support the construct and acceptable alternatives."},
+            {"title": "Approve the rubric.", "detail": "Set questions, anchors, thresholds, unknown handling, and reviewer authority before live use."}
+          ]
+        },
+        {
+          "id": "structured-administration",
+          "label": "Comparable opportunity",
+          "heading": "Structure the core questions and scoring without erasing necessary accommodation.",
+          "paragraphs": [
+            "Structured interviews use predetermined job-related questions and common rating standards so candidates receive comparable opportunities to provide evidence. An AI conversation can still be structured: define core questions, permitted probes, time behavior, response channels, scoring anchors, and the conditions under which a human follows up.",
+            "Consistency is not identical wording at any cost. A reasonable accommodation, clarification, language support, or recovery from a technical failure may require a different path. Record the change and preserve the construct being measured rather than penalizing the candidate for the delivery mechanism. ADA.gov warns against tests that measure disability instead of job skill.",
+            "Test prompt and conversation variation. Re-run semantically equivalent responses, order changes, irrelevant details, concise and verbose answers, uncertainty, non-native language patterns, interruptions, and adversarial or nonsensical input. Inspect whether scoring remains anchored to role evidence or drifts toward style, confidence, or demographic proxy."
+          ],
+          "table": {
+            "caption": "Structure to define before an AI-assisted screen",
+            "headers": ["Element", "Define", "Test"],
+            "rows": [
+              ["Question", "Job-related purpose, required wording, and allowed clarification.", "Whether variants change the construct or candidate opportunity."],
+              ["Probe", "When the system may ask for detail and when it must stop.", "Over-questioning, leading prompts, and unequal depth."],
+              ["Rating", "Behavioral anchors, evidence rules, unknown state, and threshold.", "Agreement, borderline cases, and unsupported inference."],
+              ["Delivery", "Time, channel, language, accessibility, interruption, and recovery.", "Whether interface behavior affects the score."],
+              ["Review", "What evidence the human sees and what they can correct or override.", "Automation bias, time pressure, and auditability."]
+            ]
+          }
+        },
+        {
+          "id": "validity-reliability",
+          "label": "Evidence for interpretation",
+          "heading": "Ask whether evidence supports the score's intended use—not whether the model is generally accurate.",
+          "paragraphs": [
+            "Validity concerns the interpretation and use of the screening output for the stated decision. Request the argument connecting job analysis, construct, content, response, scoring, threshold, and relevant outcome. Evidence for one occupation, language, population, or use may not transfer to another. A general LLM benchmark does not validate an employment screen.",
+            "Reliability and consistency support but do not replace validity. Test repeated scoring, reviewer agreement, model-version movement, and sensitivity to irrelevant changes. A perfectly consistent measure of the wrong construct remains unsuitable. Conversely, legitimate open-ended evidence can contain uncertainty that should be represented rather than hidden behind excessive decimal precision.",
+            "Review the sample and label source. Who decided which answers were strong? Were raters trained and blinded? Were disagreements adjudicated? Are protected or relevant subgroups represented well enough for the reported analysis? Are thresholds chosen before or after seeing outcomes? Request limitations and negative results, not only an aggregate accuracy number."
+          ],
+          "bullets": [
+            {"term": "Content evidence.", "detail": "Does the assessment represent important parts of the work and competency definition?"},
+            {"term": "Response process.", "detail": "Do candidates and the system engage with the question as intended?"},
+            {"term": "Internal consistency.", "detail": "Are ratings and items coherent without collapsing distinct competencies?"},
+            {"term": "Relations to outcomes.", "detail": "Do scores relate to relevant external evidence under an appropriate design?"},
+            {"term": "Consequences.", "detail": "What errors, exclusions, burdens, or adaptations arise from the chosen use?"}
+          ]
+        },
+        {
+          "id": "impact-analysis",
+          "label": "Look beyond average accuracy",
+          "heading": "Examine selection impact and error patterns without turning one ratio into a compliance verdict.",
+          "paragraphs": [
+            "Review advancement, score, error, and missing-data patterns for relevant groups where lawful, appropriate, and statistically supportable. The Uniform Guidelines and official NYC materials illustrate that impact analysis has defined contexts and methods. A vendor's generic fairness dashboard or one favorable ratio cannot determine compliance for the buyer's use.",
+            "Inspect false positives and false negatives, not only selection rates. A system can produce similar aggregate rates while making different kinds of errors or measuring a proxy differently. Examine intersectional and accessibility-sensitive cases where sample design permits, and record when data is unavailable or too sparse for a stable estimate.",
+            "Investigate causes across job definition, question content, training data, labels, missingness, interface, transcription, language, scoring model, threshold, reviewer behavior, and downstream use. Mitigation should address the failure rather than tune a number until one report passes. Re-test after mitigation and monitor in operation."
+          ],
+          "callout": {"label": "Interpretation limit", "title": "A bias audit is not a universal approval", "text": "Confirm scope, auditor independence, data period, selection process, groups, metrics, exclusions, and whether the audited configuration matches the proposed use."}
+        },
+        {
+          "id": "accessibility",
+          "label": "Candidate access",
+          "heading": "Test the complete process for accessibility, accommodation, and alternative paths.",
+          "paragraphs": [
+            "Evaluate the candidate journey from notice through completion, correction, and human contact. Test keyboard use, focus order, labels, status messages, text alternatives, contrast, reflow, time limits, captions or transcripts, screen-reader behavior, error recovery, mobile use, and low bandwidth. WCAG 2.2 provides testable web criteria but does not cover every hiring-process need.",
+            "Explain the technology and evaluated information early enough for a candidate to decide whether to request an accommodation. Make the request path easy to find, confidential as appropriate, and operationally staffed. Test that requesting or receiving an accommodation does not itself reduce the score or reveal unnecessary disability-related information to evaluators.",
+            "Provide an alternative that measures the same job-related construct when the standard path creates a barrier. Do not simply remove the candidate from consideration or substitute an unrelated test. Technical support is not the same as accommodation ownership, and a chatbot that routes in circles is not a human escalation path."
+          ],
+          "steps": [
+            {"title": "Inform.", "detail": "Describe the technology, task, timing, evaluated information, and available support before the screen."},
+            {"title": "Request.", "detail": "Offer a clear accommodation route that reaches an accountable person."},
+            {"title": "Adapt.", "detail": "Use an accessible or alternative method that preserves the job-related construct."},
+            {"title": "Verify.", "detail": "Test the complete adapted journey, scoring, records, and downstream review rather than only the interface."}
+          ]
+        },
+        {
+          "id": "human-review",
+          "label": "Meaningful control",
+          "heading": "Give reviewers evidence, time, authority, and a reason to disagree.",
+          "paragraphs": [
+            "Human review is meaningful when the reviewer understands the system's role, can inspect candidate evidence, knows limitations, has time to evaluate, can change the result, and is accountable for the next action. A mandatory confirmation click or unexplained score does not meet that practical standard.",
+            "Design the interface to separate source evidence, model inference, rubric rating, confidence or uncertainty, and final human decision. Ask reviewers to give a reason for material overrides and sample non-overridden cases for automation bias. Monitor whether reviewers increasingly accept recommendations without reading evidence as volume grows.",
+            "Give candidates and internal users routes to contest, correct, or escalate consequential errors. Preserve the original output and the corrected record so the organization can learn without leaving harmful data active. Communicate outcomes and limits in language appropriate to the process; do not expose proprietary internals when a clear job-related explanation is possible."
+          ],
+          "bullets": [
+            {"term": "Evidence access.", "detail": "The reviewer can trace a rating or recommendation to the candidate response and rubric."},
+            {"term": "Decision authority.", "detail": "The reviewer can correct, override, pause, or request another method."},
+            {"term": "Time and training.", "detail": "The workflow does not turn review into rubber-stamping under an unrealistic queue."},
+            {"term": "Contestability.", "detail": "Candidate and user concerns reach an owner and can change relevant records or actions."}
+          ]
+        },
+        {
+          "id": "monitoring",
+          "label": "Live operation",
+          "heading": "Monitor score movement, candidate impact, overrides, and process change together.",
+          "paragraphs": [
+            "After deployment, monitor score distributions, advancement, error samples, reviewer disagreement, overrides, missing data, accommodation use, technical failures, candidate feedback, completion, and downstream interview evidence. Segment by role, version, language, channel, and other relevant dimensions where analysis is lawful and supported.",
+            "Version prompts, questions, rubrics, thresholds, models, transcription, interface, and integrations. A vendor update can change candidate opportunity even when the product name is unchanged. Establish change notification and re-testing triggers in the agreement and operating process.",
+            "Create incident paths for inaccessible sessions, incorrect status changes, corrupted or exposed data, repeated questions, unsupported inferences, group performance concerns, and candidate complaints. Preserve evidence, contain impact, correct records, communicate with affected people where appropriate, and decide whether the system may resume under narrower controls."
+          ],
+          "table": {
+            "caption": "Screening monitoring signals and investigation questions",
+            "headers": ["Signal", "Investigate", "Possible action"],
+            "rows": [
+              ["Score distribution shift", "Role mix, model, rubric, prompts, language, data, and candidate population.", "Pause threshold use, sample cases, or revalidate."],
+              ["Override change", "Reviewer training, queue pressure, system quality, and automation bias.", "Review cases, interface, staffing, and rubric."],
+              ["Completion or accommodation issue", "Interface, notice, timing, support, alternative path, and downstream scoring.", "Fix access, offer reassessment, and limit exposure."],
+              ["Group or error concern", "Sample, labels, missing data, threshold, construct, and workflow use.", "Escalate qualified review, contain use, and retest."],
+              ["Integration incident", "Incorrect writes, retries, duplicates, permissions, and audit trail.", "Disable writes, reconcile records, and use fallback."]
+            ]
+          }
+        }
+      ],
+      "faqs": [
+        {"question": "Is resume ranking an employment selection procedure?", "answer": "Its treatment depends on the facts, jurisdiction, definitions, and how the employer uses it. Record the actual decision effect and obtain qualified advice rather than relying on a product label."},
+        {"question": "Does consistent AI scoring prove the screen is valid?", "answer": "No. Consistency can support reliability, but validity requires evidence that the score interpretation and use relate appropriately to the job and decision."},
+        {"question": "Is WCAG conformance enough for an accessible screening process?", "answer": "No. WCAG addresses web content. The full process also needs timely notice, accommodation handling, suitable alternatives, human support, and downstream treatment."},
+        {"question": "Can a human reviewer fix every AI screening risk?", "answer": "No. Review can help only when the person has evidence, competence, time, authority, and a functioning correction path. Some unsuitable constructs or inaccessible methods should not be used."}
+      ],
+      "source_ids": ["eeoc-selection", "ugesp-1607", "ada-ai-hiring", "opm-job-analysis", "opm-structured-interviews", "uk-responsible-ai-recruitment", "ico-recruitment-audit", "wcag-22", "nyc-aedt", "eu-ai-act"],
+      "related": ["sourcing-evaluation", "pilot-design", "agent-reliability"],
+      "metix_references": [
+        {
+          "title": "When AI Meets Recruiting: Opportunities, Challenges, and Future Directions",
+          "url": "https://metix.ai/research/ai-meets-recruiting",
+          "context": "The Metix literature review maps sourcing, matching, and assessment across a recruitment lifecycle and identifies bias, explainability, feedback, and oversight as open deployment questions.",
+          "limitation": "This first-party review does not validate a screening construct, product, employer process, or legal outcome.",
+          "evidence_type": "first-party-research"
+        }
+      ]
+    },
+    {
+      "slug": "agent-reliability",
+      "title": "AI Recruiting Agent Reliability Evaluation",
+      "short_title": "Agent Reliability",
+      "eyebrow": "From model output to external action",
+      "h1": "Evaluate the whole agent trajectory, including the moment it must stop.",
+      "meta_description": "Evaluate AI recruiting agent reliability through system boundaries, permissions, trajectory tests, approvals, failure recovery, incidents, versioning, and drift.",
+      "summary": "A recruiting agent is a chain of model decisions, retrievals, tool calls, data writes, messages, and human handoffs. Reliability evaluation must inspect that trajectory, control permissions and approvals, test failures and fallback, and monitor the deployed configuration as it changes.",
+      "primary_query": "AI recruiting agent reliability",
+      "sections": [
+        {
+          "id": "system-boundary",
+          "label": "Map the real system",
+          "heading": "Draw the agent, tools, humans, and external effects as one evaluated boundary.",
+          "paragraphs": [
+            "Do not evaluate a recruiting agent as one chatbot response. Map the models, prompts, memory, retrieval systems, candidate data, policies, tools, ATS or CRM writes, email or messaging providers, calendars, human operations, and approval interfaces that participate in the outcome. Include third-party services and manual work that the product experience hides.",
+            "Mark every point where the system reads sensitive data, changes a record, contacts a person, schedules an event, recommends a consequential action, or hands work to a human. Identify the identity and permission used for each tool call. A workflow diagram should distinguish a proposed action, an approved action, an executed action, a retry, and a reconciled result.",
+            "Define the evaluated configuration and intended purpose. If the buyer disables autonomous messaging or uses only search, evidence from the broader agent is not automatically relevant. Conversely, a model benchmark cannot establish reliability of the deployed chain when integration, permissions, state, or human handoff creates the dominant failure."
+          ],
+          "bullets": [
+            {"term": "Components.", "detail": "Models, prompts, retrieval, memory, rules, ranking, summarization, and classifiers."},
+            {"term": "Tools.", "detail": "Data stores, ATS, CRM, email, messaging, calendar, export, and administrative actions."},
+            {"term": "Humans.", "detail": "Buyer reviewers, vendor delivery staff, support, approvers, candidates, and hiring managers."},
+            {"term": "State.", "detail": "Role version, candidate record, approval, suppression, conversation, workflow status, and audit history."}
+          ]
+        },
+        {
+          "id": "evaluation-layers",
+          "label": "Test at three levels",
+          "heading": "Separate component quality, trajectory behavior, and hiring outcome.",
+          "paragraphs": [
+            "Component tests isolate a bounded capability such as role parsing, retrieval, evidence extraction, reply classification, or scheduling. They are fast and diagnostic but may miss compounding errors. Trajectory tests inspect the sequence of decisions and tool calls, including whether the agent gathers evidence, respects policy, requests approval, recovers from failure, and records state correctly.",
+            "Outcome tests ask whether the complete workflow produces the agreed hiring progress under acceptable quality, labor, candidate impact, and control. A strong component can be neutralized by weak handoff; a trajectory can follow policy but pursue the wrong role interpretation; an attractive outcome can hide excessive human repair. Keep all three levels rather than choosing one metric.",
+            "Design test cases from production failure modes and decision consequences. Use deterministic assertions where possible for permissions, schemas, writes, approvals, suppression, and state transitions. Use qualified human review for role evidence and candidate communication. Where model-based judges assist, evaluate their agreement and systematic errors against the task rubric."
+          ],
+          "table": {
+            "caption": "Three layers of recruiting-agent evaluation",
+            "headers": ["Layer", "Example test", "Blind spot if used alone"],
+            "rows": [
+              ["Component", "Does the reply classifier separate interest, decline, question, opt-out, and uncertainty on labeled cases?", "Does not show whether the right message was sent or the state changed safely."],
+              ["Trajectory", "Does the agent retrieve evidence, propose a message, obtain approval, send once, interpret reply, and update the record correctly?", "Can follow the path while producing weak candidates or excessive labor."],
+              ["Outcome", "Does the workflow deliver qualified and interested people accepted for interview under agreed controls?", "May not reveal which component caused a miss or how much repair was hidden."],
+              ["Longitudinal", "Does the same evaluated slice remain within thresholds across model, data, and workflow updates?", "Needs version and context analysis to avoid misattributing normal population change."]
+            ]
+          }
+        },
+        {
+          "id": "permissions-approvals",
+          "label": "Constrain action",
+          "heading": "Use least privilege and enforce approvals at the tool boundary.",
+          "paragraphs": [
+            "List allowed and prohibited tool calls for each agent state. A system may be permitted to search and draft but not send, to propose a status but not reject, or to create a tentative calendar option but not confirm without consent. Enforce these boundaries through credentials, APIs, policies, and workflow state rather than relying only on prompt instructions.",
+            "Approvals need a defined object and version. The reviewer should know which candidate, message, channel, sender, time, attachment, and follow-up policy they approve. If content or recipient changes after approval, the action should require a new decision. Batch approval should expose scope and exceptions rather than hiding hundreds of actions behind one click.",
+            "Test escalation and revocation. Remove a permission during a run, reject an action, alter a suppression record, and suspend a campaign. Observe whether queued work respects the change. Include vendor operators and support impersonation in the permission review because human service can bypass product-level controls if governance is incomplete."
+          ],
+          "steps": [
+            {"title": "Inventory actions.", "detail": "List every read, write, communication, schedule, export, and administrative capability."},
+            {"title": "Minimize credentials.", "detail": "Grant only the fields and actions required for the approved state and environment."},
+            {"title": "Bind approval.", "detail": "Attach reviewer, timestamp, content version, recipient, channel, and scope to the executed action."},
+            {"title": "Test revocation.", "detail": "Ensure queued or retried work cannot bypass a newly applied pause, suppression, or permission change."}
+          ]
+        },
+        {
+          "id": "failure-tests",
+          "label": "Challenge the chain",
+          "heading": "Test ambiguous input, unavailable tools, conflicting state, and unsafe instructions.",
+          "paragraphs": [
+            "Recruiting agents encounter missing requirements, contradictory candidate records, ambiguous replies, duplicate profiles, stale contact data, calendar conflicts, API timeouts, rate limits, partial writes, revoked credentials, and human corrections. Build a failure suite that verifies containment, clear status, safe retries, escalation, and auditable recovery.",
+            "Test instruction conflicts and untrusted content. Candidate profiles, resumes, messages, and linked pages are data, not authority to override system or buyer policy. The agent should not reveal unrelated records, broaden its tool scope, change suppression, or send a message because untrusted text requests it. Keep data provenance and instruction hierarchy visible in architecture and logs.",
+            "Use metamorphic cases to test irrelevant variation: reordered resume sections, equivalent role language, extra biography, different formatting, or unrelated persuasive text. Test long trajectories where one uncertain inference affects later search, ranking, message, and status. A small early error can compound even when every later component behaves consistently with its input."
+          ],
+          "bullets": [
+            {"term": "Ambiguity.", "detail": "The agent asks, defers, or represents uncertainty instead of inventing a requirement or candidate fact."},
+            {"term": "Partial failure.", "detail": "A timeout or rejected write cannot create duplicate sends, inconsistent states, or silent loss."},
+            {"term": "Conflicting state.", "detail": "Suppression, candidate correction, role closure, and human override win over stale queued work."},
+            {"term": "Untrusted input.", "detail": "Resume or message text cannot grant permissions, expose data, or override operating policy."},
+            {"term": "Human correction.", "detail": "A correction updates future behavior while preserving the original event and accountability."}
+          ]
+        },
+        {
+          "id": "observability",
+          "label": "See enough to recover",
+          "heading": "Log decisions and actions without turning the audit trail into another privacy risk.",
+          "paragraphs": [
+            "An operational trace should connect the approved role version, retrieved evidence, model or rule version, recommendations, tool calls, approvals, external effects, replies, human edits, errors, and final handoff. Use stable identifiers and timestamps so teams can reconstruct a case without merging generated text into source data.",
+            "Capture structured reasons and uncertainty where they support review, but do not assume a generated explanation faithfully represents internal model causality. The most useful audit evidence often concerns observable inputs, policy decisions, tool arguments, permissions, returned status, and human action. Distinguish explanation for a reviewer from a technical trace for incident investigation.",
+            "Minimize and protect logs. Set access, retention, redaction, export, deletion, and incident rules appropriate to the personal and operational data recorded. Verify that support tooling and analytics do not copy full candidate data unnecessarily. Observability that no accountable person can access during an incident is not operationally effective."
+          ],
+          "table": {
+            "caption": "Minimum trace for a consequential agent action",
+            "headers": ["Event", "Record", "Purpose"],
+            "rows": [
+              ["Input", "Role, candidate, conversation, source, and version identifiers.", "Reconstruct the context without treating generated summaries as source facts."],
+              ["Decision", "Policy, rubric, recommendation, uncertainty, and proposed next action.", "Explain what the system proposed and which rule applied."],
+              ["Approval", "Reviewer, timestamp, scope, content version, and result.", "Show accountable authorization for the executed action."],
+              ["Tool call", "Credential identity, arguments, response, retry key, and error.", "Detect incorrect permissions, duplicates, and partial failure."],
+              ["Effect", "Message, record write, calendar event, reply, correction, or rollback.", "Connect intent to the real external outcome." ]
+            ]
+          }
+        },
+        {
+          "id": "fallback-incidents",
+          "label": "Plan the stop",
+          "heading": "Make pause, manual takeover, correction, and incident response part of reliability.",
+          "paragraphs": [
+            "Define kill switches at useful scopes: one action, candidate, role, channel, integration, agent, or entire environment. The buyer should know who can operate them, how quickly they take effect, and what happens to queued work. A full shutdown may be too blunt to correct one workflow, while a superficial pause may leave retries active.",
+            "Design manual takeover before an incident. People need the approved brief, candidate evidence, conversation state, pending commitments, suppression, calendar context, and clear next step. If context exists only in model memory or vendor operations, the buyer cannot safely finish the process. Test a handoff during the pilot rather than assuming it works.",
+            "Incident response should classify candidate, data, access, communication, selection, integration, and model-quality events; preserve evidence; contain the effect; correct records; notify owners; support affected people; and define return-to-service evidence. Near misses and repeated overrides belong in review even when no external effect occurs."
+          ],
+          "callout": {"label": "Reliability gate", "title": "A system that cannot stop safely is not ready to act broadly", "text": "Require buyer-visible pause, queue handling, manual context, and tested recovery before increasing external-action volume or autonomy."}
+        },
+        {
+          "id": "drift-monitoring",
+          "label": "Behavior changes",
+          "heading": "Monitor performance by version, role, trajectory, and consequence.",
+          "paragraphs": [
+            "Agent performance can change because models, prompts, retrieval sources, policies, tools, integrations, user behavior, role mix, candidate data, and labor markets change. Track the full configuration and segment monitoring so an average outcome does not hide a failing component or newly exposed population.",
+            "Use stable regression cases plus fresh production samples. Monitor component accuracy, policy violations, trajectory completion, retries, duplicates, unsupported claims, external-action errors, override and escalation rates, candidate feedback, reviewer labor, and accepted hiring outcomes. Investigate a change before labeling it model drift; the source, rubric, population, or review process may have moved.",
+            "Define alert thresholds and decision owners. Some signals require immediate containment, while others trigger sampling or recalibration. Avoid self-healing changes that alter prompts, thresholds, or policies without a reviewable version and evaluation. A system that silently adapts can erase the comparison needed to understand whether it improved."
+          ],
+          "steps": [
+            {"title": "Version the chain.", "detail": "Record model, prompts, tools, policies, data sources, integrations, and human-service process."},
+            {"title": "Monitor stable slices.", "detail": "Repeat known cases and metrics to detect regression under comparable conditions."},
+            {"title": "Sample live work.", "detail": "Review new roles, populations, exceptions, and candidate feedback for unseen failures."},
+            {"title": "Attribute change.", "detail": "Investigate data, configuration, component, reviewer, and environment before remediation."},
+            {"title": "Re-evaluate material updates.", "detail": "Do not rely on a vendor change notice as evidence that the deployed workflow remains acceptable."}
+          ]
+        },
+        {
+          "id": "change-governance",
+          "label": "Operate accountability",
+          "heading": "Tie every material change to an owner, evidence, and rollback plan.",
+          "paragraphs": [
+            "Maintain an inventory of production agents, intended purposes, owners, permissions, models, data sources, integrations, jurisdictions, candidate populations, evaluation records, and incidents. Establish who may approve a new tool, broader permission, additional channel, revised rubric, new geography, or increased autonomous volume.",
+            "Require pre-deployment checks proportional to consequence: unit and schema tests, policy tests, regression cases, trajectory simulations, human quality review, integration testing, candidate-impact review, and a bounded canary. Define rollback and data reconciliation before release. A model update that passes generic safety testing can still break role interpretation or reply handling.",
+            "Review vendor change obligations and evidence access in procurement. Ask how customers learn about model, subprocessor, source, retention, feature, and policy changes; which versions can be pinned; how incidents are communicated; and whether logs and exports remain available during exit. Governance is part of product reliability because it determines whether a detected issue can be acted on."
+          ],
+          "bullets": [
+            {"term": "Owner.", "detail": "One accountable person or role can approve scope and respond to incidents."},
+            {"term": "Evidence.", "detail": "The release record links the change to passed tests, known limitations, and open risk."},
+            {"term": "Canary.", "detail": "Exposure increases only after a reviewable small-volume deployment."},
+            {"term": "Rollback.", "detail": "The team can restore behavior and reconcile candidate records, messages, and schedules."}
+          ]
+        },
+        {
+          "id": "reliability-decision",
+          "label": "Approve a boundary",
+          "heading": "Decide which actions the agent may take, under which controls and monitoring.",
+          "paragraphs": [
+            "The final decision should name the approved purpose, roles, environment, data, tools, read and write permissions, external actions, approval rules, volume, candidate population, fallback, monitoring, and change triggers. Avoid approving “the AI agent” as a whole when only search or drafting was evaluated.",
+            "Use gates for prohibited or unrecoverable behavior and evidence maturity for the remaining dimensions. A high outcome score cannot offset uncontrolled messaging, inability to honor suppression, inaccessible candidate paths, missing audit state, or irrecoverable ATS writes. Record untested states separately from observed failures.",
+            "Pair this guide with the [pilot protocol](/pilot-design), [screening evaluation](/screening-evaluation), and [sourcing evaluation](/sourcing-evaluation) according to the agent's tools. Re-test when autonomy, tools, data, channels, role families, jurisdictions, or vendor components change."
+          ],
+          "callout": {"label": "Decision rule", "title": "Approve actions, not adjectives", "text": "Terms such as autonomous, copilot, or agentic do not define permissions or consequence. The operating boundary must."}
+        }
+      ],
+      "faqs": [
+        {"question": "What is the difference between model reliability and agent reliability?", "answer": "Model reliability concerns bounded outputs under a task. Agent reliability also includes state, retrieval, policies, tool calls, permissions, integrations, human approvals, external effects, and recovery."},
+        {"question": "Should every recruiting agent action require human approval?", "answer": "Not necessarily. Approval depth should follow consequence, reversibility, confidence, and organizational policy. The permitted actions and enforced boundaries must be explicit and tested."},
+        {"question": "How can a team detect agent drift?", "answer": "Version the full chain, repeat stable regression cases, sample live trajectories, monitor outcomes and failures by slice, and investigate data, workflow, reviewer, and component changes."},
+        {"question": "What makes a manual fallback adequate?", "answer": "An accountable person can pause the relevant scope, see current context and pending commitments, finish or correct the workflow, reconcile records, and prevent queued automation from resuming incorrectly."}
+      ],
+      "source_ids": ["nist-rmf", "nist-playbook", "uk-responsible-ai-recruitment", "ico-recruitment-audit"],
+      "related": ["pilot-design", "sourcing-evaluation", "screening-evaluation"],
+      "metix_references": [
+        {
+          "title": "Agent Evaluation, Done Right",
+          "url": "https://metix.ai/research/agent-evaluation-done-right",
+          "context": "Metix presents a first-party component, trajectory, and outcome evaluation framework relevant to the three-layer structure used here.",
+          "limitation": "It is not independent assurance and does not establish thresholds or reliability for another deployed agent.",
+          "evidence_type": "first-party-research"
+        },
+        {
+          "title": "Performance Drift in Agent Systems",
+          "url": "https://metix.ai/research/agent-performance-drift",
+          "context": "Metix discusses longitudinal production-agent evaluation as a first-party example of why one release test is insufficient.",
+          "limitation": "The paper does not prove that a particular system has or has not drifted, or quantify risk for a buyer.",
+          "evidence_type": "first-party-research"
+        }
+      ]
+    }
+  ],
   "vendor_questions": [],
   "pilot_metrics": []
 }
