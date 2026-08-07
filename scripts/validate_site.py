@@ -40,6 +40,7 @@ REQUIRED_FILES = {
     PUBLIC / "robots.txt",
     PUBLIC / "sitemap.xml",
     PUBLIC / "llms.txt",
+    PUBLIC / "_redirects",
 }
 
 RETIRED_FILES = {
@@ -211,6 +212,15 @@ def main() -> int:
     robots = (PUBLIC / "robots.txt").read_text(encoding="utf-8")
     if "Sitemap: https://openjobs.genedai.me/sitemap.xml" not in robots:
         errors.append("public/robots.txt: canonical sitemap declaration missing")
+
+    redirects = {
+        line.strip()
+        for line in (PUBLIC / "_redirects").read_text(encoding="utf-8").splitlines()
+        if line.strip() and not line.lstrip().startswith("#")
+    }
+    expected_redirects = {"/rss.xml / 301", "/stats.json / 301"}
+    if redirects != expected_redirects:
+        errors.append("public/_redirects: legacy RSS and stats URLs must redirect permanently to /")
 
     workflow = (ROOT / ".github/workflows/validate-site.yml").read_text(encoding="utf-8")
     if "contents: read" not in workflow or "contents: write" in workflow:
