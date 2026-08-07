@@ -13,7 +13,7 @@ import xml.etree.ElementTree as ET
 from urllib.parse import urlsplit
 
 from generate_evaluation_library import render_outputs as render_library_outputs
-from generate_agent_context import OUTPUT as FULL_CONTEXT, render_context
+from generate_agent_context import AI_INDEX, OUTPUT as FULL_CONTEXT, render_ai_index, render_context
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -118,12 +118,41 @@ FORBIDDEN_RUNTIME_PATTERNS = {
     "retired aggregate CTA": r"Browse All Jobs",
 }
 
+HUMANIZER_BLOCKS = {
+    "em dash": "—",
+    "en dash": "–",
+    "curly opening quote": "“",
+    "curly closing quote": "”",
+}
+HUMANIZER_PHRASES = {
+    "at its core",
+    "delve into",
+    "evolving landscape",
+    "here's what you need to know",
+    "let's dive",
+    "not just",
+    "not only",
+    "serves as",
+    "stands as",
+    "the real question is",
+    "what really matters",
+}
+
+DOWNLOAD_URLS = {
+    "https://openjobs.genedai.me/downloads/ai-recruiting-vendor-checklist.csv": "text/csv",
+    "https://openjobs.genedai.me/downloads/ai-recruiting-pilot-template.csv": "text/csv",
+    "https://openjobs.genedai.me/downloads/ai-recruiting-evidence-register.csv": "text/csv",
+    "https://openjobs.genedai.me/data/vendor-checklist.json": "application/json",
+    "https://openjobs.genedai.me/data/pilot-metrics.json": "application/json",
+}
+
 
 class DocumentParser(HTMLParser):
     def __init__(self) -> None:
         super().__init__(convert_charrefs=True)
         self.canonicals: list[str] = []
         self.descriptions: list[str] = []
+        self.titles: list[str] = []
         self.h1_count = 0
         self.links: list[str] = []
         self.markdown_alternates: list[tuple[str, str]] = []
@@ -131,11 +160,16 @@ class DocumentParser(HTMLParser):
         self.json_ld: list[str] = []
         self._in_json_ld = False
         self._json_buffer: list[str] = []
+        self._in_title = False
+        self._title_buffer: list[str] = []
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         attr = dict(attrs)
         if tag == "h1":
             self.h1_count += 1
+        if tag == "title":
+            self._in_title = True
+            self._title_buffer = []
         if tag == "a" and attr.get("href"):
             self.links.append(attr["href"] or "")
         rel = set((attr.get("rel") or "").split())
@@ -154,12 +188,18 @@ class DocumentParser(HTMLParser):
     def handle_data(self, data: str) -> None:
         if self._in_json_ld:
             self._json_buffer.append(data)
+        if self._in_title:
+            self._title_buffer.append(data)
 
     def handle_endtag(self, tag: str) -> None:
         if tag == "script" and self._in_json_ld:
             self.json_ld.append("".join(self._json_buffer).strip())
             self._in_json_ld = False
             self._json_buffer = []
+        if tag == "title" and self._in_title:
+            self.titles.append("".join(self._title_buffer).strip())
+            self._in_title = False
+            self._title_buffer = []
 
 
 def local_target(href: str) -> Path | None:
@@ -196,11 +236,14 @@ def validate_html(
 
     if parser.h1_count != 1:
         errors.append(f"{path.relative_to(ROOT)}: expected one h1, found {parser.h1_count}")
+    if canonical is not None and (len(parser.titles) != 1 or not 50 <= len(parser.titles[0]) <= 60):
+        sizes = [len(item) for item in parser.titles]
+        errors.append(f"{path.relative_to(ROOT)}: title must be unique on-page and 50-60 chars, found {sizes}")
     if require_description and (
-        len(parser.descriptions) != 1 or not 120 <= len(parser.descriptions[0]) <= 170
+        len(parser.descriptions) != 1 or not 150 <= len(parser.descriptions[0]) <= 160
     ):
         sizes = [len(item) for item in parser.descriptions]
-        errors.append(f"{path.relative_to(ROOT)}: meta description must be 120-170 chars, found {sizes}")
+        errors.append(f"{path.relative_to(ROOT)}: meta description must be 150-160 chars, found {sizes}")
     if canonical is not None and parser.canonicals != [canonical]:
         errors.append(f"{path.relative_to(ROOT)}: canonical {parser.canonicals!r}, expected {[canonical]!r}")
     if markdown is not None and parser.markdown_alternates != [(markdown, "Markdown version")]:
@@ -274,8 +317,20 @@ def main() -> int:
             errors.append("pilot template CSV and JSON need the same 18+ metrics")
         if {row.get("family") for row in pilot_rows} != {"quality", "intent", "time", "labor", "candidate-impact", "reliability"}:
             errors.append("pilot template does not cover every required metric family")
-        if len(evidence_rows) < 12 or any(not row.get("limitation") for row in evidence_rows):
-            errors.append("evidence register needs 12+ sources with explicit limitations")
+        if len(evidence_rows) != 18 or any(not row.get("limitation") for row in evidence_rows):
+            errors.append("evidence register needs exactly 18 sources with explicit limitations")
+        expected_source_types = {
+            "binding-rule",
+            "government-guidance",
+            "voluntary-framework",
+            "technical-standard",
+            "professional-practice",
+            "first-party-research",
+        }
+        if {row.get("source_type") for row in evidence_rows} != expected_source_types:
+            errors.append("evidence register does not cover all six source types")
+        if any(row.get("last_checked") != "2026-08-07" for row in evidence_rows):
+            errors.append("evidence register has a stale source verification date")
     except (csv.Error, json.JSONDecodeError) as exc:
         errors.append(f"generated evaluation data is invalid: {exc}")
 
@@ -296,6 +351,24 @@ def main() -> int:
         if re.search(pattern, runtime_text, flags=re.IGNORECASE):
             errors.append(f"runtime contains {label}")
 
+    editorial_files = [
+        ROOT / "README.md",
+        ROOT / "CONTRIBUTING.md",
+        ROOT / "EDITORIAL_POLICY.md",
+        *(PUBLIC / filename for filename in CANONICALS),
+        *(PUBLIC / urlsplit(url).path.lstrip("/") for url in MARKDOWN_REPRESENTATIONS.values()),
+        PUBLIC / "llms.txt",
+    ]
+    editorial_text = "\n".join(path.read_text(encoding="utf-8") for path in editorial_files)
+    for label, character in HUMANIZER_BLOCKS.items():
+        if character in editorial_text:
+            errors.append(f"editorial content contains Humanizer-blocked {label}")
+    lowered_editorial_text = editorial_text.casefold()
+    for phrase in HUMANIZER_PHRASES:
+        if phrase in lowered_editorial_text:
+            errors.append(f"editorial content contains Humanizer-blocked phrase: {phrase}")
+
+    page_parsers: dict[str, DocumentParser] = {}
     for filename, canonical in CANONICALS.items():
         parser = validate_html(
             PUBLIC / filename,
@@ -303,6 +376,7 @@ def main() -> int:
             errors,
             markdown=MARKDOWN_REPRESENTATIONS[filename],
         )
+        page_parsers[filename] = parser
         all_links.extend(parser.links)
         validate_markdown(
             PUBLIC / urlsplit(MARKDOWN_REPRESENTATIONS[filename]).path.lstrip("/"),
@@ -311,18 +385,56 @@ def main() -> int:
         )
     validate_html(PUBLIC / "404.html", None, errors, require_description=False)
 
+    canonical_titles = [parser.titles[0] for parser in page_parsers.values() if parser.titles]
+    canonical_descriptions = [parser.descriptions[0] for parser in page_parsers.values() if parser.descriptions]
+    if len(set(canonical_titles)) != len(CANONICALS):
+        errors.append("canonical pages need unique title tags")
+    if len(set(canonical_descriptions)) != len(CANONICALS):
+        errors.append("canonical pages need unique meta descriptions")
+
+    homepage_links = set(page_parsers["index.html"].links)
+    expected_homepage_links = {
+        "/methodology",
+        "/vendor-checklist",
+        "/pilot-design",
+        "/sourcing-evaluation",
+        "/screening-evaluation",
+        "/agent-reliability",
+    }
+    if not expected_homepage_links.issubset(homepage_links):
+        errors.append("homepage does not link directly to all six evaluation guides")
+    generated_paths = expected_homepage_links
+    for filename in [
+        "methodology.html",
+        "vendor-checklist.html",
+        "pilot-design.html",
+        "sourcing-evaluation.html",
+        "screening-evaluation.html",
+        "agent-reliability.html",
+    ]:
+        links = set(page_parsers[filename].links)
+        required = {"/evaluation-scorecard", "/sources"}
+        if not required.issubset(links) or len((links & generated_paths) - {f"/{filename[:-5]}"}) < 2:
+            errors.append(f"public/{filename}: needs scorecard, sources, and two related evaluation links")
+    if any('class="nav-cta"' in (PUBLIC / filename).read_text(encoding="utf-8") for filename in CANONICALS):
+        errors.append("global navigation contains a promotional CTA")
+    if (PUBLIC / "sources.html").read_text(encoding="utf-8").count('class="source-row"') != 18:
+        errors.append("public/sources.html: expected 18 visible source entries")
+
     llms = (PUBLIC / "llms.txt").read_text(encoding="utf-8")
     nonempty_llms_lines = [line for line in llms.splitlines() if line.strip()]
     if not nonempty_llms_lines or not nonempty_llms_lines[0].startswith("# "):
         errors.append("public/llms.txt: first non-empty line must be an h1")
     if len(nonempty_llms_lines) < 2 or not nonempty_llms_lines[1].startswith("> "):
         errors.append("public/llms.txt: second non-empty line must be a blockquote summary")
-    for endpoint in [*MARKDOWN_REPRESENTATIONS.values(), *MACHINE_ENDPOINTS.values()]:
+    for endpoint in [*MARKDOWN_REPRESENTATIONS.values(), *MACHINE_ENDPOINTS.values(), *DOWNLOAD_URLS]:
         if endpoint not in llms:
             errors.append(f"public/llms.txt: missing machine endpoint {endpoint}")
 
     if FULL_CONTEXT.read_text(encoding="utf-8") != render_context():
         errors.append("public/llms-full.txt: generated context is stale")
+    if AI_INDEX.read_text(encoding="utf-8") != render_ai_index():
+        errors.append("public/ai-index.json: generated index is stale")
 
     try:
         ai_schema = json.loads((PUBLIC / "ai-index.schema.json").read_text(encoding="utf-8"))
@@ -331,7 +443,7 @@ def main() -> int:
             errors.append("public/ai-index.schema.json: expected JSON Schema Draft 2020-12")
         if ai_index.get("$schema") != MACHINE_ENDPOINTS["schema"]:
             errors.append("public/ai-index.json: schema URL is incorrect")
-        if ai_index.get("schema_version") != "1.0":
+        if ai_index.get("schema_version") != "1.1":
             errors.append("public/ai-index.json: unsupported schema version")
         entrypoints = ai_index.get("preferred_entrypoints", {})
         expected_entrypoints = {
@@ -359,10 +471,24 @@ def main() -> int:
             errors.append("public/ai-index.json: model-development policy must be explicit")
         indexed_sources = [source for source in ai_index.get("sources", []) if isinstance(source, dict)]
         source_types = {source.get("source_type") for source in indexed_sources}
-        if source_types != {"public-framework", "government-guidance", "first-party-research"}:
+        if source_types != {
+            "binding-rule",
+            "government-guidance",
+            "voluntary-framework",
+            "technical-standard",
+            "professional-practice",
+            "first-party-research",
+        }:
             errors.append("public/ai-index.json: source-type coverage is incomplete")
-        if len(indexed_sources) != 8 or any(not source.get("does_not_prove") for source in indexed_sources):
-            errors.append("public/ai-index.json: all eight ledger sources need explicit evidence limits")
+        if len(indexed_sources) != 18 or any(not source.get("does_not_prove") for source in indexed_sources):
+            errors.append("public/ai-index.json: all 18 ledger sources need explicit evidence limits")
+        indexed_downloads = {
+            item.get("url"): item.get("media_type")
+            for item in ai_index.get("downloads", [])
+            if isinstance(item, dict)
+        }
+        if indexed_downloads != DOWNLOAD_URLS:
+            errors.append("public/ai-index.json: download URL and media-type map is incomplete")
     except json.JSONDecodeError as exc:
         errors.append(f"machine-readable JSON is invalid: {exc}")
 
@@ -421,14 +547,14 @@ def main() -> int:
         errors.append("public/robots.txt: unexpected disallow rule")
 
     headers = (PUBLIC / "_headers").read_text(encoding="utf-8")
-    for route in ["/llms.txt", "/llms-full.txt", "/ai-index.json", "/ai-index.schema.json", "/*.md"]:
+    for route in ["/llms.txt", "/llms-full.txt", "/ai-index.json", "/ai-index.schema.json", "/*.md", "/data/*", "/downloads/*"]:
         if not re.search(rf"^{re.escape(route)}\s*$", headers, flags=re.MULTILINE):
             errors.append(f"public/_headers: missing rule for {route}")
-    if headers.count("Access-Control-Allow-Origin: *") != 5:
+    if headers.count("Access-Control-Allow-Origin: *") != 7:
         errors.append("public/_headers: all machine-readable route groups must allow cross-origin reads")
-    if headers.count("X-Robots-Tag: noindex, follow") != 5:
+    if headers.count("X-Robots-Tag: noindex, follow") != 7:
         errors.append("public/_headers: machine-readable copies must stay out of the search index")
-    for media_type in ["text/plain", "text/markdown", "application/json", "application/schema+json"]:
+    for media_type in ["text/plain", "text/markdown", "text/csv", "application/json", "application/schema+json"]:
         if f"Content-Type: {media_type}; charset=utf-8" not in headers:
             errors.append(f"public/_headers: missing media type {media_type}")
 
@@ -444,10 +570,15 @@ def main() -> int:
     workflow = (ROOT / ".github/workflows/validate-site.yml").read_text(encoding="utf-8")
     if "contents: read" not in workflow or "contents: write" in workflow:
         errors.append("validation workflow must be read-only")
+    if "content/**" not in workflow or "scripts/generate_evaluation_library.py --check" not in workflow:
+        errors.append("validation workflow must watch structured content and check the library generator")
 
     readme = (ROOT / "README.md").read_text(encoding="utf-8")
     if "no longer publishes or aggregates job listings" not in readme:
         errors.append("README must state that job aggregation is retired")
+    for canonical in CANONICALS.values():
+        if canonical not in readme:
+            errors.append(f"README does not link to canonical page {canonical}")
 
     if errors:
         for error in errors:

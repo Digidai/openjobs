@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://openjobs.genedai.me/ai-index.schema.json",
-  "title": "AI Recruiting Field Guide agent resource index",
+  "title": "AI Recruiting Evaluation Library agent resource index",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -18,11 +18,12 @@
     "access_policy",
     "entities",
     "pages",
+    "downloads",
     "sources"
   ],
   "properties": {
     "$schema": {"type": "string", "format": "uri"},
-    "schema_version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+$"},
+    "schema_version": {"type": "string", "const": "1.1"},
     "canonical_site": {"type": "string", "format": "uri"},
     "name": {"type": "string", "minLength": 1},
     "description": {"type": "string", "minLength": 1},
@@ -51,8 +52,9 @@
       }
     },
     "entities": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/entity"}},
-    "pages": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/page"}},
-    "sources": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/source"}}
+    "pages": {"type": "array", "minItems": 9, "maxItems": 9, "items": {"$ref": "#/$defs/page"}},
+    "downloads": {"type": "array", "minItems": 5, "items": {"$ref": "#/$defs/download"}},
+    "sources": {"type": "array", "minItems": 18, "items": {"$ref": "#/$defs/source"}}
   },
   "$defs": {
     "entity": {
@@ -68,24 +70,42 @@
     "page": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["id", "title", "canonical_url", "markdown_url", "summary", "topics"],
+      "required": ["id", "title", "canonical_url", "markdown_url", "summary", "topics", "downloads"],
       "properties": {
         "id": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"},
         "title": {"type": "string"},
         "canonical_url": {"type": "string", "format": "uri"},
         "markdown_url": {"type": "string", "format": "uri"},
         "summary": {"type": "string"},
-        "topics": {"type": "array", "minItems": 1, "items": {"type": "string"}}
+        "topics": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "downloads": {"type": "array", "items": {"type": "string", "format": "uri"}, "uniqueItems": true}
+      }
+    },
+    "download": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "title", "url", "media_type", "description", "license"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"},
+        "title": {"type": "string"},
+        "url": {"type": "string", "format": "uri"},
+        "media_type": {"type": "string", "enum": ["text/csv", "application/json"]},
+        "description": {"type": "string"},
+        "license": {"type": "string"}
       }
     },
     "source": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["name", "url", "source_type", "supports", "does_not_prove"],
+      "required": ["id", "organization", "title", "url", "source_type", "jurisdiction", "last_checked", "supports", "does_not_prove"],
       "properties": {
-        "name": {"type": "string"},
+        "id": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"},
+        "organization": {"type": "string"},
+        "title": {"type": "string"},
         "url": {"type": "string", "format": "uri"},
-        "source_type": {"type": "string", "enum": ["public-framework", "government-guidance", "first-party-research"]},
+        "source_type": {"type": "string", "enum": ["binding-rule", "government-guidance", "voluntary-framework", "technical-standard", "professional-practice", "first-party-research"]},
+        "jurisdiction": {"type": "string"},
+        "last_checked": {"type": "string", "format": "date"},
         "supports": {"type": "string"},
         "does_not_prove": {"type": "string"}
       }

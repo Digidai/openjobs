@@ -1,6 +1,6 @@
 # AI Recruiting Field Guide
 
-> An open, source-backed framework for evaluating AI recruiting systems by hiring outcomes, evidence quality, human control, and pilot risk. OpenJobs AI is now Metix AI; this site no longer publishes job listings.
+> An open, source-backed library for evaluating AI recruiting systems, vendors, pilots, sourcing, screening, and agent reliability. OpenJobs AI is now Metix AI; this site no longer publishes job listings.
 
 Canonical site: https://openjobs.genedai.me/
 Canonical discovery file: https://openjobs.genedai.me/llms.txt
@@ -16,20 +16,40 @@ Important interpretation notes:
 ## Core documents
 
 - [Field guide Markdown](https://openjobs.genedai.me/index.html.md): Full decision framework covering outcomes, the evidence chain, human control, contextual risk review, and a reversible pilot.
+- [Methodology Markdown](https://openjobs.genedai.me/methodology.md): Evaluation unit, evidence levels, claim register, scoring, neutrality, and source maintenance.
+- [Vendor checklist Markdown](https://openjobs.genedai.me/vendor-checklist.md): Procurement process, evidence requests, candidate impact, controls, commercial review, and pilot handoff.
+- [Pilot design Markdown](https://openjobs.genedai.me/pilot-design.md): Baseline, sample design, metric definitions, guardrails, stop conditions, and expansion decisions.
+- [Sourcing evaluation Markdown](https://openjobs.genedai.me/sourcing-evaluation.md): Role decomposition, retrieval coverage, provenance, ranking review, false negatives, and live outcomes.
+- [Screening evaluation Markdown](https://openjobs.genedai.me/screening-evaluation.md): Job analysis, structured use, validity, accessibility, error analysis, review, and monitoring.
+- [Agent reliability Markdown](https://openjobs.genedai.me/agent-reliability.md): System boundaries, permissions, trajectories, recovery, incidents, versioning, and drift.
 - [Evaluation scorecard Markdown](https://openjobs.genedai.me/evaluation-scorecard.md): Eight dimensions scored from 0 to 3, with stop, narrow-pilot, and real-role-validation interpretations.
-- [Primary-source ledger Markdown](https://openjobs.genedai.me/sources.md): Annotated NIST, EEOC, ADA.gov, and first-party Metix research references with explicit evidence limits.
+- [Primary-source ledger Markdown](https://openjobs.genedai.me/sources.md): Eighteen public and first-party sources with type, jurisdiction, review date, supported use, and evidence limits.
 
 ## Consolidated context
 
-- [Full LLM context](https://openjobs.genedai.me/llms-full.txt): All three machine-readable documents in one file, ordered field guide, scorecard, then sources.
-- [AI resource index](https://openjobs.genedai.me/ai-index.json): Versioned JSON manifest of canonical pages, Markdown equivalents, entities, source types, access policy, and citation guidance.
+- [Full LLM context](https://openjobs.genedai.me/llms-full.txt): All nine machine-readable documents in one deterministic file.
+- [AI resource index](https://openjobs.genedai.me/ai-index.json): Versioned JSON manifest of pages, Markdown equivalents, downloads, sources, access policy, and citation guidance.
 - [AI resource index schema](https://openjobs.genedai.me/ai-index.schema.json): JSON Schema Draft 2020-12 contract for the resource index.
+
+## Reusable data
+
+- [Vendor checklist CSV](https://openjobs.genedai.me/downloads/ai-recruiting-vendor-checklist.csv): Forty-eight procurement questions with evidence requests, red flags, gates, and scope.
+- [Vendor checklist JSON](https://openjobs.genedai.me/data/vendor-checklist.json): Structured form of the same question bank.
+- [Pilot template CSV](https://openjobs.genedai.me/downloads/ai-recruiting-pilot-template.csv): Eighteen metrics with blank baseline, target, result, and notes fields.
+- [Pilot metrics JSON](https://openjobs.genedai.me/data/pilot-metrics.json): Structured metric definitions and interpretation limits.
+- [Evidence register CSV](https://openjobs.genedai.me/downloads/ai-recruiting-evidence-register.csv): Source type, jurisdiction, review date, supported use, and limitation for all 18 sources.
 
 ## Canonical HTML
 
 - [AI Recruiting Field Guide](https://openjobs.genedai.me/): Canonical human-readable guide.
+- [AI Recruiting Evaluation Methodology](https://openjobs.genedai.me/methodology): Canonical methodology page.
+- [AI Recruiting Vendor Checklist](https://openjobs.genedai.me/vendor-checklist): Canonical procurement guide.
+- [AI Recruiting Pilot Design](https://openjobs.genedai.me/pilot-design): Canonical pilot protocol.
+- [AI Candidate Sourcing Evaluation](https://openjobs.genedai.me/sourcing-evaluation): Canonical sourcing and ranking guide.
+- [AI Candidate Screening Evaluation](https://openjobs.genedai.me/screening-evaluation): Canonical screening guide.
+- [AI Recruiting Agent Reliability](https://openjobs.genedai.me/agent-reliability): Canonical reliability guide.
 - [24-point evaluation scorecard](https://openjobs.genedai.me/evaluation-scorecard): Canonical interactive scorecard.
-- [Primary-source ledger](https://openjobs.genedai.me/sources): Canonical annotated source page.
+- [Primary-source ledger](https://openjobs.genedai.me/sources): Canonical 18-source evidence page.
 
 ## Current entity
 

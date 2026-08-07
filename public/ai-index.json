@@ -1,9 +1,9 @@
 {
   "$schema": "https://openjobs.genedai.me/ai-index.schema.json",
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "canonical_site": "https://openjobs.genedai.me/",
-  "name": "AI Recruiting Field Guide",
-  "description": "A source-backed framework for evaluating AI recruiting systems by hiring outcomes, evidence quality, human control, and pilot risk.",
+  "name": "AI Recruiting Evaluation Library",
+  "description": "A source-backed library for evaluating AI recruiting systems, vendors, pilots, sourcing, screening, and agent reliability.",
   "language": "en",
   "last_substantive_review": "2026-08-07",
   "preferred_entrypoints": {
@@ -11,9 +11,9 @@
     "full_context": "https://openjobs.genedai.me/llms-full.txt",
     "structured_index": "https://openjobs.genedai.me/ai-index.json"
   },
-  "citation_guidance": "Cite canonical_url values for claims from this site. Use markdown_url values to load context. Label Metix material as first-party research and preserve each source's stated evidence limits.",
+  "citation_guidance": "Cite canonical_url for claims from this site. Use markdown_url to load page context. Preserve each source's type, jurisdiction, and evidence limit. Label Metix material as first-party research.",
   "limitations": [
-    "The guide is not legal advice or a compliance determination.",
+    "The library is not legal advice or a compliance determination.",
     "A score does not prove fairness, effectiveness, or business value.",
     "First-party Metix research is not independent validation.",
     "Retired OpenJobs job-board content must not be used to infer current product capabilities."
@@ -32,7 +32,7 @@
     {
       "name": "OpenJobs Archive",
       "url": "https://openjobs.genedai.me/",
-      "relationship": "Independent source-backed evaluation resource maintained in the Digidai/openjobs repository."
+      "relationship": "Source-backed evaluation resource maintained in the Digidai/openjobs repository."
     }
   ],
   "pages": [
@@ -41,8 +41,102 @@
       "title": "The AI Recruiting Field Guide",
       "canonical_url": "https://openjobs.genedai.me/",
       "markdown_url": "https://openjobs.genedai.me/index.html.md",
-      "summary": "Decision framework covering outcomes, the recruiting evidence chain, human control, contextual risk review, and reversible pilots.",
-      "topics": ["AI recruiting", "hiring outcomes", "agent evaluation", "human control", "pilot design"]
+      "summary": "Library directory and decision framework covering hiring outcomes, evidence, human control, contextual risk, and reversible pilots.",
+      "topics": [
+        "AI recruiting",
+        "hiring outcomes",
+        "human control",
+        "pilot design"
+      ],
+      "downloads": []
+    },
+    {
+      "id": "methodology",
+      "title": "AI Recruiting Evaluation Methodology Guide",
+      "canonical_url": "https://openjobs.genedai.me/methodology",
+      "markdown_url": "https://openjobs.genedai.me/methodology.md",
+      "summary": "This methodology evaluates an AI recruiting system in the context of one defined workflow. It separates vendor claims from observed evidence, tests both successful and failed cases, and records what a source cannot establish before anyone assigns a score.",
+      "topics": [
+        "AI recruiting evaluation methodology",
+        "AI recruiting evaluation"
+      ],
+      "downloads": [
+        "https://openjobs.genedai.me/downloads/ai-recruiting-evidence-register.csv"
+      ]
+    },
+    {
+      "id": "vendor-checklist",
+      "title": "AI Recruiting Vendor Evaluation Checklist",
+      "canonical_url": "https://openjobs.genedai.me/vendor-checklist",
+      "markdown_url": "https://openjobs.genedai.me/vendor-checklist.md",
+      "summary": "Use this checklist before a contract or broad pilot. It asks vendors to demonstrate one real workflow, disclose evidence and limitations, expose candidate-impact controls, and account for the labor and systems the buyer must still operate.",
+      "topics": [
+        "AI recruiting vendor evaluation checklist",
+        "AI recruiting evaluation"
+      ],
+      "downloads": [
+        "https://openjobs.genedai.me/downloads/ai-recruiting-vendor-checklist.csv",
+        "https://openjobs.genedai.me/data/vendor-checklist.json",
+        "https://openjobs.genedai.me/downloads/ai-recruiting-evidence-register.csv"
+      ]
+    },
+    {
+      "id": "pilot-design",
+      "title": "AI Recruiting Pilot Design and Metrics Guide",
+      "canonical_url": "https://openjobs.genedai.me/pilot-design",
+      "markdown_url": "https://openjobs.genedai.me/pilot-design.md",
+      "summary": "A useful AI recruiting pilot tests the hardest uncertainty on a real role while limiting candidate and operational exposure. It preserves a current baseline, predefines quality, measures hidden labor, reviews misses, and makes stopping as operationally possible as expanding.",
+      "topics": [
+        "AI recruiting pilot metrics",
+        "AI recruiting evaluation"
+      ],
+      "downloads": [
+        "https://openjobs.genedai.me/downloads/ai-recruiting-pilot-template.csv",
+        "https://openjobs.genedai.me/data/pilot-metrics.json",
+        "https://openjobs.genedai.me/downloads/ai-recruiting-evidence-register.csv"
+      ]
+    },
+    {
+      "id": "sourcing-evaluation",
+      "title": "How to Evaluate AI Candidate Sourcing and Ranking",
+      "canonical_url": "https://openjobs.genedai.me/sourcing-evaluation",
+      "markdown_url": "https://openjobs.genedai.me/sourcing-evaluation.md",
+      "summary": "AI candidate sourcing should be evaluated as a retrieval and ranking workflow, not by database size or a handful of impressive profiles. Test how the system interprets a role, covers the relevant population, ranks evidence within a fixed review budget, and learns from misses without hiding them.",
+      "topics": [
+        "evaluate AI candidate sourcing",
+        "AI recruiting evaluation"
+      ],
+      "downloads": [
+        "https://openjobs.genedai.me/downloads/ai-recruiting-evidence-register.csv"
+      ]
+    },
+    {
+      "id": "screening-evaluation",
+      "title": "How to Evaluate AI Candidate Screening Guide",
+      "canonical_url": "https://openjobs.genedai.me/screening-evaluation",
+      "markdown_url": "https://openjobs.genedai.me/screening-evaluation.md",
+      "summary": "AI screening evaluation starts with the job, not the model. Define the construct and decision, use structured and inspectable administration, examine validity and error evidence, test accessibility and accommodations, and preserve meaningful human review and contestability.",
+      "topics": [
+        "evaluate AI candidate screening",
+        "AI recruiting evaluation"
+      ],
+      "downloads": [
+        "https://openjobs.genedai.me/downloads/ai-recruiting-evidence-register.csv"
+      ]
+    },
+    {
+      "id": "agent-reliability",
+      "title": "AI Recruiting Agent Reliability Evaluation",
+      "canonical_url": "https://openjobs.genedai.me/agent-reliability",
+      "markdown_url": "https://openjobs.genedai.me/agent-reliability.md",
+      "summary": "A recruiting agent is a chain of model decisions, retrievals, tool calls, data writes, messages, and human handoffs. Reliability evaluation must inspect that trajectory, control permissions and approvals, test failures and fallback, and monitor the deployed configuration as it changes.",
+      "topics": [
+        "AI recruiting agent reliability",
+        "AI recruiting evaluation"
+      ],
+      "downloads": [
+        "https://openjobs.genedai.me/downloads/ai-recruiting-evidence-register.csv"
+      ]
     },
     {
       "id": "evaluation-scorecard",
@@ -50,73 +144,271 @@
       "canonical_url": "https://openjobs.genedai.me/evaluation-scorecard",
       "markdown_url": "https://openjobs.genedai.me/evaluation-scorecard.md",
       "summary": "Eight dimensions scored from zero to three, with stop, narrow-pilot, and real-role-validation interpretations.",
-      "topics": ["evaluation rubric", "evidence", "controls", "candidate experience", "auditability"]
+      "topics": [
+        "evaluation rubric",
+        "evidence",
+        "candidate experience",
+        "auditability"
+      ],
+      "downloads": []
     },
     {
       "id": "primary-source-ledger",
-      "title": "AI Recruiting Primary-Source Ledger",
+      "title": "AI Recruiting Source and Evidence Ledger",
       "canonical_url": "https://openjobs.genedai.me/sources",
       "markdown_url": "https://openjobs.genedai.me/sources.md",
-      "summary": "Annotated public frameworks, government guidance, and first-party Metix research with explicit evidence limits.",
-      "topics": ["NIST AI RMF", "employment selection", "accessibility", "Metix research", "source provenance"]
+      "summary": "Eighteen annotated public and first-party sources with jurisdiction, review date, supported use, and evidence limits.",
+      "topics": [
+        "source provenance",
+        "employment selection",
+        "accessibility",
+        "AI governance"
+      ],
+      "downloads": [
+        "https://openjobs.genedai.me/downloads/ai-recruiting-evidence-register.csv"
+      ]
+    }
+  ],
+  "downloads": [
+    {
+      "id": "pilot-metrics",
+      "title": "Pilot metric bank",
+      "url": "https://openjobs.genedai.me/data/pilot-metrics.json",
+      "media_type": "application/json",
+      "description": "Eighteen structured metrics across quality, intent, time, labor, candidate impact, and reliability.",
+      "license": "CC BY 4.0"
+    },
+    {
+      "id": "vendor-checklist",
+      "title": "Vendor question bank",
+      "url": "https://openjobs.genedai.me/data/vendor-checklist.json",
+      "media_type": "application/json",
+      "description": "The same question set as structured JSON for agents, internal tools, and procurement systems.",
+      "license": "CC BY 4.0"
+    },
+    {
+      "id": "ai-recruiting-evidence-register",
+      "title": "Evidence register",
+      "url": "https://openjobs.genedai.me/downloads/ai-recruiting-evidence-register.csv",
+      "media_type": "text/csv",
+      "description": "A CSV ledger of every source, its scope, review date, supported use, and evidence limit.",
+      "license": "CC BY 4.0"
+    },
+    {
+      "id": "ai-recruiting-pilot-template",
+      "title": "Pilot measurement template",
+      "url": "https://openjobs.genedai.me/downloads/ai-recruiting-pilot-template.csv",
+      "media_type": "text/csv",
+      "description": "A CSV workbook starter with metric definitions, collection notes, gates, baseline, target, and result fields.",
+      "license": "CC BY 4.0"
+    },
+    {
+      "id": "ai-recruiting-vendor-checklist",
+      "title": "Vendor checklist spreadsheet",
+      "url": "https://openjobs.genedai.me/downloads/ai-recruiting-vendor-checklist.csv",
+      "media_type": "text/csv",
+      "description": "Forty-eight procurement questions with evidence requests, red flags, gates, and use-case scope.",
+      "license": "CC BY 4.0"
     }
   ],
   "sources": [
     {
-      "name": "NIST Artificial Intelligence Risk Management Framework",
+      "id": "nist-rmf",
+      "organization": "NIST",
+      "title": "Artificial Intelligence Risk Management Framework 1.0",
       "url": "https://www.nist.gov/itl/ai-risk-management-framework",
-      "source_type": "public-framework",
-      "supports": "A voluntary structure for governing, mapping, measuring, and managing AI risk.",
-      "does_not_prove": "Legal compliance or performance on a specific hiring role."
+      "source_type": "voluntary-framework",
+      "jurisdiction": "Global reference; United States publisher",
+      "last_checked": "2026-08-07",
+      "supports": "A lifecycle structure for governing, mapping, measuring, and managing AI risk and trustworthiness characteristics.",
+      "does_not_prove": "Use of the voluntary framework does not establish legal compliance, product quality, or fitness for a particular hiring process."
     },
     {
-      "name": "NIST AI RMF Core and Playbook resources",
-      "url": "https://airc.nist.gov/airmf-resources/airmf/5-sec-core/",
-      "source_type": "public-framework",
-      "supports": "Documented actions and outcomes across the Govern, Map, Measure, and Manage functions.",
-      "does_not_prove": "That every suggested action is necessary, sufficient, or ordered for a recruiting pilot."
+      "id": "nist-playbook",
+      "organization": "NIST",
+      "title": "AI Risk Management Framework Playbook",
+      "url": "https://www.nist.gov/itl/ai-risk-management-framework/nist-ai-rmf-playbook",
+      "source_type": "voluntary-framework",
+      "jurisdiction": "Global reference; United States publisher",
+      "last_checked": "2026-08-07",
+      "supports": "Suggested actions for applying the AI RMF functions across design, deployment, evaluation, and operation.",
+      "does_not_prove": "The suggested actions are optional and use-case agnostic; they are not a certification checklist or employment-law opinion."
     },
     {
-      "name": "EEOC Employment Tests and Selection Procedures",
+      "id": "eeoc-selection",
+      "organization": "U.S. Equal Employment Opportunity Commission",
+      "title": "Employment Tests and Selection Procedures",
       "url": "https://www.eeoc.gov/laws/guidance/employment-tests-and-selection-procedures",
       "source_type": "government-guidance",
-      "supports": "Questions about job relatedness and discriminatory impact in selection procedures.",
-      "does_not_prove": "That a particular model or workflow is compliant."
+      "jurisdiction": "United States federal employment",
+      "last_checked": "2026-08-07",
+      "supports": "Technical assistance on job-related selection procedures, discriminatory impact, validation, and employer responsibility.",
+      "does_not_prove": "The page describes federal considerations but does not determine whether a specific tool, employer, or use is lawful."
     },
     {
-      "name": "ADA.gov Algorithms, Artificial Intelligence, and Disability Discrimination in Hiring",
+      "id": "ugesp-1607",
+      "organization": "Electronic Code of Federal Regulations",
+      "title": "29 CFR Part 1607: Uniform Guidelines on Employee Selection Procedures",
+      "url": "https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XIV/part-1607",
+      "source_type": "binding-rule",
+      "jurisdiction": "United States federal employment",
+      "last_checked": "2026-08-07",
+      "supports": "The federal text governing documentation, impact, and validity evidence for covered employee selection procedures.",
+      "does_not_prove": "Reading the regulation does not resolve coverage, statistical sufficiency, defenses, or obligations in a particular matter."
+    },
+    {
+      "id": "ada-ai-hiring",
+      "organization": "ADA.gov, U.S. Department of Justice",
+      "title": "Algorithms, Artificial Intelligence, and Disability Discrimination in Hiring",
       "url": "https://www.ada.gov/resources/ai-guidance/",
       "source_type": "government-guidance",
-      "supports": "Accessibility, accommodation, and disability-discrimination risk questions for hiring technology.",
-      "does_not_prove": "That a product is accessible for every person or use case."
+      "jurisdiction": "United States disability and employment context",
+      "last_checked": "2026-08-07",
+      "supports": "Guidance on disability-related screening risk, accommodations, accessibility, notice, and measuring job skills rather than disability.",
+      "does_not_prove": "The informal guidance is not a final agency action and cannot decide whether a particular process complies with the ADA."
     },
     {
-      "name": "Mira: The First End-to-End AI Recruiter",
+      "id": "opm-job-analysis",
+      "organization": "U.S. Office of Personnel Management",
+      "title": "Job Analysis",
+      "url": "https://www.opm.gov/policy-data-oversight/assessment-and-selection/job-analysis/",
+      "source_type": "professional-practice",
+      "jurisdiction": "United States federal personnel practice",
+      "last_checked": "2026-08-07",
+      "supports": "A practical account of job analysis as the foundation for defining tasks, competencies, and assessment content.",
+      "does_not_prove": "Federal personnel practice does not by itself validate a private-sector role brief or every automated assessment."
+    },
+    {
+      "id": "opm-structured-interviews",
+      "organization": "U.S. Office of Personnel Management",
+      "title": "Structured Interviews",
+      "url": "https://www.opm.gov/policy-data-oversight/assessment-and-selection/structured-interviews/",
+      "source_type": "professional-practice",
+      "jurisdiction": "United States federal personnel practice",
+      "last_checked": "2026-08-07",
+      "supports": "Guidance on using predetermined job-related questions, consistent administration, and common rating standards.",
+      "does_not_prove": "Structure improves comparability but does not guarantee validity, fairness, accessibility, or a correct hiring decision."
+    },
+    {
+      "id": "uk-responsible-ai-recruitment",
+      "organization": "UK Department for Science, Innovation and Technology",
+      "title": "Responsible AI in Recruitment",
+      "url": "https://www.gov.uk/government/publications/responsible-ai-in-recruitment-guide/responsible-ai-in-recruitment",
+      "source_type": "government-guidance",
+      "jurisdiction": "United Kingdom",
+      "last_checked": "2026-08-07",
+      "supports": "Procurement and deployment questions covering purpose, governance, accessibility, assurance, testing, pilots, transparency, and monitoring.",
+      "does_not_prove": "The guide expressly does not provide legal assurance and its examples are not universal deployment instructions."
+    },
+    {
+      "id": "ico-recruitment-audit",
+      "organization": "UK Information Commissioner's Office",
+      "title": "AI Tools Used in Recruitment: Audit Outcomes",
+      "url": "https://ico.org.uk/action-weve-taken/audits-and-overview-reports/2024/11/ai-tools-used-in-recruitment/",
+      "source_type": "government-guidance",
+      "jurisdiction": "United Kingdom data protection",
+      "last_checked": "2026-08-07",
+      "supports": "Observed privacy and information-rights issues in recruitment sourcing, screening, and selection tools, plus remediation themes.",
+      "does_not_prove": "Consensual audits of selected providers do not establish prevalence, legal status, or performance of another product."
+    },
+    {
+      "id": "wcag-22",
+      "organization": "World Wide Web Consortium",
+      "title": "Web Content Accessibility Guidelines 2.2",
+      "url": "https://www.w3.org/TR/WCAG22/",
+      "source_type": "technical-standard",
+      "jurisdiction": "Web standard; legal adoption varies",
+      "last_checked": "2026-08-07",
+      "supports": "Testable web-content accessibility criteria across perceivability, operability, understandability, and robustness.",
+      "does_not_prove": "WCAG conformance covers web content and does not by itself prove that an end-to-end hiring process is accessible or lawful."
+    },
+    {
+      "id": "nyc-aedt",
+      "organization": "New York City Department of Consumer and Worker Protection",
+      "title": "Automated Employment Decision Tools",
+      "url": "https://www.nyc.gov/site/dca/about/automated-employment-decision-tools.page",
+      "source_type": "binding-rule",
+      "jurisdiction": "New York City",
+      "last_checked": "2026-08-07",
+      "supports": "Official access to Local Law 144 materials on covered AEDT use, bias audits, public summaries, and candidate or employee notices.",
+      "does_not_prove": "The overview does not determine whether a system or use falls within the law's definitions or satisfies its requirements."
+    },
+    {
+      "id": "eu-ai-act",
+      "organization": "European Commission",
+      "title": "Navigating the AI Act",
+      "url": "https://digital-strategy.ec.europa.eu/en/faqs/navigating-ai-act",
+      "source_type": "government-guidance",
+      "jurisdiction": "European Union",
+      "last_checked": "2026-08-07",
+      "supports": "Current Commission explanations of scope, risk classification, employment use cases, obligations, and implementation timing.",
+      "does_not_prove": "The FAQ is explanatory, timing can change, and classification depends on intended purpose and the facts of a deployment."
+    },
+    {
+      "id": "metix-mira",
+      "organization": "Metix AI",
+      "title": "Mira: The First End-to-End AI Recruiter",
       "url": "https://metix.ai/research/mira-end-to-end-ai-recruiter",
       "source_type": "first-party-research",
-      "supports": "What Metix says it built, evaluated, and measured in its recruiting system.",
-      "does_not_prove": "That reported results transfer to a buyer's role, market, or deployment."
+      "jurisdiction": "Product and engineering research",
+      "last_checked": "2026-08-07",
+      "supports": "A first-party description of a recruiting-native multi-agent architecture and its handoffs.",
+      "does_not_prove": "It does not independently validate product performance, customer outcomes, legal compliance, or suitability for another workflow."
     },
     {
-      "name": "Agent Evaluation, Done Right",
+      "id": "metix-agent-evaluation",
+      "organization": "Metix AI",
+      "title": "Agent Evaluation, Done Right",
       "url": "https://metix.ai/research/agent-evaluation-done-right",
       "source_type": "first-party-research",
-      "supports": "Metix's described component, trajectory, and outcome evaluation methods.",
-      "does_not_prove": "Independent calibration or production performance in a buyer's workflow."
+      "jurisdiction": "Product and engineering research",
+      "last_checked": "2026-08-07",
+      "supports": "A first-party evaluation model separating component, trajectory, and outcome evidence in agent systems.",
+      "does_not_prove": "The framework is not independent assurance and reported methods require reproduction in the buyer's own environment."
     },
     {
-      "name": "Performance Drift in Agent Systems",
+      "id": "metix-agent-drift",
+      "organization": "Metix AI",
+      "title": "Performance Drift in Agent Systems",
       "url": "https://metix.ai/research/agent-performance-drift",
       "source_type": "first-party-research",
-      "supports": "Metix's framing of drift across prompts, architecture, evaluation, models, and context.",
-      "does_not_prove": "That a specific deployment's controls prevent drift."
+      "jurisdiction": "Product and engineering research",
+      "last_checked": "2026-08-07",
+      "supports": "A first-party account of why production agent behavior needs longitudinal evaluation and change-aware monitoring.",
+      "does_not_prove": "It does not prove the presence, absence, or rate of drift in a specific product or customer deployment."
     },
     {
-      "name": "When AI Meets Recruiting",
+      "id": "metix-embeddings",
+      "organization": "Metix AI",
+      "title": "Mira-Embeddings-V1: Domain-Adapted Semantic Reranking for Recruitment",
+      "url": "https://metix.ai/research/mira-embeddings-v1",
+      "source_type": "first-party-research",
+      "jurisdiction": "Product and machine-learning research",
+      "last_checked": "2026-08-07",
+      "supports": "Reported retrieval and reranking metrics, dataset protocols, and boundary-aware modeling in a recruitment use case.",
+      "does_not_prove": "Reported metrics are dataset- and protocol-specific and do not establish live-role quality, fairness, or general superiority."
+    },
+    {
+      "id": "metix-ai-recruiting-review",
+      "organization": "Metix AI",
+      "title": "When AI Meets Recruiting: Opportunities, Challenges, and Future Directions",
       "url": "https://metix.ai/research/ai-meets-recruiting",
       "source_type": "first-party-research",
-      "supports": "A lifecycle-oriented literature review of AI in recruiting.",
-      "does_not_prove": "The effectiveness of any one vendor or configuration."
+      "jurisdiction": "First-party literature review",
+      "last_checked": "2026-08-07",
+      "supports": "A lifecycle taxonomy of AI applications and open questions across recruiting stages.",
+      "does_not_prove": "A review and taxonomy do not validate a product, an employer decision, or a universal division of human and machine work."
+    },
+    {
+      "id": "metix-outcomes",
+      "organization": "Metix AI",
+      "title": "Hiring Outcomes, Not More Software",
+      "url": "https://metix.ai/blog/hiring-outcomes-not-software",
+      "source_type": "first-party-research",
+      "jurisdiction": "First-party product perspective",
+      "last_checked": "2026-08-07",
+      "supports": "A first-party argument for evaluating recruiting systems by delivered hiring progress and operating burden.",
+      "does_not_prove": "The product perspective is not an independent ROI study or evidence that the stated delivery model fits every employer."
     }
   ]
 }
