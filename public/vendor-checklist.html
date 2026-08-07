@@ -42,11 +42,31 @@
         "url": "https://openjobs.genedai.me/"
       },
       "mainEntityOfPage": "https://openjobs.genedai.me/vendor-checklist",
-      "encoding": {
-        "@type": "MediaObject",
-        "contentUrl": "https://openjobs.genedai.me/vendor-checklist.md",
-        "encodingFormat": "text/markdown"
-      },
+      "encoding": [
+        {
+          "@type": "MediaObject",
+          "contentUrl": "https://openjobs.genedai.me/vendor-checklist.md",
+          "encodingFormat": "text/markdown"
+        },
+        {
+          "@type": "MediaObject",
+          "name": "Vendor checklist spreadsheet",
+          "contentUrl": "https://openjobs.genedai.me/downloads/ai-recruiting-vendor-checklist.csv",
+          "encodingFormat": "text/csv"
+        },
+        {
+          "@type": "MediaObject",
+          "name": "Vendor question bank",
+          "contentUrl": "https://openjobs.genedai.me/data/vendor-checklist.json",
+          "encodingFormat": "application/json"
+        },
+        {
+          "@type": "MediaObject",
+          "name": "Evidence register",
+          "contentUrl": "https://openjobs.genedai.me/downloads/ai-recruiting-evidence-register.csv",
+          "encodingFormat": "text/csv"
+        }
+      ],
       "about": [
         {
           "@type": "Thing",
@@ -127,15 +147,15 @@
   </header>
   <main id="main">
     <div class="shell"><nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Guide</a><span aria-hidden="true">/</span><span aria-current="page">Vendor Checklist</span></nav></div>
-    <section class="page-hero library-hero"><div class="shell"><p class="eyebrow">A buyer question bank</p><h1>Make the vendor show the workflow, the evidence, and the failure path.</h1><p class="page-deck">Use this checklist before a contract or broad pilot. It asks vendors to demonstrate one real workflow, disclose evidence and limitations, expose candidate-impact controls, and account for the labor and systems the buyer must still operate.</p><p class="review-note">Last substantive review: August 7, 2026 · General evaluation guidance, not legal advice.</p></div></section>
+    <section class="page-hero library-hero"><div class="shell"><p class="eyebrow">A buyer question bank</p><h1>An AI recruiting vendor checklist built around proof, controls, and failure paths.</h1><p class="page-deck">Use this checklist before a contract or broad pilot. It asks vendors to demonstrate one real workflow, disclose evidence and limitations, expose candidate-impact controls, and account for the labor and systems the buyer must still operate.</p><p class="review-note">Last substantive review: August 7, 2026 · General evaluation guidance, not legal advice.</p></div></section>
     <section class="section toc-section"><div class="shell content-shell"><p class="eyebrow">On this page</p><ol class="table-of-contents">
             <li><a href="#before-the-demo"><span>01</span>Define the problem before the product category.</a></li>
             <li><a href="#classify-the-system"><span>02</span>Classify the system by the decision it changes.</a></li>
             <li><a href="#proof-not-promises"><span>03</span>Ask for artifacts that could disconfirm the sales claim.</a></li>
             <li><a href="#data-and-provenance"><span>04</span>Trace where candidate and evaluation data comes from and where it goes.</a></li>
             <li><a href="#candidate-impact"><span>05</span>Evaluate the process from the candidate&#x27;s side, including the exit path.</a></li>
-            <li><a href="#actions-and-integrations"><span>06</span>Test permissions, writes, messages, and fallback—not only integrations on a slide.</a></li>
-            <li><a href="#operations-and-commercials"><span>07</span>Price the operating model, not just the software seat.</a></li>
+            <li><a href="#actions-and-integrations"><span>06</span>Test permissions, writes, messages, and fallback under failure.</a></li>
+            <li><a href="#operations-and-commercials"><span>07</span>Price the full operating model, including the work outside the software.</a></li>
             <li><a href="#decision-record"><span>08</span>End with a decision record, open risks, and a testable pilot.</a></li>
           </ol></div></section>
 
@@ -163,7 +183,7 @@
           <span class="kicker-number" aria-hidden="true">02</span>
           <div><p class="eyebrow">Compare like with like</p><h2>Classify the system by the decision it changes.</h2></div>
         </div>
-        <p>AI recruiting products often combine several layers: job-description assistance, search, ranking, enrichment, messaging, chat, assessment, scheduling, analytics, or human delivery. Ask the vendor to draw the production workflow, including third-party models, data providers, human reviewers, ATS writes, email or messaging channels, and manual exception handling. A box labeled “AI” is not an architecture.</p>
+        <p>AI recruiting products often combine several layers: job-description assistance, search, ranking, enrichment, messaging, chat, assessment, scheduling, analytics, or human delivery. Ask the vendor to draw the production workflow, including third-party models, data providers, human reviewers, ATS writes, email or messaging channels, and manual exception handling. A box labeled &quot;AI&quot; is not an architecture.</p>
         <p>Then identify the highest-impact output. A tool that drafts a Boolean query under review presents different risks from one that filters applicants, scores an interview, or sends candidate communications. The evaluation depth should follow the consequence and reversibility of the action. High volume does not automatically mean high risk, but it can multiply a small error quickly.</p>
         <p>Ask which functions are generally available, optional, beta, region-limited, partner-delivered, or dependent on a particular plan. Record the evaluated version and configuration. Demonstrating an adjacent product or future roadmap item does not satisfy a requirement for the purchased workflow.</p>
         <div class="table-wrap" tabindex="0">
@@ -188,14 +208,14 @@
           <span class="kicker-number" aria-hidden="true">03</span>
           <div><p class="eyebrow">Evidence request</p><h2>Ask for artifacts that could disconfirm the sales claim.</h2></div>
         </div>
-        <p>A useful answer identifies an artifact, owner, scope, and limitation. “We are accurate” is not an answer; a test report with task definition, labeled sample, threshold, group results, failure cases, and date may be. “We keep humans in the loop” is not an answer; a permissions screen, approval log, rejected action, and manual takeover can show how the control works.</p>
+        <p>A useful answer identifies an artifact, owner, scope, and limitation. &quot;We are accurate&quot; is not an answer; a test report with task definition, labeled sample, threshold, group results, failure cases, and date may be. &quot;We keep humans in the loop&quot; is not an answer; a permissions screen, approval log, rejected action, and manual takeover can show how the control works.</p>
         <p>Request examples that are difficult rather than merely diverse in appearance: borderline qualifications, title ambiguity, career gaps, international experience, nontraditional paths, stale records, contradictory sources, accessibility needs, and uncertain replies. Ask to inspect rejected or lower-ranked cases. Selecting only high-confidence successes inflates the apparent quality of every system.</p>
         <p>Separate company-level assurances from workflow evidence. Security reports, privacy documentation, policies, and certifications may support governance questions; they do not establish candidate relevance, assessment validity, or hiring outcomes. A model card may document intended use and known limitations; it does not prove the buyer will use the system as intended.</p>
         <ol class="procedure-list">
           <li><span>01</span><div><strong>Claim.</strong> Write the promise using the vendor&#x27;s words without broadening it.</div></li>
           <li><span>02</span><div><strong>Artifact.</strong> Name the report, log, configuration, sample, or operating record needed.</div></li>
           <li><span>03</span><div><strong>Failure case.</strong> Ask what result would cause the vendor and buyer to reject or narrow the claim.</div></li>
-          <li><span>04</span><div><strong>Transfer test.</strong> Explain why evidence from one customer, role, or benchmark should apply to this workflow—or mark the gap.</div></li>
+          <li><span>04</span><div><strong>Transfer test.</strong> Explain why evidence from one customer, role, or benchmark should apply to this workflow. If it does not, mark the gap.</div></li>
         </ol>
       </div>
     </section>
@@ -225,7 +245,7 @@
           <div><p class="eyebrow">Candidate-facing risk</p><h2>Evaluate the process from the candidate&#x27;s side, including the exit path.</h2></div>
         </div>
         <p>Ask what candidates are told about AI use, what information is evaluated, how they request an accommodation, whether an alternative path exists, how they correct relevant data, and how they reach a person. Notice is not meaningful when it arrives after a consequential action or uses language that the candidate cannot connect to the actual process.</p>
-        <p>Test the complete candidate journey with keyboard navigation, assistive technology where appropriate, mobile and low-bandwidth conditions, multiple languages, time limits, interruptions, and error recovery. WCAG can inform web testing, while ADA.gov emphasizes that hiring technology should measure job skills rather than disability and should support reasonable accommodations. Neither is replaced by a vendor saying its interface is “accessible.”</p>
+        <p>Test the complete candidate journey with keyboard navigation, assistive technology where appropriate, mobile and low-bandwidth conditions, multiple languages, time limits, interruptions, and error recovery. WCAG can inform web testing, while ADA.gov emphasizes that hiring technology should measure job skills rather than disability and should support reasonable accommodations. Neither is replaced by a vendor saying its interface is &quot;accessible.&quot;</p>
         <p>Inspect how the system treats uncertain or incomplete data and how human reviewers see confidence. Ask whether candidates can be rejected solely from automated output, whether reviewers can access the underlying evidence, and whether an appeal or reassessment changes the record. A human click does not create meaningful oversight if the person lacks time, authority, or explanation.</p>
         <aside class="evidence-callout" aria-label="No invisible dead end"><span>Procurement gate</span><div><strong>No invisible dead end</strong> <p>A candidate-facing workflow should have a visible route for accommodation, correction, questions, and human escalation before the pilot begins.</p></div></aside>
       </div>
@@ -235,7 +255,7 @@
       <div class="shell content-shell">
         <div class="content-section-heading">
           <span class="kicker-number" aria-hidden="true">06</span>
-          <div><p class="eyebrow">Operational control</p><h2>Test permissions, writes, messages, and fallback—not only integrations on a slide.</h2></div>
+          <div><p class="eyebrow">Operational control</p><h2>Test permissions, writes, messages, and fallback under failure.</h2></div>
         </div>
         <p>Ask the vendor to demonstrate the exact ATS, CRM, calendar, identity, and communication flows the buyer will use. Inspect field mappings, duplicate handling, retries, idempotency, permissions, error states, audit logs, and what happens when the downstream system is unavailable. A connector logo does not prove production depth or data fidelity.</p>
         <p>For agents that communicate externally, test sender authorization, message approval, channel restrictions, timing, suppression, opt-out handling, uncertain replies, follow-up limits, and kill switches. Distinguish a recommendation from an executed action in logs and user interfaces. Require a manual path that can complete the hiring workflow without losing context when automation pauses.</p>
@@ -253,11 +273,11 @@
       <div class="shell content-shell">
         <div class="content-section-heading">
           <span class="kicker-number" aria-hidden="true">07</span>
-          <div><p class="eyebrow">Cost beyond license</p><h2>Price the operating model, not just the software seat.</h2></div>
+          <div><p class="eyebrow">Cost beyond license</p><h2>Price the full operating model, including the work outside the software.</h2></div>
         </div>
         <p>Build total cost around the evaluated workflow: subscription or usage, implementation, integration, data, model or communication overages, security review, training, change management, recruiter operation, manager review, quality assurance, candidate support, compliance work, and switching. Ask which labor is performed by the vendor, the buyer, or a partner and whether that boundary changes by plan.</p>
         <p>Compare remedy terms to the promised outcome. A credit for a failed search, a rerun, a replacement, service support, and a refund are different. Record definitions for a role, candidate, introduction, contact, screen, interview, usage unit, and expiration. Do not turn a marketing phrase into a contractual commitment unless the governing order form or terms say the same thing.</p>
-        <p>Evaluate viability without pretending to predict the company. Review support coverage, incident communication, roadmap dependency, data portability, exit assistance, subcontractors, and business continuity. Reference calls should ask what required manual work, what broke, how long remediation took, and what the customer would scope differently—not whether they “like the AI.”</p>
+        <p>Evaluate viability without pretending to predict the company. Review support coverage, incident communication, roadmap dependency, data portability, exit assistance, subcontractors, and business continuity. Reference calls should ask what required manual work, what broke, how long remediation took, and what the customer would scope differently. Whether they &quot;like the AI&quot; is less useful.</p>
         <div class="table-wrap" tabindex="0">
           <table>
             <caption>Cost categories to include in a vendor comparison</caption>
@@ -281,21 +301,27 @@
           <div><p class="eyebrow">Close procurement</p><h2>End with a decision record, open risks, and a testable pilot.</h2></div>
         </div>
         <p>The output of evaluation is not a completed spreadsheet. It is a decision record naming the selected scope, evidence reviewed, unresolved questions, rejected alternatives, accountable owners, required controls, commercial assumptions, and conditions for stopping or expanding. Missing evidence can be an explicit risk acceptance, a pilot question, or a reason not to proceed; it should not disappear into an average score.</p>
-        <p>Translate the remaining uncertainty into a narrow pilot. Choose one or a small number of representative roles, preserve a current baseline, predefine quality, sample both selected and rejected cases, limit candidate exposure, measure human labor, and schedule review checkpoints. The <a href="/pilot-design">pilot design guide</a> gives a protocol rather than a generic “try it and see.”</p>
+        <p>Translate the remaining uncertainty into a narrow pilot. Choose one or a small number of representative roles, preserve a current baseline, predefine quality, sample both selected and rejected cases, limit candidate exposure, measure human labor, and schedule review checkpoints. The <a href="/pilot-design">pilot design guide</a> gives a protocol instead of a generic &quot;try it and see.&quot;</p>
         <p>Download the question bank and adapt weights only after the gating questions are answered. The template is intentionally vendor-neutral and contains no pre-filled vendor scores. Evidence links and notes remain with the buyer rather than being submitted to this site.</p>
         <aside class="evidence-callout" aria-label="Pause before contract"><span>Red flags</span><div><strong>Pause before contract</strong> <p>Pause when the vendor will not define the evaluated system, show failure cases, identify data sources, explain external-action controls, support a bounded pilot, or put material commercial promises in the governing agreement.</p></div></aside>
       </div>
     </section>
 
-    <section class="section evidence-section" id="evidence"><div class="shell content-shell"><p class="eyebrow">Evidence register</p><h2>Sources used—and what they cannot prove.</h2><div class="source-citations">
-          <article class="source-citation"><span>voluntary framework</span><div><h3><a href="https://www.nist.gov/itl/ai-risk-management-framework">NIST — Artificial Intelligence Risk Management Framework 1.0</a></h3><p>A lifecycle structure for governing, mapping, measuring, and managing AI risk and trustworthiness characteristics.</p><small>Evidence limit: Use of the voluntary framework does not establish legal compliance, product quality, or fitness for a particular hiring process.</small></div></article>
-          <article class="source-citation"><span>government guidance</span><div><h3><a href="https://www.eeoc.gov/laws/guidance/employment-tests-and-selection-procedures">U.S. Equal Employment Opportunity Commission — Employment Tests and Selection Procedures</a></h3><p>Technical assistance on job-related selection procedures, discriminatory impact, validation, and employer responsibility.</p><small>Evidence limit: The page describes federal considerations but does not determine whether a specific tool, employer, or use is lawful.</small></div></article>
-          <article class="source-citation"><span>government guidance</span><div><h3><a href="https://www.ada.gov/resources/ai-guidance/">ADA.gov, U.S. Department of Justice — Algorithms, Artificial Intelligence, and Disability Discrimination in Hiring</a></h3><p>Guidance on disability-related screening risk, accommodations, accessibility, notice, and measuring job skills rather than disability.</p><small>Evidence limit: The informal guidance is not a final agency action and cannot decide whether a particular process complies with the ADA.</small></div></article>
-          <article class="source-citation"><span>government guidance</span><div><h3><a href="https://www.gov.uk/government/publications/responsible-ai-in-recruitment-guide/responsible-ai-in-recruitment">UK Department for Science, Innovation and Technology — Responsible AI in Recruitment</a></h3><p>Procurement and deployment questions covering purpose, governance, accessibility, assurance, testing, pilots, transparency, and monitoring.</p><small>Evidence limit: The guide expressly does not provide legal assurance and its examples are not universal deployment instructions.</small></div></article>
-          <article class="source-citation"><span>government guidance</span><div><h3><a href="https://ico.org.uk/action-weve-taken/audits-and-overview-reports/2024/11/ai-tools-used-in-recruitment/">UK Information Commissioner&#x27;s Office — AI Tools Used in Recruitment — Audit Outcomes</a></h3><p>Observed privacy and information-rights issues in recruitment sourcing, screening, and selection tools, plus remediation themes.</p><small>Evidence limit: Consensual audits of selected providers do not establish prevalence, legal status, or performance of another product.</small></div></article>
-          <article class="source-citation"><span>technical standard</span><div><h3><a href="https://www.w3.org/TR/WCAG22/">World Wide Web Consortium — Web Content Accessibility Guidelines 2.2</a></h3><p>Testable web-content accessibility criteria across perceivability, operability, understandability, and robustness.</p><small>Evidence limit: WCAG conformance covers web content and does not by itself prove that an end-to-end hiring process is accessible or lawful.</small></div></article>
-          <article class="source-citation"><span>binding rule</span><div><h3><a href="https://www.nyc.gov/site/dca/about/automated-employment-decision-tools.page">New York City Department of Consumer and Worker Protection — Automated Employment Decision Tools</a></h3><p>Official access to Local Law 144 materials on covered AEDT use, bias audits, public summaries, and candidate or employee notices.</p><small>Evidence limit: The overview does not determine whether a system or use falls within the law&#x27;s definitions or satisfies its requirements.</small></div></article>
-          <article class="source-citation"><span>government guidance</span><div><h3><a href="https://digital-strategy.ec.europa.eu/en/faqs/navigating-ai-act">European Commission — Navigating the AI Act</a></h3><p>Current Commission explanations of scope, risk classification, employment use cases, obligations, and implementation timing.</p><small>Evidence limit: The FAQ is explanatory, timing can change, and classification depends on intended purpose and the facts of a deployment.</small></div></article>
+    <section class="section download-section" id="downloads"><div class="shell content-shell"><p class="eyebrow">Reusable files</p><h2>Download the working materials</h2><div class="download-grid">
+          <a class="download-card" href="/downloads/ai-recruiting-vendor-checklist.csv" download><span>text/csv</span><strong>Vendor checklist spreadsheet</strong><small>Forty-eight procurement questions with evidence requests, red flags, gates, and use-case scope.</small></a>
+          <a class="download-card" href="/data/vendor-checklist.json" download><span>application/json</span><strong>Vendor question bank</strong><small>The same question set as structured JSON for agents, internal tools, and procurement systems.</small></a>
+          <a class="download-card" href="/downloads/ai-recruiting-evidence-register.csv" download><span>text/csv</span><strong>Evidence register</strong><small>A CSV ledger of source type, jurisdiction, review date, supported use, and limitation.</small></a>
+        </div></div></section>
+
+    <section class="section evidence-section" id="evidence"><div class="shell content-shell"><p class="eyebrow">Evidence register</p><h2>Sources used, and what they cannot prove.</h2><div class="source-citations">
+          <article class="source-citation"><span>voluntary framework</span><div><h3><a href="https://www.nist.gov/itl/ai-risk-management-framework">NIST: Artificial Intelligence Risk Management Framework 1.0</a></h3><p>A lifecycle structure for governing, mapping, measuring, and managing AI risk and trustworthiness characteristics.</p><small>Evidence limit: Use of the voluntary framework does not establish legal compliance, product quality, or fitness for a particular hiring process.</small></div></article>
+          <article class="source-citation"><span>government guidance</span><div><h3><a href="https://www.eeoc.gov/laws/guidance/employment-tests-and-selection-procedures">U.S. Equal Employment Opportunity Commission: Employment Tests and Selection Procedures</a></h3><p>Technical assistance on job-related selection procedures, discriminatory impact, validation, and employer responsibility.</p><small>Evidence limit: The page describes federal considerations but does not determine whether a specific tool, employer, or use is lawful.</small></div></article>
+          <article class="source-citation"><span>government guidance</span><div><h3><a href="https://www.ada.gov/resources/ai-guidance/">ADA.gov, U.S. Department of Justice: Algorithms, Artificial Intelligence, and Disability Discrimination in Hiring</a></h3><p>Guidance on disability-related screening risk, accommodations, accessibility, notice, and measuring job skills rather than disability.</p><small>Evidence limit: The informal guidance is not a final agency action and cannot decide whether a particular process complies with the ADA.</small></div></article>
+          <article class="source-citation"><span>government guidance</span><div><h3><a href="https://www.gov.uk/government/publications/responsible-ai-in-recruitment-guide/responsible-ai-in-recruitment">UK Department for Science, Innovation and Technology: Responsible AI in Recruitment</a></h3><p>Procurement and deployment questions covering purpose, governance, accessibility, assurance, testing, pilots, transparency, and monitoring.</p><small>Evidence limit: The guide expressly does not provide legal assurance and its examples are not universal deployment instructions.</small></div></article>
+          <article class="source-citation"><span>government guidance</span><div><h3><a href="https://ico.org.uk/action-weve-taken/audits-and-overview-reports/2024/11/ai-tools-used-in-recruitment/">UK Information Commissioner&#x27;s Office: AI Tools Used in Recruitment: Audit Outcomes</a></h3><p>Observed privacy and information-rights issues in recruitment sourcing, screening, and selection tools, plus remediation themes.</p><small>Evidence limit: Consensual audits of selected providers do not establish prevalence, legal status, or performance of another product.</small></div></article>
+          <article class="source-citation"><span>technical standard</span><div><h3><a href="https://www.w3.org/TR/WCAG22/">World Wide Web Consortium: Web Content Accessibility Guidelines 2.2</a></h3><p>Testable web-content accessibility criteria across perceivability, operability, understandability, and robustness.</p><small>Evidence limit: WCAG conformance covers web content and does not by itself prove that an end-to-end hiring process is accessible or lawful.</small></div></article>
+          <article class="source-citation"><span>binding rule</span><div><h3><a href="https://www.nyc.gov/site/dca/about/automated-employment-decision-tools.page">New York City Department of Consumer and Worker Protection: Automated Employment Decision Tools</a></h3><p>Official access to Local Law 144 materials on covered AEDT use, bias audits, public summaries, and candidate or employee notices.</p><small>Evidence limit: The overview does not determine whether a system or use falls within the law&#x27;s definitions or satisfies its requirements.</small></div></article>
+          <article class="source-citation"><span>government guidance</span><div><h3><a href="https://digital-strategy.ec.europa.eu/en/faqs/navigating-ai-act">European Commission: Navigating the AI Act</a></h3><p>Current Commission explanations of scope, risk classification, employment use cases, obligations, and implementation timing.</p><small>Evidence limit: The FAQ is explanatory, timing can change, and classification depends on intended purpose and the facts of a deployment.</small></div></article>
           <article class="source-citation first-party"><span>first-party research</span><div><h3><a href="https://metix.ai/blog/hiring-outcomes-not-software">Hiring Outcomes, Not More Software</a></h3><p>Metix offers a first-party view of an outcome-delivery model that buyers can subject to the same workflow, labor, remedy, and pilot questions in this checklist.</p><small>Evidence limit: This is a vendor perspective, not an independent comparison or proof of return on investment.</small></div></article>
         </div><p class="relationship-note"><strong>Relationship disclosure:</strong> OpenJobs AI is now <a href="https://metix.ai/about">Metix AI</a>. Metix material is labeled first-party and is not treated as independent validation.</p></div></section>
     <section class="section section-signal" id="faq"><div class="shell content-shell"><p class="eyebrow">Questions teams ask</p><h2>Frequently asked questions</h2><div class="faq-list">
@@ -305,9 +331,10 @@
           <details><summary>What is the best way to verify a vendor claim?</summary><p>Define the claim, request the relevant artifact, test it on a buyer-controlled case, inspect failures and exclusions, and record what the result still cannot establish.</p></details>
         </div></div></section>
     <section class="section"><div class="shell content-shell"><p class="eyebrow">Continue evaluating</p><h2>Use the next guide on the same real role.</h2><div class="related-grid">
+          <a class="related-card" href="/evaluation-scorecard"><span>Read next</span><strong>Evaluation Scorecard</strong></a>
+          <a class="related-card" href="/sources"><span>Read next</span><strong>Source and Evidence Ledger</strong></a>
           <a class="related-card" href="/methodology"><span>Read next</span><strong>Evaluation Methodology</strong></a>
           <a class="related-card" href="/pilot-design"><span>Read next</span><strong>Pilot Design</strong></a>
-          <a class="related-card" href="/evaluation-scorecard"><span>Read next</span><strong>Evaluation Scorecard</strong></a>
         </div></div></section>
   </main>
   <footer class="site-footer"><div class="shell"><p class="footer-note">OpenJobs Archive publishes source-backed evaluation tools. OpenJobs AI is now Metix AI; the archive applies the same evidence rules to first-party material.</p><nav class="footer-links" aria-label="Footer navigation"><a href="/methodology">Methodology</a><a href="/sources">Sources</a><a href="/llms.txt">Agent resources</a><a href="https://metix.ai/">Metix AI</a><a href="https://github.com/Digidai/openjobs">GitHub</a></nav></div></footer>

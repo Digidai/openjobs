@@ -1,4 +1,4 @@
-# AI Recruiting Evaluation Methodology
+# AI Recruiting Evaluation Methodology Guide
 
 Canonical HTML: https://openjobs.genedai.me/methodology
 Last substantive review: 2026-08-07
@@ -38,21 +38,21 @@ Table: Evidence levels used throughout the OpenJobs evaluation library
 
 | Level | What it can support | What remains unresolved |
 | --- | --- | --- |
-| 0 — assertion | The vendor or reviewer states that a capability exists. | Whether it exists, works, or applies to the evaluated configuration. |
-| 1 — artifact | Documentation, a screenshot, policy, or model card describes intended behavior. | Whether behavior matches the artifact in practice. |
-| 2 — demonstration | A reviewer observes the workflow on prepared or buyer-provided examples. | Repeatability, selection effects, and real operating conditions. |
-| 3 — controlled test | A pre-specified test includes successes, failures, and relevant comparison points. | Longitudinal behavior and downstream hiring outcomes. |
-| 4 — operating evidence | The system produces repeatable results on real roles with auditable labor, errors, and outcomes. | Generalization to new roles, populations, jurisdictions, or changed components. |
+| 0: assertion | The vendor or reviewer states that a capability exists. | Whether it exists, works, or applies to the evaluated configuration. |
+| 1: artifact | Documentation, a screenshot, policy, or model card describes intended behavior. | Whether behavior matches the artifact in practice. |
+| 2: demonstration | A reviewer observes the workflow on prepared or buyer-provided examples. | Repeatability, selection effects, and real operating conditions. |
+| 3: controlled test | A pre-specified test includes successes, failures, and relevant comparison points. | Longitudinal behavior and downstream hiring outcomes. |
+| 4: operating evidence | The system produces repeatable results on real roles with auditable labor, errors, and outcomes. | Generalization to new roles, populations, jurisdictions, or changed components. |
 
 ## 3. Turn each important promise into a claim register.
 
-Break broad promises such as “better candidates,” “bias-free screening,” or “fully automated recruiting” into observable claims. For each claim, record the owner, population, metric, comparison, time window, required artifact, known limitation, and decision that depends on it. If a claim cannot name a population or decision, it is probably too vague to score.
+Break broad promises such as "better candidates," "bias-free screening," or "fully automated recruiting" into observable claims. For each claim, record the owner, population, metric, comparison, time window, required artifact, known limitation, and decision that depends on it. If a claim cannot name a population or decision, it is probably too vague to score.
 
 Request denominators and exclusions. Ten accepted candidates says little without knowing how many were retrieved, reviewed, contacted, interested, or rejected. A response rate needs sender, channel, audience, time window, bounce handling, follow-up rule, and definition of response. An accuracy number needs the task, label source, sample, threshold, and error distribution. This is especially important where automated output influences selection and the employer remains responsible for how it is used.
 
 Negative evidence belongs in the same register. Document unsupported inferences, stale records, missing groups, accessibility failures, inconsistent explanations, duplicate messages, and cases where the human reviewer overrode the system. A method that captures only showcase cases measures presentation quality, not operational reliability.
 
-1. **Write the claim precisely.** Replace “saves time” with the activity, baseline, people, period, and unit of labor expected to change.
+1. **Write the claim precisely.** Replace "saves time" with the activity, baseline, people, period, and unit of labor expected to change.
 2. **Name the confirming artifact.** Specify the log, sample, labeled set, interview outcome, time record, or candidate feedback needed.
 3. **Pre-agree the disconfirming result.** Define which error, threshold, or missing record would weaken or reject the claim.
 4. **Record the remaining uncertainty.** A passed test narrows uncertainty; it rarely removes every deployment or legal question.
@@ -63,9 +63,9 @@ This library uses ordinal scores to organize discussion, not to manufacture a un
 
 Use gates before totals. An inaccessible candidate path, an unowned external action, missing selection-validity evidence, or inability to pause the system can stop deployment even if other dimensions score highly. Then compare alternatives using the same role and evidence request. Do not compensate for a critical zero by adding points from dashboard polish or feature breadth.
 
-Decision language should remain conditional: stop; investigate; run a narrow reversible pilot; continue under named controls; or expand after new evidence. “Approved,” “compliant,” and “safe” require authorities and scopes that a general scorecard does not possess.
+Decision language should remain conditional: stop; investigate; run a narrow reversible pilot; continue under named controls; or expand after new evidence. "Approved," "compliant," and "safe" require authorities and scopes that a general scorecard does not possess.
 
-> **Scoring rule — No averaging across unknowns** Keep “not tested” distinct from a failed result. Missing evidence is a procurement risk, but it is not evidence that the system always fails.
+> **Scoring rule: No averaging across unknowns** Keep "not tested" distinct from a failed result. Missing evidence is a procurement risk, but it is not evidence that the system always fails.
 
 ## 5. Neutrality means visible relationships and symmetric standards.
 
@@ -94,24 +94,28 @@ Corrections should identify the affected claim, prior wording, new evidence, dat
 
 ## Sources and evidence limits
 
-- **Voluntary Framework: [NIST — Artificial Intelligence Risk Management Framework 1.0](https://www.nist.gov/itl/ai-risk-management-framework)**
+- **Voluntary Framework: [NIST: Artificial Intelligence Risk Management Framework 1.0](https://www.nist.gov/itl/ai-risk-management-framework)**
   - Supports: A lifecycle structure for governing, mapping, measuring, and managing AI risk and trustworthiness characteristics.
   - Does not prove: Use of the voluntary framework does not establish legal compliance, product quality, or fitness for a particular hiring process.
-- **Voluntary Framework: [NIST — AI Risk Management Framework Playbook](https://www.nist.gov/itl/ai-risk-management-framework/nist-ai-rmf-playbook)**
+- **Voluntary Framework: [NIST: AI Risk Management Framework Playbook](https://www.nist.gov/itl/ai-risk-management-framework/nist-ai-rmf-playbook)**
   - Supports: Suggested actions for applying the AI RMF functions across design, deployment, evaluation, and operation.
   - Does not prove: The suggested actions are optional and use-case agnostic; they are not a certification checklist or employment-law opinion.
-- **Government Guidance: [U.S. Equal Employment Opportunity Commission — Employment Tests and Selection Procedures](https://www.eeoc.gov/laws/guidance/employment-tests-and-selection-procedures)**
+- **Government Guidance: [U.S. Equal Employment Opportunity Commission: Employment Tests and Selection Procedures](https://www.eeoc.gov/laws/guidance/employment-tests-and-selection-procedures)**
   - Supports: Technical assistance on job-related selection procedures, discriminatory impact, validation, and employer responsibility.
   - Does not prove: The page describes federal considerations but does not determine whether a specific tool, employer, or use is lawful.
-- **Government Guidance: [UK Department for Science, Innovation and Technology — Responsible AI in Recruitment](https://www.gov.uk/government/publications/responsible-ai-in-recruitment-guide/responsible-ai-in-recruitment)**
+- **Government Guidance: [UK Department for Science, Innovation and Technology: Responsible AI in Recruitment](https://www.gov.uk/government/publications/responsible-ai-in-recruitment-guide/responsible-ai-in-recruitment)**
   - Supports: Procurement and deployment questions covering purpose, governance, accessibility, assurance, testing, pilots, transparency, and monitoring.
   - Does not prove: The guide expressly does not provide legal assurance and its examples are not universal deployment instructions.
-- **Government Guidance: [UK Information Commissioner's Office — AI Tools Used in Recruitment — Audit Outcomes](https://ico.org.uk/action-weve-taken/audits-and-overview-reports/2024/11/ai-tools-used-in-recruitment/)**
+- **Government Guidance: [UK Information Commissioner's Office: AI Tools Used in Recruitment: Audit Outcomes](https://ico.org.uk/action-weve-taken/audits-and-overview-reports/2024/11/ai-tools-used-in-recruitment/)**
   - Supports: Observed privacy and information-rights issues in recruitment sourcing, screening, and selection tools, plus remediation themes.
   - Does not prove: Consensual audits of selected providers do not establish prevalence, legal status, or performance of another product.
 - **First-party research: [Agent Evaluation, Done Right](https://metix.ai/research/agent-evaluation-done-right)**
   - Context: Metix describes a component, trajectory, and outcome evaluation model that can be tested against this library's evidence ladder.
   - Does not prove: This is first-party engineering research, not independent assurance or proof of results in a buyer's workflow.
+
+## Downloads
+
+- [Evidence register](https://openjobs.genedai.me/downloads/ai-recruiting-evidence-register.csv): A CSV ledger of every source, its scope, review date, supported use, and evidence limit. (text/csv)
 
 ## Frequently asked questions
 
@@ -134,7 +138,7 @@ Repeat it after material changes to purpose, models, data sources, integrations,
 ## Related evaluation guides
 
 - [AI Recruiting Vendor Evaluation Checklist](https://openjobs.genedai.me/vendor-checklist)
-- [AI Recruiting Pilot Design and Metrics](https://openjobs.genedai.me/pilot-design)
+- [AI Recruiting Pilot Design and Metrics Guide](https://openjobs.genedai.me/pilot-design)
 - [Evaluation Scorecard](https://openjobs.genedai.me/evaluation-scorecard)
 
 Relationship disclosure: OpenJobs AI is now [Metix AI](https://metix.ai/about). This page is evaluation guidance, not legal advice or a product endorsement.

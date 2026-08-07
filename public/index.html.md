@@ -1,6 +1,6 @@
 # The AI Recruiting Field Guide
 
-> Evaluate AI recruiting systems by hiring outcomes, evidence quality, human control, and pilot risk—not by interface polish, profile volume, or automation claims.
+> Evaluate AI recruiting systems through hiring outcomes, evidence quality, human control, candidate impact, and pilot risk.
 
 - Canonical HTML: https://openjobs.genedai.me/
 - Last substantive review: 2026-08-07
@@ -13,15 +13,26 @@ OpenJobs AI is now [Metix AI](https://metix.ai/). The first-party account of the
 
 ## Decision question
 
-Can the system repeatedly turn a clear hiring brief into qualified, interested people worth interviewing—while keeping the employer in control?
+Can the system repeatedly turn a clear hiring brief into qualified, interested people worth interviewing while keeping the employer in control?
+
+## Evaluation library
+
+Choose the guide closest to the decision your team needs to make:
+
+- [AI recruiting evaluation methodology](https://openjobs.genedai.me/methodology): define the workflow, grade evidence, disclose incentives, and keep scoring separate from the final decision.
+- [AI recruiting vendor checklist](https://openjobs.genedai.me/vendor-checklist): use 48 questions to inspect claims, data, controls, candidate impact, operating cost, and exit terms.
+- [AI recruiting pilot design](https://openjobs.genedai.me/pilot-design): set a baseline, sample misses, measure hidden labor, and agree on stop conditions.
+- [AI candidate sourcing and ranking](https://openjobs.genedai.me/sourcing-evaluation): test role interpretation, coverage, provenance, ranking quality, false negatives, and results within a fixed review budget.
+- [AI candidate screening](https://openjobs.genedai.me/screening-evaluation): review job analysis, validity evidence, administration, accessibility, accommodations, errors, and recourse.
+- [AI recruiting agent reliability](https://openjobs.genedai.me/agent-reliability): inspect permissions, tool calls, approvals, recovery, incidents, version changes, and drift.
 
 ## 1. Set the unit of value
 
-A profile is inventory. An interview is progress. Search coverage, match scores, and generated outreach can describe activity without proving a hiring outcome.
+Measure progress toward an accepted interview. Search coverage, match scores, and generated outreach can describe activity without proving a hiring outcome.
 
-- **Quality — worth meeting:** Can the hiring manager explain why each person clears the role's non-negotiable requirements? Review false positives, not just the best examples.
-- **Intent — actually interested:** A plausible profile is not a candidate. Verify that interest is current, role-specific, and not inferred from a reply alone.
-- **Time — ready to schedule:** Measure elapsed time from an approved brief to an interview-ready handoff. Exclude buyer rework and manual cleanup.
+- **Quality, worth meeting:** Can the hiring manager explain why each person clears the role's non-negotiable requirements? Review false positives alongside the strongest examples.
+- **Intent, confirmed interest:** A plausible profile is not a candidate. Verify that interest is current, role-specific, and not inferred from a reply alone.
+- **Time, ready to schedule:** Measure elapsed time from an approved brief to an interview-ready handoff. Exclude buyer rework and manual cleanup.
 
 ## 2. Trace the evidence chain
 
@@ -37,7 +48,7 @@ For a first-party architecture example, read Metix AI's [Mira system report](htt
 
 ## 3. Keep control visible
 
-Autonomy is useful only when correction is cheap. “Human in the loop” is not sufficient without identifiable controls.
+Find the person who can stop or correct each action. "Human in the loop" is not sufficient without identifiable controls.
 
 - **Approval:** Nothing external happens before the accountable person can review it.
 - **Correction:** A bad assumption can be fixed without restarting the workflow.
@@ -56,11 +67,11 @@ Primary references: [NIST AI RMF](https://www.nist.gov/itl/ai-risk-management-fr
 
 ## 5. Run a reversible pilot
 
-Use one real role, one recent baseline, and pre-agreed stop conditions.
+Run one real role against a recent baseline and agreed stop conditions.
 
 1. **Freeze the brief:** Record approved requirements, trade-offs, geography, compensation assumptions, and the evidence standard.
 2. **Set the baseline:** Use a comparable role and record time, people reviewed, outreach, interested replies, interviews, and manager rework.
-3. **Pre-score quality:** Define “worth interviewing” before seeing the vendor's best candidates; sample rejects and borderline cases.
+3. **Pre-score quality:** Define "worth interviewing" before seeing the vendor's strongest candidates; sample rejects and borderline cases.
 4. **Limit exposure:** Start with a narrow candidate set, explicit approvals, and a channel that can be paused.
 5. **Close the loop:** Compare outcomes and hidden labor; document failures, corrections, and conditions for expansion.
 
@@ -72,11 +83,11 @@ The [primary-source ledger](https://openjobs.genedai.me/sources) separates publi
 
 ## Decision rule
 
-Buy less interface. Demand more evidence. Prefer the system that delivers a better hiring outcome, exposes enough evidence to evaluate it, and makes correction cheaper than carrying a bad assumption forward.
+Compare systems on the same role and evidence request. Record what each system can demonstrate, what failed, and which questions remain unresolved. A score helps organize the review; it does not replace the accountable decision.
 
 ## Related Metix resources
 
-- [Metix AI](https://metix.ai/) — current customer-facing product and brand.
-- [Metix AI research](https://metix.ai/research) — first-party product and engineering research.
-- [Metix AI pricing](https://metix.ai/pricing) — current first-party commercial information.
-- [Contact Metix AI](https://metix.ai/contact) — talk with the product team.
+- [Metix AI](https://metix.ai/): current customer-facing product and brand.
+- [Metix AI research](https://metix.ai/research): first-party product and engineering research.
+- [Metix AI pricing](https://metix.ai/pricing): current first-party commercial information.
+- [Contact Metix AI](https://metix.ai/contact): talk with the product team.

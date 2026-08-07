@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>AI Recruiting Agent Reliability Evaluation | OpenJobs</title>
-  <meta name="description" content="Evaluate AI recruiting agent reliability through system boundaries, permissions, trajectory tests, approvals, failure recovery, incidents, versioning, and drift.">
+  <meta name="description" content="Evaluate AI recruiting agent reliability through system boundaries, permissions, trajectory tests, approvals, recovery, incident review, versioning, and drift.">
   <meta name="robots" content="index, follow, max-image-preview:large">
   <meta name="theme-color" content="#f3f0e6">
   <link rel="canonical" href="https://openjobs.genedai.me/agent-reliability">
@@ -28,7 +28,7 @@
       "@type": "Article",
       "@id": "https://openjobs.genedai.me/agent-reliability#article",
       "headline": "AI Recruiting Agent Reliability Evaluation",
-      "description": "Evaluate AI recruiting agent reliability through system boundaries, permissions, trajectory tests, approvals, failure recovery, incidents, versioning, and drift.",
+      "description": "Evaluate AI recruiting agent reliability through system boundaries, permissions, trajectory tests, approvals, recovery, incident review, versioning, and drift.",
       "datePublished": "2026-08-07",
       "dateModified": "2026-08-07",
       "author": {
@@ -42,11 +42,19 @@
         "url": "https://openjobs.genedai.me/"
       },
       "mainEntityOfPage": "https://openjobs.genedai.me/agent-reliability",
-      "encoding": {
-        "@type": "MediaObject",
-        "contentUrl": "https://openjobs.genedai.me/agent-reliability.md",
-        "encodingFormat": "text/markdown"
-      },
+      "encoding": [
+        {
+          "@type": "MediaObject",
+          "contentUrl": "https://openjobs.genedai.me/agent-reliability.md",
+          "encodingFormat": "text/markdown"
+        },
+        {
+          "@type": "MediaObject",
+          "name": "Evidence register",
+          "contentUrl": "https://openjobs.genedai.me/downloads/ai-recruiting-evidence-register.csv",
+          "encodingFormat": "text/csv"
+        }
+      ],
       "about": [
         {
           "@type": "Thing",
@@ -127,7 +135,7 @@
   </header>
   <main id="main">
     <div class="shell"><nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Guide</a><span aria-hidden="true">/</span><span aria-current="page">Agent Reliability</span></nav></div>
-    <section class="page-hero library-hero"><div class="shell"><p class="eyebrow">From model output to external action</p><h1>Evaluate the whole agent trajectory, including the moment it must stop.</h1><p class="page-deck">A recruiting agent is a chain of model decisions, retrievals, tool calls, data writes, messages, and human handoffs. Reliability evaluation must inspect that trajectory, control permissions and approvals, test failures and fallback, and monitor the deployed configuration as it changes.</p><p class="review-note">Last substantive review: August 7, 2026 · General evaluation guidance, not legal advice.</p></div></section>
+    <section class="page-hero library-hero"><div class="shell"><p class="eyebrow">From model output to external action</p><h1>Evaluate AI recruiting agent reliability across every action and handoff.</h1><p class="page-deck">A recruiting agent is a chain of model decisions, retrievals, tool calls, data writes, messages, and human handoffs. Reliability evaluation must inspect that trajectory, control permissions and approvals, test failures and fallback, and monitor the deployed configuration as it changes.</p><p class="review-note">Last substantive review: August 7, 2026 · General evaluation guidance, not legal advice.</p></div></section>
     <section class="section toc-section"><div class="shell content-shell"><p class="eyebrow">On this page</p><ol class="table-of-contents">
             <li><a href="#system-boundary"><span>01</span>Draw the agent, tools, humans, and external effects as one evaluated boundary.</a></li>
             <li><a href="#evaluation-layers"><span>02</span>Separate component quality, trajectory behavior, and hiring outcome.</a></li>
@@ -300,18 +308,22 @@
           <span class="kicker-number" aria-hidden="true">09</span>
           <div><p class="eyebrow">Approve a boundary</p><h2>Decide which actions the agent may take, under which controls and monitoring.</h2></div>
         </div>
-        <p>The final decision should name the approved purpose, roles, environment, data, tools, read and write permissions, external actions, approval rules, volume, candidate population, fallback, monitoring, and change triggers. Avoid approving “the AI agent” as a whole when only search or drafting was evaluated.</p>
+        <p>The final decision should name the approved purpose, roles, environment, data, tools, read and write permissions, external actions, approval rules, volume, candidate population, fallback, monitoring, and change triggers. Avoid approving &quot;the AI agent&quot; as a whole when only search or drafting was evaluated.</p>
         <p>Use gates for prohibited or unrecoverable behavior and evidence maturity for the remaining dimensions. A high outcome score cannot offset uncontrolled messaging, inability to honor suppression, inaccessible candidate paths, missing audit state, or irrecoverable ATS writes. Record untested states separately from observed failures.</p>
         <p>Pair this guide with the <a href="/pilot-design">pilot protocol</a>, <a href="/screening-evaluation">screening evaluation</a>, and <a href="/sourcing-evaluation">sourcing evaluation</a> according to the agent&#x27;s tools. Re-test when autonomy, tools, data, channels, role families, jurisdictions, or vendor components change.</p>
         <aside class="evidence-callout" aria-label="Approve actions, not adjectives"><span>Decision rule</span><div><strong>Approve actions, not adjectives</strong> <p>Terms such as autonomous, copilot, or agentic do not define permissions or consequence. The operating boundary must.</p></div></aside>
       </div>
     </section>
 
-    <section class="section evidence-section" id="evidence"><div class="shell content-shell"><p class="eyebrow">Evidence register</p><h2>Sources used—and what they cannot prove.</h2><div class="source-citations">
-          <article class="source-citation"><span>voluntary framework</span><div><h3><a href="https://www.nist.gov/itl/ai-risk-management-framework">NIST — Artificial Intelligence Risk Management Framework 1.0</a></h3><p>A lifecycle structure for governing, mapping, measuring, and managing AI risk and trustworthiness characteristics.</p><small>Evidence limit: Use of the voluntary framework does not establish legal compliance, product quality, or fitness for a particular hiring process.</small></div></article>
-          <article class="source-citation"><span>voluntary framework</span><div><h3><a href="https://www.nist.gov/itl/ai-risk-management-framework/nist-ai-rmf-playbook">NIST — AI Risk Management Framework Playbook</a></h3><p>Suggested actions for applying the AI RMF functions across design, deployment, evaluation, and operation.</p><small>Evidence limit: The suggested actions are optional and use-case agnostic; they are not a certification checklist or employment-law opinion.</small></div></article>
-          <article class="source-citation"><span>government guidance</span><div><h3><a href="https://www.gov.uk/government/publications/responsible-ai-in-recruitment-guide/responsible-ai-in-recruitment">UK Department for Science, Innovation and Technology — Responsible AI in Recruitment</a></h3><p>Procurement and deployment questions covering purpose, governance, accessibility, assurance, testing, pilots, transparency, and monitoring.</p><small>Evidence limit: The guide expressly does not provide legal assurance and its examples are not universal deployment instructions.</small></div></article>
-          <article class="source-citation"><span>government guidance</span><div><h3><a href="https://ico.org.uk/action-weve-taken/audits-and-overview-reports/2024/11/ai-tools-used-in-recruitment/">UK Information Commissioner&#x27;s Office — AI Tools Used in Recruitment — Audit Outcomes</a></h3><p>Observed privacy and information-rights issues in recruitment sourcing, screening, and selection tools, plus remediation themes.</p><small>Evidence limit: Consensual audits of selected providers do not establish prevalence, legal status, or performance of another product.</small></div></article>
+    <section class="section download-section" id="downloads"><div class="shell content-shell"><p class="eyebrow">Reusable files</p><h2>Download the working materials</h2><div class="download-grid">
+          <a class="download-card" href="/downloads/ai-recruiting-evidence-register.csv" download><span>text/csv</span><strong>Evidence register</strong><small>A CSV ledger of the governance, audit, and first-party sources used in the reliability guide.</small></a>
+        </div></div></section>
+
+    <section class="section evidence-section" id="evidence"><div class="shell content-shell"><p class="eyebrow">Evidence register</p><h2>Sources used, and what they cannot prove.</h2><div class="source-citations">
+          <article class="source-citation"><span>voluntary framework</span><div><h3><a href="https://www.nist.gov/itl/ai-risk-management-framework">NIST: Artificial Intelligence Risk Management Framework 1.0</a></h3><p>A lifecycle structure for governing, mapping, measuring, and managing AI risk and trustworthiness characteristics.</p><small>Evidence limit: Use of the voluntary framework does not establish legal compliance, product quality, or fitness for a particular hiring process.</small></div></article>
+          <article class="source-citation"><span>voluntary framework</span><div><h3><a href="https://www.nist.gov/itl/ai-risk-management-framework/nist-ai-rmf-playbook">NIST: AI Risk Management Framework Playbook</a></h3><p>Suggested actions for applying the AI RMF functions across design, deployment, evaluation, and operation.</p><small>Evidence limit: The suggested actions are optional and use-case agnostic; they are not a certification checklist or employment-law opinion.</small></div></article>
+          <article class="source-citation"><span>government guidance</span><div><h3><a href="https://www.gov.uk/government/publications/responsible-ai-in-recruitment-guide/responsible-ai-in-recruitment">UK Department for Science, Innovation and Technology: Responsible AI in Recruitment</a></h3><p>Procurement and deployment questions covering purpose, governance, accessibility, assurance, testing, pilots, transparency, and monitoring.</p><small>Evidence limit: The guide expressly does not provide legal assurance and its examples are not universal deployment instructions.</small></div></article>
+          <article class="source-citation"><span>government guidance</span><div><h3><a href="https://ico.org.uk/action-weve-taken/audits-and-overview-reports/2024/11/ai-tools-used-in-recruitment/">UK Information Commissioner&#x27;s Office: AI Tools Used in Recruitment: Audit Outcomes</a></h3><p>Observed privacy and information-rights issues in recruitment sourcing, screening, and selection tools, plus remediation themes.</p><small>Evidence limit: Consensual audits of selected providers do not establish prevalence, legal status, or performance of another product.</small></div></article>
           <article class="source-citation first-party"><span>first-party research</span><div><h3><a href="https://metix.ai/research/agent-evaluation-done-right">Agent Evaluation, Done Right</a></h3><p>Metix presents a first-party component, trajectory, and outcome evaluation framework relevant to the three-layer structure used here.</p><small>Evidence limit: It is not independent assurance and does not establish thresholds or reliability for another deployed agent.</small></div></article>
           <article class="source-citation first-party"><span>first-party research</span><div><h3><a href="https://metix.ai/research/agent-performance-drift">Performance Drift in Agent Systems</a></h3><p>Metix discusses longitudinal production-agent evaluation as a first-party example of why one release test is insufficient.</p><small>Evidence limit: The paper does not prove that a particular system has or has not drifted, or quantify risk for a buyer.</small></div></article>
         </div><p class="relationship-note"><strong>Relationship disclosure:</strong> OpenJobs AI is now <a href="https://metix.ai/about">Metix AI</a>. Metix material is labeled first-party and is not treated as independent validation.</p></div></section>
@@ -322,6 +334,8 @@
           <details><summary>What makes a manual fallback adequate?</summary><p>An accountable person can pause the relevant scope, see current context and pending commitments, finish or correct the workflow, reconcile records, and prevent queued automation from resuming incorrectly.</p></details>
         </div></div></section>
     <section class="section"><div class="shell content-shell"><p class="eyebrow">Continue evaluating</p><h2>Use the next guide on the same real role.</h2><div class="related-grid">
+          <a class="related-card" href="/evaluation-scorecard"><span>Read next</span><strong>Evaluation Scorecard</strong></a>
+          <a class="related-card" href="/sources"><span>Read next</span><strong>Source and Evidence Ledger</strong></a>
           <a class="related-card" href="/pilot-design"><span>Read next</span><strong>Pilot Design</strong></a>
           <a class="related-card" href="/sourcing-evaluation"><span>Read next</span><strong>Sourcing Evaluation</strong></a>
           <a class="related-card" href="/screening-evaluation"><span>Read next</span><strong>Screening Evaluation</strong></a>

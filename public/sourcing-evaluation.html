@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>How to Evaluate AI Candidate Sourcing and Ranking | OpenJobs</title>
-  <meta name="description" content="Evaluate AI candidate sourcing with role decomposition, provenance, coverage, freshness, precision, recall proxies, ranking review, false negatives, and live outcomes.">
+  <meta name="description" content="Evaluate AI candidate sourcing with role analysis, provenance, coverage, freshness, precision, recall checks, ranking review, false negatives, and outcomes.">
   <meta name="robots" content="index, follow, max-image-preview:large">
   <meta name="theme-color" content="#f3f0e6">
   <link rel="canonical" href="https://openjobs.genedai.me/sourcing-evaluation">
@@ -28,7 +28,7 @@
       "@type": "Article",
       "@id": "https://openjobs.genedai.me/sourcing-evaluation#article",
       "headline": "How to Evaluate AI Candidate Sourcing and Ranking",
-      "description": "Evaluate AI candidate sourcing with role decomposition, provenance, coverage, freshness, precision, recall proxies, ranking review, false negatives, and live outcomes.",
+      "description": "Evaluate AI candidate sourcing with role analysis, provenance, coverage, freshness, precision, recall checks, ranking review, false negatives, and outcomes.",
       "datePublished": "2026-08-07",
       "dateModified": "2026-08-07",
       "author": {
@@ -42,11 +42,19 @@
         "url": "https://openjobs.genedai.me/"
       },
       "mainEntityOfPage": "https://openjobs.genedai.me/sourcing-evaluation",
-      "encoding": {
-        "@type": "MediaObject",
-        "contentUrl": "https://openjobs.genedai.me/sourcing-evaluation.md",
-        "encodingFormat": "text/markdown"
-      },
+      "encoding": [
+        {
+          "@type": "MediaObject",
+          "contentUrl": "https://openjobs.genedai.me/sourcing-evaluation.md",
+          "encodingFormat": "text/markdown"
+        },
+        {
+          "@type": "MediaObject",
+          "name": "Evidence register",
+          "contentUrl": "https://openjobs.genedai.me/downloads/ai-recruiting-evidence-register.csv",
+          "encodingFormat": "text/csv"
+        }
+      ],
       "about": [
         {
           "@type": "Thing",
@@ -127,7 +135,7 @@
   </header>
   <main id="main">
     <div class="shell"><nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Guide</a><span aria-hidden="true">/</span><span aria-current="page">Sourcing Evaluation</span></nav></div>
-    <section class="page-hero library-hero"><div class="shell"><p class="eyebrow">Retrieval quality under a review budget</p><h1>A large candidate pool matters only if the right evidence reaches the reviewer.</h1><p class="page-deck">AI candidate sourcing should be evaluated as a retrieval and ranking workflow, not by database size or a handful of impressive profiles. Test how the system interprets a role, covers the relevant population, ranks evidence within a fixed review budget, and learns from misses without hiding them.</p><p class="review-note">Last substantive review: August 7, 2026 · General evaluation guidance, not legal advice.</p></div></section>
+    <section class="page-hero library-hero"><div class="shell"><p class="eyebrow">Retrieval quality under a review budget</p><h1>Evaluate AI candidate sourcing with a fixed review budget.</h1><p class="page-deck">AI candidate sourcing should be evaluated as a retrieval and ranking workflow, not by database size or a handful of impressive profiles. Test how the system interprets a role, covers the relevant population, ranks evidence within a fixed review budget, and learns from misses without hiding them.</p><p class="review-note">Last substantive review: August 7, 2026 · General evaluation guidance, not legal advice.</p></div></section>
     <section class="section toc-section"><div class="shell content-shell"><p class="eyebrow">On this page</p><ol class="table-of-contents">
             <li><a href="#retrieval-task"><span>01</span>Turn the role into a testable retrieval task.</a></li>
             <li><a href="#provenance-coverage"><span>02</span>Evaluate source provenance, coverage, refresh, and exclusions together.</a></li>
@@ -232,7 +240,7 @@
           <div><p class="eyebrow">Inspect misses</p><h2>Review false positives and false negatives as different product failures.</h2></div>
         </div>
         <p>A false positive consumes review or outreach capacity and may create poor candidate contact. A false negative removes opportunity before a conversation. Sample both. False negatives are harder to observe because the system does not present them, so use known qualified cases, lower-ranked samples, alternate queries, source comparisons, and hiring-manager nominations to search for misses.</p>
-        <p>Classify the failure location: brief parsing, title normalization, skill inference, seniority, geography, source absence, stale data, query generation, embedding, reranking, hard filter, deduplication, or human label disagreement. A single “bad match” bucket cannot guide remediation and encourages changing the entire model for a data or configuration problem.</p>
+        <p>Classify the failure location: brief parsing, title normalization, skill inference, seniority, geography, source absence, stale data, query generation, embedding, reranking, hard filter, deduplication, or human label disagreement. A single &quot;bad match&quot; bucket cannot guide remediation and encourages changing the entire model for a data or configuration problem.</p>
         <p>Look for asymmetric failure patterns across role types, career paths, languages, and sources. A system can meet an average target while systematically losing nontraditional evidence or overvaluing famous employers. Do not claim demographic fairness without appropriate data and analysis, but do not ignore repeated qualitative patterns because a pilot lacks power for a formal estimate.</p>
         <ul class="content-list">
           <li><strong>Unsupported leap.</strong> The summary claims a requirement that the underlying profile does not evidence.</li>
@@ -282,17 +290,21 @@
           <div><p class="eyebrow">Make the call</p><h2>Approve a sourcing system for a defined role family and review budget.</h2></div>
         </div>
         <p>The sourcing decision should state the tested role families, geographies, languages, sources, review cutoff, required provenance, explanation behavior, acceptable stale and duplicate handling, human review, and monitoring. It should also state where the system is not approved, including screening or autonomous outreach if those functions were not tested.</p>
-        <p>Compare the system to a current workflow using accepted quality and reviewer labor, not only profile volume or search speed. A smaller, more inspectable pool may outperform a larger ranking if it reduces cleanup and unsupported inference. Conversely, high precision in the top ten may not satisfy a role that requires broader exploration or uncommon backgrounds.</p>
+        <p>Compare the system to a current workflow using accepted quality and reviewer labor. Profile volume and search speed are secondary. A smaller, more inspectable pool may outperform a larger ranking if it reduces cleanup and unsupported inference. Conversely, high precision in the top ten may not satisfy a role that requires broader exploration or uncommon backgrounds.</p>
         <p>Use the <a href="/vendor-checklist">vendor checklist</a> for data and commercial questions and the <a href="/pilot-design">pilot design</a> for a bounded live test. Preserve the failed cases as future regression tests rather than deleting them after a query fix.</p>
         <aside class="evidence-callout" aria-label="Name the review budget"><span>Approval scope</span><div><strong>Name the review budget</strong> <p>A sourcing result is only meaningful at the number of profiles the team can consistently inspect with the agreed evidence standard.</p></div></aside>
       </div>
     </section>
 
-    <section class="section evidence-section" id="evidence"><div class="shell content-shell"><p class="eyebrow">Evidence register</p><h2>Sources used—and what they cannot prove.</h2><div class="source-citations">
-          <article class="source-citation"><span>voluntary framework</span><div><h3><a href="https://www.nist.gov/itl/ai-risk-management-framework">NIST — Artificial Intelligence Risk Management Framework 1.0</a></h3><p>A lifecycle structure for governing, mapping, measuring, and managing AI risk and trustworthiness characteristics.</p><small>Evidence limit: Use of the voluntary framework does not establish legal compliance, product quality, or fitness for a particular hiring process.</small></div></article>
-          <article class="source-citation"><span>professional practice</span><div><h3><a href="https://www.opm.gov/policy-data-oversight/assessment-and-selection/job-analysis/">U.S. Office of Personnel Management — Job Analysis</a></h3><p>A practical account of job analysis as the foundation for defining tasks, competencies, and assessment content.</p><small>Evidence limit: Federal personnel practice does not by itself validate a private-sector role brief or every automated assessment.</small></div></article>
-          <article class="source-citation"><span>government guidance</span><div><h3><a href="https://www.gov.uk/government/publications/responsible-ai-in-recruitment-guide/responsible-ai-in-recruitment">UK Department for Science, Innovation and Technology — Responsible AI in Recruitment</a></h3><p>Procurement and deployment questions covering purpose, governance, accessibility, assurance, testing, pilots, transparency, and monitoring.</p><small>Evidence limit: The guide expressly does not provide legal assurance and its examples are not universal deployment instructions.</small></div></article>
-          <article class="source-citation"><span>government guidance</span><div><h3><a href="https://ico.org.uk/action-weve-taken/audits-and-overview-reports/2024/11/ai-tools-used-in-recruitment/">UK Information Commissioner&#x27;s Office — AI Tools Used in Recruitment — Audit Outcomes</a></h3><p>Observed privacy and information-rights issues in recruitment sourcing, screening, and selection tools, plus remediation themes.</p><small>Evidence limit: Consensual audits of selected providers do not establish prevalence, legal status, or performance of another product.</small></div></article>
+    <section class="section download-section" id="downloads"><div class="shell content-shell"><p class="eyebrow">Reusable files</p><h2>Download the working materials</h2><div class="download-grid">
+          <a class="download-card" href="/downloads/ai-recruiting-evidence-register.csv" download><span>text/csv</span><strong>Evidence register</strong><small>A CSV ledger of the sources used for retrieval, ranking, governance, and data-provenance guidance.</small></a>
+        </div></div></section>
+
+    <section class="section evidence-section" id="evidence"><div class="shell content-shell"><p class="eyebrow">Evidence register</p><h2>Sources used, and what they cannot prove.</h2><div class="source-citations">
+          <article class="source-citation"><span>voluntary framework</span><div><h3><a href="https://www.nist.gov/itl/ai-risk-management-framework">NIST: Artificial Intelligence Risk Management Framework 1.0</a></h3><p>A lifecycle structure for governing, mapping, measuring, and managing AI risk and trustworthiness characteristics.</p><small>Evidence limit: Use of the voluntary framework does not establish legal compliance, product quality, or fitness for a particular hiring process.</small></div></article>
+          <article class="source-citation"><span>professional practice</span><div><h3><a href="https://www.opm.gov/policy-data-oversight/assessment-and-selection/job-analysis/">U.S. Office of Personnel Management: Job Analysis</a></h3><p>A practical account of job analysis as the foundation for defining tasks, competencies, and assessment content.</p><small>Evidence limit: Federal personnel practice does not by itself validate a private-sector role brief or every automated assessment.</small></div></article>
+          <article class="source-citation"><span>government guidance</span><div><h3><a href="https://www.gov.uk/government/publications/responsible-ai-in-recruitment-guide/responsible-ai-in-recruitment">UK Department for Science, Innovation and Technology: Responsible AI in Recruitment</a></h3><p>Procurement and deployment questions covering purpose, governance, accessibility, assurance, testing, pilots, transparency, and monitoring.</p><small>Evidence limit: The guide expressly does not provide legal assurance and its examples are not universal deployment instructions.</small></div></article>
+          <article class="source-citation"><span>government guidance</span><div><h3><a href="https://ico.org.uk/action-weve-taken/audits-and-overview-reports/2024/11/ai-tools-used-in-recruitment/">UK Information Commissioner&#x27;s Office: AI Tools Used in Recruitment: Audit Outcomes</a></h3><p>Observed privacy and information-rights issues in recruitment sourcing, screening, and selection tools, plus remediation themes.</p><small>Evidence limit: Consensual audits of selected providers do not establish prevalence, legal status, or performance of another product.</small></div></article>
           <article class="source-citation first-party"><span>first-party research</span><div><h3><a href="https://metix.ai/research/mira-embeddings-v1">Mira-Embeddings-V1: Domain-Adapted Semantic Reranking for Recruitment</a></h3><p>The Metix paper reports Recall@K and Precision@K under stated local and global protocols, offering a first-party example of why pool, cutoff, labels, and reranking stage must stay visible.</p><small>Evidence limit: The reported results are protocol-specific and do not independently establish end-to-end sourcing quality, live candidate outcomes, or fairness.</small></div></article>
         </div><p class="relationship-note"><strong>Relationship disclosure:</strong> OpenJobs AI is now <a href="https://metix.ai/about">Metix AI</a>. Metix material is labeled first-party and is not treated as independent validation.</p></div></section>
     <section class="section section-signal" id="faq"><div class="shell content-shell"><p class="eyebrow">Questions teams ask</p><h2>Frequently asked questions</h2><div class="faq-list">
@@ -302,6 +314,8 @@
           <details><summary>Can an LLM judge candidate relevance for an evaluation?</summary><p>It can assist if its rubric and agreement with qualified human review are tested. Model judgments should not be treated as ground truth without validation and error analysis.</p></details>
         </div></div></section>
     <section class="section"><div class="shell content-shell"><p class="eyebrow">Continue evaluating</p><h2>Use the next guide on the same real role.</h2><div class="related-grid">
+          <a class="related-card" href="/evaluation-scorecard"><span>Read next</span><strong>Evaluation Scorecard</strong></a>
+          <a class="related-card" href="/sources"><span>Read next</span><strong>Source and Evidence Ledger</strong></a>
           <a class="related-card" href="/pilot-design"><span>Read next</span><strong>Pilot Design</strong></a>
           <a class="related-card" href="/screening-evaluation"><span>Read next</span><strong>Screening Evaluation</strong></a>
           <a class="related-card" href="/vendor-checklist"><span>Read next</span><strong>Vendor Checklist</strong></a>

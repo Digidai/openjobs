@@ -14,8 +14,8 @@ Use this checklist before a contract or broad pilot. It asks vendors to demonstr
 - [Ask for artifacts that could disconfirm the sales claim.](#proof-not-promises)
 - [Trace where candidate and evaluation data comes from and where it goes.](#data-and-provenance)
 - [Evaluate the process from the candidate's side, including the exit path.](#candidate-impact)
-- [Test permissions, writes, messages, and fallback—not only integrations on a slide.](#actions-and-integrations)
-- [Price the operating model, not just the software seat.](#operations-and-commercials)
+- [Test permissions, writes, messages, and fallback under failure.](#actions-and-integrations)
+- [Price the full operating model, including the work outside the software.](#operations-and-commercials)
 - [End with a decision record, open risks, and a testable pilot.](#decision-record)
 
 ## 1. Define the problem before the product category.
@@ -33,7 +33,7 @@ Invite talent acquisition, the hiring manager, people operations, IT or security
 
 ## 2. Classify the system by the decision it changes.
 
-AI recruiting products often combine several layers: job-description assistance, search, ranking, enrichment, messaging, chat, assessment, scheduling, analytics, or human delivery. Ask the vendor to draw the production workflow, including third-party models, data providers, human reviewers, ATS writes, email or messaging channels, and manual exception handling. A box labeled “AI” is not an architecture.
+AI recruiting products often combine several layers: job-description assistance, search, ranking, enrichment, messaging, chat, assessment, scheduling, analytics, or human delivery. Ask the vendor to draw the production workflow, including third-party models, data providers, human reviewers, ATS writes, email or messaging channels, and manual exception handling. A box labeled "AI" is not an architecture.
 
 Then identify the highest-impact output. A tool that drafts a Boolean query under review presents different risks from one that filters applicants, scores an interview, or sends candidate communications. The evaluation depth should follow the consequence and reversibility of the action. High volume does not automatically mean high risk, but it can multiply a small error quickly.
 
@@ -51,7 +51,7 @@ Table: Recruiting system categories and the evidence they most need
 
 ## 3. Ask for artifacts that could disconfirm the sales claim.
 
-A useful answer identifies an artifact, owner, scope, and limitation. “We are accurate” is not an answer; a test report with task definition, labeled sample, threshold, group results, failure cases, and date may be. “We keep humans in the loop” is not an answer; a permissions screen, approval log, rejected action, and manual takeover can show how the control works.
+A useful answer identifies an artifact, owner, scope, and limitation. "We are accurate" is not an answer; a test report with task definition, labeled sample, threshold, group results, failure cases, and date may be. "We keep humans in the loop" is not an answer; a permissions screen, approval log, rejected action, and manual takeover can show how the control works.
 
 Request examples that are difficult rather than merely diverse in appearance: borderline qualifications, title ambiguity, career gaps, international experience, nontraditional paths, stale records, contradictory sources, accessibility needs, and uncertain replies. Ask to inspect rejected or lower-ranked cases. Selecting only high-confidence successes inflates the apparent quality of every system.
 
@@ -60,7 +60,7 @@ Separate company-level assurances from workflow evidence. Security reports, priv
 1. **Claim.** Write the promise using the vendor's words without broadening it.
 2. **Artifact.** Name the report, log, configuration, sample, or operating record needed.
 3. **Failure case.** Ask what result would cause the vendor and buyer to reject or narrow the claim.
-4. **Transfer test.** Explain why evidence from one customer, role, or benchmark should apply to this workflow—or mark the gap.
+4. **Transfer test.** Explain why evidence from one customer, role, or benchmark should apply to this workflow. If it does not, mark the gap.
 
 ## 4. Trace where candidate and evaluation data comes from and where it goes.
 
@@ -79,13 +79,13 @@ Map every transfer and retention location, including model providers, subprocess
 
 Ask what candidates are told about AI use, what information is evaluated, how they request an accommodation, whether an alternative path exists, how they correct relevant data, and how they reach a person. Notice is not meaningful when it arrives after a consequential action or uses language that the candidate cannot connect to the actual process.
 
-Test the complete candidate journey with keyboard navigation, assistive technology where appropriate, mobile and low-bandwidth conditions, multiple languages, time limits, interruptions, and error recovery. WCAG can inform web testing, while ADA.gov emphasizes that hiring technology should measure job skills rather than disability and should support reasonable accommodations. Neither is replaced by a vendor saying its interface is “accessible.”
+Test the complete candidate journey with keyboard navigation, assistive technology where appropriate, mobile and low-bandwidth conditions, multiple languages, time limits, interruptions, and error recovery. WCAG can inform web testing, while ADA.gov emphasizes that hiring technology should measure job skills rather than disability and should support reasonable accommodations. Neither is replaced by a vendor saying its interface is "accessible."
 
 Inspect how the system treats uncertain or incomplete data and how human reviewers see confidence. Ask whether candidates can be rejected solely from automated output, whether reviewers can access the underlying evidence, and whether an appeal or reassessment changes the record. A human click does not create meaningful oversight if the person lacks time, authority, or explanation.
 
-> **Procurement gate — No invisible dead end** A candidate-facing workflow should have a visible route for accommodation, correction, questions, and human escalation before the pilot begins.
+> **Procurement gate: No invisible dead end** A candidate-facing workflow should have a visible route for accommodation, correction, questions, and human escalation before the pilot begins.
 
-## 6. Test permissions, writes, messages, and fallback—not only integrations on a slide.
+## 6. Test permissions, writes, messages, and fallback under failure.
 
 Ask the vendor to demonstrate the exact ATS, CRM, calendar, identity, and communication flows the buyer will use. Inspect field mappings, duplicate handling, retries, idempotency, permissions, error states, audit logs, and what happens when the downstream system is unavailable. A connector logo does not prove production depth or data fidelity.
 
@@ -98,13 +98,13 @@ Apply least privilege. A search agent does not need permission to reject an appl
 - **Approval scope.** Which actions require review, and can that policy be enforced rather than merely recommended?
 - **Recovery scope.** Can the team replay, reverse, reconcile, or finish failed work without data loss or duplicate contact?
 
-## 7. Price the operating model, not just the software seat.
+## 7. Price the full operating model, including the work outside the software.
 
 Build total cost around the evaluated workflow: subscription or usage, implementation, integration, data, model or communication overages, security review, training, change management, recruiter operation, manager review, quality assurance, candidate support, compliance work, and switching. Ask which labor is performed by the vendor, the buyer, or a partner and whether that boundary changes by plan.
 
 Compare remedy terms to the promised outcome. A credit for a failed search, a rerun, a replacement, service support, and a refund are different. Record definitions for a role, candidate, introduction, contact, screen, interview, usage unit, and expiration. Do not turn a marketing phrase into a contractual commitment unless the governing order form or terms say the same thing.
 
-Evaluate viability without pretending to predict the company. Review support coverage, incident communication, roadmap dependency, data portability, exit assistance, subcontractors, and business continuity. Reference calls should ask what required manual work, what broke, how long remediation took, and what the customer would scope differently—not whether they “like the AI.”
+Evaluate viability without pretending to predict the company. Review support coverage, incident communication, roadmap dependency, data portability, exit assistance, subcontractors, and business continuity. Reference calls should ask what required manual work, what broke, how long remediation took, and what the customer would scope differently. Whether they "like the AI" is less useful.
 
 Table: Cost categories to include in a vendor comparison
 
@@ -120,41 +120,47 @@ Table: Cost categories to include in a vendor comparison
 
 The output of evaluation is not a completed spreadsheet. It is a decision record naming the selected scope, evidence reviewed, unresolved questions, rejected alternatives, accountable owners, required controls, commercial assumptions, and conditions for stopping or expanding. Missing evidence can be an explicit risk acceptance, a pilot question, or a reason not to proceed; it should not disappear into an average score.
 
-Translate the remaining uncertainty into a narrow pilot. Choose one or a small number of representative roles, preserve a current baseline, predefine quality, sample both selected and rejected cases, limit candidate exposure, measure human labor, and schedule review checkpoints. The [pilot design guide](/pilot-design) gives a protocol rather than a generic “try it and see.”
+Translate the remaining uncertainty into a narrow pilot. Choose one or a small number of representative roles, preserve a current baseline, predefine quality, sample both selected and rejected cases, limit candidate exposure, measure human labor, and schedule review checkpoints. The [pilot design guide](/pilot-design) gives a protocol instead of a generic "try it and see."
 
 Download the question bank and adapt weights only after the gating questions are answered. The template is intentionally vendor-neutral and contains no pre-filled vendor scores. Evidence links and notes remain with the buyer rather than being submitted to this site.
 
-> **Red flags — Pause before contract** Pause when the vendor will not define the evaluated system, show failure cases, identify data sources, explain external-action controls, support a bounded pilot, or put material commercial promises in the governing agreement.
+> **Red flags: Pause before contract** Pause when the vendor will not define the evaluated system, show failure cases, identify data sources, explain external-action controls, support a bounded pilot, or put material commercial promises in the governing agreement.
 
 ## Sources and evidence limits
 
-- **Voluntary Framework: [NIST — Artificial Intelligence Risk Management Framework 1.0](https://www.nist.gov/itl/ai-risk-management-framework)**
+- **Voluntary Framework: [NIST: Artificial Intelligence Risk Management Framework 1.0](https://www.nist.gov/itl/ai-risk-management-framework)**
   - Supports: A lifecycle structure for governing, mapping, measuring, and managing AI risk and trustworthiness characteristics.
   - Does not prove: Use of the voluntary framework does not establish legal compliance, product quality, or fitness for a particular hiring process.
-- **Government Guidance: [U.S. Equal Employment Opportunity Commission — Employment Tests and Selection Procedures](https://www.eeoc.gov/laws/guidance/employment-tests-and-selection-procedures)**
+- **Government Guidance: [U.S. Equal Employment Opportunity Commission: Employment Tests and Selection Procedures](https://www.eeoc.gov/laws/guidance/employment-tests-and-selection-procedures)**
   - Supports: Technical assistance on job-related selection procedures, discriminatory impact, validation, and employer responsibility.
   - Does not prove: The page describes federal considerations but does not determine whether a specific tool, employer, or use is lawful.
-- **Government Guidance: [ADA.gov, U.S. Department of Justice — Algorithms, Artificial Intelligence, and Disability Discrimination in Hiring](https://www.ada.gov/resources/ai-guidance/)**
+- **Government Guidance: [ADA.gov, U.S. Department of Justice: Algorithms, Artificial Intelligence, and Disability Discrimination in Hiring](https://www.ada.gov/resources/ai-guidance/)**
   - Supports: Guidance on disability-related screening risk, accommodations, accessibility, notice, and measuring job skills rather than disability.
   - Does not prove: The informal guidance is not a final agency action and cannot decide whether a particular process complies with the ADA.
-- **Government Guidance: [UK Department for Science, Innovation and Technology — Responsible AI in Recruitment](https://www.gov.uk/government/publications/responsible-ai-in-recruitment-guide/responsible-ai-in-recruitment)**
+- **Government Guidance: [UK Department for Science, Innovation and Technology: Responsible AI in Recruitment](https://www.gov.uk/government/publications/responsible-ai-in-recruitment-guide/responsible-ai-in-recruitment)**
   - Supports: Procurement and deployment questions covering purpose, governance, accessibility, assurance, testing, pilots, transparency, and monitoring.
   - Does not prove: The guide expressly does not provide legal assurance and its examples are not universal deployment instructions.
-- **Government Guidance: [UK Information Commissioner's Office — AI Tools Used in Recruitment — Audit Outcomes](https://ico.org.uk/action-weve-taken/audits-and-overview-reports/2024/11/ai-tools-used-in-recruitment/)**
+- **Government Guidance: [UK Information Commissioner's Office: AI Tools Used in Recruitment: Audit Outcomes](https://ico.org.uk/action-weve-taken/audits-and-overview-reports/2024/11/ai-tools-used-in-recruitment/)**
   - Supports: Observed privacy and information-rights issues in recruitment sourcing, screening, and selection tools, plus remediation themes.
   - Does not prove: Consensual audits of selected providers do not establish prevalence, legal status, or performance of another product.
-- **Technical Standard: [World Wide Web Consortium — Web Content Accessibility Guidelines 2.2](https://www.w3.org/TR/WCAG22/)**
+- **Technical Standard: [World Wide Web Consortium: Web Content Accessibility Guidelines 2.2](https://www.w3.org/TR/WCAG22/)**
   - Supports: Testable web-content accessibility criteria across perceivability, operability, understandability, and robustness.
   - Does not prove: WCAG conformance covers web content and does not by itself prove that an end-to-end hiring process is accessible or lawful.
-- **Binding Rule: [New York City Department of Consumer and Worker Protection — Automated Employment Decision Tools](https://www.nyc.gov/site/dca/about/automated-employment-decision-tools.page)**
+- **Binding Rule: [New York City Department of Consumer and Worker Protection: Automated Employment Decision Tools](https://www.nyc.gov/site/dca/about/automated-employment-decision-tools.page)**
   - Supports: Official access to Local Law 144 materials on covered AEDT use, bias audits, public summaries, and candidate or employee notices.
   - Does not prove: The overview does not determine whether a system or use falls within the law's definitions or satisfies its requirements.
-- **Government Guidance: [European Commission — Navigating the AI Act](https://digital-strategy.ec.europa.eu/en/faqs/navigating-ai-act)**
+- **Government Guidance: [European Commission: Navigating the AI Act](https://digital-strategy.ec.europa.eu/en/faqs/navigating-ai-act)**
   - Supports: Current Commission explanations of scope, risk classification, employment use cases, obligations, and implementation timing.
   - Does not prove: The FAQ is explanatory, timing can change, and classification depends on intended purpose and the facts of a deployment.
 - **First-party research: [Hiring Outcomes, Not More Software](https://metix.ai/blog/hiring-outcomes-not-software)**
   - Context: Metix offers a first-party view of an outcome-delivery model that buyers can subject to the same workflow, labor, remedy, and pilot questions in this checklist.
   - Does not prove: This is a vendor perspective, not an independent comparison or proof of return on investment.
+
+## Downloads
+
+- [Vendor checklist spreadsheet](https://openjobs.genedai.me/downloads/ai-recruiting-vendor-checklist.csv): Forty-eight procurement questions with evidence requests, red flags, gates, and use-case scope. (text/csv)
+- [Vendor question bank](https://openjobs.genedai.me/data/vendor-checklist.json): The same question set as structured JSON for agents, internal tools, and procurement systems. (application/json)
+- [Evidence register](https://openjobs.genedai.me/downloads/ai-recruiting-evidence-register.csv): A CSV ledger of source type, jurisdiction, review date, supported use, and limitation. (text/csv)
 
 ## Frequently asked questions
 
@@ -176,8 +182,8 @@ Define the claim, request the relevant artifact, test it on a buyer-controlled c
 
 ## Related evaluation guides
 
-- [AI Recruiting Evaluation Methodology](https://openjobs.genedai.me/methodology)
-- [AI Recruiting Pilot Design and Metrics](https://openjobs.genedai.me/pilot-design)
+- [AI Recruiting Evaluation Methodology Guide](https://openjobs.genedai.me/methodology)
+- [AI Recruiting Pilot Design and Metrics Guide](https://openjobs.genedai.me/pilot-design)
 - [Evaluation Scorecard](https://openjobs.genedai.me/evaluation-scorecard)
 
 Relationship disclosure: OpenJobs AI is now [Metix AI](https://metix.ai/about). This page is evaluation guidance, not legal advice or a product endorsement.

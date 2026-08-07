@@ -86,8 +86,8 @@
       "family": "time",
       "metric": "Time to first accepted slate",
       "definition": "Elapsed time from approval of the frozen role brief to the first set of recommendations accepted for deeper review.",
-      "numerator": "Not applicable — duration metric",
-      "denominator": "Not applicable — duration metric",
+      "numerator": "Not applicable: duration metric",
+      "denominator": "Not applicable: duration metric",
       "collection": "Timestamp role approval, system start, pauses, delivery, and manager acceptance; report paused time separately.",
       "interpretation_limit": "Does not capture later candidate interest, interview quality, or hidden labor.",
       "gate": false
@@ -97,8 +97,8 @@
       "family": "time",
       "metric": "Time to interview-ready handoff",
       "definition": "Elapsed time from approved brief to a qualified and interested person accepted for scheduling with evidence and context.",
-      "numerator": "Not applicable — duration metric",
-      "denominator": "Not applicable — duration metric",
+      "numerator": "Not applicable: duration metric",
+      "denominator": "Not applicable: duration metric",
       "collection": "Timestamp each funnel state and distinguish buyer delay, vendor service time, and candidate response time.",
       "interpretation_limit": "Role difficulty and market conditions limit comparison across roles.",
       "gate": false
@@ -108,8 +108,8 @@
       "family": "time",
       "metric": "Median incident recovery time",
       "definition": "Median elapsed time from detection of a pilot incident to contained effect and reconciled workflow state.",
-      "numerator": "Not applicable — duration metric",
-      "denominator": "Not applicable — duration metric",
+      "numerator": "Not applicable: duration metric",
+      "denominator": "Not applicable: duration metric",
       "collection": "Record detection, containment, correction, candidate action, reconciliation, and return-to-service timestamps.",
       "interpretation_limit": "A small pilot may have too few incidents for a stable summary; preserve case severity and detail.",
       "gate": true
@@ -188,7 +188,7 @@
       "numerator": "External actions with a verified control or execution error",
       "denominator": "All external actions executed in the pilot",
       "collection": "Reconcile proposed, approved, executed, retried, corrected, and rolled-back events.",
-      "interpretation_limit": "Low-frequency severe events require a gate and case review, not only an average percentage.",
+      "interpretation_limit": "Low-frequency severe events require a gate and case review because an average percentage can hide them.",
       "gate": true
     },
     {

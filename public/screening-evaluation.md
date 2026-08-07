@@ -1,4 +1,4 @@
-# How to Evaluate AI Candidate Screening
+# How to Evaluate AI Candidate Screening Guide
 
 Canonical HTML: https://openjobs.genedai.me/screening-evaluation
 Last substantive review: 2026-08-07
@@ -12,7 +12,7 @@ AI screening evaluation starts with the job, not the model. Define the construct
 - [Identify what the screening output changes in the hiring process.](#decision-role)
 - [Connect every scored dimension to current job evidence.](#job-analysis)
 - [Structure the core questions and scoring without erasing necessary accommodation.](#structured-administration)
-- [Ask whether evidence supports the score's intended use—not whether the model is generally accurate.](#validity-reliability)
+- [Ask whether the evidence supports the score's intended use.](#validity-reliability)
 - [Examine selection impact and error patterns without turning one ratio into a compliance verdict.](#impact-analysis)
 - [Test the complete process for accessibility, accommodation, and alternative paths.](#accessibility)
 - [Give reviewers evidence, time, authority, and a reason to disagree.](#human-review)
@@ -33,7 +33,7 @@ Determine which jurisdictions, roles, and candidate populations are in scope bef
 
 ## 2. Connect every scored dimension to current job evidence.
 
-Use a current job analysis to identify important tasks, competencies, context, and minimum qualifications. The OPM job-analysis guidance describes this foundation, while EEOC materials address job-related selection procedures. A generic model score such as “leadership,” “culture fit,” or “communication” is not self-validating; define the behavior, why it matters for this role, and what evidence can support it.
+Use a current job analysis to identify important tasks, competencies, context, and minimum qualifications. The OPM job-analysis guidance describes this foundation, while EEOC materials address job-related selection procedures. A generic model score such as "leadership," "culture fit," or "communication" is not self-validating; define the behavior, why it matters for this role, and what evidence can support it.
 
 Distinguish minimum eligibility, trainable skill, preference, and speculative predictor. Avoid treating education, employer prestige, career continuity, accent, facial behavior, typing style, or vocabulary as a competency without a defensible link to the work. Proxy variables can appear objective while measuring access or background rather than ability to perform the job.
 
@@ -62,13 +62,13 @@ Table: Structure to define before an AI-assisted screen
 | Delivery | Time, channel, language, accessibility, interruption, and recovery. | Whether interface behavior affects the score. |
 | Review | What evidence the human sees and what they can correct or override. | Automation bias, time pressure, and auditability. |
 
-## 4. Ask whether evidence supports the score's intended use—not whether the model is generally accurate.
+## 4. Ask whether the evidence supports the score's intended use.
 
 Validity concerns the interpretation and use of the screening output for the stated decision. Request the argument connecting job analysis, construct, content, response, scoring, threshold, and relevant outcome. Evidence for one occupation, language, population, or use may not transfer to another. A general LLM benchmark does not validate an employment screen.
 
 Reliability and consistency support but do not replace validity. Test repeated scoring, reviewer agreement, model-version movement, and sensitivity to irrelevant changes. A perfectly consistent measure of the wrong construct remains unsuitable. Conversely, legitimate open-ended evidence can contain uncertainty that should be represented rather than hidden behind excessive decimal precision.
 
-Review the sample and label source. Who decided which answers were strong? Were raters trained and blinded? Were disagreements adjudicated? Are protected or relevant subgroups represented well enough for the reported analysis? Are thresholds chosen before or after seeing outcomes? Request limitations and negative results, not only an aggregate accuracy number.
+Review the sample and label source. Who decided which answers were strong? Were raters trained and blinded? Were disagreements adjudicated? Are protected or relevant subgroups represented well enough for the reported analysis? Are thresholds chosen before or after seeing outcomes? Request limitations and negative results alongside the aggregate accuracy number.
 
 - **Content evidence.** Does the assessment represent important parts of the work and competency definition?
 - **Response process.** Do candidates and the system engage with the question as intended?
@@ -80,11 +80,11 @@ Review the sample and label source. Who decided which answers were strong? Were 
 
 Review advancement, score, error, and missing-data patterns for relevant groups where lawful, appropriate, and statistically supportable. The Uniform Guidelines and official NYC materials illustrate that impact analysis has defined contexts and methods. A vendor's generic fairness dashboard or one favorable ratio cannot determine compliance for the buyer's use.
 
-Inspect false positives and false negatives, not only selection rates. A system can produce similar aggregate rates while making different kinds of errors or measuring a proxy differently. Examine intersectional and accessibility-sensitive cases where sample design permits, and record when data is unavailable or too sparse for a stable estimate.
+Inspect false positives and false negatives alongside selection rates. A system can produce similar aggregate rates while making different kinds of errors or measuring a proxy differently. Examine intersectional and accessibility-sensitive cases where sample design permits, and record when data is unavailable or too sparse for a stable estimate.
 
 Investigate causes across job definition, question content, training data, labels, missingness, interface, transcription, language, scoring model, threshold, reviewer behavior, and downstream use. Mitigation should address the failure rather than tune a number until one report passes. Re-test after mitigation and monitor in operation.
 
-> **Interpretation limit — A bias audit is not a universal approval** Confirm scope, auditor independence, data period, selection process, groups, metrics, exclusions, and whether the audited configuration matches the proposed use.
+> **Interpretation limit: A bias audit is not a universal approval** Confirm scope, auditor independence, data period, selection process, groups, metrics, exclusions, and whether the audited configuration matches the proposed use.
 
 ## 6. Test the complete process for accessibility, accommodation, and alternative paths.
 
@@ -132,39 +132,43 @@ Table: Screening monitoring signals and investigation questions
 
 ## Sources and evidence limits
 
-- **Government Guidance: [U.S. Equal Employment Opportunity Commission — Employment Tests and Selection Procedures](https://www.eeoc.gov/laws/guidance/employment-tests-and-selection-procedures)**
+- **Government Guidance: [U.S. Equal Employment Opportunity Commission: Employment Tests and Selection Procedures](https://www.eeoc.gov/laws/guidance/employment-tests-and-selection-procedures)**
   - Supports: Technical assistance on job-related selection procedures, discriminatory impact, validation, and employer responsibility.
   - Does not prove: The page describes federal considerations but does not determine whether a specific tool, employer, or use is lawful.
-- **Binding Rule: [Electronic Code of Federal Regulations — 29 CFR Part 1607 — Uniform Guidelines on Employee Selection Procedures](https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XIV/part-1607)**
+- **Binding Rule: [Electronic Code of Federal Regulations: 29 CFR Part 1607: Uniform Guidelines on Employee Selection Procedures](https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XIV/part-1607)**
   - Supports: The federal text governing documentation, impact, and validity evidence for covered employee selection procedures.
   - Does not prove: Reading the regulation does not resolve coverage, statistical sufficiency, defenses, or obligations in a particular matter.
-- **Government Guidance: [ADA.gov, U.S. Department of Justice — Algorithms, Artificial Intelligence, and Disability Discrimination in Hiring](https://www.ada.gov/resources/ai-guidance/)**
+- **Government Guidance: [ADA.gov, U.S. Department of Justice: Algorithms, Artificial Intelligence, and Disability Discrimination in Hiring](https://www.ada.gov/resources/ai-guidance/)**
   - Supports: Guidance on disability-related screening risk, accommodations, accessibility, notice, and measuring job skills rather than disability.
   - Does not prove: The informal guidance is not a final agency action and cannot decide whether a particular process complies with the ADA.
-- **Professional Practice: [U.S. Office of Personnel Management — Job Analysis](https://www.opm.gov/policy-data-oversight/assessment-and-selection/job-analysis/)**
+- **Professional Practice: [U.S. Office of Personnel Management: Job Analysis](https://www.opm.gov/policy-data-oversight/assessment-and-selection/job-analysis/)**
   - Supports: A practical account of job analysis as the foundation for defining tasks, competencies, and assessment content.
   - Does not prove: Federal personnel practice does not by itself validate a private-sector role brief or every automated assessment.
-- **Professional Practice: [U.S. Office of Personnel Management — Structured Interviews](https://www.opm.gov/policy-data-oversight/assessment-and-selection/structured-interviews/)**
+- **Professional Practice: [U.S. Office of Personnel Management: Structured Interviews](https://www.opm.gov/policy-data-oversight/assessment-and-selection/structured-interviews/)**
   - Supports: Guidance on using predetermined job-related questions, consistent administration, and common rating standards.
   - Does not prove: Structure improves comparability but does not guarantee validity, fairness, accessibility, or a correct hiring decision.
-- **Government Guidance: [UK Department for Science, Innovation and Technology — Responsible AI in Recruitment](https://www.gov.uk/government/publications/responsible-ai-in-recruitment-guide/responsible-ai-in-recruitment)**
+- **Government Guidance: [UK Department for Science, Innovation and Technology: Responsible AI in Recruitment](https://www.gov.uk/government/publications/responsible-ai-in-recruitment-guide/responsible-ai-in-recruitment)**
   - Supports: Procurement and deployment questions covering purpose, governance, accessibility, assurance, testing, pilots, transparency, and monitoring.
   - Does not prove: The guide expressly does not provide legal assurance and its examples are not universal deployment instructions.
-- **Government Guidance: [UK Information Commissioner's Office — AI Tools Used in Recruitment — Audit Outcomes](https://ico.org.uk/action-weve-taken/audits-and-overview-reports/2024/11/ai-tools-used-in-recruitment/)**
+- **Government Guidance: [UK Information Commissioner's Office: AI Tools Used in Recruitment: Audit Outcomes](https://ico.org.uk/action-weve-taken/audits-and-overview-reports/2024/11/ai-tools-used-in-recruitment/)**
   - Supports: Observed privacy and information-rights issues in recruitment sourcing, screening, and selection tools, plus remediation themes.
   - Does not prove: Consensual audits of selected providers do not establish prevalence, legal status, or performance of another product.
-- **Technical Standard: [World Wide Web Consortium — Web Content Accessibility Guidelines 2.2](https://www.w3.org/TR/WCAG22/)**
+- **Technical Standard: [World Wide Web Consortium: Web Content Accessibility Guidelines 2.2](https://www.w3.org/TR/WCAG22/)**
   - Supports: Testable web-content accessibility criteria across perceivability, operability, understandability, and robustness.
   - Does not prove: WCAG conformance covers web content and does not by itself prove that an end-to-end hiring process is accessible or lawful.
-- **Binding Rule: [New York City Department of Consumer and Worker Protection — Automated Employment Decision Tools](https://www.nyc.gov/site/dca/about/automated-employment-decision-tools.page)**
+- **Binding Rule: [New York City Department of Consumer and Worker Protection: Automated Employment Decision Tools](https://www.nyc.gov/site/dca/about/automated-employment-decision-tools.page)**
   - Supports: Official access to Local Law 144 materials on covered AEDT use, bias audits, public summaries, and candidate or employee notices.
   - Does not prove: The overview does not determine whether a system or use falls within the law's definitions or satisfies its requirements.
-- **Government Guidance: [European Commission — Navigating the AI Act](https://digital-strategy.ec.europa.eu/en/faqs/navigating-ai-act)**
+- **Government Guidance: [European Commission: Navigating the AI Act](https://digital-strategy.ec.europa.eu/en/faqs/navigating-ai-act)**
   - Supports: Current Commission explanations of scope, risk classification, employment use cases, obligations, and implementation timing.
   - Does not prove: The FAQ is explanatory, timing can change, and classification depends on intended purpose and the facts of a deployment.
 - **First-party research: [When AI Meets Recruiting: Opportunities, Challenges, and Future Directions](https://metix.ai/research/ai-meets-recruiting)**
   - Context: The Metix literature review maps sourcing, matching, and assessment across a recruitment lifecycle and identifies bias, explainability, feedback, and oversight as open deployment questions.
   - Does not prove: This first-party review does not validate a screening construct, product, employer process, or legal outcome.
+
+## Downloads
+
+- [Evidence register](https://openjobs.genedai.me/downloads/ai-recruiting-evidence-register.csv): A CSV ledger covering selection guidance, accessibility, public rules, standards, and first-party research. (text/csv)
 
 ## Frequently asked questions
 
@@ -187,7 +191,7 @@ No. Review can help only when the person has evidence, competence, time, authori
 ## Related evaluation guides
 
 - [How to Evaluate AI Candidate Sourcing and Ranking](https://openjobs.genedai.me/sourcing-evaluation)
-- [AI Recruiting Pilot Design and Metrics](https://openjobs.genedai.me/pilot-design)
+- [AI Recruiting Pilot Design and Metrics Guide](https://openjobs.genedai.me/pilot-design)
 - [AI Recruiting Agent Reliability Evaluation](https://openjobs.genedai.me/agent-reliability)
 
 Relationship disclosure: OpenJobs AI is now [Metix AI](https://metix.ai/about). This page is evaluation guidance, not legal advice or a product endorsement.

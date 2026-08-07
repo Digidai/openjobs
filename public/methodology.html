@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AI Recruiting Evaluation Methodology | OpenJobs</title>
-  <meta name="description" content="Use a transparent AI recruiting evaluation methodology that separates claims, demos, pilot evidence, operating results, limitations, and legal scope.">
+  <title>AI Recruiting Evaluation Methodology Guide | OpenJobs</title>
+  <meta name="description" content="Use this AI recruiting evaluation methodology to separate claims, demos, pilot findings, operating evidence, limitations, and legal scope before scoring.">
   <meta name="robots" content="index, follow, max-image-preview:large">
   <meta name="theme-color" content="#f3f0e6">
   <link rel="canonical" href="https://openjobs.genedai.me/methodology">
@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="/assets/site.css">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="OpenJobs Archive">
-  <meta property="og:title" content="AI Recruiting Evaluation Methodology">
+  <meta property="og:title" content="AI Recruiting Evaluation Methodology Guide">
   <meta property="og:description" content="This methodology evaluates an AI recruiting system in the context of one defined workflow. It separates vendor claims from observed evidence, tests both successful and failed cases, and records what a source cannot establish before anyone assigns a score.">
   <meta property="og:url" content="https://openjobs.genedai.me/methodology">
   <meta property="og:image" content="https://openjobs.genedai.me/og-image.svg">
@@ -27,8 +27,8 @@
     {
       "@type": "Article",
       "@id": "https://openjobs.genedai.me/methodology#article",
-      "headline": "AI Recruiting Evaluation Methodology",
-      "description": "Use a transparent AI recruiting evaluation methodology that separates claims, demos, pilot evidence, operating results, limitations, and legal scope.",
+      "headline": "AI Recruiting Evaluation Methodology Guide",
+      "description": "Use this AI recruiting evaluation methodology to separate claims, demos, pilot findings, operating evidence, limitations, and legal scope before scoring.",
       "datePublished": "2026-08-07",
       "dateModified": "2026-08-07",
       "author": {
@@ -42,11 +42,19 @@
         "url": "https://openjobs.genedai.me/"
       },
       "mainEntityOfPage": "https://openjobs.genedai.me/methodology",
-      "encoding": {
-        "@type": "MediaObject",
-        "contentUrl": "https://openjobs.genedai.me/methodology.md",
-        "encodingFormat": "text/markdown"
-      },
+      "encoding": [
+        {
+          "@type": "MediaObject",
+          "contentUrl": "https://openjobs.genedai.me/methodology.md",
+          "encodingFormat": "text/markdown"
+        },
+        {
+          "@type": "MediaObject",
+          "name": "Evidence register",
+          "contentUrl": "https://openjobs.genedai.me/downloads/ai-recruiting-evidence-register.csv",
+          "encodingFormat": "text/csv"
+        }
+      ],
       "about": [
         {
           "@type": "Thing",
@@ -127,7 +135,7 @@
   </header>
   <main id="main">
     <div class="shell"><nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Guide</a><span aria-hidden="true">/</span><span aria-current="page">Evaluation Methodology</span></nav></div>
-    <section class="page-hero library-hero"><div class="shell"><p class="eyebrow">How this library reaches a judgment</p><h1>A score is useful only when its evidence survives inspection.</h1><p class="page-deck">This methodology evaluates an AI recruiting system in the context of one defined workflow. It separates vendor claims from observed evidence, tests both successful and failed cases, and records what a source cannot establish before anyone assigns a score.</p><p class="review-note">Last substantive review: August 7, 2026 · General evaluation guidance, not legal advice.</p></div></section>
+    <section class="page-hero library-hero"><div class="shell"><p class="eyebrow">How this library reaches a judgment</p><h1>A practical AI recruiting evaluation methodology for one real workflow.</h1><p class="page-deck">This methodology evaluates an AI recruiting system in the context of one defined workflow. It separates vendor claims from observed evidence, tests both successful and failed cases, and records what a source cannot establish before anyone assigns a score.</p><p class="review-note">Last substantive review: August 7, 2026 · General evaluation guidance, not legal advice.</p></div></section>
     <section class="section toc-section"><div class="shell content-shell"><p class="eyebrow">On this page</p><ol class="table-of-contents">
             <li><a href="#unit-of-evaluation"><span>01</span>Define the decision before collecting evidence.</a></li>
             <li><a href="#evidence-ladder"><span>02</span>Use an evidence ladder instead of treating every artifact equally.</a></li>
@@ -167,11 +175,11 @@
             <caption>Evidence levels used throughout the OpenJobs evaluation library</caption>
             <thead><tr><th scope="col">Level</th><th scope="col">What it can support</th><th scope="col">What remains unresolved</th></tr></thead>
             <tbody>
-              <tr><td>0 — assertion</td><td>The vendor or reviewer states that a capability exists.</td><td>Whether it exists, works, or applies to the evaluated configuration.</td></tr>
-              <tr><td>1 — artifact</td><td>Documentation, a screenshot, policy, or model card describes intended behavior.</td><td>Whether behavior matches the artifact in practice.</td></tr>
-              <tr><td>2 — demonstration</td><td>A reviewer observes the workflow on prepared or buyer-provided examples.</td><td>Repeatability, selection effects, and real operating conditions.</td></tr>
-              <tr><td>3 — controlled test</td><td>A pre-specified test includes successes, failures, and relevant comparison points.</td><td>Longitudinal behavior and downstream hiring outcomes.</td></tr>
-              <tr><td>4 — operating evidence</td><td>The system produces repeatable results on real roles with auditable labor, errors, and outcomes.</td><td>Generalization to new roles, populations, jurisdictions, or changed components.</td></tr>
+              <tr><td>0: assertion</td><td>The vendor or reviewer states that a capability exists.</td><td>Whether it exists, works, or applies to the evaluated configuration.</td></tr>
+              <tr><td>1: artifact</td><td>Documentation, a screenshot, policy, or model card describes intended behavior.</td><td>Whether behavior matches the artifact in practice.</td></tr>
+              <tr><td>2: demonstration</td><td>A reviewer observes the workflow on prepared or buyer-provided examples.</td><td>Repeatability, selection effects, and real operating conditions.</td></tr>
+              <tr><td>3: controlled test</td><td>A pre-specified test includes successes, failures, and relevant comparison points.</td><td>Longitudinal behavior and downstream hiring outcomes.</td></tr>
+              <tr><td>4: operating evidence</td><td>The system produces repeatable results on real roles with auditable labor, errors, and outcomes.</td><td>Generalization to new roles, populations, jurisdictions, or changed components.</td></tr>
             </tbody>
           </table>
         </div>
@@ -184,11 +192,11 @@
           <span class="kicker-number" aria-hidden="true">03</span>
           <div><p class="eyebrow">Make claims testable</p><h2>Turn each important promise into a claim register.</h2></div>
         </div>
-        <p>Break broad promises such as “better candidates,” “bias-free screening,” or “fully automated recruiting” into observable claims. For each claim, record the owner, population, metric, comparison, time window, required artifact, known limitation, and decision that depends on it. If a claim cannot name a population or decision, it is probably too vague to score.</p>
+        <p>Break broad promises such as &quot;better candidates,&quot; &quot;bias-free screening,&quot; or &quot;fully automated recruiting&quot; into observable claims. For each claim, record the owner, population, metric, comparison, time window, required artifact, known limitation, and decision that depends on it. If a claim cannot name a population or decision, it is probably too vague to score.</p>
         <p>Request denominators and exclusions. Ten accepted candidates says little without knowing how many were retrieved, reviewed, contacted, interested, or rejected. A response rate needs sender, channel, audience, time window, bounce handling, follow-up rule, and definition of response. An accuracy number needs the task, label source, sample, threshold, and error distribution. This is especially important where automated output influences selection and the employer remains responsible for how it is used.</p>
         <p>Negative evidence belongs in the same register. Document unsupported inferences, stale records, missing groups, accessibility failures, inconsistent explanations, duplicate messages, and cases where the human reviewer overrode the system. A method that captures only showcase cases measures presentation quality, not operational reliability.</p>
         <ol class="procedure-list">
-          <li><span>01</span><div><strong>Write the claim precisely.</strong> Replace “saves time” with the activity, baseline, people, period, and unit of labor expected to change.</div></li>
+          <li><span>01</span><div><strong>Write the claim precisely.</strong> Replace &quot;saves time&quot; with the activity, baseline, people, period, and unit of labor expected to change.</div></li>
           <li><span>02</span><div><strong>Name the confirming artifact.</strong> Specify the log, sample, labeled set, interview outcome, time record, or candidate feedback needed.</div></li>
           <li><span>03</span><div><strong>Pre-agree the disconfirming result.</strong> Define which error, threshold, or missing record would weaken or reject the claim.</div></li>
           <li><span>04</span><div><strong>Record the remaining uncertainty.</strong> A passed test narrows uncertainty; it rarely removes every deployment or legal question.</div></li>
@@ -204,8 +212,8 @@
         </div>
         <p>This library uses ordinal scores to organize discussion, not to manufacture a universal ranking. A difference between 2 and 3 means the evidence moved from a limited pilot toward repeatable and auditable operation. It does not mean the system became exactly one unit safer, fairer, or more valuable. Weighting also belongs to the buyer: outreach control may be decisive for an agent that sends messages and irrelevant for an offline search benchmark.</p>
         <p>Use gates before totals. An inaccessible candidate path, an unowned external action, missing selection-validity evidence, or inability to pause the system can stop deployment even if other dimensions score highly. Then compare alternatives using the same role and evidence request. Do not compensate for a critical zero by adding points from dashboard polish or feature breadth.</p>
-        <p>Decision language should remain conditional: stop; investigate; run a narrow reversible pilot; continue under named controls; or expand after new evidence. “Approved,” “compliant,” and “safe” require authorities and scopes that a general scorecard does not possess.</p>
-        <aside class="evidence-callout" aria-label="No averaging across unknowns"><span>Scoring rule</span><div><strong>No averaging across unknowns</strong> <p>Keep “not tested” distinct from a failed result. Missing evidence is a procurement risk, but it is not evidence that the system always fails.</p></div></aside>
+        <p>Decision language should remain conditional: stop; investigate; run a narrow reversible pilot; continue under named controls; or expand after new evidence. &quot;Approved,&quot; &quot;compliant,&quot; and &quot;safe&quot; require authorities and scopes that a general scorecard does not possess.</p>
+        <aside class="evidence-callout" aria-label="No averaging across unknowns"><span>Scoring rule</span><div><strong>No averaging across unknowns</strong> <p>Keep &quot;not tested&quot; distinct from a failed result. Missing evidence is a procurement risk, but it is not evidence that the system always fails.</p></div></aside>
       </div>
     </section>
 
@@ -244,12 +252,16 @@
       </div>
     </section>
 
-    <section class="section evidence-section" id="evidence"><div class="shell content-shell"><p class="eyebrow">Evidence register</p><h2>Sources used—and what they cannot prove.</h2><div class="source-citations">
-          <article class="source-citation"><span>voluntary framework</span><div><h3><a href="https://www.nist.gov/itl/ai-risk-management-framework">NIST — Artificial Intelligence Risk Management Framework 1.0</a></h3><p>A lifecycle structure for governing, mapping, measuring, and managing AI risk and trustworthiness characteristics.</p><small>Evidence limit: Use of the voluntary framework does not establish legal compliance, product quality, or fitness for a particular hiring process.</small></div></article>
-          <article class="source-citation"><span>voluntary framework</span><div><h3><a href="https://www.nist.gov/itl/ai-risk-management-framework/nist-ai-rmf-playbook">NIST — AI Risk Management Framework Playbook</a></h3><p>Suggested actions for applying the AI RMF functions across design, deployment, evaluation, and operation.</p><small>Evidence limit: The suggested actions are optional and use-case agnostic; they are not a certification checklist or employment-law opinion.</small></div></article>
-          <article class="source-citation"><span>government guidance</span><div><h3><a href="https://www.eeoc.gov/laws/guidance/employment-tests-and-selection-procedures">U.S. Equal Employment Opportunity Commission — Employment Tests and Selection Procedures</a></h3><p>Technical assistance on job-related selection procedures, discriminatory impact, validation, and employer responsibility.</p><small>Evidence limit: The page describes federal considerations but does not determine whether a specific tool, employer, or use is lawful.</small></div></article>
-          <article class="source-citation"><span>government guidance</span><div><h3><a href="https://www.gov.uk/government/publications/responsible-ai-in-recruitment-guide/responsible-ai-in-recruitment">UK Department for Science, Innovation and Technology — Responsible AI in Recruitment</a></h3><p>Procurement and deployment questions covering purpose, governance, accessibility, assurance, testing, pilots, transparency, and monitoring.</p><small>Evidence limit: The guide expressly does not provide legal assurance and its examples are not universal deployment instructions.</small></div></article>
-          <article class="source-citation"><span>government guidance</span><div><h3><a href="https://ico.org.uk/action-weve-taken/audits-and-overview-reports/2024/11/ai-tools-used-in-recruitment/">UK Information Commissioner&#x27;s Office — AI Tools Used in Recruitment — Audit Outcomes</a></h3><p>Observed privacy and information-rights issues in recruitment sourcing, screening, and selection tools, plus remediation themes.</p><small>Evidence limit: Consensual audits of selected providers do not establish prevalence, legal status, or performance of another product.</small></div></article>
+    <section class="section download-section" id="downloads"><div class="shell content-shell"><p class="eyebrow">Reusable files</p><h2>Download the working materials</h2><div class="download-grid">
+          <a class="download-card" href="/downloads/ai-recruiting-evidence-register.csv" download><span>text/csv</span><strong>Evidence register</strong><small>A CSV ledger of every source, its scope, review date, supported use, and evidence limit.</small></a>
+        </div></div></section>
+
+    <section class="section evidence-section" id="evidence"><div class="shell content-shell"><p class="eyebrow">Evidence register</p><h2>Sources used, and what they cannot prove.</h2><div class="source-citations">
+          <article class="source-citation"><span>voluntary framework</span><div><h3><a href="https://www.nist.gov/itl/ai-risk-management-framework">NIST: Artificial Intelligence Risk Management Framework 1.0</a></h3><p>A lifecycle structure for governing, mapping, measuring, and managing AI risk and trustworthiness characteristics.</p><small>Evidence limit: Use of the voluntary framework does not establish legal compliance, product quality, or fitness for a particular hiring process.</small></div></article>
+          <article class="source-citation"><span>voluntary framework</span><div><h3><a href="https://www.nist.gov/itl/ai-risk-management-framework/nist-ai-rmf-playbook">NIST: AI Risk Management Framework Playbook</a></h3><p>Suggested actions for applying the AI RMF functions across design, deployment, evaluation, and operation.</p><small>Evidence limit: The suggested actions are optional and use-case agnostic; they are not a certification checklist or employment-law opinion.</small></div></article>
+          <article class="source-citation"><span>government guidance</span><div><h3><a href="https://www.eeoc.gov/laws/guidance/employment-tests-and-selection-procedures">U.S. Equal Employment Opportunity Commission: Employment Tests and Selection Procedures</a></h3><p>Technical assistance on job-related selection procedures, discriminatory impact, validation, and employer responsibility.</p><small>Evidence limit: The page describes federal considerations but does not determine whether a specific tool, employer, or use is lawful.</small></div></article>
+          <article class="source-citation"><span>government guidance</span><div><h3><a href="https://www.gov.uk/government/publications/responsible-ai-in-recruitment-guide/responsible-ai-in-recruitment">UK Department for Science, Innovation and Technology: Responsible AI in Recruitment</a></h3><p>Procurement and deployment questions covering purpose, governance, accessibility, assurance, testing, pilots, transparency, and monitoring.</p><small>Evidence limit: The guide expressly does not provide legal assurance and its examples are not universal deployment instructions.</small></div></article>
+          <article class="source-citation"><span>government guidance</span><div><h3><a href="https://ico.org.uk/action-weve-taken/audits-and-overview-reports/2024/11/ai-tools-used-in-recruitment/">UK Information Commissioner&#x27;s Office: AI Tools Used in Recruitment: Audit Outcomes</a></h3><p>Observed privacy and information-rights issues in recruitment sourcing, screening, and selection tools, plus remediation themes.</p><small>Evidence limit: Consensual audits of selected providers do not establish prevalence, legal status, or performance of another product.</small></div></article>
           <article class="source-citation first-party"><span>first-party research</span><div><h3><a href="https://metix.ai/research/agent-evaluation-done-right">Agent Evaluation, Done Right</a></h3><p>Metix describes a component, trajectory, and outcome evaluation model that can be tested against this library&#x27;s evidence ladder.</p><small>Evidence limit: This is first-party engineering research, not independent assurance or proof of results in a buyer&#x27;s workflow.</small></div></article>
         </div><p class="relationship-note"><strong>Relationship disclosure:</strong> OpenJobs AI is now <a href="https://metix.ai/about">Metix AI</a>. Metix material is labeled first-party and is not treated as independent validation.</p></div></section>
     <section class="section section-signal" id="faq"><div class="shell content-shell"><p class="eyebrow">Questions teams ask</p><h2>Frequently asked questions</h2><div class="faq-list">
@@ -259,9 +271,10 @@
           <details><summary>When should an evaluation be repeated?</summary><p>Repeat it after material changes to purpose, models, data sources, integrations, candidate populations, jurisdictions, controls, or observed failure patterns.</p></details>
         </div></div></section>
     <section class="section"><div class="shell content-shell"><p class="eyebrow">Continue evaluating</p><h2>Use the next guide on the same real role.</h2><div class="related-grid">
+          <a class="related-card" href="/evaluation-scorecard"><span>Read next</span><strong>Evaluation Scorecard</strong></a>
+          <a class="related-card" href="/sources"><span>Read next</span><strong>Source and Evidence Ledger</strong></a>
           <a class="related-card" href="/vendor-checklist"><span>Read next</span><strong>Vendor Checklist</strong></a>
           <a class="related-card" href="/pilot-design"><span>Read next</span><strong>Pilot Design</strong></a>
-          <a class="related-card" href="/evaluation-scorecard"><span>Read next</span><strong>Evaluation Scorecard</strong></a>
         </div></div></section>
   </main>
   <footer class="site-footer"><div class="shell"><p class="footer-note">OpenJobs Archive publishes source-backed evaluation tools. OpenJobs AI is now Metix AI; the archive applies the same evidence rules to first-party material.</p><nav class="footer-links" aria-label="Footer navigation"><a href="/methodology">Methodology</a><a href="/sources">Sources</a><a href="/llms.txt">Agent resources</a><a href="https://metix.ai/">Metix AI</a><a href="https://github.com/Digidai/openjobs">GitHub</a></nav></div></footer>

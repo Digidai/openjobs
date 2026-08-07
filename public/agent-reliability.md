@@ -102,7 +102,7 @@ Design manual takeover before an incident. People need the approved brief, candi
 
 Incident response should classify candidate, data, access, communication, selection, integration, and model-quality events; preserve evidence; contain the effect; correct records; notify owners; support affected people; and define return-to-service evidence. Near misses and repeated overrides belong in review even when no external effect occurs.
 
-> **Reliability gate — A system that cannot stop safely is not ready to act broadly** Require buyer-visible pause, queue handling, manual context, and tested recovery before increasing external-action volume or autonomy.
+> **Reliability gate: A system that cannot stop safely is not ready to act broadly** Require buyer-visible pause, queue handling, manual context, and tested recovery before increasing external-action volume or autonomy.
 
 ## 7. Monitor performance by version, role, trajectory, and consequence.
 
@@ -133,26 +133,26 @@ Review vendor change obligations and evidence access in procurement. Ask how cus
 
 ## 9. Decide which actions the agent may take, under which controls and monitoring.
 
-The final decision should name the approved purpose, roles, environment, data, tools, read and write permissions, external actions, approval rules, volume, candidate population, fallback, monitoring, and change triggers. Avoid approving “the AI agent” as a whole when only search or drafting was evaluated.
+The final decision should name the approved purpose, roles, environment, data, tools, read and write permissions, external actions, approval rules, volume, candidate population, fallback, monitoring, and change triggers. Avoid approving "the AI agent" as a whole when only search or drafting was evaluated.
 
 Use gates for prohibited or unrecoverable behavior and evidence maturity for the remaining dimensions. A high outcome score cannot offset uncontrolled messaging, inability to honor suppression, inaccessible candidate paths, missing audit state, or irrecoverable ATS writes. Record untested states separately from observed failures.
 
 Pair this guide with the [pilot protocol](/pilot-design), [screening evaluation](/screening-evaluation), and [sourcing evaluation](/sourcing-evaluation) according to the agent's tools. Re-test when autonomy, tools, data, channels, role families, jurisdictions, or vendor components change.
 
-> **Decision rule — Approve actions, not adjectives** Terms such as autonomous, copilot, or agentic do not define permissions or consequence. The operating boundary must.
+> **Decision rule: Approve actions, not adjectives** Terms such as autonomous, copilot, or agentic do not define permissions or consequence. The operating boundary must.
 
 ## Sources and evidence limits
 
-- **Voluntary Framework: [NIST — Artificial Intelligence Risk Management Framework 1.0](https://www.nist.gov/itl/ai-risk-management-framework)**
+- **Voluntary Framework: [NIST: Artificial Intelligence Risk Management Framework 1.0](https://www.nist.gov/itl/ai-risk-management-framework)**
   - Supports: A lifecycle structure for governing, mapping, measuring, and managing AI risk and trustworthiness characteristics.
   - Does not prove: Use of the voluntary framework does not establish legal compliance, product quality, or fitness for a particular hiring process.
-- **Voluntary Framework: [NIST — AI Risk Management Framework Playbook](https://www.nist.gov/itl/ai-risk-management-framework/nist-ai-rmf-playbook)**
+- **Voluntary Framework: [NIST: AI Risk Management Framework Playbook](https://www.nist.gov/itl/ai-risk-management-framework/nist-ai-rmf-playbook)**
   - Supports: Suggested actions for applying the AI RMF functions across design, deployment, evaluation, and operation.
   - Does not prove: The suggested actions are optional and use-case agnostic; they are not a certification checklist or employment-law opinion.
-- **Government Guidance: [UK Department for Science, Innovation and Technology — Responsible AI in Recruitment](https://www.gov.uk/government/publications/responsible-ai-in-recruitment-guide/responsible-ai-in-recruitment)**
+- **Government Guidance: [UK Department for Science, Innovation and Technology: Responsible AI in Recruitment](https://www.gov.uk/government/publications/responsible-ai-in-recruitment-guide/responsible-ai-in-recruitment)**
   - Supports: Procurement and deployment questions covering purpose, governance, accessibility, assurance, testing, pilots, transparency, and monitoring.
   - Does not prove: The guide expressly does not provide legal assurance and its examples are not universal deployment instructions.
-- **Government Guidance: [UK Information Commissioner's Office — AI Tools Used in Recruitment — Audit Outcomes](https://ico.org.uk/action-weve-taken/audits-and-overview-reports/2024/11/ai-tools-used-in-recruitment/)**
+- **Government Guidance: [UK Information Commissioner's Office: AI Tools Used in Recruitment: Audit Outcomes](https://ico.org.uk/action-weve-taken/audits-and-overview-reports/2024/11/ai-tools-used-in-recruitment/)**
   - Supports: Observed privacy and information-rights issues in recruitment sourcing, screening, and selection tools, plus remediation themes.
   - Does not prove: Consensual audits of selected providers do not establish prevalence, legal status, or performance of another product.
 - **First-party research: [Agent Evaluation, Done Right](https://metix.ai/research/agent-evaluation-done-right)**
@@ -161,6 +161,10 @@ Pair this guide with the [pilot protocol](/pilot-design), [screening evaluation]
 - **First-party research: [Performance Drift in Agent Systems](https://metix.ai/research/agent-performance-drift)**
   - Context: Metix discusses longitudinal production-agent evaluation as a first-party example of why one release test is insufficient.
   - Does not prove: The paper does not prove that a particular system has or has not drifted, or quantify risk for a buyer.
+
+## Downloads
+
+- [Evidence register](https://openjobs.genedai.me/downloads/ai-recruiting-evidence-register.csv): A CSV ledger of the governance, audit, and first-party sources used in the reliability guide. (text/csv)
 
 ## Frequently asked questions
 
@@ -182,8 +186,8 @@ An accountable person can pause the relevant scope, see current context and pend
 
 ## Related evaluation guides
 
-- [AI Recruiting Pilot Design and Metrics](https://openjobs.genedai.me/pilot-design)
+- [AI Recruiting Pilot Design and Metrics Guide](https://openjobs.genedai.me/pilot-design)
 - [How to Evaluate AI Candidate Sourcing and Ranking](https://openjobs.genedai.me/sourcing-evaluation)
-- [How to Evaluate AI Candidate Screening](https://openjobs.genedai.me/screening-evaluation)
+- [How to Evaluate AI Candidate Screening Guide](https://openjobs.genedai.me/screening-evaluation)
 
 Relationship disclosure: OpenJobs AI is now [Metix AI](https://metix.ai/about). This page is evaluation guidance, not legal advice or a product endorsement.

@@ -1,4 +1,4 @@
-# AI Recruiting Pilot Design and Metrics
+# AI Recruiting Pilot Design and Metrics Guide
 
 Canonical HTML: https://openjobs.genedai.me/pilot-design
 Last substantive review: 2026-08-07
@@ -98,15 +98,15 @@ Keep vendor participation separate from final labeling. The vendor can explain s
 
 Stop conditions should be observable and tied to an owner. Examples include an external message sent outside approval, repeated contact after suppression, an inaccessible path without timely accommodation, a consequential status write that cannot be explained or reversed, material quality below the pre-agreed threshold, unexplained subgroup performance concerns, loss of audit data, or an integration creating duplicates.
 
-Specify what “stop” means: suspend sends, disable one tool, return to manual review, quarantine outputs, notify affected teams, preserve logs, contact candidates, correct records, or end the pilot. A kill switch that only the vendor can operate during limited support hours is not equivalent to buyer-controlled pause and fallback.
+Specify what "stop" means: suspend sends, disable one tool, return to manual review, quarantine outputs, notify affected teams, preserve logs, contact candidates, correct records, or end the pilot. A kill switch that only the vendor can operate during limited support hours is not equivalent to buyer-controlled pause and fallback.
 
 Recovery evidence is part of the pilot. Trigger a safe test failure where possible: unavailable ATS, rejected calendar write, duplicate record, model timeout, ambiguous reply, revoked permission, or reviewer correction. Observe whether the system contains the issue, communicates status, retries safely, and preserves enough context for a person to finish.
 
-> **Stop rule — Guardrails are not weighted metrics** Do not trade a serious candidate, data, or external-action control failure for faster delivery elsewhere in the scorecard.
+> **Stop rule: Guardrails are not weighted metrics** Do not trade a serious candidate, data, or external-action control failure for faster delivery elsewhere in the scorecard.
 
 ## 7. Operate the pilot with checkpoints, version control, and an evidence log.
 
-Create a pilot register containing the frozen brief, evaluated system version, configuration, owners, source list, permissions, sample frames, metric definitions, decisions, incidents, and changes. Schedule checkpoints early enough to alter exposure, not only a retrospective after the pilot has become production.
+Create a pilot register containing the frozen brief, evaluated system version, configuration, owners, source list, permissions, sample frames, metric definitions, decisions, incidents, and changes. Schedule checkpoints while the team can still change exposure. A retrospective after the pilot has become production is too late.
 
 Freeze material changes or record them as a new phase. A model update, new retrieval source, rewritten rubric, changed message policy, additional geography, or relaxed approval changes the evidence. If a fix is necessary, preserve pre-change and post-change results rather than blending them into one average.
 
@@ -125,28 +125,34 @@ Classify the result as stop, redesign, repeat, continue under current controls, 
 
 Do not use a short pilot to claim long-term quality of hire without the necessary time and outcome design. When later outcomes arrive, append them to the same role record and compare them with intermediate judgments. This turns a procurement event into a learning system without pretending every later result was caused by the tool.
 
-> **Expansion rule — Scale the boundary that passed** Increase volume, role diversity, autonomy, or jurisdiction one boundary at a time, with explicit evidence and monitoring for the newly exposed risk.
+> **Expansion rule: Scale the boundary that passed** Increase volume, role diversity, autonomy, or jurisdiction one boundary at a time, with explicit evidence and monitoring for the newly exposed risk.
 
 ## Sources and evidence limits
 
-- **Voluntary Framework: [NIST — Artificial Intelligence Risk Management Framework 1.0](https://www.nist.gov/itl/ai-risk-management-framework)**
+- **Voluntary Framework: [NIST: Artificial Intelligence Risk Management Framework 1.0](https://www.nist.gov/itl/ai-risk-management-framework)**
   - Supports: A lifecycle structure for governing, mapping, measuring, and managing AI risk and trustworthiness characteristics.
   - Does not prove: Use of the voluntary framework does not establish legal compliance, product quality, or fitness for a particular hiring process.
-- **Voluntary Framework: [NIST — AI Risk Management Framework Playbook](https://www.nist.gov/itl/ai-risk-management-framework/nist-ai-rmf-playbook)**
+- **Voluntary Framework: [NIST: AI Risk Management Framework Playbook](https://www.nist.gov/itl/ai-risk-management-framework/nist-ai-rmf-playbook)**
   - Supports: Suggested actions for applying the AI RMF functions across design, deployment, evaluation, and operation.
   - Does not prove: The suggested actions are optional and use-case agnostic; they are not a certification checklist or employment-law opinion.
-- **Professional Practice: [U.S. Office of Personnel Management — Job Analysis](https://www.opm.gov/policy-data-oversight/assessment-and-selection/job-analysis/)**
+- **Professional Practice: [U.S. Office of Personnel Management: Job Analysis](https://www.opm.gov/policy-data-oversight/assessment-and-selection/job-analysis/)**
   - Supports: A practical account of job analysis as the foundation for defining tasks, competencies, and assessment content.
   - Does not prove: Federal personnel practice does not by itself validate a private-sector role brief or every automated assessment.
-- **Government Guidance: [UK Department for Science, Innovation and Technology — Responsible AI in Recruitment](https://www.gov.uk/government/publications/responsible-ai-in-recruitment-guide/responsible-ai-in-recruitment)**
+- **Government Guidance: [UK Department for Science, Innovation and Technology: Responsible AI in Recruitment](https://www.gov.uk/government/publications/responsible-ai-in-recruitment-guide/responsible-ai-in-recruitment)**
   - Supports: Procurement and deployment questions covering purpose, governance, accessibility, assurance, testing, pilots, transparency, and monitoring.
   - Does not prove: The guide expressly does not provide legal assurance and its examples are not universal deployment instructions.
-- **Government Guidance: [UK Information Commissioner's Office — AI Tools Used in Recruitment — Audit Outcomes](https://ico.org.uk/action-weve-taken/audits-and-overview-reports/2024/11/ai-tools-used-in-recruitment/)**
+- **Government Guidance: [UK Information Commissioner's Office: AI Tools Used in Recruitment: Audit Outcomes](https://ico.org.uk/action-weve-taken/audits-and-overview-reports/2024/11/ai-tools-used-in-recruitment/)**
   - Supports: Observed privacy and information-rights issues in recruitment sourcing, screening, and selection tools, plus remediation themes.
   - Does not prove: Consensual audits of selected providers do not establish prevalence, legal status, or performance of another product.
 - **First-party research: [Agent Evaluation, Done Right](https://metix.ai/research/agent-evaluation-done-right)**
   - Context: Metix's first-party paper separates component, trajectory, and outcome evaluation; a buyer can use that separation to preserve evidence across a real-role pilot.
   - Does not prove: The paper does not supply an independent pilot result or determine appropriate thresholds for another employer.
+
+## Downloads
+
+- [Pilot measurement template](https://openjobs.genedai.me/downloads/ai-recruiting-pilot-template.csv): A CSV workbook starter with metric definitions, collection notes, gates, baseline, target, and result fields. (text/csv)
+- [Pilot metric bank](https://openjobs.genedai.me/data/pilot-metrics.json): Eighteen structured metrics across quality, intent, time, labor, candidate impact, and reliability. (application/json)
+- [Evidence register](https://openjobs.genedai.me/downloads/ai-recruiting-evidence-register.csv): A CSV ledger of the official and first-party sources used to design the protocol. (text/csv)
 
 ## Frequently asked questions
 

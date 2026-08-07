@@ -9,10 +9,10 @@
 
 ## Scoring scale
 
-- **0 — No evidence**
-- **1 — Claim or scripted demo only**
-- **2 — Pilot evidence with gaps**
-- **3 — Repeatable, auditable evidence**
+- **0: No evidence**
+- **1: Claim or scripted demo only**
+- **2: Pilot evidence with gaps**
+- **3: Repeatable, auditable evidence**
 
 Use evidence from a real workflow rather than a scripted demo.
 
@@ -20,7 +20,7 @@ Use evidence from a real workflow rather than a scripted demo.
 
 ### 1. Outcome definition
 
-The team agrees what “qualified, interested, and worth interviewing” means before reviewing results.
+The team agrees what "qualified, interested, and worth interviewing" means before reviewing results.
 
 ### 2. Brief fidelity
 
@@ -44,7 +44,7 @@ People can understand the process, request an accommodation, correct relevant da
 
 ### 7. Handoff quality
 
-The hiring team receives evidence, current interest, unresolved questions, and a clear next step—not another raw queue.
+The hiring team receives evidence, current interest, unresolved questions, and a clear next step. A raw queue does not meet this standard.
 
 ### 8. Audit and fallback
 
@@ -52,9 +52,18 @@ Inputs, edits, approvals, actions, and outcomes remain distinguishable; automati
 
 ## Interpretation
 
-- **0–8 — Stop:** Evidence or controls are too weak to proceed.
-- **9–16 — Narrow pilot only:** Limit scope, keep the workflow reversible, and close identified evidence gaps.
-- **17–24 — Ready for real-role validation:** The system has enough evidence to be tested on a real role; this is not a compliance or effectiveness conclusion.
+- **0 to 8, stop:** Evidence or controls are too weak to proceed.
+- **9 to 16, narrow pilot only:** Limit scope, keep the workflow reversible, and close identified evidence gaps.
+- **17 to 24, ready for real-role validation:** The system has enough evidence to be tested on a real role; this is not a compliance or effectiveness conclusion.
+
+## Deep review guides
+
+- [Vendor evaluation checklist](https://openjobs.genedai.me/vendor-checklist)
+- [Pilot design and metrics](https://openjobs.genedai.me/pilot-design)
+- [Sourcing and ranking evaluation](https://openjobs.genedai.me/sourcing-evaluation)
+- [Candidate screening evaluation](https://openjobs.genedai.me/screening-evaluation)
+- [Agent reliability evaluation](https://openjobs.genedai.me/agent-reliability)
+- [Evidence and scoring methodology](https://openjobs.genedai.me/methodology)
 
 ## Next step
 

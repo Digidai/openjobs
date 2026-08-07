@@ -33,6 +33,19 @@ SOURCE_TYPES = {
     "first-party-research",
 }
 INLINE_LINK = re.compile(r"\[([^\]]+)\]\((https?://[^)]+|/[^)]+)\)")
+FORBIDDEN_AI_PHRASES = (
+    "at its core",
+    "delve into",
+    "evolving landscape",
+    "here's what you need to know",
+    "let's dive",
+    "not just",
+    "not only",
+    "serves as",
+    "stands as",
+    "the real question is",
+    "what really matters",
+)
 
 
 def load_content() -> dict:
@@ -96,6 +109,7 @@ def validate_content(data: dict) -> list[str]:
             "meta_description",
             "summary",
             "primary_query",
+            "downloads",
             "sections",
             "faqs",
             "source_ids",
@@ -112,8 +126,11 @@ def validate_content(data: dict) -> list[str]:
         if page["meta_description"] in descriptions:
             errors.append(f"page {slug} duplicates its meta description")
         descriptions.add(page["meta_description"])
-        if not 120 <= len(page["meta_description"]) <= 170:
-            errors.append(f"page {slug} meta description must be 120-170 characters")
+        full_title = f"{page['title']} | OpenJobs"
+        if not 50 <= len(full_title) <= 60:
+            errors.append(f"page {slug} title tag must be 50-60 characters")
+        if not 150 <= len(page["meta_description"]) <= 160:
+            errors.append(f"page {slug} meta description must be 150-160 characters")
         if len(page["sections"]) < 5:
             errors.append(f"page {slug} needs at least five substantive sections")
         if len(page["faqs"]) < 4:
@@ -132,6 +149,28 @@ def validate_content(data: dict) -> list[str]:
                 errors.append(f"page {slug} has a non-canonical Metix reference")
             if not reference.get("limitation"):
                 errors.append(f"page {slug} Metix reference needs an evidence limitation")
+        for download in page["downloads"]:
+            missing_download_fields = {"title", "description", "href", "format"} - set(download)
+            if missing_download_fields:
+                errors.append(f"page {slug} download missing {sorted(missing_download_fields)}")
+            if not download.get("href", "").startswith(("/downloads/", "/data/")):
+                errors.append(f"page {slug} download must use a local data or downloads path")
+
+    editorial_text = json.dumps(
+        {
+            "pages": pages,
+            "vendor_questions": data.get("vendor_questions", []),
+            "pilot_metrics": data.get("pilot_metrics", []),
+        },
+        ensure_ascii=False,
+    )
+    for character, name in (("—", "em dash"), ("–", "en dash"), ("“", "curly opening quote"), ("”", "curly closing quote")):
+        if character in editorial_text:
+            errors.append(f"editorial content contains a Humanizer-blocked {name}")
+    lowered_editorial_text = editorial_text.casefold()
+    for phrase in FORBIDDEN_AI_PHRASES:
+        if phrase in lowered_editorial_text:
+            errors.append(f"editorial content contains Humanizer-blocked phrase: {phrase}")
 
     vendor_questions = data.get("vendor_questions", [])
     vendor_fields = {"id", "category", "question", "evidence", "red_flag", "gate", "applies_to"}
@@ -287,7 +326,18 @@ def render_page_html(data: dict, page: dict) -> str:
             "author": {"@type": "Organization", "name": "OpenJobs Archive Editors", "url": "https://github.com/Digidai/openjobs"},
             "publisher": {"@type": "Organization", "name": "OpenJobs Archive", "url": f"{base}/"},
             "mainEntityOfPage": canonical,
-            "encoding": {"@type": "MediaObject", "contentUrl": markdown, "encodingFormat": "text/markdown"},
+            "encoding": [
+                {"@type": "MediaObject", "contentUrl": markdown, "encodingFormat": "text/markdown"},
+                *[
+                    {
+                        "@type": "MediaObject",
+                        "name": download["title"],
+                        "contentUrl": f"{base}{download['href']}",
+                        "encodingFormat": download["format"],
+                    }
+                    for download in page["downloads"]
+                ],
+            ],
             "about": [{"@type": "Thing", "name": page["primary_query"]}, {"@type": "Thing", "name": "AI recruiting"}],
             "inLanguage": "en-US",
         },
@@ -309,7 +359,7 @@ def render_page_html(data: dict, page: dict) -> str:
     sources = "\n".join(
         "          <article class=\"source-citation\">"
         f"<span>{escape(source_map[source_id]['source_type'].replace('-', ' '))}</span>"
-        f"<div><h3><a href=\"{escape(source_map[source_id]['url'], quote=True)}\">{escape(source_map[source_id]['organization'])} — {escape(source_map[source_id]['title'])}</a></h3>"
+        f"<div><h3><a href=\"{escape(source_map[source_id]['url'], quote=True)}\">{escape(source_map[source_id]['organization'])}: {escape(source_map[source_id]['title'])}</a></h3>"
         f"<p>{escape(source_map[source_id]['supports'])}</p><small>Evidence limit: {escape(source_map[source_id]['limitation'])}</small></div></article>"
         for source_id in page["source_ids"]
     )
@@ -324,10 +374,29 @@ def render_page_html(data: dict, page: dict) -> str:
         f"          <details><summary>{escape(faq['question'])}</summary><p>{render_inline(faq['answer'])}</p></details>"
         for faq in page["faqs"]
     )
+    downloads = "\n".join(
+        "          <a class=\"download-card\" "
+        f"href=\"{escape(download['href'], quote=True)}\" download>"
+        f"<span>{escape(download['format'])}</span><strong>{escape(download['title'])}</strong>"
+        f"<small>{escape(download['description'])}</small></a>"
+        for download in page["downloads"]
+    )
+    download_panel = ""
+    if downloads:
+        download_panel = (
+            "    <section class=\"section download-section\" id=\"downloads\"><div class=\"shell content-shell\">"
+            "<p class=\"eyebrow\">Reusable files</p><h2>Download the working materials</h2>"
+            f"<div class=\"download-grid\">\n{downloads}\n        </div></div></section>\n\n"
+        )
     page_map = {item["slug"]: item for item in data["pages"]}
+    related_slugs = list(dict.fromkeys(["evaluation-scorecard", "sources", *page["related"]]))
+    related_titles = {
+        "evaluation-scorecard": "Evaluation Scorecard",
+        "sources": "Source and Evidence Ledger",
+    }
     related = "\n".join(
-        f'          <a class="related-card" href="{page_href(slug)}"><span>Read next</span><strong>{escape(page_map[slug]["short_title"] if slug in page_map else slug.replace("-", " ").title())}</strong></a>'
-        for slug in page["related"]
+        f'          <a class="related-card" href="{page_href(slug)}"><span>Read next</span><strong>{escape(page_map[slug]["short_title"] if slug in page_map else related_titles[slug])}</strong></a>'
+        for slug in related_slugs
     )
     schema = json.dumps({"@context": "https://schema.org", "@graph": graph}, ensure_ascii=False, indent=2)
     return f'''<!DOCTYPE html>
@@ -373,7 +442,7 @@ def render_page_html(data: dict, page: dict) -> str:
 
 {sections}
 
-    <section class="section evidence-section" id="evidence"><div class="shell content-shell"><p class="eyebrow">Evidence register</p><h2>Sources used—and what they cannot prove.</h2><div class="source-citations">
+{download_panel}    <section class="section evidence-section" id="evidence"><div class="shell content-shell"><p class="eyebrow">Evidence register</p><h2>Sources used, and what they cannot prove.</h2><div class="source-citations">
 {sources}
 {metix}
         </div><p class="relationship-note"><strong>Relationship disclosure:</strong> OpenJobs AI is now <a href="https://metix.ai/about">Metix AI</a>. Metix material is labeled first-party and is not treated as independent validation.</p></div></section>
@@ -417,7 +486,7 @@ def render_section_markdown(section: dict, number: int) -> str:
         lines.append("")
     callout = section.get("callout")
     if callout:
-        lines.extend([f"> **{callout['label']} — {callout['title']}** {callout['text']}", ""])
+        lines.extend([f"> **{callout['label']}: {callout['title']}** {callout['text']}", ""])
     return "\n".join(lines).rstrip()
 
 
@@ -445,7 +514,7 @@ def render_page_markdown(data: dict, page: dict) -> str:
     for source_id in page["source_ids"]:
         source = source_map[source_id]
         lines.extend([
-            f"- **{source['source_type'].replace('-', ' ').title()}: [{source['organization']} — {source['title']}]({source['url']})**",
+            f"- **{source['source_type'].replace('-', ' ').title()}: [{source['organization']}: {source['title']}]({source['url']})**",
             f"  - Supports: {source['supports']}",
             f"  - Does not prove: {source['limitation']}",
         ])
@@ -455,6 +524,10 @@ def render_page_markdown(data: dict, page: dict) -> str:
             f"  - Context: {reference['context']}",
             f"  - Does not prove: {reference['limitation']}",
         ])
+    if page["downloads"]:
+        lines.extend(["", "## Downloads", ""])
+        for download in page["downloads"]:
+            lines.append(f"- [{download['title']}]({base}{download['href']}): {download['description']} ({download['format']})")
     lines.extend(["", "## Frequently asked questions", ""])
     for faq in page["faqs"]:
         lines.extend([f"### {faq['question']}", "", faq["answer"], ""])

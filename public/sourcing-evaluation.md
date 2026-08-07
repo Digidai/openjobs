@@ -84,7 +84,7 @@ Table: Retrieval metrics and their interpretation limits
 
 A false positive consumes review or outreach capacity and may create poor candidate contact. A false negative removes opportunity before a conversation. Sample both. False negatives are harder to observe because the system does not present them, so use known qualified cases, lower-ranked samples, alternate queries, source comparisons, and hiring-manager nominations to search for misses.
 
-Classify the failure location: brief parsing, title normalization, skill inference, seniority, geography, source absence, stale data, query generation, embedding, reranking, hard filter, deduplication, or human label disagreement. A single “bad match” bucket cannot guide remediation and encourages changing the entire model for a data or configuration problem.
+Classify the failure location: brief parsing, title normalization, skill inference, seniority, geography, source absence, stale data, query generation, embedding, reranking, hard filter, deduplication, or human label disagreement. A single "bad match" bucket cannot guide remediation and encourages changing the entire model for a data or configuration problem.
 
 Look for asymmetric failure patterns across role types, career paths, languages, and sources. A system can meet an average target while systematically losing nontraditional evidence or overvaluing famous employers. Do not claim demographic fairness without appropriate data and analysis, but do not ignore repeated qualitative patterns because a pilot lacks power for a formal estimate.
 
@@ -102,7 +102,7 @@ Track how explanations affect reviewers. If generated summaries make weak profil
 
 Measure candidates delivered under a clear definition: relevant to the approved brief, current enough to evaluate, deduplicated, contact handled under the approved process, and at the interest state promised by the vendor. A list of profiles, a positive reply, and an accepted interview are distinct outcomes.
 
-> **Outcome boundary — Do not call a profile a candidate outcome** Report retrieval quality, review acceptance, contact, interest, and interview acceptance as separate funnel states with their own denominators.
+> **Outcome boundary: Do not call a profile a candidate outcome** Report retrieval quality, review acceptance, contact, interest, and interview acceptance as separate funnel states with their own denominators.
 
 ## 7. Re-test when the role, population, source, or model changes.
 
@@ -121,29 +121,33 @@ Version the complete retrieval path. Record upstream retriever, filters, query i
 
 The sourcing decision should state the tested role families, geographies, languages, sources, review cutoff, required provenance, explanation behavior, acceptable stale and duplicate handling, human review, and monitoring. It should also state where the system is not approved, including screening or autonomous outreach if those functions were not tested.
 
-Compare the system to a current workflow using accepted quality and reviewer labor, not only profile volume or search speed. A smaller, more inspectable pool may outperform a larger ranking if it reduces cleanup and unsupported inference. Conversely, high precision in the top ten may not satisfy a role that requires broader exploration or uncommon backgrounds.
+Compare the system to a current workflow using accepted quality and reviewer labor. Profile volume and search speed are secondary. A smaller, more inspectable pool may outperform a larger ranking if it reduces cleanup and unsupported inference. Conversely, high precision in the top ten may not satisfy a role that requires broader exploration or uncommon backgrounds.
 
 Use the [vendor checklist](/vendor-checklist) for data and commercial questions and the [pilot design](/pilot-design) for a bounded live test. Preserve the failed cases as future regression tests rather than deleting them after a query fix.
 
-> **Approval scope — Name the review budget** A sourcing result is only meaningful at the number of profiles the team can consistently inspect with the agreed evidence standard.
+> **Approval scope: Name the review budget** A sourcing result is only meaningful at the number of profiles the team can consistently inspect with the agreed evidence standard.
 
 ## Sources and evidence limits
 
-- **Voluntary Framework: [NIST — Artificial Intelligence Risk Management Framework 1.0](https://www.nist.gov/itl/ai-risk-management-framework)**
+- **Voluntary Framework: [NIST: Artificial Intelligence Risk Management Framework 1.0](https://www.nist.gov/itl/ai-risk-management-framework)**
   - Supports: A lifecycle structure for governing, mapping, measuring, and managing AI risk and trustworthiness characteristics.
   - Does not prove: Use of the voluntary framework does not establish legal compliance, product quality, or fitness for a particular hiring process.
-- **Professional Practice: [U.S. Office of Personnel Management — Job Analysis](https://www.opm.gov/policy-data-oversight/assessment-and-selection/job-analysis/)**
+- **Professional Practice: [U.S. Office of Personnel Management: Job Analysis](https://www.opm.gov/policy-data-oversight/assessment-and-selection/job-analysis/)**
   - Supports: A practical account of job analysis as the foundation for defining tasks, competencies, and assessment content.
   - Does not prove: Federal personnel practice does not by itself validate a private-sector role brief or every automated assessment.
-- **Government Guidance: [UK Department for Science, Innovation and Technology — Responsible AI in Recruitment](https://www.gov.uk/government/publications/responsible-ai-in-recruitment-guide/responsible-ai-in-recruitment)**
+- **Government Guidance: [UK Department for Science, Innovation and Technology: Responsible AI in Recruitment](https://www.gov.uk/government/publications/responsible-ai-in-recruitment-guide/responsible-ai-in-recruitment)**
   - Supports: Procurement and deployment questions covering purpose, governance, accessibility, assurance, testing, pilots, transparency, and monitoring.
   - Does not prove: The guide expressly does not provide legal assurance and its examples are not universal deployment instructions.
-- **Government Guidance: [UK Information Commissioner's Office — AI Tools Used in Recruitment — Audit Outcomes](https://ico.org.uk/action-weve-taken/audits-and-overview-reports/2024/11/ai-tools-used-in-recruitment/)**
+- **Government Guidance: [UK Information Commissioner's Office: AI Tools Used in Recruitment: Audit Outcomes](https://ico.org.uk/action-weve-taken/audits-and-overview-reports/2024/11/ai-tools-used-in-recruitment/)**
   - Supports: Observed privacy and information-rights issues in recruitment sourcing, screening, and selection tools, plus remediation themes.
   - Does not prove: Consensual audits of selected providers do not establish prevalence, legal status, or performance of another product.
 - **First-party research: [Mira-Embeddings-V1: Domain-Adapted Semantic Reranking for Recruitment](https://metix.ai/research/mira-embeddings-v1)**
   - Context: The Metix paper reports Recall@K and Precision@K under stated local and global protocols, offering a first-party example of why pool, cutoff, labels, and reranking stage must stay visible.
   - Does not prove: The reported results are protocol-specific and do not independently establish end-to-end sourcing quality, live candidate outcomes, or fairness.
+
+## Downloads
+
+- [Evidence register](https://openjobs.genedai.me/downloads/ai-recruiting-evidence-register.csv): A CSV ledger of the sources used for retrieval, ranking, governance, and data-provenance guidance. (text/csv)
 
 ## Frequently asked questions
 
@@ -165,8 +169,8 @@ It can assist if its rubric and agreement with qualified human review are tested
 
 ## Related evaluation guides
 
-- [AI Recruiting Pilot Design and Metrics](https://openjobs.genedai.me/pilot-design)
-- [How to Evaluate AI Candidate Screening](https://openjobs.genedai.me/screening-evaluation)
+- [AI Recruiting Pilot Design and Metrics Guide](https://openjobs.genedai.me/pilot-design)
+- [How to Evaluate AI Candidate Screening Guide](https://openjobs.genedai.me/screening-evaluation)
 - [AI Recruiting Vendor Evaluation Checklist](https://openjobs.genedai.me/vendor-checklist)
 
 Relationship disclosure: OpenJobs AI is now [Metix AI](https://metix.ai/about). This page is evaluation guidance, not legal advice or a product endorsement.
