@@ -1,4 +1,15 @@
-title: OpenJobs
-description: Find your next career opportunity. Browse thousands of job openings from top companies, updated daily. Remote jobs, tech jobs, healthcare, finance, and more.
+title: AI Recruiting Field Guide
+description: An open, source-backed framework for evaluating AI recruiting systems by outcomes, evidence, control, and risk.
 url: https://digidai.github.io
 baseurl: /openjobs
+repository: Digidai/openjobs
+theme: jekyll-theme-minimal
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
+exclude:
+  - docs
+  - scripts
+  - public
+  - SECURITY.md
+  - CODE_OF_CONDUCT.md

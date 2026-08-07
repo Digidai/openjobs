@@ -1,0 +1,36 @@
+name: Validate Field Guide
+
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches:
+      - main
+    paths:
+      - "public/**"
+      - "scripts/validate_site.py"
+      - "README.md"
+      - "EDITORIAL_POLICY.md"
+      - "CONTRIBUTING.md"
+      - "_config.yml"
+      - "sitemap.xml"
+      - ".github/workflows/validate-site.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Validate content, links, and SEO signals
+        run: python3 scripts/validate_site.py

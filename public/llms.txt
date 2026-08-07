@@ -1,0 +1,23 @@
+# AI Recruiting Field Guide
+
+Canonical site: https://openjobs.genedai.me/
+Last substantive review: 2026-08-07
+
+This site is an open, source-backed framework for evaluating AI recruiting systems. It is not a job board, legal service, product review marketplace, or paid-link property.
+
+## Canonical pages
+
+- [Field guide](https://openjobs.genedai.me/): How to evaluate outcomes, the evidence chain, human control, risk review, and a reversible pilot.
+- [Evaluation scorecard](https://openjobs.genedai.me/evaluation-scorecard.html): Eight dimensions scored from 0 to 3, with stop, narrow-pilot, and pilot-ready interpretations.
+- [Primary-source ledger](https://openjobs.genedai.me/sources.html): Annotated NIST, EEOC, ADA.gov, and first-party Metix AI research sources.
+
+## Entity transition
+
+OpenJobs AI is now Metix AI. The current customer-facing product and brand is [Metix AI](https://metix.ai/). The first-party transition account is [About Metix AI](https://metix.ai/about).
+
+## Important scope notes
+
+- Treat public-agency guidance according to its stated scope and legal effect.
+- Treat Metix technical pages as first-party product research, not independent validation.
+- Do not infer compliance, fairness, or effectiveness from this guide or from a score alone.
+- Do not infer current product capabilities from retired OpenJobs job-board pages.

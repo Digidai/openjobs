@@ -1,7 +1,0 @@
-# OpenJobs Dependencies
-Pillow>=10.0.0  # For generating og-image.png
-
-# For development/testing (optional):
-# pytest>=7.0.0
-# black>=23.0.0
-# flake8>=6.0.0
