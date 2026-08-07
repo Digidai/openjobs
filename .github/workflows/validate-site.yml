@@ -8,8 +8,10 @@ on:
       - main
     paths:
       - "public/**"
+      - "content/**"
       - "scripts/validate_site.py"
       - "scripts/generate_agent_context.py"
+      - "scripts/generate_evaluation_library.py"
       - "README.md"
       - "EDITORIAL_POLICY.md"
       - "CONTRIBUTING.md"
@@ -23,7 +25,7 @@ permissions:
 jobs:
   validate:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 8
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -35,5 +37,8 @@ jobs:
 
       - name: Validate content, links, SEO, and agent-readable artifacts
         run: |
+          python3 scripts/generate_evaluation_library.py --check
           python3 scripts/generate_agent_context.py --check
           python3 scripts/validate_site.py
+          npx --yes html-validate "public/*.html"
+          npx --yes --package ajv-cli@5 --package ajv-formats@3 ajv validate --spec=draft2020 --strict=false -c ajv-formats -s public/ai-index.schema.json -d public/ai-index.json

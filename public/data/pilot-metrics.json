@@ -1,0 +1,217 @@
+{
+  "version": "1.0",
+  "last_substantive_review": "2026-08-07",
+  "license": "CC BY 4.0",
+  "kind": "pilot-metric-bank",
+  "fields": [
+    "id",
+    "family",
+    "metric",
+    "definition",
+    "numerator",
+    "denominator",
+    "collection",
+    "interpretation_limit",
+    "gate"
+  ],
+  "items": [
+    {
+      "id": "m01",
+      "family": "quality",
+      "metric": "Hiring-manager acceptance rate",
+      "definition": "Share of reviewed system recommendations accepted as worth interviewing under the frozen role rubric.",
+      "numerator": "Recommendations accepted for interview review",
+      "denominator": "Recommendations reviewed by the designated hiring manager",
+      "collection": "Record independent rubric judgment before vendor explanation and retain rejected reasons.",
+      "interpretation_limit": "Manager acceptance is not quality of hire and can reflect inconsistent or biased judgment.",
+      "gate": false
+    },
+    {
+      "id": "m02",
+      "family": "quality",
+      "metric": "Precision at review budget",
+      "definition": "Share of the top K reviewed sourcing results that meet the pre-agreed relevance standard.",
+      "numerator": "Relevant profiles within top K",
+      "denominator": "All reviewed profiles within top K",
+      "collection": "Freeze K, pool, role rubric, reviewer, and adjudication before reviewing ranks.",
+      "interpretation_limit": "Does not show qualified people absent from the pool or ranked below K.",
+      "gate": false
+    },
+    {
+      "id": "m03",
+      "family": "quality",
+      "metric": "Reviewed false-negative rate",
+      "definition": "Share of reviewed lower-ranked, rejected, or alternate-source qualified cases that the system failed to advance.",
+      "numerator": "Qualified reviewed cases not advanced by the system",
+      "denominator": "All qualified cases found in the reviewed miss sample",
+      "collection": "Sample lower ranks, hard-filter exclusions, known qualified cases, and alternate queries.",
+      "interpretation_limit": "A sampled miss rate is not full-population recall unless the sample design supports that inference.",
+      "gate": false
+    },
+    {
+      "id": "m04",
+      "family": "intent",
+      "metric": "Role-specific positive-interest rate",
+      "definition": "Share of delivered and validly contacted people who explicitly express current interest in the named role or a defined next conversation.",
+      "numerator": "People with verified role-specific positive interest",
+      "denominator": "People delivered and validly contacted under the approved process",
+      "collection": "Classify positive, decline, question, opt-out, uncertain, bounce, and no-response separately.",
+      "interpretation_limit": "Interest does not establish role qualification or interview acceptance.",
+      "gate": false
+    },
+    {
+      "id": "m05",
+      "family": "intent",
+      "metric": "Interview-ready conversion",
+      "definition": "Share of qualified and interested people accepted by the employer for scheduling or a defined interview step.",
+      "numerator": "People accepted as interview-ready",
+      "denominator": "People delivered as qualified and interested",
+      "collection": "Require current interest, evidence packet, employer decision, and a clear next step.",
+      "interpretation_limit": "Scheduling or acceptance is not attendance, job performance, offer, or hire.",
+      "gate": false
+    },
+    {
+      "id": "m06",
+      "family": "intent",
+      "metric": "Uncertain-reply resolution rate",
+      "definition": "Share of replies classified as uncertain that receive correct human escalation or clarification before further automation.",
+      "numerator": "Uncertain replies correctly resolved before another external action",
+      "denominator": "All replies classified or later adjudicated as uncertain",
+      "collection": "Review reply state, next action, human decision, and any subsequent message.",
+      "interpretation_limit": "Depends on complete capture and qualified adjudication of uncertain replies.",
+      "gate": true
+    },
+    {
+      "id": "m07",
+      "family": "time",
+      "metric": "Time to first accepted slate",
+      "definition": "Elapsed time from approval of the frozen role brief to the first set of recommendations accepted for deeper review.",
+      "numerator": "Not applicable: duration metric",
+      "denominator": "Not applicable: duration metric",
+      "collection": "Timestamp role approval, system start, pauses, delivery, and manager acceptance; report paused time separately.",
+      "interpretation_limit": "Does not capture later candidate interest, interview quality, or hidden labor.",
+      "gate": false
+    },
+    {
+      "id": "m08",
+      "family": "time",
+      "metric": "Time to interview-ready handoff",
+      "definition": "Elapsed time from approved brief to a qualified and interested person accepted for scheduling with evidence and context.",
+      "numerator": "Not applicable: duration metric",
+      "denominator": "Not applicable: duration metric",
+      "collection": "Timestamp each funnel state and distinguish buyer delay, vendor service time, and candidate response time.",
+      "interpretation_limit": "Role difficulty and market conditions limit comparison across roles.",
+      "gate": false
+    },
+    {
+      "id": "m09",
+      "family": "time",
+      "metric": "Median incident recovery time",
+      "definition": "Median elapsed time from detection of a pilot incident to contained effect and reconciled workflow state.",
+      "numerator": "Not applicable: duration metric",
+      "denominator": "Not applicable: duration metric",
+      "collection": "Record detection, containment, correction, candidate action, reconciliation, and return-to-service timestamps.",
+      "interpretation_limit": "A small pilot may have too few incidents for a stable summary; preserve case severity and detail.",
+      "gate": true
+    },
+    {
+      "id": "m10",
+      "family": "labor",
+      "metric": "Recruiter minutes per accepted recommendation",
+      "definition": "Recruiter hands-on time spent operating, reviewing, correcting, and handing off the workflow for each accepted recommendation.",
+      "numerator": "Total recruiter hands-on minutes",
+      "denominator": "Recommendations accepted under the role rubric",
+      "collection": "Use lightweight time logs by activity rather than retrospective estimates alone.",
+      "interpretation_limit": "Can shift work to managers, vendor staff, support, or candidates unless those labor categories are also measured.",
+      "gate": false
+    },
+    {
+      "id": "m11",
+      "family": "labor",
+      "metric": "Hiring-manager review minutes per interview-ready handoff",
+      "definition": "Hiring-manager time spent reviewing evidence, resolving uncertainty, and accepting each interview-ready handoff.",
+      "numerator": "Total hiring-manager review minutes",
+      "denominator": "Interview-ready handoffs accepted",
+      "collection": "Record initial review, rework, clarification, and adjudication separately.",
+      "interpretation_limit": "Low time can reflect good evidence or superficial rubber-stamping; sample decision quality.",
+      "gate": false
+    },
+    {
+      "id": "m12",
+      "family": "labor",
+      "metric": "QA and exception minutes per completed workflow",
+      "definition": "Quality-assurance, technical, support, and exception-handling time required for each completed system workflow.",
+      "numerator": "Total QA, technical, support, and exception minutes",
+      "denominator": "Completed workflows in the pilot",
+      "collection": "Include duplicate cleanup, integration reconciliation, manual classification, and candidate support.",
+      "interpretation_limit": "Vendor labor may be hidden unless the provider reports its operating contribution.",
+      "gate": false
+    },
+    {
+      "id": "m13",
+      "family": "candidate-impact",
+      "metric": "Accommodation-path completion",
+      "definition": "Share of accommodation requests in the pilot that receive a timely suitable path and complete the intended assessment or review stage.",
+      "numerator": "Accommodation requests completed through a suitable path",
+      "denominator": "Accommodation requests received in the pilot",
+      "collection": "Review notice, request, response time, alternative method, candidate outcome, and downstream scoring.",
+      "interpretation_limit": "Small counts require case review and do not establish population accessibility or legal compliance.",
+      "gate": true
+    },
+    {
+      "id": "m14",
+      "family": "candidate-impact",
+      "metric": "Material correction resolution",
+      "definition": "Share of candidate or reviewer reports of material data or inference errors that are corrected across active and derived records within the agreed time.",
+      "numerator": "Material corrections completed and propagated",
+      "denominator": "Material correction requests accepted as valid",
+      "collection": "Track request, owner, source correction, derived-data update, downstream effect, and communication.",
+      "interpretation_limit": "Depends on a visible reporting path and does not capture errors that affected people never discover.",
+      "gate": true
+    },
+    {
+      "id": "m15",
+      "family": "candidate-impact",
+      "metric": "Candidate issue rate",
+      "definition": "Rate of verified accessibility, duplicate contact, suppression, misleading notice, incorrect status, or other candidate-impact issues per exposed candidate.",
+      "numerator": "Verified candidate-impact issues",
+      "denominator": "Candidates exposed to the evaluated workflow",
+      "collection": "Combine logs, candidate reports, support cases, and proactive sample review; classify severity.",
+      "interpretation_limit": "Absence of reports is weak evidence when notice and reporting routes are hard to find.",
+      "gate": true
+    },
+    {
+      "id": "m16",
+      "family": "reliability",
+      "metric": "External-action error rate",
+      "definition": "Share of executed messages, writes, schedules, or other external actions that violate the approved recipient, content, permission, timing, suppression, or workflow state.",
+      "numerator": "External actions with a verified control or execution error",
+      "denominator": "All external actions executed in the pilot",
+      "collection": "Reconcile proposed, approved, executed, retried, corrected, and rolled-back events.",
+      "interpretation_limit": "Low-frequency severe events require a gate and case review because an average percentage can hide them.",
+      "gate": true
+    },
+    {
+      "id": "m17",
+      "family": "reliability",
+      "metric": "Duplicate or inconsistent-state rate",
+      "definition": "Share of workflows producing duplicate contact, duplicate records, conflicting statuses, lost approvals, or unreconciled partial writes.",
+      "numerator": "Workflows with duplicate or inconsistent state",
+      "denominator": "Completed or attempted workflows in the pilot",
+      "collection": "Inject selected integration failures and reconcile logs against downstream systems.",
+      "interpretation_limit": "A sandbox may not reproduce production timing, rate limits, concurrency, or legacy data.",
+      "gate": true
+    },
+    {
+      "id": "m18",
+      "family": "reliability",
+      "metric": "Successful manual-fallback rate",
+      "definition": "Share of tested pause or failure scenarios where an accountable person can see context, prevent queued actions, complete or correct the workflow, and reconcile state.",
+      "numerator": "Fallback scenarios completed without material loss or duplicate effect",
+      "denominator": "Fallback scenarios tested",
+      "collection": "Test candidate, role, channel, integration, credential, and environment scopes where relevant.",
+      "interpretation_limit": "A scripted test does not replace ongoing readiness, staffing, access, and incident exercises.",
+      "gate": true
+    }
+  ]
+}
