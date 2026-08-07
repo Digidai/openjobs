@@ -1,26 +1,15 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
-  <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#0f172a"/>
-      <stop offset="100%" style="stop-color:#1e293b"/>
-    </linearGradient>
-  </defs>
-  <rect width="1200" height="630" fill="url(#bg)"/>
-
-  <!-- Logo -->
-  <rect x="80" y="80" width="80" height="80" rx="16" fill="#3b82f6"/>
-  <text x="120" y="138" font-family="Arial, sans-serif" font-size="40" font-weight="bold" fill="white" text-anchor="middle">OJ</text>
-
-  <!-- Title -->
-  <text x="80" y="260" font-family="Arial, sans-serif" font-size="64" font-weight="bold" fill="white">OpenJobs</text>
-  <text x="80" y="340" font-family="Arial, sans-serif" font-size="36" fill="#94a3b8">Find Your Next Career</text>
-
-  <!-- Stats -->
-  <text x="80" y="440" font-family="Arial, sans-serif" font-size="28" fill="#3b82f6">988+ Jobs</text>
-  <text x="280" y="440" font-family="Arial, sans-serif" font-size="28" fill="#64748b">from</text>
-  <text x="370" y="440" font-family="Arial, sans-serif" font-size="28" fill="#3b82f6">774+ Companies</text>
-
-  <!-- Footer -->
-  <text x="80" y="560" font-family="Arial, sans-serif" font-size="24" fill="#64748b">Free &amp; Open Source Job Aggregator</text>
-  <text x="1120" y="560" font-family="Arial, sans-serif" font-size="20" fill="#475569" text-anchor="end">openjobs.genedai.me</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">The AI Recruiting Field Guide</title>
+  <desc id="desc">Evaluate AI recruiting by outcomes, evidence, control, and risk.</desc>
+  <rect width="1200" height="630" fill="#f3f0e6"/>
+  <path d="M0 528h1200v102H0z" fill="#d7ff45"/>
+  <path d="M948-58a280 280 0 1 1 0 560 280 280 0 0 1 0-560Zm0 40a240 240 0 1 0 0 480 240 240 0 0 0 0-480Zm0 40a200 200 0 1 1 0 400 200 200 0 0 1 0-400Zm0 40a160 160 0 1 0 0 320 160 160 0 0 0 0-320Zm0 40a120 120 0 1 1 0 240 120 120 0 0 1 0-240Z" fill="#265dff" opacity=".13"/>
+  <rect x="72" y="68" width="46" height="12" fill="#ff5b35"/>
+  <text x="136" y="80" fill="#12130f" font-family="Avenir Next, sans-serif" font-size="24" font-weight="800" letter-spacing="4">OPENJOBS ARCHIVE · FIELD NOTE 01</text>
+  <text x="72" y="205" fill="#12130f" font-family="Iowan Old Style, Baskerville, serif" font-size="92" letter-spacing="-4">The AI Recruiting</text>
+  <text x="72" y="305" fill="#12130f" font-family="Iowan Old Style, Baskerville, serif" font-size="92" letter-spacing="-4">Field Guide</text>
+  <line x1="72" y1="365" x2="760" y2="365" stroke="#12130f" stroke-width="2"/>
+  <text x="72" y="420" fill="#35372f" font-family="Avenir Next, sans-serif" font-size="30">Outcomes · Evidence · Control · Risk</text>
+  <text x="72" y="588" fill="#12130f" font-family="Avenir Next, sans-serif" font-size="25" font-weight="800">openjobs.genedai.me</text>
+  <text x="1128" y="588" text-anchor="end" fill="#12130f" font-family="Avenir Next, sans-serif" font-size="25" font-weight="800">Updated August 2026</text>
 </svg>

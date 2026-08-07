@@ -1,45 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Page Not Found - OpenJobs</title>
-  <style>
-    :root { --primary: #0f172a; --accent: #3b82f6; --bg: #ffffff; --muted: #6b7280; }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
-      background: var(--bg);
-      color: var(--primary);
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .container { text-align: center; padding: 2rem; }
-    .error-code { font-size: 6rem; font-weight: 700; color: var(--accent); line-height: 1; }
-    h1 { font-size: 1.5rem; font-weight: 600; margin: 1rem 0; }
-    p { color: var(--muted); margin-bottom: 2rem; }
-    .btn {
-      display: inline-block;
-      padding: 0.75rem 1.5rem;
-      background: var(--accent);
-      color: white;
-      text-decoration: none;
-      border-radius: 8px;
-      font-weight: 500;
-      transition: opacity 0.15s;
-    }
-    .btn:hover { opacity: 0.9; }
-    .btn:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
-  </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Page not found | OpenJobs Archive</title>
+  <meta name="robots" content="noindex, follow">
+  <meta name="theme-color" content="#f3f0e6">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/site.css">
 </head>
 <body>
-  <main class="container" role="main">
-    <div class="error-code">404</div>
-    <h1>Page Not Found</h1>
-    <p>The page you're looking for doesn't exist or has been moved.</p>
-    <a href="/" class="btn">Back to Jobs</a>
+  <main id="main" class="page-hero">
+    <div class="shell">
+      <p class="eyebrow">404 · Archive note</p>
+      <h1>This page left the old job board.</h1>
+      <p class="page-deck">OpenJobs Archive no longer publishes job listings. Use the current field guide to evaluate AI recruiting systems, or continue to Metix AI.</p>
+      <div class="hero-actions">
+        <a class="button" href="/">Read the field guide</a>
+        <a class="button button-light" href="https://metix.ai/">Visit Metix AI</a>
+      </div>
+    </div>
   </main>
 </body>
 </html>

@@ -1,23 +1,5 @@
-# Robots.txt for OpenJobs
-# Allow all crawlers
-
+# OpenJobs Archive
 User-agent: *
 Allow: /
-Disallow: /admin/
-Disallow: /private/
 
-Crawl-delay: 1
-
-# Sitemap location
 Sitemap: https://openjobs.genedai.me/sitemap.xml
-
-# Specific bots
-User-agent: Googlebot
-Allow: /
-
-User-agent: Bingbot
-Allow: /
-
-# Disallow archive bots
-User-agent: archive.org_bot
-Disallow: /
