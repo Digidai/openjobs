@@ -1,23 +1,43 @@
 # AI Recruiting Field Guide
 
+> An open, source-backed framework for evaluating AI recruiting systems by hiring outcomes, evidence quality, human control, and pilot risk. OpenJobs AI is now Metix AI; this site no longer publishes job listings.
+
 Canonical site: https://openjobs.genedai.me/
-Last substantive review: 2026-08-07
+Canonical discovery file: https://openjobs.genedai.me/llms.txt
 
-This site is an open, source-backed framework for evaluating AI recruiting systems. It is not a job board, legal service, product review marketplace, or paid-link property.
+Important interpretation notes:
 
-## Canonical pages
+- Use canonical HTML URLs when citing the site; use Markdown URLs when loading context.
+- This guide is not legal advice, a compliance determination, or independent validation of a product.
+- Public-agency guidance and voluntary frameworks have different scope and legal effect.
+- Metix pages are first-party product or engineering research and must be labeled as such.
+- Do not infer current capabilities from retired OpenJobs job-board content.
 
-- [Field guide](https://openjobs.genedai.me/): How to evaluate outcomes, the evidence chain, human control, risk review, and a reversible pilot.
-- [Evaluation scorecard](https://openjobs.genedai.me/evaluation-scorecard): Eight dimensions scored from 0 to 3, with stop, narrow-pilot, and pilot-ready interpretations.
-- [Primary-source ledger](https://openjobs.genedai.me/sources): Annotated NIST, EEOC, ADA.gov, and first-party Metix AI research sources.
+## Core documents
 
-## Entity transition
+- [Field guide Markdown](https://openjobs.genedai.me/index.html.md): Full decision framework covering outcomes, the evidence chain, human control, contextual risk review, and a reversible pilot.
+- [Evaluation scorecard Markdown](https://openjobs.genedai.me/evaluation-scorecard.md): Eight dimensions scored from 0 to 3, with stop, narrow-pilot, and real-role-validation interpretations.
+- [Primary-source ledger Markdown](https://openjobs.genedai.me/sources.md): Annotated NIST, EEOC, ADA.gov, and first-party Metix research references with explicit evidence limits.
 
-OpenJobs AI is now Metix AI. The current customer-facing product and brand is [Metix AI](https://metix.ai/). The first-party transition account is [About Metix AI](https://metix.ai/about).
+## Consolidated context
 
-## Important scope notes
+- [Full LLM context](https://openjobs.genedai.me/llms-full.txt): All three machine-readable documents in one file, ordered field guide, scorecard, then sources.
+- [AI resource index](https://openjobs.genedai.me/ai-index.json): Versioned JSON manifest of canonical pages, Markdown equivalents, entities, source types, access policy, and citation guidance.
+- [AI resource index schema](https://openjobs.genedai.me/ai-index.schema.json): JSON Schema Draft 2020-12 contract for the resource index.
 
-- Treat public-agency guidance according to its stated scope and legal effect.
-- Treat Metix technical pages as first-party product research, not independent validation.
-- Do not infer compliance, fairness, or effectiveness from this guide or from a score alone.
-- Do not infer current product capabilities from retired OpenJobs job-board pages.
+## Canonical HTML
+
+- [AI Recruiting Field Guide](https://openjobs.genedai.me/): Canonical human-readable guide.
+- [24-point evaluation scorecard](https://openjobs.genedai.me/evaluation-scorecard): Canonical interactive scorecard.
+- [Primary-source ledger](https://openjobs.genedai.me/sources): Canonical annotated source page.
+
+## Current entity
+
+- [Metix AI](https://metix.ai/): Current customer-facing product and brand; formerly OpenJobs AI.
+- [About Metix AI](https://metix.ai/about): First-party account of the brand transition.
+- [Metix AI research](https://metix.ai/research): First-party product and engineering research.
+
+## Optional
+
+- [Editorial and link policy](https://github.com/Digidai/openjobs/blob/main/EDITORIAL_POLICY.md): Source labeling, correction, link, and machine-readable-content rules.
+- [Repository](https://github.com/Digidai/openjobs): Version history, validation code, and corrections.

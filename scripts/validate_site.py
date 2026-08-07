@@ -11,6 +11,8 @@ import sys
 import xml.etree.ElementTree as ET
 from urllib.parse import urlsplit
 
+from generate_agent_context import OUTPUT as FULL_CONTEXT, render_context
+
 
 ROOT = Path(__file__).resolve().parents[1]
 PUBLIC = ROOT / "public"
@@ -21,12 +23,26 @@ CANONICALS = {
     "sources.html": "https://openjobs.genedai.me/sources",
 }
 
+MARKDOWN_REPRESENTATIONS = {
+    "index.html": "https://openjobs.genedai.me/index.html.md",
+    "evaluation-scorecard.html": "https://openjobs.genedai.me/evaluation-scorecard.md",
+    "sources.html": "https://openjobs.genedai.me/sources.md",
+}
+
+MACHINE_ENDPOINTS = {
+    "llms": "https://openjobs.genedai.me/llms.txt",
+    "full_context": "https://openjobs.genedai.me/llms-full.txt",
+    "index": "https://openjobs.genedai.me/ai-index.json",
+    "schema": "https://openjobs.genedai.me/ai-index.schema.json",
+}
+
 REQUIRED_FILES = {
     ROOT / "README.md",
     ROOT / "EDITORIAL_POLICY.md",
     ROOT / "_config.yml",
     ROOT / "sitemap.xml",
     ROOT / ".github/workflows/validate-site.yml",
+    ROOT / "scripts/generate_agent_context.py",
     PUBLIC / "index.html",
     PUBLIC / "evaluation-scorecard.html",
     PUBLIC / "sources.html",
@@ -40,6 +56,13 @@ REQUIRED_FILES = {
     PUBLIC / "robots.txt",
     PUBLIC / "sitemap.xml",
     PUBLIC / "llms.txt",
+    PUBLIC / "llms-full.txt",
+    PUBLIC / "index.html.md",
+    PUBLIC / "evaluation-scorecard.md",
+    PUBLIC / "sources.md",
+    PUBLIC / "ai-index.json",
+    PUBLIC / "ai-index.schema.json",
+    PUBLIC / "_headers",
     PUBLIC / "_redirects",
 }
 
@@ -70,6 +93,8 @@ class DocumentParser(HTMLParser):
         self.descriptions: list[str] = []
         self.h1_count = 0
         self.links: list[str] = []
+        self.markdown_alternates: list[tuple[str, str]] = []
+        self.described_by: list[tuple[str, str]] = []
         self.json_ld: list[str] = []
         self._in_json_ld = False
         self._json_buffer: list[str] = []
@@ -80,8 +105,13 @@ class DocumentParser(HTMLParser):
             self.h1_count += 1
         if tag == "a" and attr.get("href"):
             self.links.append(attr["href"] or "")
-        if tag == "link" and attr.get("rel") == "canonical" and attr.get("href"):
+        rel = set((attr.get("rel") or "").split())
+        if tag == "link" and "canonical" in rel and attr.get("href"):
             self.canonicals.append(attr["href"] or "")
+        if tag == "link" and "alternate" in rel and attr.get("type") == "text/markdown" and attr.get("href"):
+            self.markdown_alternates.append((attr["href"] or "", attr.get("title") or ""))
+        if tag == "link" and "describedby" in rel and attr.get("href") and attr.get("type"):
+            self.described_by.append((attr["href"] or "", attr["type"] or ""))
         if tag == "meta" and attr.get("name") == "description" and attr.get("content"):
             self.descriptions.append(attr["content"] or "")
         if tag == "script" and attr.get("type") == "application/ld+json":
@@ -125,6 +155,7 @@ def validate_html(
     errors: list[str],
     *,
     require_description: bool = True,
+    markdown: str | None = None,
 ) -> DocumentParser:
     parser = DocumentParser()
     text = path.read_text(encoding="utf-8")
@@ -139,6 +170,15 @@ def validate_html(
         errors.append(f"{path.relative_to(ROOT)}: meta description must be 120-170 chars, found {sizes}")
     if canonical is not None and parser.canonicals != [canonical]:
         errors.append(f"{path.relative_to(ROOT)}: canonical {parser.canonicals!r}, expected {[canonical]!r}")
+    if markdown is not None and parser.markdown_alternates != [(markdown, "Markdown version")]:
+        errors.append(f"{path.relative_to(ROOT)}: Markdown alternate does not match {markdown}")
+    if markdown is not None:
+        expected_described_by = {
+            (MACHINE_ENDPOINTS["llms"], "text/plain"),
+            (MACHINE_ENDPOINTS["index"], "application/json"),
+        }
+        if set(parser.described_by) != expected_described_by:
+            errors.append(f"{path.relative_to(ROOT)}: machine discovery links are incomplete")
     for block in parser.json_ld:
         try:
             json.loads(block)
@@ -149,6 +189,19 @@ def validate_html(
         if target is not None and not target.exists():
             errors.append(f"{path.relative_to(ROOT)}: broken local link {href} -> {target.relative_to(ROOT)}")
     return parser
+
+
+def validate_markdown(path: Path, canonical: str, errors: list[str]) -> None:
+    text = path.read_text(encoding="utf-8")
+    h1s = [line for line in text.splitlines() if line.startswith("# ")]
+    if len(h1s) != 1:
+        errors.append(f"{path.relative_to(ROOT)}: expected one Markdown h1, found {len(h1s)}")
+    if f"Canonical HTML: {canonical}" not in text:
+        errors.append(f"{path.relative_to(ROOT)}: canonical HTML declaration missing")
+    if "Last substantive review: 2026-08-07" not in text:
+        errors.append(f"{path.relative_to(ROOT)}: substantive review date missing")
+    if "<script" in text.lower():
+        errors.append(f"{path.relative_to(ROOT)}: Markdown representation contains executable markup")
 
 
 def main() -> int:
@@ -168,16 +221,92 @@ def main() -> int:
 
     all_links: list[str] = []
     runtime_files = [PUBLIC / name for name in CANONICALS]
-    runtime_files.extend([PUBLIC / "404.html", PUBLIC / "sitemap.xml", PUBLIC / "llms.txt"])
+    runtime_files.extend(
+        [
+            PUBLIC / "404.html",
+            PUBLIC / "sitemap.xml",
+            PUBLIC / "llms.txt",
+            PUBLIC / "llms-full.txt",
+            PUBLIC / "index.html.md",
+            PUBLIC / "evaluation-scorecard.md",
+            PUBLIC / "sources.md",
+            PUBLIC / "ai-index.json",
+        ]
+    )
     runtime_text = "\n".join(path.read_text(encoding="utf-8") for path in runtime_files)
     for label, pattern in FORBIDDEN_RUNTIME_PATTERNS.items():
         if re.search(pattern, runtime_text, flags=re.IGNORECASE):
             errors.append(f"runtime contains {label}")
 
     for filename, canonical in CANONICALS.items():
-        parser = validate_html(PUBLIC / filename, canonical, errors)
+        parser = validate_html(
+            PUBLIC / filename,
+            canonical,
+            errors,
+            markdown=MARKDOWN_REPRESENTATIONS[filename],
+        )
         all_links.extend(parser.links)
+        validate_markdown(
+            PUBLIC / urlsplit(MARKDOWN_REPRESENTATIONS[filename]).path.lstrip("/"),
+            canonical,
+            errors,
+        )
     validate_html(PUBLIC / "404.html", None, errors, require_description=False)
+
+    llms = (PUBLIC / "llms.txt").read_text(encoding="utf-8")
+    nonempty_llms_lines = [line for line in llms.splitlines() if line.strip()]
+    if not nonempty_llms_lines or not nonempty_llms_lines[0].startswith("# "):
+        errors.append("public/llms.txt: first non-empty line must be an h1")
+    if len(nonempty_llms_lines) < 2 or not nonempty_llms_lines[1].startswith("> "):
+        errors.append("public/llms.txt: second non-empty line must be a blockquote summary")
+    for endpoint in [*MARKDOWN_REPRESENTATIONS.values(), *MACHINE_ENDPOINTS.values()]:
+        if endpoint not in llms:
+            errors.append(f"public/llms.txt: missing machine endpoint {endpoint}")
+
+    if FULL_CONTEXT.read_text(encoding="utf-8") != render_context():
+        errors.append("public/llms-full.txt: generated context is stale")
+
+    try:
+        ai_schema = json.loads((PUBLIC / "ai-index.schema.json").read_text(encoding="utf-8"))
+        ai_index = json.loads((PUBLIC / "ai-index.json").read_text(encoding="utf-8"))
+        if ai_schema.get("$schema") != "https://json-schema.org/draft/2020-12/schema":
+            errors.append("public/ai-index.schema.json: expected JSON Schema Draft 2020-12")
+        if ai_index.get("$schema") != MACHINE_ENDPOINTS["schema"]:
+            errors.append("public/ai-index.json: schema URL is incorrect")
+        if ai_index.get("schema_version") != "1.0":
+            errors.append("public/ai-index.json: unsupported schema version")
+        entrypoints = ai_index.get("preferred_entrypoints", {})
+        expected_entrypoints = {
+            "discovery": MACHINE_ENDPOINTS["llms"],
+            "full_context": MACHINE_ENDPOINTS["full_context"],
+            "structured_index": MACHINE_ENDPOINTS["index"],
+        }
+        if entrypoints != expected_entrypoints:
+            errors.append("public/ai-index.json: preferred entrypoints are incorrect")
+        indexed_pages = {
+            page.get("canonical_url"): page.get("markdown_url")
+            for page in ai_index.get("pages", [])
+            if isinstance(page, dict)
+        }
+        expected_pages = {
+            CANONICALS[filename]: MARKDOWN_REPRESENTATIONS[filename]
+            for filename in CANONICALS
+        }
+        if indexed_pages != expected_pages:
+            errors.append("public/ai-index.json: canonical and Markdown page map is incomplete")
+        access_policy = ai_index.get("access_policy", {})
+        if access_policy.get("search_and_retrieval") != "allowed":
+            errors.append("public/ai-index.json: search and retrieval policy must be explicit")
+        if access_policy.get("model_development") != "allowed":
+            errors.append("public/ai-index.json: model-development policy must be explicit")
+        indexed_sources = [source for source in ai_index.get("sources", []) if isinstance(source, dict)]
+        source_types = {source.get("source_type") for source in indexed_sources}
+        if source_types != {"public-framework", "government-guidance", "first-party-research"}:
+            errors.append("public/ai-index.json: source-type coverage is incomplete")
+        if len(indexed_sources) != 8 or any(not source.get("does_not_prove") for source in indexed_sources):
+            errors.append("public/ai-index.json: all eight ledger sources need explicit evidence limits")
+    except json.JSONDecodeError as exc:
+        errors.append(f"machine-readable JSON is invalid: {exc}")
 
     metix_links = [href for href in all_links if href.startswith("https://metix.ai")]
     if len(set(metix_links)) < 6:
@@ -212,6 +341,38 @@ def main() -> int:
     robots = (PUBLIC / "robots.txt").read_text(encoding="utf-8")
     if "Sitemap: https://openjobs.genedai.me/sitemap.xml" not in robots:
         errors.append("public/robots.txt: canonical sitemap declaration missing")
+    required_agents = {
+        "OAI-SearchBot",
+        "Claude-SearchBot",
+        "PerplexityBot",
+        "ChatGPT-User",
+        "Claude-User",
+        "Perplexity-User",
+        "GPTBot",
+        "ClaudeBot",
+        "Google-Extended",
+        "*",
+    }
+    declared_agents = set(re.findall(r"^User-agent:\s*(\S+)\s*$", robots, flags=re.MULTILINE))
+    if declared_agents != required_agents:
+        errors.append(f"public/robots.txt: crawler groups {sorted(declared_agents)} do not match expected policy")
+    for agent in required_agents:
+        if not re.search(rf"^User-agent:\s*{re.escape(agent)}\s*\nAllow:\s*/\s*$", robots, flags=re.MULTILINE):
+            errors.append(f"public/robots.txt: {agent} is not explicitly allowed")
+    if re.search(r"^Disallow:", robots, flags=re.MULTILINE):
+        errors.append("public/robots.txt: unexpected disallow rule")
+
+    headers = (PUBLIC / "_headers").read_text(encoding="utf-8")
+    for route in ["/llms.txt", "/llms-full.txt", "/ai-index.json", "/ai-index.schema.json", "/*.md"]:
+        if not re.search(rf"^{re.escape(route)}\s*$", headers, flags=re.MULTILINE):
+            errors.append(f"public/_headers: missing rule for {route}")
+    if headers.count("Access-Control-Allow-Origin: *") != 5:
+        errors.append("public/_headers: all machine-readable route groups must allow cross-origin reads")
+    if headers.count("X-Robots-Tag: noindex, follow") != 5:
+        errors.append("public/_headers: machine-readable copies must stay out of the search index")
+    for media_type in ["text/plain", "text/markdown", "application/json", "application/schema+json"]:
+        if f"Content-Type: {media_type}; charset=utf-8" not in headers:
+            errors.append(f"public/_headers: missing media type {media_type}")
 
     redirects = {
         line.strip()
@@ -237,6 +398,7 @@ def main() -> int:
 
     print(f"OK: validated {len(CANONICALS)} canonical pages")
     print(f"OK: found {len(set(metix_links))} distinct contextual metix.ai links")
+    print(f"OK: validated {len(MARKDOWN_REPRESENTATIONS)} Markdown representations and AI resource index")
     print("OK: retired job-board runtime and write-enabled workflow are absent")
     return 0
 

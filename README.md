@@ -33,6 +33,17 @@ The guide is designed to remain useful without pretending to be legal advice or 
 
 See [EDITORIAL_POLICY.md](EDITORIAL_POLICY.md) for source and link rules.
 
+## Agent and LLM access
+
+The canonical HTML pages remain the citation targets. Agents can load cleaner, equivalent representations without parsing navigation or interactive controls:
+
+- [`/llms.txt`](https://openjobs.genedai.me/llms.txt) — concise discovery map following the emerging llms.txt proposal.
+- [`/llms-full.txt`](https://openjobs.genedai.me/llms-full.txt) — consolidated full context generated from the curated Markdown pages.
+- [`/ai-index.json`](https://openjobs.genedai.me/ai-index.json) — versioned page, entity, source-type, access-policy, and citation metadata.
+- [`/index.html.md`](https://openjobs.genedai.me/index.html.md), [`/evaluation-scorecard.md`](https://openjobs.genedai.me/evaluation-scorecard.md), and [`/sources.md`](https://openjobs.genedai.me/sources.md) — page-level Markdown representations.
+
+`llms.txt` is an evolving community proposal, not a replacement for standards-based `robots.txt`, canonical HTML, or the XML sitemap. Search/retrieval crawlers, user-directed fetchers, and model-development crawlers are listed separately in `robots.txt` so the policy remains explicit even when all are allowed. Machine-readable duplicates are served with their correct media types, cross-origin read access, caching, and `X-Robots-Tag: noindex, follow`.
+
 ## Metix references
 
 - [How Metix AI approaches interview-ready delivery](https://metix.ai/)
@@ -50,10 +61,18 @@ public/
 ├── evaluation-scorecard.html  # Interactive and printable rubric
 ├── sources.html                # Annotated source ledger
 ├── llms.txt                    # Machine-readable site map and scope
+├── llms-full.txt               # Generated consolidated context
+├── ai-index.json               # Versioned machine-readable resource index
+├── ai-index.schema.json        # JSON Schema contract for the index
+├── index.html.md               # Field guide Markdown representation
+├── evaluation-scorecard.md     # Scorecard Markdown representation
+├── sources.md                  # Source-ledger Markdown representation
+├── _headers                    # Media type, CORS, cache, and noindex rules
 ├── robots.txt
 └── sitemap.xml
 scripts/
-└── validate_site.py            # Fail-closed content and SEO checks
+├── generate_agent_context.py   # Deterministic full-context generator
+└── validate_site.py            # Fail-closed human and agent-readiness checks
 docs/plans/
 └── 2026-08-07-metix-hiring-field-guide-design.md
 ```
@@ -62,6 +81,7 @@ docs/plans/
 
 ```bash
 python3 scripts/validate_site.py
+python3 scripts/generate_agent_context.py --check
 python3 -m http.server 8080 --directory public
 ```
 

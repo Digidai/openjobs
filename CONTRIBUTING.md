@@ -22,7 +22,8 @@ Thank you for improving the AI Recruiting Field Guide.
 Run:
 
 ```bash
+python3 scripts/generate_agent_context.py --check
 python3 scripts/validate_site.py
 ```
 
-Describe the user benefit, list every source added or changed, and include screenshots for visual changes.
+When a material HTML claim changes, update its Markdown representation and regenerate `public/llms-full.txt`. Describe the user benefit, list every source added or changed, and include screenshots for visual changes.
